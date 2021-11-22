@@ -8,15 +8,15 @@
   <title>AdminLTE 3 | Dashboard 2</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="/public/backend/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{asset('/backend/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="/public/backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="{{asset('/backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/public/backend/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{asset('/backend/dist/css/adminlte.min.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-  <link rel="stylesheet" href="/public/backend/css/css.css">
+  <link rel="stylesheet" href="{{asset('/backend/css/css.css')}}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -47,27 +47,27 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="/public/backend/plugins/jquery/jquery.min.js"></script>
+<script src="{{asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
-<script src="/public/backend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('/backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- overlayScrollbars -->
-<script src="/public/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="{{asset('/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="/public/backend/dist/js/adminlte.js"></script>
+<script src="{{asset('/backend/dist/js/adminlte.js')}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="/public/backend/dist/js/demo.js"></script>
+<script src="{{asset('/backend/dist/js/demo.js')}}"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
-<script src="/public/backend/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="/public/backend/plugins/raphael/raphael.min.js"></script>
-<script src="/public/backend/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="/public/backend/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="{{asset('/backend/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+<script src="{{asset('/backend/plugins/raphael/raphael.min.js')}}">></script>
+<script src="{{asset('/backend/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+<script src="{{asset('/backend/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
-<script src="/public/backend/plugins/chart.js/Chart.min.js"></script>
+<script src="{{asset('/backend/plugins/chart.js/Chart.min.js')}}"></script>
 
 <!-- PAGE SCRIPTS -->
-<script src="/public/backend/dist/js/pages/dashboard2.js"></script>
+<script src="{{asset('/backend/dist/js/pages/dashboard2.js')}}"></script>
 </body>
 </html>

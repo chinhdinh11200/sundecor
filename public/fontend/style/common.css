@@ -1,0 +1,284 @@
+body {
+    font-family: "Roboto", sans-serif;
+    color: #000;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+  }
+  @media screen and (max-width: 767px) {
+    body {
+      background-color: #fff;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  img {
+    width: 100%;
+  }
+  a {
+    text-decoration: none;
+    transition: 0.4s all;
+  }
+  button {
+    transition: 0.4s all;
+  }
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .mb-30 {
+    margin-bottom: 30px;
+  }
+  .background-white {
+    background-color: #fff;
+  }
+  /* css to-top*/
+  .bottom-fixed {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    z-index: 999;
+  }
+  .bottom-fixed .bottom-fixed__item {
+    margin-bottom: 10px;
+    transition: 0.5s all;
+  }
+  .bottom-fixed .bottom-fixed__item:hover {
+    opacity: 70%;
+  }
+  .bottom-fixed #to-top {
+    display: none;
+    cursor: pointer;
+  }
+  .bottom-fixed #to-top .to-top__img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #ff7f00;
+    opacity: 70%;
+  }
+  .bottom-fixed #to-top img {
+    width: 50%;
+    opacity: 50%;
+  }
+  /* css product__block */
+  .product__block {
+    margin-bottom: 80px;
+  }
+  .product__block .product__block--title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .product__block .product__block--title h2 {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #0e0e0e;
+    margin: 10px 0;
+  }
+  .product__block .product__block--line {
+    height: 1px;
+    flex: 1;
+    border-top: #d0d0d0 1px solid;
+    margin: 0 15px;
+  }
+  .product__block .product__block--link a {
+    font-size: 12px;
+    color: #0e0e0e;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .product__block .product__block--link a:hover {
+    color: #ff7f00;
+  }
+  .product__block .product__block--list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-bottom: -60px;
+  }
+  .product__block .product__block--item {
+    padding: 0 15px;
+    margin-bottom: 60px;
+  }
+  .product__block--sale .productSwiper, .product__block--hot .productSwiper {
+    margin-bottom: -60px;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  /* css made__block */
+  .made__block {
+    margin-bottom: 80px;
+  }
+  .made__block .made__block--heading {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #0e0e0e;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .made__block .made__block--link {
+    font-size: 12px;
+    color: #0e0e0e;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  .made__block .made__block--link:hover {
+    color: #ff7f00;
+  }
+  .made__block .made__block--list {
+    margin-bottom: -60px;
+  }
+  .made__block .made__block--item {
+    margin-bottom: 60px;
+  }
+  .made__block .made__block--item:hover .made__block--name {
+    color: #ff7f00;
+  }
+  .made__block .made__block--name {
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-top: 15px;
+    height: 62px;
+    color: #0d0d0d;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    transition: 0.5s all;
+    -webkit-line-clamp: 3;
+  }
+  /* css card__product */
+  .card__product {
+    padding: 5px;
+    transition: 0.4s all;
+    font-weight: bold;
+    height: 100%;
+  }
+  .card__product .cardvproduct--img {
+    border: #ebebeb 1px solid;
+  }
+  .card__product .card__product--name {
+    text-transform: capitalize;
+    font-size: 20px;
+    margin-top: 15px;
+    height: 48px;
+    color: #0d0d0d;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+  }
+  .card__product .card__product--promotional {
+    font-size: 24px;
+    color: #ed0904;
+  }
+  .card__product .card__product--cost {
+    font-size: 14px;
+    color: #4a4957;
+    text-decoration: line-through;
+  }
+  .card__product:hover {
+    box-shadow: 0 0 6px 0 #a1a1a1;
+  }
+  .voucher__block {
+    padding: 40px 140px;
+    background-image: url(../image/common/background-voucher.jpg);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .voucher__block .voucher__block--content {
+    justify-content: space-between;
+  }
+  .voucher__block .voucher__block--left {
+    justify-content: center;
+  }
+  .voucher__block .voucher__block--title {
+    padding: 10px 30px;
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 auto 60px auto;
+    width: 80%;
+    text-shadow: 2px -1px 2px grey;
+    text-align: center;
+    background-image: url(../image/common/background-title-voucher.png);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .voucher__block .voucher__block--note, .voucher__block .voucher__block--time {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #cc0003;
+    background-color: #f0ede8;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+  .voucher__block .voucher__block--note {
+    width: 100%;
+    font-size: 36px;
+    margin-bottom: 60px;
+  }
+  .voucher__block .voucher__block--date {
+    justify-content: space-between;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0 40px;
+    letter-spacing: 0.05em;
+  }
+  .voucher__block .voucher__block--time {
+    font-size: 42px;
+    position: relative;
+    font-weight: bold;
+    margin: 0 -40px;
+  }
+  .voucher__block .voucher__block--time span {
+    letter-spacing: 0;
+    font-size: 12px;
+    font-weight: 400;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .voucher__block .voucher__block--input, .voucher__block .voucher__block--button {
+    background-color: #f0ede8;
+    height: 45px;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    border: none;
+  }
+  .voucher__block .voucher__block--input {
+    width: 100%;
+    padding-left: 25px;
+    font-size: 14px;
+  }
+  .voucher__block .voucher__block--input::placeholder {
+    color: #4a4957;
+  }
+  .voucher__block .voucher__block--button {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    width: 60%;
+    margin: 0 auto;
+  }
+  
