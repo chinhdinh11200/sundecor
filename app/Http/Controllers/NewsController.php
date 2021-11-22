@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\TinTuc;
+use App\News;
 use Illuminate\Support\Str;
 
 class NewsController extends Controller

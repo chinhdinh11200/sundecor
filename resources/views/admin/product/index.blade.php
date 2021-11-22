@@ -7,10 +7,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách Sản Phẩm</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách SẢN PHẨM</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm Sản Phẩm</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm SẢN PHẨM</a></h3>
                         </div>
                     </div>
 
@@ -23,41 +23,38 @@
                             <option value="3">Three</option>
                         </select>
                     </form>
-
+                    
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>TÊN LOẠI</th>
-                                <th>ẢNH Sản Phẩm</th>
-                                <th>MÔ TẢ NGẮN</th>
-                                <th>MÔ TẢ CHI TIẾT</th>
-                                <th>TRẠNG THÁI</th>
+                                <th>TÊN SẢN PHẨM</th>
+                                <th style="width: 15%;">ẢNH SẢN PHẨM</th>
+                                <th style="width: 10%;">GIÁ GỐC</th>
+                                <th style="width: 10%;">GIÁ SALE</th>
+                                <th>NGÀY UP</th>
                                 <th>EDIT</th>
                             </tr>
                             </thead>
                             <tbody>
-                            
-                                <tr class="class">
-                                    <td>1</td>
-                                    <td>name</td>
-                                    <td><img style="width: 150px;" src="https://longnv.name.vn/wp-content/uploads/2019/09/logo4-150x150.png"></td>
-                                    <td>mô tả ngắn</td>
-                                    <td>mô tả chi tiết ...&ensp;<a href="#">Xem thêm</a></td>
-                                    <td>Hiện</td>
+                            @foreach ($biendata as $key => $bien)
+                                <tr class="loai-{{$bien->id}} {{$bien->trangThai!=1?'trangThaiAn':''}}">
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$bien->tenTinTuc}}</td>
+                                    <td><img style="width: 150px;" src="/{{$bien->image}}"></td>
                                     <td>
-                                        <a href="#" class="btn btn-info">Sửa</a>
-                                        <a href="#" class="btn btn-danger">Xóa</a>
+                                        <a href="{{route('admin.product.edit',['id'=>$item->id])}}" class="btn btn-info">Sửa</a>
+                                        <a href="{{route('admin.product.delete',['id'=>$item->id])}}" class="btn btn-danger">Xóa</a>
                                     </td>
                                 </tr>
                             </tbody>
-                            
+                            @endforeach
                         </table>
                     </div>
                     <div class="box-trang">
-                        phân trang
+                        {{$biendata->links()}}
                     </div>
                     <!-- /.card-body -->
                 </div>

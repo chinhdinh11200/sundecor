@@ -7,10 +7,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            <h3 class="card-title"><a href="{{route('admin.news.index')}}">Danh Sách Tin Tức</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách Tin Tức</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm Tin Tức</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm Tin Tức</a></h3>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -40,6 +40,8 @@
                                     <td>{!!$moTaChiTiet[0]!!} ...&ensp;<a href="{{route('admin.news.edit',[$bien->id])}}">Xem thêm</a></td>
                                     <td>{{$bien->trangThai==1?'Hiện':'Ẩn'}}</td>
                                     <td>
+                                        <a href="{{route('admin.news.edit',['id'=>$item->id])}}" class="btn btn-info">Sửa</a>
+                                        <a href="{{route('admin.news.delete',['id'=>$item->id])}}" class="btn btn-danger">Xóa</a>
                                     </td>
                                 </tr>
                             </tbody>

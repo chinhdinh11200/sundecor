@@ -126,4 +126,8 @@
     min-height: 78px;
 }
 
-
+/*/*----------------------- custom /*-----------------------*/
+.card-body>.table>thead>tr>td, .card-body>.table>thead>tr>th{
+    text-align: center;
+    vertical-align: middle;
+}

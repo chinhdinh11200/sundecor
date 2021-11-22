@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // backend
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProductController;
 //fontend
 use App\Http\Controllers\FrontendController;
 
@@ -23,6 +24,7 @@ Route::group(['prefix'=> 'admin','as' => 'admin.'],function(){
 ///////GET-POST: URL - ACTION//////
 
     Route::resource('news', NewsController::class);
+    Route::resource('product', ProductController::class);
     // Route::resource('user', 'UserAdminController');
 
     // Route::post('/user/{id}', 'UserAdminController@update');
