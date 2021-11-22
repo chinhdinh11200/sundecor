@@ -1,0 +1,129 @@
+.main-sidebar .Brand-Logo{
+	height: 210px;
+	border-bottom: 1px solid #4b545c;
+}
+.main-sidebar .Brand-Logo .logo-admin img{
+	padding: 8px 12px 8px 24px;
+	float: left;
+	width: 41.2%;
+}
+.main-sidebar .Brand-Logo .logo-admin p{
+	margin:0;
+}
+.main-sidebar .Brand-Logo .logo-admin div{
+	float: left;
+	padding-top: 15px;
+	width: 58.8%;
+}
+.layout-navbar-fixed.layout-fixed .wrapper .sidebar {
+    margin-top: 0;
+}
+.sidebar {
+    height: calc(100% - 14rem);
+    overflow-y: auto;
+    /* height: 408px; */
+    padding-bottom: 0;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: 0;
+}
+.hover ul{
+    display: none;
+}
+.hover:hover ul{
+	display: block;
+}
+.hover:hover p i{
+	transform: rotate(-90deg);
+	transition: transform ease-in-out .3s,-webkit-transform ease-in-out .3s;
+}
+
+.trangThaiAn{
+	opacity: 0.5;
+}
+.box-trang{
+    justify-content: center;
+    display: flex;
+}
+/*-------------------card-header-------------------*/
+.title .card-header{
+    padding-top: 30px;
+    justify-content: center;
+    display: block;
+    padding: 1.25rem;
+}
+.title .card-header h3{
+    font-size: 22px;
+    font-weight: bold;
+}
+.card{
+    min-height: 406px;
+}
+.card-header{
+    display: flex;
+    padding: 0;
+    border: none;
+}
+.card .p-2{
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.card .card-header .no-click{
+    border-bottom: #dee2e6 1px solid;
+}
+.card .card-header .no-click a{
+    color: #105fb37d;
+}
+.card-header .left{
+    min-width: 25%;
+    position: relative;
+    height: 48px;
+    display: flex;
+    border-right: #dee2e6 1px solid;
+}
+.card-header:hover a{
+    color: #007bff;
+}
+.card-header .left h3{
+    text-align: center;
+    line-height: 48px;
+    width: 100%;
+    font-weight: bold;
+}
+.card-header .right{
+    min-width: 75%;
+    position: relative;
+    height: 48px;
+    display: flex;
+}
+.card-header .right h3{
+    text-align: left;
+    width: 100%;
+    line-height: 48px;
+    padding-left: 7%;
+    font-weight: bold;
+}
+.card .card-option{
+    padding: 1.25rem 1.25rem 0 1.25rem;
+}
+.card .card-body{
+    border-top: none;
+}
+.card-body .moTaNgan{
+    display: flex;
+}
+.card-body .moTaNgan p{
+    white-space: nowrap;
+    width: 595px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-body .cke_inner .cke_contents{
+    min-height: 584px;
+}
+/*-----------------------user-----------------------*/
+.card-body .tab-content .form-group textarea{
+    max-height: 78px;
+    min-height: 78px;
+}
+
+
