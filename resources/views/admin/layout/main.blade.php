@@ -61,7 +61,7 @@
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
 <script src="{{asset('/backend/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-<script src="{{asset('/backend/plugins/raphael/raphael.min.js')}}">></script>
+<script src="{{asset('/backend/plugins/raphael/raphael.min.js')}}"></script>
 <script src="{{asset('/backend/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
 <script src="{{asset('/backend/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <!-- ChartJS -->
