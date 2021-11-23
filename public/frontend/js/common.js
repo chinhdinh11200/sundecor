@@ -91,11 +91,12 @@ function getDirection() {
         }
         s_voucher--;
     }
-    setInterval(function(){
-        start_timte_voucher();
-        $('.voucher__block--day').text(d_voucher);
-        $('.voucher__block--hours').text(h_voucher);
-        $('.voucher__block--minutes').text(m_voucher);
-        $('.voucher__block--seconds').text(s_voucher);
-    }, 1000);
+    // setInterval(function(){
+    //     start_timte_voucher();
+    //     $('.voucher__block--day').text(d_voucher);
+    //     $('.voucher__block--hours').text(h_voucher);
+    //     $('.voucher__block--minutes').text(m_voucher);
+    //     $('.voucher__block--seconds').text(s_voucher);
+    // }, 1000);
+
 })( jQuery );

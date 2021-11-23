@@ -2,7 +2,7 @@
     padding: 80px 0;
     color: #fff;
     position: relative;
-    background-image: url(../image/common/background-footer.jpg);
+    background-image: url(../images/common/background-footer.jpg);
   }
   #footer .footer__blackground {
     background: linear-gradient(180deg, #1b1b1b 30%, black 100%);

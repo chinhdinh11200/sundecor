@@ -198,7 +198,7 @@ body {
   }
   .voucher__block {
     padding: 40px 140px;
-    background-image: url(../image/common/background-voucher.jpg);
+    background-image: url(../images/common/background-voucher.jpg);
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -219,7 +219,7 @@ body {
     width: 80%;
     text-shadow: 2px -1px 2px grey;
     text-align: center;
-    background-image: url(../image/common/background-title-voucher.png);
+    background-image: url(../images/common/background-title-voucher.png);
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;

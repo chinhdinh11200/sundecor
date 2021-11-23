@@ -37,25 +37,25 @@
                 <div class="col-md-3 footer__col">
                     <h3 class="footer__title">Kết nối với sundecor </h3>
                     <div class="row footer__social-network mb-30">
-                        <div class="col-2 footer__social-network--item"> <a href="#"><img src="/assets/image/common/icon-facebook.png" alt=""></a></div>
-                        <div class="col-2 footer__social-network--item"><a href="#"><img src="/assets/image/common/icon-twitter.png" alt=""></a></div>
-                        <div class="col-2 footer__social-network--item"><a href="#"><img src="/assets/image/common/icon-tumblr.png" alt=""></a></div>
-                        <div class="col-2 footer__social-network--item"><a href="#"><img src="/assets/image/common/icon-google.png" alt=""></a></div>
-                        <div class="col-2 footer__social-network--item"><a href="#"><img src="/assets/image/common/icon-internet.png" alt=""></a></div>
+                        <div class="col-2 footer__social-network--item"> <a href="#"><img src="{{asset('frontend/images/common/icon-facebook.png')}}" alt=""></a></div>
+                        <div class="col-2 footer__social-network--item"><a href="#"><img src="{{asset('frontend/images/common/icon-twitter.png')}}" alt=""></a></div>
+                        <div class="col-2 footer__social-network--item"><a href="#"><img src="{{asset('frontend/images/common/icon-tumblr.png')}}" alt=""></a></div>
+                        <div class="col-2 footer__social-network--item"><a href="#"><img src="{{asset('frontend/images/common/icon-google.png')}}" alt=""></a></div>
+                        <div class="col-2 footer__social-network--item"><a href="#"><img src="{{asset('frontend/images/common/icon-internet.png')}}" alt=""></a></div>
                     </div>
                     <h3 class="footer__title">Chấp nhận thanh toán </h3>
                     <div class="row footer__banking">
                         <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
-                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="/assets/image/common/img-visa.png" alt=""></div>
+                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-visa.png')}}" alt=""></div>
                             </a></div>
                         <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
-                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="/assets/image/common/img-paypal.png" alt=""></div>
+                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-paypal.png')}}" alt=""></div>
                             </a></div>
                         <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
-                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="/assets/image/common/img-mastercard.png" alt=""></div>
+                                <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-mastercard.png')}}" alt=""></div>
                             </a></div>
                         <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
-                                <div class="justify-content-center align-items-center d-flex footer__banking--img"><img src="/assets/image/common/img-bank.png" alt=""></div>
+                                <div class="justify-content-center align-items-center d-flex footer__banking--img"><img src="{{asset('frontend/images/common/img-bank.png')}}" alt=""></div>
                             </a></div>
                     </div>
                 </div>
