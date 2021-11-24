@@ -7,6 +7,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 //fontend
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\SupporterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\FrontendController;
 
 Route::group(['prefix'=> 'admin','as' => 'admin.'],function(){
     Route::get('/', [AdminController::class, 'index'])->name('quantri');
+    Route::resource('supporter', SupporterController::class);
 ///////GET-POST: URL - ACTION//////
 
     Route::resource('news', NewsController::class);

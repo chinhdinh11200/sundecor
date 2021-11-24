@@ -1,7 +1,13 @@
 .page-top .banner__block {
     height: 400px;
-  }
-  .page-top .banner__block img {
+}
+.page-top .banner__block img {
     object-fit: cover;
     height: 100%;
-  }
+}
+
+@media only screen and (min-width: 1441px) {
+    .page-top .banner__block {
+        height: fit-content;
+    }
+}

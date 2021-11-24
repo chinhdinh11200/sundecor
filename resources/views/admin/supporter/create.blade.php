@@ -1,0 +1,19 @@
+@extends('admin.layout.main')
+
+@section('content')
+    <form action="{{ route('admin.supporter.store') }}" method="POST">
+        @csrf
+        <label for="fullname">Fullname : </label>
+        <input type="text" id="fullname" name="fullname" value=""> <br>
+        <label for="tel">Tel : </label>
+        <input type="text" id="tel" name="tel" value=""> <br>
+        <label for="priority">Priority : </label>
+        <input type="text" id="priority" name="priority" value=""> <br>
+        <label for="status">Status : </label>
+        <select id="status" name="status">
+            <option value="1">Hiển thị</option>
+            <option value="0">Ẩn</option>
+        </select> <br>
+        <button type="submit">Gửi</button>
+    </form>
+@endsection
