@@ -19,7 +19,7 @@ class FrontendController extends Controller
         return view('frontend.demo');
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,6 +37,10 @@ class FrontendController extends Controller
         // $data[1] = NgheNhan::where('trangThai',1)->get();
         //return view('frontend.index',['biendata'=>$data]);
         return view('frontend.index');
+    }
+    public function category()
+    {
+        return view('frontend.category');
     }
 
     // public function detailproduct($id)
