@@ -15,7 +15,7 @@
 			<div class="header__center--search">
 				<form class="header__center--form" action=""><input class="header__center--input" type="text" placeholder="Nhập từ khóa tìm kiếm "><button class="header__center--button" type="submit"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"></button></form>
 			</div>
-			<div class="header__center--logo"><img src="/assets/image/common/logo.png" alt=""></div>
+			<div class="header__center--logo"><img src="{{asset('/frontend/images/common/logo.png')}}" alt=""></div>
 			<div class="header__center--option">
 				<div class="header__center--contact">G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div><a href="#">
 					<div class="header__center--cart"></div>
@@ -27,14 +27,134 @@
 		<div class="main-container">
 			<ul class="header__menu--list">
 				<li class="header__menu--item header__menu-active"><a class="header__menu--link" href="#">Trang ch&#x1EE7;</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n ch&ugrave;m</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n m&acirc;m</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n th&#x1EA3;</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n th&ocirc;ng t&#x1EA7;ng</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">Qu&#x1EA1;t tr&#x1EA7;n qu&egrave;n</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n b&agrave;n - s&agrave;n</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n t&#x1B0;&#x1EDD;ng</a></li>
-				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n led</a></li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n ch&ugrave;m</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n m&acirc;m</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n th&#x1EA3;</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n th&ocirc;ng t&#x1EA7;ng</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">Qu&#x1EA1;t tr&#x1EA7;n qu&egrave;n</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n b&agrave;n - s&agrave;n</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n t&#x1B0;&#x1EDD;ng</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
+				<li class="header__menu--item"><a class="header__menu--link" href="#">&Dstrok;&egrave;n led</a>
+					<ul class="header__submenu--list">
+						<div class="main-container">
+							<div class="row">
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+								<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">Đèn chùm pha lê bán chạy</a>
+							</div>
+						</div>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>

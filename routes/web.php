@@ -38,5 +38,6 @@ Route::group(['prefix'=> 'admin','as' => 'admin.'],function(){
 });
 Route::group(['prefix'=> '','as' => ''],function(){
     Route::get('/', [FrontendController::class, 'index'])->name('web');
+    Route::get('category', [FrontendController::class, 'category']);;
     // Route::get('news/{id?}', 'FrontendController@news')->name('news');
 });
