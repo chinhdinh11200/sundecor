@@ -27,10 +27,10 @@ class CreateMenusTable extends Migration
             $table->unsignedInteger('menu_type_id');
             $table->unsignedInteger('parent_menu_id');
             $table->timestamps();
-            // $table->foreign('menu_type_id')
-            //         ->references('id')
-            //         ->on('menu_types')
-            //         ->onDelete('cascade');
+            $table->foreign('menu_type_id')
+                    ->references('id')
+                    ->on('menu_types')
+                    ->onDelete('cascade');
         });
     }
 

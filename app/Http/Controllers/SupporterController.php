@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class SupporterController extends Controller
 {
-    function cmp ($a, $b) {
-        return $a->priority > $b->priority ? 1 : -1;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +25,7 @@ class SupporterController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.supporter.create');
     }
 
     /**
@@ -39,7 +36,23 @@ class SupporterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fullname' => 'required|unique:supporters,fullname',
+            'tel' => 'required|min:1|max:10'
+        ]);
+
+        $image_url = time() . '-' . $request->input('fullname') . '.' . $request->image->extension();
+        $request->image->move(public_path('backend/images/supporter'), $image_url);
+
+        Supporter::create([
+            'fullname' => $request->input('fullname'),
+            'tel' => $request->input('tel'),
+            'priority' => $request->input('priority'),
+            'status' => $request->input('status') == "1" ? true : false,
+            'image_url' => $image_url
+        ]);
+
+        return redirect()->route('admin.supporter.index');
     }
 
     /**
@@ -73,17 +86,17 @@ class SupporterController extends Controller
      */
     public function update(Request $request, Supporter $supporter)
     {
+        $image_url = $request->image && time() . '-' . $request->input('fullname') .'.'. $request->image->extension() ; //: $supporter->image_url;
+        $request->image && $request->image->move(public_path('backend/images/supporter'), $image_url);
 
-        // dd($request->input('status'));
         $supportered = Supporter::where('id', $supporter->id)->update([
             'fullname' => $request->input('fullname'),
             'tel' => $request->input('tel'),
             'priority' => $request->input('priority'),
             'status' => $request->input('status') == "1" ? true : false,
+            'image_url' => $image_url,
         ]);
 
-        // $supporters = Supporter::select()->orderBy('priority')->get();
-        // return view('admin.supporter.index', ['supporters' => $supporters]);
         return redirect()->route('admin.supporter.index');
     }
 
@@ -95,6 +108,11 @@ class SupporterController extends Controller
      */
     public function destroy(Supporter $supporter)
     {
-        //
+        $data = Supporter::find($supporter->id);
+        $image_url = public_path('backend/images/supporter').'/'.$data->image_url;
+        unlink($image_url);
+        Supporter::where('id', $supporter->id)->delete();
+
+        return redirect()->route('admin.supporter.index');
     }
 }

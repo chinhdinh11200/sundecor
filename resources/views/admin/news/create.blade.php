@@ -51,6 +51,16 @@
         	<input type="checkbox"  name="status" value="1"> Hiện Thị&emsp;&emsp;&emsp;
         </div>
       </div>
+      <div class="form-group">
+          <label for="typemenu">Thuộc menu</label>
+          <div>
+            <select name="menu_id" id="typemenu">
+                @foreach ($menus as $menu)
+                  <option value="{{ $menu->id }}">{{ $menu->title }}</option>
+                @endforeach
+            </select>
+          </div>
+      </div>
     </div>
     <!-- /.card-body -->
 

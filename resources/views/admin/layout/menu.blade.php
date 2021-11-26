@@ -109,7 +109,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.video.index') }}" class="nav-link">
               <i class="nav-icon fas fa-play-circle"></i>
               <p>
                 Quản lý video

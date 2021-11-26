@@ -17,12 +17,12 @@ class CreateNewsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('title');
-            $table->string('keyword');
+            $table->string('keyword')->nullable();
             $table->text('description');
-            $table->tinyInteger('priority');
+            $table->tinyInteger('priority')->nullable();
             $table->boolean('status');
             $table->text('content');
-            $table->string('images');
+            $table->string('image');
             $table->unsignedInteger('menu_id');
             $table->timestamps();
             $table->foreign('menu_id')
