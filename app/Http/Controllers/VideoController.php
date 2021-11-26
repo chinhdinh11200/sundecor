@@ -90,6 +90,7 @@ class VideoController extends Controller
             'status' => $request->input('status'),
             'image_url' => $image_url
         ]);
+        
         return redirect()->route('admin.video.index');
     }
 
