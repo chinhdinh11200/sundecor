@@ -191,6 +191,13 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        dd($news);
+        $new = News::find($news->id);
+
+        $image_url = public_path('backend/images/tin-tuc/'). $new->image;
+
+        unlink($image_url);
+        News::where('id', $new->id)->delete();
+        return redirect()->route('admin.news.index');
     }
 }
