@@ -184,7 +184,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from
      *
      * @param int $id
      * @return \Illuminate\Http\Response
