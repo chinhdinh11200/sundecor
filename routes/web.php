@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 // backend
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Menu1Controller;
+use App\Http\Controllers\Menu2Controller;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 //fontend
@@ -23,6 +25,9 @@ use App\Http\Controllers\VideoController;
 
 Route::group(['prefix'=> 'admin','as' => 'admin.'],function(){
     Route::get('/', [AdminController::class, 'index'])->name('quantri');
+    Route::get('login', [AdminController::class, 'login'])->name('login');
+    Route::resource('menu1', Menu1Controller::class);
+    Route::resource('menu2', Menu2Controller::class);
 
     Route::resource('supporter', SupporterController::class);
     

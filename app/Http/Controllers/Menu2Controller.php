@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Menutype;
+use App\Models\Menu;
 
-class AdminController extends Controller
-{   
+class Menu2Controller extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
     public function index()
     {
-        return view('admin.admin');
+        $menu = Menu::all();
+        return view('admin.menu2.index', ['biendata' => $menu]);
     }
 
     /**
@@ -25,7 +25,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $menus = Menu::all();
+        return view('admin.menu2.create')->with('menus', $menus);
     }
 
     /**
@@ -82,24 +83,5 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function login()
-    {
-        $menutype = Menutype::all();
-        if(count($menutype)!=4){
-            for($i=0; $i<4; $i++){
-                $menutype = new Menutype();
-                if($i==0)
-                    $menutype->name = "Menu top";
-                if($i==1)
-                    $menutype->name = "Menu chính";
-                if($i==2)
-                    $menutype->name = "Menu chân trang";
-                if($i==3)
-                    $menutype->name = "Menu khác";
-                $menutype->save();
-            }
-        }
     }
 }
