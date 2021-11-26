@@ -13,7 +13,7 @@ class News extends Model
 
     protected $primaryKey = 'id';
 
-    // protected $fillable = [''];
+    protected $fillable = ['name', 'title', 'description', 'image', 'priority', 'status', 'content', 'keyword'];
 
     // connect to Menu
     public function menu() {

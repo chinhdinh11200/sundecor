@@ -19,6 +19,7 @@ class CreateSupportersTable extends Migration
             $table->string('tel');
             $table->boolean('status');
             $table->integer('priority');
+            $table->string('image_url');
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class CreateVideosTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('link');
+            $table->string('image_url');
             $table->boolean('status');
             $table->integer('priority');
             $table->timestamps();
