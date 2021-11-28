@@ -48,8 +48,8 @@
                 </td>
                 <td>
                     <select id="status" name="status">
-                        <option value="1" selected={{ $supporter->status == 1 ? 1 : 0 }} >Hiển thị</option>
-                        <option value="0" selected={{ $supporter->status == 0 ? 1 : 0 }}>Ẩn</option>
+                        <option value="1" {{ $supporter->status == 1 ? 'selected' : '' }} >Hiển thị</option>
+                        <option value="0" {{ $supporter->status == 0 ? 'selected' : '' }}>Ẩn</option>
                     </select>
                 </td>
             </tr>

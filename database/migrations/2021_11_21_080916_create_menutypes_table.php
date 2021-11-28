@@ -13,7 +13,8 @@ class CreateMenutypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_types', function (Blueprint $table) {
+        Schema::create('menutypes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +28,6 @@ class CreateMenutypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_types');
+        Schema::dropIfExists('menutypes');
     }
 }

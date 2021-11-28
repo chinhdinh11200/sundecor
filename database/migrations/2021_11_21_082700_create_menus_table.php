@@ -14,22 +14,22 @@ class CreateMenusTable extends Migration
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('title');
             $table->string('keyword');
             $table->text('description');
-            $table->tinyInteger('priority');
             $table->boolean('status');
             $table->text('content_1');
             $table->text('content_2');
-            $table->string('images');
-            $table->unsignedInteger('menu_type_id');
-            $table->unsignedInteger('parent_menu_id');
+            $table->string('images')->nullable();
+            $table->integer('menu_type_id')->unsigned();
+            $table->integer('parent_menu_id')->unsigned();
             $table->timestamps();
             $table->foreign('menu_type_id')
                     ->references('id')
-                    ->on('menu_types')
+                    ->on('menutypes')
                     ->onDelete('cascade');
         });
     }

@@ -18,44 +18,57 @@
                     <form action="" class="card-option">
                         <select class="form-control" aria-label="Default select example">
                             <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            @foreach ($menus as $menu)
+                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                            @endforeach
                         </select>
                     </form>
-                    
+
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>TÊN SẢN PHẨM</th>
-                                <th style="width: 15%;">ẢNH SẢN PHẨM</th>
-                                <th style="width: 10%;">GIÁ GỐC</th>
-                                <th style="width: 10%;">GIÁ SALE</th>
-                                <th>NGÀY UP</th>
-                                <th>EDIT</th>
+                                <th>Tên</th>
+                                <th>Ảnh</th>
+                                <th>Tiêu đề</th>
+                                <th>Giá gốc</th>
+                                <th>Giá sale</th>
+                                <th>Ngày up</th>
+                                <th>Trạng thái</th>
+                                <th>vị trí</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($biendata as $key => $bien)
-                                <tr class="loai-{{$bien->id}} {{$bien->trangThai!=1?'trangThaiAn':''}}">
-                                    <td>{{$key+1}}</td>
-                                    <td>{{$bien->tenTinTuc}}</td>
-                                    <td><img style="width: 150px;" src="/{{$bien->image}}"></td>
-                                    <td>
-                                        <a href="{{route('admin.product.edit',['id'=>$item->id])}}" class="btn btn-info">Sửa</a>
-                                        <a href="{{route('admin.product.delete',['id'=>$item->id])}}" class="btn btn-danger">Xóa</a>
-                                    </td>
-                                </tr>
+                                @foreach ($products as $key => $product)
+                                    <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$product->name}}</td>
+                                        <td><img style="width: 80px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
+                                        <td>{{$product->title}}</td>
+                                        <td>{{$product->sell_price}}</td>
+                                        <td>{{$product->sale_price}}</td>
+                                        <td>{{$product->created_at}}</td>
+                                        <td>{{$product->status}}</td>
+                                        <td>{{$product->priority}}</td>
+                                        <td style="opacity: 1">
+                                            <a href="{{route('admin.product.edit',['product'=>$product])}}" class="btn btn-info">Sửa</a>
+                                            <form action="{{ route('admin.product.destroy', ['product' => $product]) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                            @endforeach
                         </table>
                     </div>
-                    <div class="box-trang">
-                        {{$biendata->links()}}
-                    </div>
+                    {{-- <div class="box-trang">
+                        {{$productdata->links()}}
+                    </div> --}}
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

@@ -21,7 +21,7 @@ class CreateAdvertisementsTable extends Migration
             $table->string('link');
             $table->string('image');
             $table->boolean('status');
-            $table->unsignedInteger('advertisement_type_id');
+            $table->integer('advertisement_type_id')->unsigned();
             $table->foreign('advertisement_type_id')
                     ->references('id')
                     ->on('advertisement_types')

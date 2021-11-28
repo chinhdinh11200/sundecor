@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBillProductsTable extends Migration
+class CreateNewMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,19 @@ class CreateBillProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bill_product', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('menu_new', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bill_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->integer('quantity');
-            $table->decimal('sell_price', 10, 3);
-            $table->decimal('sale_price', 10, 3);
+            $table->unsignedInteger('news_id');
+            $table->unsignedInteger('menu_id');
+            $table->Integer('priority');
             $table->timestamps();
-            $table->foreign('product_id')
+            $table->foreign('news_id')
                     ->references('id')
-                    ->on('products')
+                    ->on('news')
                     ->onDelete('cascade');
-            $table->foreign('bill_id')
+            $table->foreign('menu_id')
                     ->references('id')
-                    ->on('bills')
+                    ->on('menus')
                     ->onDelete('cascade');
         });
     }
@@ -40,6 +37,6 @@ class CreateBillProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bill_product');
+        Schema::dropIfExists('menu_new');
     }
 }

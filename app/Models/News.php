@@ -19,4 +19,8 @@ class News extends Model
     public function menu() {
         return $this->belongsTo(Menu::class);
     }
+
+    public function menuNew() {
+        return $this->hasMany(MenuNew::class);
+    }
 }

@@ -39,7 +39,8 @@
           <script>
               CKEDITOR.replace( 'moTaChiTiet' );
           </script>
-{{--        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Chi Tiết" name="content">--}}
+
+        {{-- <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Chi Tiết" name="content"> --}}
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
@@ -56,7 +57,7 @@
           <div>
             <select name="menu_id" id="typemenu">
                 @foreach ($menus as $menu)
-                  <option value="{{ $menu->id }}">{{ $menu->title }}</option>
+                  <option value="{{ $menu->id }}">{{ $menu->name }}</option>
                 @endforeach
             </select>
           </div>

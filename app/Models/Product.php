@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $primaryKey = 'id';
 
-    // protected $fillable = [''];
+    protected $fillable = ['name','code','title','description','content','specifications','sell_price','sale_price','material','size','guarantee','status','image_1','image_2','image_3','is_contact_product','is_sale_in_month','is_hot_product'];
 
     //connect to Menu
     public function menus() {

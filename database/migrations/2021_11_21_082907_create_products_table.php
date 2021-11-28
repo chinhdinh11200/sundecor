@@ -14,25 +14,27 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('code');
             $table->string('title');
             $table->text('description');
             $table->text('content');
-            $table->text('specifications');
+            $table->text('specifications')->nullable();
             $table->decimal('sell_price', 10, 3);
-            $table->decimal('sale_price', 10, 3);
-            $table->string('material');
-            $table->integer('size');
-            $table->integer('guarantee');
+            $table->decimal('sale_price', 10, 3)->nullable();
+            $table->string('material')->nullable();
+            $table->integer('size')->nullable();
+            $table->integer('guarantee')->nullable();
             $table->boolean('status');
-            $table->string('image_1');
-            $table->string('image_2');
-            $table->string('image_3');
-            $table->boolean('is_contact_product');
-            $table->boolean('is_sale_in_month');
-            $table->boolean('is_hot_product');
+            $table->boolean('sold_out');   // bán hết
+            $table->string('image_1')->nullable();
+            $table->string('image_2')->nullable();
+            $table->string('image_3')->nullable();
+            $table->boolean('is_contact_product')->nullable();
+            $table->boolean('is_sale_in_month')->nullable();
+            $table->boolean('is_hot_product')->nullable();
             $table->timestamps();
         });
     }

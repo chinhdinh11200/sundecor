@@ -9,7 +9,7 @@ class Menutype extends Model
 {
     use HasFactory;
 
-    protected $table = 'menu_types';
+    protected $table = 'menutypes';
 
     protected $primaryKey = 'id';
 
