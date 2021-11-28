@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/footer.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/header.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/top.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
 </head>
 <body id="welcome">
 	@include('frontend.layout.header')

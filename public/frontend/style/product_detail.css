@@ -1,0 +1,313 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.product__detail {
+    margin-top: 40px;
+}
+.product__img--select {
+    margin-top: 30px;
+    padding-top: 30px;
+}
+.select_img {
+    height: 75%;
+    width: 100%;
+    object-fit: cover;
+    padding: 10px;
+    border: solid 1px #e5e0e0;
+}
+.select_img.active {
+    border: solid 2px #717171;
+}
+.product__container {
+    margin: 60px 100px;
+}
+.product__detail--img {
+    padding-right: 50px;
+}
+.product__detail--image {
+    height: 500px;
+}
+
+.product__detail--img img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.product__detail--name {
+    font-weight: 600;
+    font-size: 23px;
+}
+
+.product__sale--label {
+    font-weight: 500;
+    font-size: 12px;
+    display: inline;
+}
+.product__price--sale p {
+    padding: 10px 0 0 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #de2c3b;
+}
+.product__sale--percent {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 15px;
+    color: #de2c3b;
+    font-weight: 600;
+}
+.product__sale--percent:before {
+    border: none;
+    z-index: -1;
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0px;
+    width: 52px;
+    height: 28px;
+    background: url(https://casani.vn/img/b/gc.gif) no-repeat left top;
+    background-size: contain;
+    background-color: #00ac9f;
+    transform: rotateZ(30deg);
+}
+
+.product__price--sell {
+    padding: 25px 0 0 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.product__sell--old {
+    font-weight: 500;
+}
+
+.product__sell--save {
+    font-weight: 500;
+}
+.product__detail--order {
+    margin: -2px;
+    padding: 2px 2px 2px 2px;
+    height: 40px;
+    background-color: #fe0000;
+    position: relative;
+    margin-right: 37px;
+    border-radius: 37px;
+}
+.product__order--label {
+    display: inline;
+    position: relative;
+    top: 7px;
+    color: #fff;
+    display: inline;
+}
+.product__order--phone {
+    padding: 3px 0 0 0;
+}
+.product__phone--input {
+    padding-left: 15px;
+    height: 30px;
+    border-radius: 30px;
+}
+.product__phone--input {
+    border: 0px solid #fff;
+    font-size: 13px;
+    color: #000;
+    background-color: Transparent;
+    padding: 7px;
+    font-family: Arial;
+    outline: none;
+}
+.product__sent--word {
+    background-color: yellow;
+    width: 50px;
+    position: absolute;
+    z-index: 2;
+    top: 5px;
+    right: 16px;
+    height: 30px;
+    border-radius: 0 30px 30px 0;
+}
+.product__phone--sent {
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 6px;
+    background-color: #ffef00;
+    border-radius: 0 30px 30px 0;
+    height: 30px;
+    width: 40px;
+}
+b {
+    display: block;
+    text-align: center;
+    line-height: 32px;
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 13px;
+}
+.product__detail--ad {
+    margin-top: 10px;
+    color: #333;
+    border: solid 2px #ff6e81;
+    border-radius: 30px;
+    background: url(https://casani.vn/img/b/ei.png) no-repeat 10px 10px;
+    padding-left: 36px;
+    padding-top: 2px;
+    background-size: 30px 30px;
+    margin-left: -epx;
+}
+ul {
+    padding-left: 20px;
+}
+ul li {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0px;
+    list-style-type: none;
+}
+.product__detail--ossascomp {
+    margin: 30px 0px 30px 0px;
+}
+.product__ossascomp--size {
+    /* display: contents; */
+}
+.product__size--code {
+    font-size: 13px;
+    list-style-type: none;
+    display: inline-grid;
+}
+.product__code_a.active {
+    border-radius: 30px;
+    line-height: 24px;
+    padding: 0px 24px;
+    background-color: black;
+    color: #fff;
+}
+.product__code_a {
+    font-size: 17px;
+    line-height: 24px;
+    padding: 0px 24px;
+    color: black;
+}
+.product__ossascomp--size {
+}
+.product__ossascomp--other li {
+    font-size: 15px;
+    list-style-type: none;
+    color: black;
+    line-height: 30px;
+    padding-left: 15px;
+    font-weight: 500;
+}
+.product__detail--book {
+    margin-left: 10px;
+    display: inline-flex;
+}
+.product__button > i {
+    padding-left: 10px;
+    /* text-align: center; */
+    padding-top: 3px;
+    font-size: 30px;
+}
+
+.product__button {
+    display: flex;
+    align-items: center;
+    color: white;
+    border-radius: 40px;
+    height: 43px;
+    width: 243px;
+}
+
+.product__button--red {
+    background-color: red;
+}
+.product__button--black {
+    background-color: black;
+}
+.product__button b {
+    padding-left: 50px;
+    padding-top: 3px;
+    font-size: 20px;
+}
+.product__book--contact > i {
+    transform: rotate(321deg);
+    padding: 4px 13px 0 18px;
+}
+.product__book--contact {
+    margin-left: 30px;
+}
+.product__detail--showroom {
+    margin-top: 30px;
+    border: solid 1px #959595;
+    height: 130px;
+    border-radius: 5px;
+    position: relative;
+}
+.product_showroom {
+    position: absolute;
+    width: 200px;
+    margin-top: -15px;
+    background-color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.product__showroom--location{
+    padding-top: 20px
+
+}
+.product_showroom--eachlocation > li {
+    padding-left: 8px;
+    padding-bottom: 10px;
+    font-size: 15px;
+    background-size: auto 17px;
+    list-style-type: none;
+    font-weight: 500;
+}
+.product_showroom--eachlocation {
+    margin-top: -6px;
+    display: flex;
+    padding-left: 23px;
+}
+.product__list--infor {
+    height: 70px;
+    padding: 10px;
+}
+.product__list--titlte {
+    width: 230px;
+    height: 60px;
+   
+}
+.product__list--titlte > b {
+    padding-left: 12px;
+   
+}
+
+
+.product__list--ad {
+    width: 230px;
+    margin-top: 10px;
+    color: #333;
+    border: solid 2px #ff6e81;
+    border-radius: 30px;
+    padding: 10px;
+}
+.product__list--infor > img {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: solid 1px #ccc;
+}
+.product__list--infor > strong {
+    display: block;
+    font-size: 17px;
+}
