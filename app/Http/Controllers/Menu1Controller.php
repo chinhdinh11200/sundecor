@@ -46,6 +46,17 @@ class Menu1Controller extends Controller
         $data->content_2 = $request->input('content_2');
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
+        if ($request->has('priority')){
+            $check = Menu::find($data->menu_type_id);
+            foreach($check as $ch){
+                if($data->priority==$ch->priority){
+                    $data->priority=$ch->priority;
+                    $ch->priority="null";
+                    $check->save();
+                    break;
+                }
+            }
+        }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {

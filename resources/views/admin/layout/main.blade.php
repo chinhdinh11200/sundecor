@@ -17,6 +17,8 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
   <link rel="stylesheet" href="{{asset('/backend/css/css.css')}}">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -68,6 +70,6 @@
 <script src="{{asset('/backend/plugins/chart.js/Chart.min.js')}}"></script>
 
 <!-- PAGE SCRIPTS -->
-<script src="{{asset('/backend/dist/js/pages/dashboard2.js')}}"></script>
+<!-- <script src="{{asset('/backend/dist/js/pages/dashboard2.js')}}"></script> -->
 </body>
 </html>

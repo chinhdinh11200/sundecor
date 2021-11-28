@@ -28,6 +28,7 @@ Route::group(['prefix'=> 'admin','as' => 'admin.'],function(){
     Route::get('login', [AdminController::class, 'login'])->name('login');
     Route::resource('menu1', Menu1Controller::class);
     Route::resource('menu2', Menu2Controller::class);
+    Route::get('menu_type_id/{id?}', [Menu2Controller::class, 'menu_type_id'])->name('menu_type_id');
 
     Route::resource('supporter', SupporterController::class);
     
