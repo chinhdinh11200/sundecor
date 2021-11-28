@@ -28,13 +28,13 @@
                         <div class="card-body box-profile">
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
-                                     src="/backend/images/trang-chu/logo.png"
+                                     src="{{asset('backend/images/trang-chu/logo.png')}}"
                                      alt="User profile picture">
                             </div>
 
                             <h3 class="profile-username text-center">{{$biendata->nameAdmin}}</h3>
 
-                            <p class="text-muted text-center">(ADMIN TRÀ SEN)</p>
+                            <p class="text-muted text-center">(ADMIN abc)</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">

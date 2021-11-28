@@ -4,7 +4,7 @@
     <div class="Brand-Logo">
       <div class="logo-admin">
         <a href="#">
-          <img src="/backend/images/trang-chu/logo.png">
+          <img src="{{asset('backend/images/trang-chu/logo.png')}}">
         </a>
         <div>
           <p><span>QUẢN TRỊ SUNDECOR</span></p>
