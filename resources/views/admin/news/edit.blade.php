@@ -29,11 +29,15 @@
                 </div>
                 <div class="form-group">
                     <label for="">Mô Tả Chi Tiết Bài Viết</label>
-                    <textarea style="height: 1200px;" class="form-control" placeholder="Nhập nội dung bài viết" name="content">{!!$news->content!!}</textarea>
+                    <textarea style="height: 1200px;" id="moTaChiTiet"  class="form-control" placeholder="Nhập nội dung bài viết" name="content">{!!$news->content!!}</textarea>
                     <script>
                         CKEDITOR.replace( 'moTaChiTiet' );
                     </script>
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Vị trí</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ví Trị Của Tin Tức" name="priority" value="{{ $news->priority }}">
+                  </div>
                 <div class="form-group">
                     <label for="" >Trạng Thái</label>
                     <div>

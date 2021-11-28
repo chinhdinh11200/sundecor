@@ -15,8 +15,9 @@ class CreateProductMenusTable extends Migration
     {
         Schema::create('product_menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('subcategory_id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('subcategory_id')->unsigned();
+            $table->Integer('priority');
             $table->foreign('subcategory_id')
                     ->references('id')
                     ->on('menus')

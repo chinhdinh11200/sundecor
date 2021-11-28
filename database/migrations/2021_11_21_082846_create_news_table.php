@@ -14,6 +14,7 @@ class CreateNewsTable extends Migration
     public function up()
     {
         Schema::create('news', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('title');
@@ -23,7 +24,7 @@ class CreateNewsTable extends Migration
             $table->boolean('status');
             $table->text('content');
             $table->string('image');
-            $table->unsignedInteger('menu_id');
+            $table->integer('menu_id')->unsigned();
             $table->timestamps();
             $table->foreign('menu_id')
                     ->references('id')

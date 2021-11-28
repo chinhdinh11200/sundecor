@@ -25,43 +25,43 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Mã Sản Phẩm</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="code">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Ảnh Sản Phẩm</label>
         <div id="exampleInputEmail1">
-        	<cite>Chọn Ảnh:&ensp;</cite><input type="file"  placeholder="Tên" name="image">
+        	<cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
         </div>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Kích Thước</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="size">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Bảo Hành</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="guarantee">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Tình Trạng</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="">
       </div>
       <div class="form-group">
+        <input type="checkbox" id="exampleInputEmail1" name="is_contact_product" value="1">&emsp;
         <label for="exampleInputEmail1">Là Sản Phẩm Liên Hệ? </label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Giá Gốc</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="sell_price">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Giá Sale</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu Đề Sản Phẩm" name="sale_price">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Loại Sản Phẩm</label>
         <div>
-        	<input type="radio"  name="status" value="1"> Khuyến Mãi&emsp;&emsp;&emsp;
-          <input type="radio"  name="status" value="1"> Hot Tháng
+        	<input type="radio"  name="is_sale_in_month" value="1"> Khuyến MãiTháng&emsp;&emsp;&emsp;
+            <input type="radio"  name="is_hot_product" value="1"> Hot Tháng
         </div>
       </div>
       <div class="form-group">
@@ -78,7 +78,7 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Thông Số Kỹ Thuật</label>
-          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content"></textarea>
+          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="specifications"></textarea>
           <script>
               CKEDITOR.replace( 'moTaChiTiet' );
           </script>
@@ -91,7 +91,7 @@
       <div class="form-group">
         <label for="exampleInputPassword1">Trạng Thái</label>
         <div>
-        	<input type="checkbox"  name="status" value="1"> Hiện Thị&emsp;&emsp;&emsp;
+        	<input type="checkbox"  name="status" value="1"> Hiển Thị&emsp;&emsp;&emsp;
         </div>
       </div>
     </div>
