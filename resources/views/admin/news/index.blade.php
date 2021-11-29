@@ -40,7 +40,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- {{ dd(!empty($news)) }} --}}
                                 @if (!empty($news))
                                     @foreach ($news as $key => $new )
                                         <tr class="class">
