@@ -17,11 +17,11 @@
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1">Tên</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" name="name">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" required name="name">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Tiêu đề</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" name="title">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" required name="title">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Keyword</label>
@@ -42,11 +42,11 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
-        <select type="text" class="form-control" id="exampleInputEmail1" name="menu_type_id">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
+        <select type="text" class="form-control" id="menu_type_id" name="menu_type_id" required>
+          <option value="null" >---Chọn loại menu---</option>
+          <?php foreach($menutype as $mt): ?>
+              <option value="{{$mt->id}}" >{{$mt->name}}</option>
+          <?php endforeach ?>
         </select>
       </div>
       <div class="form-group">
@@ -57,18 +57,18 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Mô Tả Ngắn</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description" required>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung trên</label>
-          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1"></textarea>
+          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" required></textarea>
           <script>
               CKEDITOR.replace( 'content_1' );
           </script>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung dưới</label>
-          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2"></textarea>
+          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2" required></textarea>
           <script>
               CKEDITOR.replace( 'content_2' );
           </script>
