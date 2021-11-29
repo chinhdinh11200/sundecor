@@ -92,9 +92,9 @@
                                <div class="row">
                                 <p class="col-md-5 text-center" style="font-weight: 500;">Kích thước :</p>
                                     <div class="product__size--code col-md-7">
-                                    <li class="product__code_a active" onclick="#">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
+                                    <li class="product__code_a active">D900xH550mm</li>
+                                    <li class="product__code_a">D900xH550mm</li>
+                                    <li class="product__code_a">D900xH550mm</li>
                                     </div>
                                </div>
                             </div>
