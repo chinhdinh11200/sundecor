@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\GioiThieu;
-use App\NgheNhan;
-use App\SanPham;
-use App\ThuongHieu;
-use App\KhoiLuong;
-use App\DanhMuc;
-use App\TinTuc;
+use App\Models\Menu;
+use App\Models\Menutype;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
+use App\Http\Controllers\CommonController;
 
-class FrontendController extends Controller
+class FrontendController extends CommonController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function demo()
     {
         return view('frontend.demo');

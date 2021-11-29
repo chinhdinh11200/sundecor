@@ -1,4 +1,5 @@
 <header id="header">
+	{{count($menu1)}}
 	<div class="header__top">
 		<div class="main-container">
 			<ul class="header__top--list">
