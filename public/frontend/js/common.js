@@ -31,6 +31,34 @@ var swiper = new Swiper(".bannerSwiper", {
     },
 });
 
+// swiper Select item product
+var swiper = new Swiper(".product__detail--swiper1", {
+    loop: true,
+    spaceBetween: 10,
+    slidesPerView: 3,
+    freeMode: true,
+    watchSlidesProgress: true,
+  });
+  var swiper2 = new Swiper(".product__detail--swiper2", {
+    loop: true,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    thumbs: {
+      swiper: swiper,
+    },
+  });
+//   swiper-slide-thumb-active
+(function( $ ){ 
+    $(".product__select--image").click(function () {
+        $(".product__select--image").removeClass("active");
+        $(this).addClass("active");
+     });
+})( jQuery );
+
+
 //swiper product
 var swiperProduct = new Swiper(".productSwiper", {
     slidesPerView: 4,
