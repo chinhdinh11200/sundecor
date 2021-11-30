@@ -41,7 +41,7 @@
           <option value="8">8</option>
         </select>
       </div>
-      <?php 
+      <?php
         $check_mt[1]=0; $check_mt[2]=0; $check_mt[3]=0; $check_mt[4]=0; $i=1;
         foreach($menus as $m){
           if($m->menu_type_id==1){
@@ -62,15 +62,15 @@
         <label for="exampleInputEmail1">Loại menu</label>
         <select type="text" class="form-control" id="menu_type_id" name="menu_type_id">
           <option value="null" >---Chọn loại menu---</option>
-          <?php foreach($menutype as $mt): ?>
-              <option value="{{$mt->id}}" 
-                <?php
-                  if($mt->id!=$check_mt[$i]){
-                    echo "disabled";
-                  }
-                ?>>{{$mt->name}}</option>
-                <?php $i++; ?>
-          <?php endforeach ?>
+            <?php foreach($menutype as $mt): ?>
+                <option value="{{$mt->id}}"
+                    <?php
+                    if($mt->id!=$check_mt[$i]){
+                        echo "disabled";
+                    }
+                    ?>>{{$mt->name}}</option>
+                    <?php $i++; ?>
+            <?php endforeach ?>
         </select>
       </div>
 

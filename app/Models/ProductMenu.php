@@ -9,9 +9,11 @@ class ProductMenu extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_menu';
+    protected $table = 'menu_product';
 
     protected $primaryKey = 'id';
+
+    public $timestamps = FALSE;
 
     // protected $fillable = [''];
 

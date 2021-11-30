@@ -20,6 +20,7 @@ class CreateMenusTable extends Migration
             $table->string('title');
             $table->string('keyword');
             $table->text('description');
+            $table->text('priority')->nullable();
             $table->boolean('status');
             $table->text('content_1');
             $table->text('content_2');

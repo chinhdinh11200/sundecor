@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Supporter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SupporterController extends Controller
 {
@@ -14,7 +16,7 @@ class SupporterController extends Controller
      */
     public function index()
     {
-        $supporters = Supporter::select()->orderBy('priority')->get();
+        $supporters = Supporter::select()->orderBy('priority')->paginate(2);
         return view('admin.supporter.index', ['supporters' => $supporters]);
     }
 
@@ -38,18 +40,30 @@ class SupporterController extends Controller
     {
         $request->validate([
             'fullname' => 'required|unique:supporters,fullname',
-            'tel' => 'required|min:1|max:10'
+            'tel' => 'required|min:1|max:10',
+            'priority' => 'unique:supporter,priority'
         ]);
 
-        $image_url = time() . '-' . $request->input('fullname') . '.' . $request->image->extension();
-        $request->image->move(public_path('backend/images/supporter'), $image_url);
+        $name = '';
+        $temp = str_split($request->input('fullname'));
+        foreach ($temp as $char) {
+            if($char == ' ') {
+                $char = '-';
+            }
+            $name .= $char;
+        }
+        $image_url = '';
+        if($request->hasFile('image')){
+            $image_url = time() . '-' . $name . '.' . $request->image->extension();
+            $request->image->move(public_path('upload/images/supporter'), $image_url);
+        }
 
         Supporter::create([
             'fullname' => $request->input('fullname'),
             'tel' => $request->input('tel'),
             'priority' => $request->input('priority'),
             'status' => $request->input('status') == "1" ? true : false,
-            'image_url' => $image_url
+            'image' => $image_url
         ]);
 
         return redirect()->route('admin.supporter.index');
@@ -86,16 +100,51 @@ class SupporterController extends Controller
      */
     public function update(Request $request, Supporter $supporter)
     {
-        $image_url = $request->image && time() . '-' . $request->input('fullname') .'.'. $request->image->extension() ; //: $supporter->image_url;
-        $request->image && $request->image->move(public_path('backend/images/supporter'), $image_url);
 
-        $supportered = Supporter::where('id', $supporter->id)->update([
-            'fullname' => $request->input('fullname'),
-            'tel' => $request->input('tel'),
-            'priority' => $request->input('priority'),
-            'status' => $request->input('status') == "1" ? true : false,
-            'image_url' => $image_url,
-        ]);
+        // fix lại khi tên thay đổi thì lưu ảnh ????????????????
+        if($supporter->priority != $request->input('priority')){
+            $request->validate([
+                'priority' => 'unique:supporter,priority'
+            ]);
+        }
+
+        $name = '';
+        $temp = str_split($request->input('fullname'));
+        foreach ($temp as $char) {
+            if($char == ' ') {
+                $char = '-';
+            }
+            $name .= $char;
+        }
+
+        $image_url = '';
+        if($request->hasFile('image')){
+            if($supporter->image) {
+                if(File::exists(public_path('upload/images/supporter/'). $supporter->image)){
+                    unlink(public_path('upload/images/supporter/'). $supporter->image);
+                }
+            }
+            $image_url = time() . '-' . $name .'.'. $request->image->extension();
+            $request->image->move(public_path('upload/images/supporter'), $image_url);
+        }
+
+        if($image_url){
+            Supporter::where('id', $supporter->id)->update([
+                'fullname' => $request->input('fullname'),
+                'tel' => $request->input('tel'),
+                'priority' => $request->input('priority'),
+                'status' => $request->input('status') == "1" ? true : false,
+                'image' => $image_url,
+            ]);
+        }else {
+            Supporter::where('id', $supporter->id)->update([
+                'fullname' => $request->input('fullname'),
+                'tel' => $request->input('tel'),
+                'priority' => $request->input('priority'),
+                'status' => $request->input('status') == "1" ? true : false,
+                'image' => $supporter->image,
+            ]);
+        }
 
         return redirect()->route('admin.supporter.index');
     }
@@ -109,8 +158,10 @@ class SupporterController extends Controller
     public function destroy(Supporter $supporter)
     {
         $data = Supporter::find($supporter->id);
-        $image_url = public_path('backend/images/supporter').'/'.$data->image_url;
-        unlink($image_url);
+        $image_url = public_path('upload/images/supporter').'/'.$data->image;
+        if(File::exists($image_url)){
+            unlink($image_url);
+        }
         Supporter::where('id', $supporter->id)->delete();
 
         return redirect()->route('admin.supporter.index');
