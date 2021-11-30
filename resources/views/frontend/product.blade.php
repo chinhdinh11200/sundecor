@@ -2,9 +2,9 @@
 @section('content')
     <section>
         <div class="product__detail">
-            <div class="product__container">
-                <div class="row">
-                    <div class="product__detail--img col-12 col-md-5">
+            <div class="main-container product__container">
+                <div class="row product__detail--row">
+                    <div class = "product__detail--img col-12">
                         <div class="swiper product__detail--swiper2" >
                             <div class="swiper-wrapper">    
                                 <div class = "product__detail--image swiper-slide">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class = "product__detail--info col-12 col-md-5">
+                    <div class = "product__detail--info col-12">
                         <div class = "product__detail--name">
                             <p>Đèn chùm ITALY - GP00001</p>
                         </div>
@@ -85,15 +85,13 @@
                             </ul>
                         </div>
                         <div class="product__detail--ossascomp row">
-                            <div class="product__ossascomp--size col-12 col-md-6">
-                               <div class="row">
-                                <p class="col-md-5 text-center" style="font-weight: 500;">Kích thước :</p>
-                                    <div class="product__size--code col-md-7">
-                                    <li class="product__code_a active" onclick="#">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
-                                    </div>
-                               </div>
+                            <div class="product__ossascomp--size col-12 col-md-6 d-flex">
+                                <p class="text-center" style="font-weight: 500;">Kích thước :</p>
+                                <div class="product__size--code">
+                                    <li class="product__code_a active" onclick="">D900xH550mm</li>
+                                    <li class="product__code_a" onclick="">D900xH550mm</li>
+                                    <li class="product__code_a" onclick="">D900xH550mm</li>
+                                </div>
                             </div>
                             <div class="product__ossascomp--other col-12 col-md-6">
                                 <li style="display: flex;white-space: nowrap;">Chất liệu: <span style="display: flex;white-space: pre-wrap;"> Pha lê K9, hợp kim thép chống gỉ<span></li>
@@ -104,11 +102,11 @@
                         </div>
                         <div class="product__detail--book">
                             <a class="product__button product__button--red product__book--bought" href = "#">
-                                <b style = "padding-left: 50px">Mua ngay</b>
+                                <b >Mua ngay</b>
                                 <i class="fa fa-cart-arrow-down"></i>
                             </a>
                             <a class = "product__button product__button--black product__book--contact">
-                                <b style = "padding-left: 50px">Tư vấn ngay </b>
+                                <b >Tư vấn ngay </b>
                                 <i class="fas fa-phone-volume"></i>
                             </a>
                         </div>
@@ -131,9 +129,9 @@
                     
                         </div>
                     </div>
-                    <div class = "product__detail--staff col-12 col-md-2">
+                    <div class = "product__detail--staff col-12">
                         <div class = "product__staff--list">
-                            <div class="product__button product__button--black product__list--titlte">
+                            <div class="product__button product__button--black product__list--titlte d-flex justify-content-center align-items-center">
                                 <b>NHÂN VIÊN BÁN HÀNG</b>
                             </div>
                             <div class = "product__list--ad">

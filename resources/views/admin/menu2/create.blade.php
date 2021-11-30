@@ -74,7 +74,7 @@
         </select>
       </div>
 
-      <div class="form-group" id="option_parrent">
+      <div class="form-group" id="option_parrent"></div>
       <script>
         $(function() {
           $('#menu_type_id').change(function() {
@@ -90,7 +90,7 @@
         });
       </script>
 
-      <div class="form-group"></div>
+      <div class="form-group">
         <label for="exampleInputEmail1">Ảnh</label>
         <div id="exampleInputEmail1">
         	<cite>Chọn Ảnh:&ensp;</cite><input type="file"  name="images">

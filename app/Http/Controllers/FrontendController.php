@@ -45,11 +45,6 @@ class FrontendController extends CommonController
         return view('frontend.category');
     }
 
-    public function hello()
-    {
-        dd('hello');
-    }
-
     // public function product_detail()
     // {
     //     return view('frontend.product_detail');

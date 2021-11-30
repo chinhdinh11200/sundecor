@@ -7,10 +7,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            <h3 class="card-title"><a href="{{route('admin.menu.index')}}">Danh sách</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.menu2.index')}}">Danh sách</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.menu.create')}}">Thêm mới</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.menu2.create')}}">Thêm mới</a></h3>
                         </div>
                     </div>
 

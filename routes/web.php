@@ -18,7 +18,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [AdminController::class , 'index'])->name('quantri');
 
     Route::resource('supporter', SupporterController::class);
-
+    Route::resource('menu1', Menu1Controller::class);
+    Route::resource('menu2', Menu2Controller::class);
+    Route::get('menu_type_id/{id?}', [Menu2Controller::class,'menu_type_id'])->name('menu_type_id');
     Route::resource('video', VideoController::class);
     ///////GET-POST: URL - ACTION//////
 
