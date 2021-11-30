@@ -25,8 +25,8 @@ class CreateProductsTable extends Migration
             $table->decimal('sell_price', 10, 3);
             $table->decimal('sale_price', 10, 3)->nullable();
             $table->string('material')->nullable();
-            $table->integer('size')->nullable();
-            $table->integer('guarantee')->nullable();
+            $table->string('size')->nullable();
+            $table->string('guarantee')->nullable();
             $table->boolean('status');
             $table->boolean('sold_out');   // bán hết
             $table->string('image_1')->nullable();

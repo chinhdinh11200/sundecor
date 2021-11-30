@@ -35,8 +35,8 @@
             </td>
             <td>
                 {{-- sua lai cho sua anh --}}
-                <input type="file" id="image" name="image" value="">
-                <img src="{{ asset('backend/images/video/'.$video->image_url) }}" alt="ảnh" style="width: 100px; height: 100px">
+                <input type="file" id="image" name="image">
+                <img src="{{ asset('backend/images/video/'.$video->image) }}" alt="ảnh" style="width: 100px; height: 100px">
                 <button type="button">Xóa ảnh này</button>
             </td>
         </tr>

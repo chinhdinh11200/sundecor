@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\MenuNew;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class NewsController extends Controller
@@ -18,7 +19,7 @@ class NewsController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $news = $menus[0]->news()->get();
+        $news = News::paginate(2);
         return view('admin.news.index', ['news' => $news, 'menus' => $menus]);
     }
 
@@ -49,15 +50,21 @@ class NewsController extends Controller
             }
             $name .= $char;
         }
+        $request->validate([
+            'priority' => 'unique:news,priority'
+        ]);
 
-        $image_url = time() . '-' . $name . '.' . $request->image->extension();
-        $request->image->move(public_path('upload/images/news'), $image_url);
+        if($request->hasFile('image')){
+            $image_url = time() . '-' . $name . '.' . $request->image->extension();
+            $request->image->move(public_path('upload/images/news'), $image_url);
+        }
 
         $new = new News();
         $new->name = $request->input('name');
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');
+        $new->keyword = $request->input('keyword');
         $new->priority = $request->input('priority');
         $new->status = $request->input('status') ? true : false;
         $new->menu_id = $request->input('menu_id');
@@ -99,6 +106,11 @@ class NewsController extends Controller
      */
     public function update(Request $request,News  $news)
     {
+        if($news->priority != $request->input('priority')){
+            $request->validate([
+                'priority' => 'unique:news,priority'
+            ]);
+        }
 
         $name = '';
         $temp = str_split($request->input('name'));
@@ -108,19 +120,32 @@ class NewsController extends Controller
             }
             $name .= $char;
         }
+        $image_url = '';
+        if($request->hasFile('image')){
 
-        $image_url = $request->image ? time() . '-' . $name . '.' . $request->image->extension() : $news->image;
-        $request->image && $request->image->move(public_path('backend/images/tin-tuc'), $image_url);
-        // dd($request);
+            if($news->image){
+                if(File::exists(public_path('upload/images/news/'). $news->image)){
+                    unlink(public_path('upload/images/news/'). $news->image);
+                }
+            }
+            $image_url = $request->image ? time() . '-' . $name . '.' . $request->image->extension() : $news->image;
+            $request->image->move(public_path('upload/images/news'), $image_url);
+        }
+
         $new = News::find($news->id);
         $new->name = $request->input('name');
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');
+        $new->keyword = $request->input('keyword');
         $new->priority = $request->input('priority') ? $request->input('priority'): $news->priority;
         $new->status = $request->input('status') ? true : false;
         $new->menu_id = $request->input('menu_id');
-        $new->image = $image_url;
+        if($image_url) {
+            $new->image = $image_url;
+        }else {
+            $new->image = $news->image;
+        }
 
         $new->update();
 
@@ -135,12 +160,12 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        // dd($news);
         $new = News::find($news->id);
 
         $image_url = public_path('upload/images/news/'). $new->image;
-
-        unlink($image_url);
+        if(File::exists($image_url)){
+            unlink($image_url);
+        }
         News::where('id', $new->id)->delete();
         return redirect()->route('admin.news.index');
     }

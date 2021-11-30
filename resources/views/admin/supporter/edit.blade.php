@@ -38,7 +38,7 @@
                 <td>
                     {{-- sua lai cho sua anh --}}
                     <input type="file" id="image" name="image" value="">
-                    <img src="{{ asset('backend/images/supporter/'.$supporter->image_url) }}" alt="ảnh" style="width: 100px; height: 100px">
+                    <img src="{{ asset('upload/images/supporter/'.$supporter->image) }}" alt="ảnh" style="width: 100px; height: 100px">
                     <button type="button">Xóa ảnh này</button>
                 </td>
             </tr>

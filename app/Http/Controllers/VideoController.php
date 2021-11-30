@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rules\Exists;
 
 class VideoController extends Controller
 {
@@ -38,13 +40,13 @@ class VideoController extends Controller
     {
         $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
 
-        $request->image->move(public_path('backend/images/video'), $image_url);
+        $request->image->move(public_path('upload/images/video'), $image_url);
         Video::create([
             'title' => $request->input('title'),
             'link' => $request->input('link'),
             'priority' => $request->input('priority'),
             'status' => $request->input('status'),
-            'image_url' => $image_url
+            'image' => $image_url
         ]);
         return redirect()->route('admin.video.index');
     }
@@ -80,17 +82,35 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        $image_url = $request->image && time() . '-' . $request->input('title') .'.'. $request->image->extension(); // : $video->image_url;
+        $image_url = '';
+        if($request->hasFile('image')){
+            if($video->image) {
+                if(File::exists(public_path('upload/images/video/'). $video->image)){
+                    unlink(public_path('upload/images/video/'). $video->image);
+                }
+            }
+            $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
+            $request->image->move(public_path('upload/images/video/'), $image_url);
+        }
 
-        $request->image && $request->image->move(public_path('backend/images/video'), $image_url);
-        Video::where('id', $video->id)->update([
-            'title' => $request->input('title'),
-            'link' => $request->input('link'),
-            'priority' => $request->input('priority'),
-            'status' => $request->input('status'),
-            'image_url' => $image_url
-        ]);
-        
+        if($image_url){
+            Video::where('id', $video->id)->update([
+                'title' => $request->input('title'),
+                'link' => $request->input('link'),
+                'priority' => $request->input('priority'),
+                'status' => $request->input('status'),
+                'image' => $image_url
+            ]);
+        }else {
+            Video::where('id', $video->id)->update([
+                'title' => $request->input('title'),
+                'link' => $request->input('link'),
+                'priority' => $request->input('priority'),
+                'status' => $request->input('status'),
+                'image' => $video->image
+            ]);
+        }
+
         return redirect()->route('admin.video.index');
     }
 
@@ -103,8 +123,10 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         $data = Video::find($video->id);
-        $image_url = public_path('backend/images/video').'/'.$data->image_url;
-        unlink($image_url);
+        $image_url = public_path('upload/images/video').'/'.$data->image;
+        if(File::exists($image_url)){
+            unlink($image_url);
+        }
         Video::where('id', $video->id)->delete();
         return redirect()->route('admin.video.index');
     }
