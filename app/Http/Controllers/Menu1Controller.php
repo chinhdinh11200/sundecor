@@ -47,7 +47,7 @@ class Menu1Controller extends Controller
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
-            $check = Menu::find($data->menu_type_id);
+            $check = Menu::where('id',$data->menu_type_id);
             foreach($check as $ch){
                 if($data->priority==$ch->priority){
                     $data->priority=$ch->priority;

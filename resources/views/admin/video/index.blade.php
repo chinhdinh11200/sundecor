@@ -19,7 +19,7 @@
                     <tr class="class">
                         <td>{{ $key + 1 }}</td>
                         <td>
-                            <img src="{{ $video->image_url ?  asset('backend/images/video/'.$video->image_url) : "ccc" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
+                            <img src="{{ $video->image ?  asset('upload/images/video/'.$video->image) : "ccc" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
                         </td>
                         <td>
                             <div>{{ $video->title }}</div>

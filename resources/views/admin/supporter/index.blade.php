@@ -19,7 +19,7 @@
                 <tr class="class">
                     <td>{{ $key + 1 }}</td>
                     <td>
-                        <img src="{{ $supporter->image_url ?  asset('backend/images/supporter/'.$supporter->image_url) : "" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
+                        <img src="{{ $supporter->image ?  asset('upload/images/supporter/'.$supporter->image) : "" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
                     </td>
                     <td>
                         <div>{{ $supporter->fullname }}</div>

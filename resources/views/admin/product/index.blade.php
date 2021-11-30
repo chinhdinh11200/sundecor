@@ -54,8 +54,8 @@
                                         <td>{{$product->status}}</td>
                                         <td>{{$product->priority}}</td>
                                         <td style="opacity: 1">
-                                            <a href="{{route('admin.product.edit',['product'=>$product])}}" class="btn btn-info">Sửa</a>
-                                            <form action="{{ route('admin.product.destroy', ['product' => $product]) }}" method="POST">
+                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info">Sửa</a>
+                                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger">Xóa</button>
@@ -66,9 +66,9 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="box-trang">
-                        {{$productdata->links()}}
-                    </div> --}}
+                    <div class="box-trang">
+                        {{$products->links()}}
+                    </div>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

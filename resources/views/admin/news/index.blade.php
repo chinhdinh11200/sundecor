@@ -10,7 +10,7 @@
                             <h3 class="card-title"><a href="{{route('admin.news.index')}}">Danh Sách Sản Phẩm</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm Sản Phẩm</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm Tin Tức</a></h3>
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                         </table>
                     </div>
                     <div class="box-trang">
-                        phân trang
+                        {{ $news->links() }}
                     </div>
                     <!-- /.card-body -->
                 </div>

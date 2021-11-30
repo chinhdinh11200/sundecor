@@ -21,7 +21,10 @@ class Menu extends Model
     }
     // connect to Product
     public function products() {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,
+                                    ProductMenu::class,
+                                    'subcategory_id',
+                                    'product_id');
     }
 
     // connect to News

@@ -11,7 +11,7 @@ class Menu2Controller extends Controller
 {
 
     public function menu_type_id()
-    {   
+    {
         $id = $_GET['id'];
         $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', $id)->orderBy('name', 'ASC')->get();  //paginate: PHÂN TRANG
         ?>
@@ -45,7 +45,7 @@ class Menu2Controller extends Controller
      */
     public function create()
     {
-        $menus = Menu::all();   
+        $menus = Menu::all();
         $menu1 = Menu::where('parent_menu_id', 0);
         $menutype = Menutype::all();
         return view('admin.menu2.create', ['menu1' => $menu1, 'menutype' => $menutype])->with('menus', $menus);
@@ -91,7 +91,7 @@ class Menu2Controller extends Controller
         }
         $data->status = $status;
         $data->save();
-        return redirect()->route('admin.menu1.index'); //điều hướng đến foder category - flie index
+        return redirect()->route('admin.menu2.index'); //điều hướng đến foder category - flie index
     }
 
     /**
