@@ -45,10 +45,15 @@ class FrontendController extends CommonController
         return view('frontend.category');
     }
 
-    public function product_detail()
+    public function hello()
     {
-        return view('frontend.product_detail');
+        dd('hello');
     }
+
+    // public function product_detail()
+    // {
+    //     return view('frontend.product_detail');
+    // }
 
     // public function detailproduct($id)
     // {
@@ -88,14 +93,15 @@ class FrontendController extends CommonController
     //     return view('frontend.contact', ['biendata' => $data]);
     // }
     //    ---------------------------------------- Sản Phẩm --------------------------------------------
-    // public function product()
-    // {
-    //     $data_array[0] = ThuongHieu::all();
-    //     $data_array[1] = DanhMuc::all();
-    //     $data_array[2] = SanPham::latest()->paginate(9);
-    //     $data_array[3] = KhoiLuong::all();
-    //     return view('frontend.product',['biendata_array'=>$data_array]);
-    // }
+    public function product($id)
+    {
+        // $data_array[0] = ThuongHieu::all();
+        // $data_array[1] = DanhMuc::all();
+        // $data_array[2] = SanPham::latest()->paginate(9);
+        // $data_array[3] = KhoiLuong::all();
+        // return view('frontend.product',['biendata_array'=>$data_array]);
+        return view('frontend.product');
+    }
 
     /**
      * Display the specified resource.

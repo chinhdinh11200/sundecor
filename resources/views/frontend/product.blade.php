@@ -1,21 +1,5 @@
 @extends('frontend.layout.main')
 @section('content')
-    <!-- <script>
-        var productImg = document.getElementByID("productImg");
-        var selectImg = Document.getElementsByClassName("select_img");
-        selectImg[0].onClick = function()
-        {
-            productImg.src = selectImg[0].src;
-        }
-        selectImg[1].onClick = function()
-        {
-            productImg.src = selectImg[1].src;
-        }
-        selectImg[2].onClick = function()
-        {
-            productImg.src = selectImg[2].src;
-        }
-    </script> -->
     <section>
         <div class="product__detail">
             <div class="product__container">
@@ -68,6 +52,7 @@
                             </div>
                             <div class="product__order--phone col-md-6">
                                 <form>
+                                    @csrf
                                     <input name = "Tel" type = "text" maxlength = "30" id = "Tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
                                             <div class="product__phone--sent">
                                                 <b>GỬI</b>
