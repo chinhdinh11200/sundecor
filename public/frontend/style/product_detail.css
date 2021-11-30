@@ -22,11 +22,21 @@
     border: solid 1px #e5e0e0;
 }
 .product__container {
-    margin: 60px 100px;
+}
+.product__detail--row{
+    justify-content: space-between;
 }
 .product__detail--img {
-    padding-right: 50px;
+    width: 40%;
 }
+.product__detail--info{
+    width: 38%;
+}
+.product__detail--staff{
+    width: 20%;
+}
+
+
 .product__detail--image {
     height: 500px;
 }
@@ -34,6 +44,7 @@
 .product__detail--img img {
     max-width: 100%;
     object-fit: cover;
+    height: 100%;
 }
 
 .product__detail--name {
@@ -202,8 +213,14 @@ ul li {
     font-weight: 500;
 }
 .product__detail--book {
-    margin-left: 10px;
+    width: 100%;
     display: inline-flex;
+    justify-content: space-between;
+}
+.product__detail--book a{
+    width: 46%;
+    display: flex;
+    justify-content: center;
 }
 .product__button > i {
     padding-left: 10px;
@@ -218,7 +235,6 @@ ul li {
     color: white;
     border-radius: 40px;
     height: 43px;
-    width: 243px;
 }
 
 .product__button--red {
@@ -228,16 +244,11 @@ ul li {
     background-color: black;
 }
 .product__button b {
-    padding-left: 50px;
-    padding-top: 3px;
-    font-size: 20px;
+    font-size: 18px;
 }
 .product__book--contact > i {
     transform: rotate(321deg);
     padding: 4px 13px 0 18px;
-}
-.product__book--contact {
-    margin-left: 30px;
 }
 .product__detail--showroom {
     margin-top: 30px;
@@ -278,15 +289,12 @@ ul li {
     padding: 10px;
 }
 .product__list--titlte {
-    width: 230px;
     height: 60px;
 }
 .product__list--titlte > b {
-    padding-left: 12px;
 }
 
 .product__list--ad {
-    width: 230px;
     margin-top: 10px;
     color: #333;
     border: solid 2px #ff6e81;
@@ -305,5 +313,5 @@ ul li {
 }
 .product__list--infor > strong {
     display: block;
-    font-size: 17px;
+    font-size: 15px;
 }
