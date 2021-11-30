@@ -30,7 +30,7 @@ class CreateMenusTable extends Migration
             $table->timestamps();
             $table->foreign('menu_type_id')
                     ->references('id')
-                    ->on('menutypes')
+                    ->on('menu_types')
                     ->onDelete('cascade');
         });
     }

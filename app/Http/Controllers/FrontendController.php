@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\GioiThieu;
-use App\NgheNhan;
-use App\SanPham;
-use App\ThuongHieu;
-use App\KhoiLuong;
-use App\DanhMuc;
-use App\TinTuc;
+use App\Models\Menu;
+use App\Models\Menutype;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
+use App\Http\Controllers\CommonController;
 
-class FrontendController extends Controller
+class FrontendController extends CommonController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function demo()
     {
         return view('frontend.demo');
@@ -43,6 +45,11 @@ class FrontendController extends Controller
         return view('frontend.category');
     }
 
+    public function product_detail()
+    {
+        return view('frontend.product_detail');
+    }
+
     // public function detailproduct($id)
     // {
     //     $data[0] = SanPham::find($id);
@@ -56,8 +63,7 @@ class FrontendController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
-//    ---------------------------------------- Tin Tức ----------------------------------------
+     *///    ---------------------------------------- Tin Tức ----------------------------------------
     // public function news($id=null)
     // {
     //     if ($id == null){
@@ -69,22 +75,19 @@ class FrontendController extends Controller
     //         return view('frontend.showNews', ['biendata' => $data],['biendataTinTuc' => $dataTinTuc]);
     //     }
     // }
-
-//    ---------------------------------------- Giới Thiệu ----------------------------------------
+    //    ---------------------------------------- Giới Thiệu ----------------------------------------
     // public function introduce(Request $request)
     // {
     //     $data = GioiThieu::where('trangThai',1)->get();  //paginate: PHÂN TRANG
     //     return view('frontend.introduce', ['biendata' => $data]);
     // }
-
-//    ---------------------------------------- Liên Hệ --------------------------------------------
+    //    ---------------------------------------- Liên Hệ --------------------------------------------
     // public function contact(Request $request)
     // {
     //     $data = GioiThieu::where('trangThai',1)->get();  //paginate: PHÂN TRANG
     //     return view('frontend.contact', ['biendata' => $data]);
     // }
-
-//    ---------------------------------------- Sản Phẩm --------------------------------------------
+    //    ---------------------------------------- Sản Phẩm --------------------------------------------
     // public function product()
     // {
     //     $data_array[0] = ThuongHieu::all();
@@ -102,7 +105,7 @@ class FrontendController extends Controller
      */
     public function showNews($id)
     {
-        //
+    //
     }
 
     /**
@@ -113,7 +116,7 @@ class FrontendController extends Controller
      */
     public function edit($id)
     {
-        //
+    //
     }
 
     /**
@@ -125,7 +128,7 @@ class FrontendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    //
     }
 
     /**
@@ -136,6 +139,6 @@ class FrontendController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
 }

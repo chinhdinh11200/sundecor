@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\Menutype;
 use Illuminate\Support\Str;
 
 class Menu1Controller extends Controller
@@ -16,7 +17,7 @@ class Menu1Controller extends Controller
     public function index()
     {
         $menu = Menu::all();
-        return view('admin.menu1.index', ['biendata' => $menu]);
+        return view('admin.menu1.index', ['datas' => $menu]);
     }
 
     /**
@@ -27,7 +28,8 @@ class Menu1Controller extends Controller
     public function create()
     {
         $menus = Menu::all();
-        return view('admin.menu1.create')->with('menus', $menus);
+        $menutype = Menutype::all();
+        return view('admin.menu1.create', ['menutype' => $menutype])->with('menus', $menus);
     }
 
     /**
@@ -47,14 +49,19 @@ class Menu1Controller extends Controller
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
-            $check = Menu::where('id',$data->menu_type_id);
-            foreach($check as $ch){
-                if($data->priority==$ch->priority){
-                    $data->priority=$ch->priority;
-                    $ch->priority="null";
-                    $check->save();
-                    break;
-                }
+//             $check = Menu::where('id',$data->menu_type_id);
+//             foreach($check as $ch){
+//                 if($data->priority==$ch->priority){
+//                     $data->priority=$ch->priority;
+//                     $ch->priority="null";
+//                     $check->save();
+//                     break;
+//                 }
+            $check = Menu::where('priority', $data->menu_type_id)->first();
+            if($check != null){
+                $data->priority=$check->priority;
+                $check->priority= null;
+                $check->save();
             }
         }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
