@@ -5,19 +5,31 @@
             <div class="product__container">
                 <div class="row">
                     <div class="product__detail--img col-12 col-md-5">
-                        <div class = "product__detail--image">
-                            <img src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera" id = "productImg">
+                        <div class="swiper product__detail--swiper2" >
+                            <div class="swiper-wrapper">    
+                                <div class = "product__detail--image swiper-slide">
+                                    <img src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                </div>
+                                <div class = "product__detail--image swiper-slide">
+                                    <img src = "{{asset('frontend\images\common\img-bank.png')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                </div>
+                                <div class = "product__detail--image swiper-slide">
+                                    <img src = "{{asset('frontend\images\common\logo.png')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                </div>
+                            </div>
                         </div>
-                        <div class="product__img--select row">
-                        <div class = "product__select--image col-12 col-md-4 active">
-                            <img class = "select_img active"src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera">
-                        </div>
-                        <div class = "product__select--image col-12 col-md-4">
-                            <img class = "select_img" src = "{{asset('frontend\images\common\img-bank.png')}}" alt = "Đèn chùm Hera">
-                        </div>
-                        <div class = "product__select--image col-12 col-md-4">
-                            <img class = "select_img" src = "{{asset('frontend\images\common\logo.png')}}" alt = "Đèn chùm Hera">
-                        </div>
+                        <div thumbsSlider="" class="swiper product__detail--swiper1">
+                            <div class="product__img--select swiper-wrapper">
+                                <div class = "swiper-slide product__select--image active">
+                                    <img class = "select_img"src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera">
+                                </div>
+                                <div class = "swiper-slide product__select--image ">
+                                    <img class = "select_img" src = "{{asset('frontend\images\common\img-bank.png')}}" alt = "Đèn chùm Hera">
+                                </div>
+                                <div class = "swiper-slide product__select--image ">
+                                    <img class = "select_img" src = "{{asset('frontend\images\common\logo.png')}}" alt = "Đèn chùm Hera">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class = "product__detail--info col-12 col-md-5">
@@ -77,9 +89,9 @@
                                <div class="row">
                                 <p class="col-md-5 text-center" style="font-weight: 500;">Kích thước :</p>
                                     <div class="product__size--code col-md-7">
-                                    <li class="product__code_a active">D900xH550mm</li>
-                                    <li class="product__code_a">D900xH550mm</li>
-                                    <li class="product__code_a">D900xH550mm</li>
+                                    <li class="product__code_a active" onclick="#">D900xH550mm</li>
+                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
+                                    <li class="product__code_a" onclick="#">D900xH550mm</li>
                                     </div>
                                </div>
                             </div>
