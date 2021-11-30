@@ -23,9 +23,9 @@ class ProductController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $products = DB::table('products')->join('menu_product', 'menu_product.product_id', '=', 'products.id')
-                        ->select('products.*', 'menu_product.priority')
-                        ->orderBy('menu_product.priority')
+        $products = DB::table('products')->join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                        ->select('products.*', 'product_menu.priority')
+                        ->orderBy('product_menu.priority')
                         ->paginate(2);
         return view('admin.product.index', ['products' => $products])->with('menus', $menus);
     }
@@ -138,9 +138,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product_edit = Product::join('menu_product', 'menu_product.product_id', '=', 'products.id')
+        $product_edit = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
             ->where('products.id', $id)
-            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'menu_product.priority',])->first();
+            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])->first();
         $menus = Menu::all();
 
         return view('admin.product.edit', ['product' => $product_edit], ['menus' => $menus]);
