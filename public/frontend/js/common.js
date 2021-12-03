@@ -128,3 +128,12 @@ function getDirection() {
     // }, 1000);
 
 })( jQuery );
+
+(function( $ ){
+    $(".product__select--image").css({
+        "height": $('.product__select--image').width() ,
+    })
+    $(".product__detail--image").css({
+        "height": $('.product__detail--swiper2').width() ,
+    })
+})( jQuery );

@@ -1,11 +1,14 @@
 .main-sidebar .Brand-Logo{
 	height: 210px;
 	border-bottom: 1px solid #4b545c;
+    padding: 30px;
+}
+.main-sidebar .logo-admin{
+    max-height: 100%;
 }
 .main-sidebar .Brand-Logo .logo-admin img{
-	padding: 8px 12px 8px 24px;
 	float: left;
-	width: 41.2%;
+	width: 100%;
 }
 .main-sidebar .Brand-Logo .logo-admin p{
 	margin:0;

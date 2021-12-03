@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            {{-- <h3 class="card-title"><a href="{{route('admin.menu1.index')}}">Danh sách</a></h3> --}}
+                            <h3 class="card-title"><a href="{{route('admin.menu1.index')}}">Danh sách</a></h3>
                         </div>
                         <div class="right no-click">
                             <h3 class="card-title"><a href="{{route('admin.menu1.create')}}">Thêm mới</a></h3>
@@ -41,7 +41,7 @@
                                 @if (!empty($datas))
                                     @foreach ($datas as $key => $data )
                                         <tr class="class">
-                                            <td><img style="width: 120px;" src="https://longnv.name.vn/wp-content/uploads/2019/09/logo4-150x150.png"></td>
+                                            <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/{{ $data->images }}"></td>
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->menuType->name }}</td>
                                             <td style="text-align: center;">{{ $data->priority }}</td>
