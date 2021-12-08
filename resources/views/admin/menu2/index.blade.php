@@ -16,11 +16,16 @@
 
                     <!-- /.card-option -->
                     <form action="" class="card-option">
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        @csrf
+                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
+                            <option selected>---- Chọn menu ----</option>
+                            @if (!empty($menu1))
+                                @foreach ($menu1 as $mn1 )
+                                    <option value="{{route('admin.menu2.show', ['menu2' => $mn1->id])}}">{{$mn1->name}}</option>
+                                @endforeach
+                            @else
+                                <option>Trống</option>
+                            @endif
                         </select>
                     </form>
 
@@ -29,35 +34,46 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>TÊN LOẠI</th>
-                                <th>ẢNH Sản Phẩm</th>
-                                <th>MÔ TẢ NGẮN</th>
-                                <th>MÔ TẢ CHI TIẾT</th>
-                                <th>TRẠNG THÁI</th>
-                                <th>EDIT</th>
+                                <th style="width: 120px;">ẢNH Sản Phẩm</th>
+                                <th>TIÊU ĐỀ</th>
+                                <th>LOẠI MENU</th>
+                                <th style="width: 70px;">VỊ TRÍ</th>
+                                <th style="width: 100px;">TRẠNG THÁI</th>
+                                <th style="width: 0;">EDIT</th>
                             </tr>
                             </thead>
                             <tbody>
-                            
-                                <tr class="class">
-                                    <td>1</td>
-                                    <td>name</td>
-                                    <td><img style="width: 150px;" src="https://longnv.name.vn/wp-content/uploads/2019/09/logo4-150x150.png"></td>
-                                    <td>mô tả ngắn</td>
-                                    <td>mô tả chi tiết ...&ensp;<a href="#">Xem thêm</a></td>
-                                    <td>Hiện</td>
-                                    <td>
-                                        <a href="#" class="btn btn-info">Sửa</a>
-                                        <a href="#" class="btn btn-danger">Xóa</a>
-                                    </td>
-                                </tr>
+                                @if (!empty($datas))
+                                    @foreach ($datas as $data )
+                                        <tr class="class">
+                                            <?php if($data->images != null){ ?>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/{{ $data->images }}"></td>
+                                            <?php  }else{ ?>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/frontend/images/common/logo.png"></td>
+                                            <?php } ?>
+                                            <td>{{ $data->name }}</td>
+                                            <td>{{ $data->menuType->name }}</td>
+                                            <td style="text-align: center;">{{ $data->priority }}</td>
+                                            <td style="text-align: center;">{{ $data->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.menu2.edit', ['menu2' => $data]) }}" class="btn btn-info">Sửa</a>
+                                                <form action="{{ route('admin.menu2.destroy', ['menu2' => $data]) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>Menu rỗng</tr>
+                                @endif
                             </tbody>
-                            
+
                         </table>
                     </div>
                     <div class="box-trang">
-                        phân trang
+                        {{ $datas->links() }}
                     </div>
                     <!-- /.card-body -->
                 </div>

@@ -33,7 +33,9 @@
         <label for="exampleInputEmail1">Mô Tả Chi Tiết</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="moTaChiTiet"></textarea>
           <script>
-              CKEDITOR.replace( 'moTaChiTiet' );
+              CKEDITOR.replace( 'moTaChiTiet' , {
+                    width: ['100%'], height: ['500px']
+              });
           </script>
 {{--        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Chi Tiết" name="moTaChiTiet">--}}
       </div>

@@ -129,7 +129,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item my-4">
             <a href="#" class="nav-link btn btn-danger">
               <i class="nav-icon"></i>
               <p>
@@ -137,78 +137,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-leaf"></i>
-                    <p>
-                        Sản Phẩm
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Thương Hiệu</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Các Loại</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Khối Lượng</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Sản Phẩm</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-          <li class="nav-item hover">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>
-                Quản Lý Liên Hệ
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Chưa Xử Lý</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Đang Xử Lý</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Đã Xử Lý</p>
-                </a>
-              </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Đã Hủy</p>
-                    </a>
-                </li>
-            </ul>
-          </li>
-
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

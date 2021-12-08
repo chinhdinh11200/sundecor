@@ -41,7 +41,9 @@
         <label for="content">Mô Tả Chi Tiết</label>
           <textarea class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content"></textarea>
           <script>
-              CKEDITOR.replace( 'content' );
+              CKEDITOR.replace( 'content' , {
+                    width: ['100%'], height: ['500px']
+              });
           </script>
         </div>
       <div class="form-group">

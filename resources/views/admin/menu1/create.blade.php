@@ -30,20 +30,16 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
+            @for($i = 1; $i < 9; $i++)
+              <option value="{{$i}}">{{$i}}</option>
+            @endfor
+            <option value="9">Mặc Định</option>
         </select>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
         <select type="text" class="form-control" id="menu_type_id" name="menu_type_id" required>
-          <option value="null" >---Chọn loại menu---</option>
+          <option value="null" >--- Chọn loại menu ---</option>
           <?php foreach($menutype as $mt): ?>
               <option value="{{$mt->id}}" >{{$mt->name}}</option>
           <?php endforeach ?>
@@ -63,14 +59,18 @@
         <label for="exampleInputEmail1">Nội dung trên</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" required></textarea>
           <script>
-              CKEDITOR.replace( 'content_1' );
+              CKEDITOR.replace( 'content_1', {
+                height: '300'
+              });
           </script>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung dưới</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2" required></textarea>
           <script>
-              CKEDITOR.replace( 'content_2' );
+              CKEDITOR.replace( 'content_2' , {
+                    width: ['100%'], height: ['300px']
+              });
           </script>
       </div>
       <div class="form-group">

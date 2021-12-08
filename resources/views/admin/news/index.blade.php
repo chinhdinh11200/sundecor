@@ -45,7 +45,7 @@
                                         <tr class="class">
                                             <td>{{ $key + 1}}</td>
                                             <td>{{ $new->name }}</td>
-                                            <td><img style="width: 150px;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
+                                            <td><img style="width: 120px; height: 120px; object-fit: cover;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
                                             <td>{{ $new->description }}</td>
                                             <td>{{ $new->content }} ...&ensp;<a href="#">Xem thêm</a></td>
                                             <td>

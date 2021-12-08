@@ -16,11 +16,16 @@
 
                     <!-- /.card-option -->
                     <form action="" class="card-option">
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        @csrf
+                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
+                            <option selected>---- Chọn loại menu ----</option>
+                            @if (!empty($menutype))
+                                @foreach ($menutype as $mt )
+                                    <option value="{{route('admin.menu1.show', ['menu1' => $mt->id])}}">{{$mt->name}}</option>
+                                @endforeach
+                            @else
+                                <option>Trống</option>
+                            @endif
                         </select>
                     </form>
 
@@ -39,16 +44,24 @@
                             </thead>
                             <tbody>
                                 @if (!empty($datas))
-                                    @foreach ($datas as $key => $data )
+                                    @foreach ($datas as $data )
                                         <tr class="class">
-                                            <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/{{ $data->images }}"></td>
+                                            <?php if($data->images != null){ ?>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/{{ $data->images }}"></td>
+                                            <?php  }else{ ?>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/frontend/images/common/logo.png"></td>
+                                            <?php } ?>
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->menuType->name }}</td>
                                             <td style="text-align: center;">{{ $data->priority }}</td>
                                             <td style="text-align: center;">{{ $data->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-info" style="margin-bottom: 10px;">Sửa</a>
-                                                <a href="#" class="btn btn-danger">Xóa</a>
+                                                <a href="{{ route('admin.menu1.edit', ['menu1' => $data]) }}" class="btn btn-info">Sửa</a>
+                                                <form action="{{ route('admin.menu1.destroy', ['menu1' => $data->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger" onClick="confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -60,7 +73,7 @@
                         </table>
                     </div>
                     <div class="box-trang">
-                        phân trang
+                        {{ $datas->links() }}
                     </div>
                     <!-- /.card-body -->
                 </div>
