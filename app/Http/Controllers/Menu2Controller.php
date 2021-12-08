@@ -33,9 +33,9 @@ class Menu2Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::all();
-        $menu1 = Menu::where('parent_menu_id', 0);
-        return view('admin.menu2.index', ['biendata' => $menu, 'menu1' => $menu1]);
+        $menu = Menu::where('parent_menu_id', "<>",0)->paginate(20);;
+        $menu1 = Menu::where('parent_menu_id', 0)->get();
+        return view('admin.menu2.index', ['datas' => $menu, 'menu1' => $menu1]);
     }
 
     /**
@@ -67,6 +67,22 @@ class Menu2Controller extends Controller
         $data->content_2 = $request->input('content_2');
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
+        if ($request->has('priority')){
+//             $check = Menu::where('id',$data->menu_type_id);
+//             foreach($check as $ch){
+//                 if($data->priority==$ch->priority){
+//                     $data->priority=$ch->priority;
+//                     $ch->priority="null";
+//                     $check->save();
+//                     break;
+//                 }
+            $check = Menu::where('priority', $data->menu_type_id)->first();
+            if($check != null){
+                $data->priority=$check->priority;
+                $check->priority= null;
+                $check->save();
+            }
+        }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
@@ -102,7 +118,9 @@ class Menu2Controller extends Controller
      */
     public function show($id)
     {
-        //
+        $menu = Menu::where('parent_menu_id', $id)->paginate(20);
+        $menu1 = Menu::where('parent_menu_id', 0)->get();
+        return view('admin.menu2.show', ['datas' => $menu, 'menu1' => $menu1, 'parent_menu_id' => $id]);
     }
 
     /**

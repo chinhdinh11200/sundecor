@@ -86,15 +86,15 @@
                         </div>
                         <div class="product__detail--ossascomp row">
                             <div class="product__ossascomp--size col-12 col-md-6 d-flex">
-                                <p class="text-center" style="font-weight: 500;">Kích thước :</p>
+                                <p class="text-center" style="font-weight: 500;">Kích thước:</p>
                                 <div class="product__size--code">
-                                    <li class="product__code_a active" onclick="">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="">D900xH550mm</li>
-                                    <li class="product__code_a" onclick="">D900xH550mm</li>
+                                    <li class="product__code_a active" onclick="">D600*H600mm</li>
+                                    <li class="product__code_a" onclick="">D800*H800mm</li>
+                                    <li class="product__code_a" onclick="">D1200*H1200mm</li>
                                 </div>
                             </div>
                             <div class="product__ossascomp--other col-12 col-md-6">
-                                <li style="display: flex;white-space: nowrap;">Chất liệu: <span style="display: flex;white-space: pre-wrap;"> Pha lê K9, hợp kim thép chống gỉ<span></li>
+                                <li class="d-flex">Chất liệu: <span> Pha lê K9, hợp kim thép chống gỉ<span></li>
                                 <li>Màu sắc : Trắng trong pha lê</li>
                                 <li>Tình trạng : Còn hàng</li>
                                 <li>Bảo hành: 10 năm</li>

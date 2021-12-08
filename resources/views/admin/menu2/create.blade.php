@@ -104,14 +104,18 @@
         <label for="exampleInputEmail1">Nội dung trên</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1"></textarea>
           <script>
-              CKEDITOR.replace( 'content_1' );
+              CKEDITOR.replace( 'content_1' , {
+                    width: ['100%'], height: ['500px']
+              });
           </script>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung dưới</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2"></textarea>
           <script>
-              CKEDITOR.replace( 'content_2' );
+              CKEDITOR.replace( 'content_2' , {
+                    width: ['100%'], height: ['500px']
+              });
           </script>
       </div>
       <div class="form-group">

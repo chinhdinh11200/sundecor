@@ -1,14 +1,9 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 .product__detail {
     margin-top: 40px;
 }
 .product__img--select {
-    margin-top: 30px;
-    padding-top: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
 }
 .product__select--image.active {
     border: solid 2px #717171;
@@ -27,10 +22,10 @@
     justify-content: space-between;
 }
 .product__detail--img {
-    width: 40%;
+    width: 35%;
 }
 .product__detail--info{
-    width: 38%;
+    width: 40%;
 }
 .product__detail--staff{
     width: 20%;
@@ -38,7 +33,7 @@
 
 
 .product__detail--image {
-    height: 500px;
+    /* height: 500px; */
 }
 
 .product__detail--img img {
@@ -62,6 +57,7 @@
     font-size: 30px;
     font-weight: bold;
     color: #de2c3b;
+    margin: 0;
 }
 .product__sale--percent {
     display: inline-block;
@@ -150,14 +146,6 @@
     height: 30px;
     width: 40px;
 }
-b {
-    display: block;
-    text-align: center;
-    line-height: 32px;
-    font-family: "Roboto";
-    font-weight: 500;
-    font-size: 13px;
-}
 .product__detail--ad {
     margin-top: 10px;
     color: #333;
@@ -169,48 +157,52 @@ b {
     background-size: 30px 30px;
     margin-left: -epx;
 }
-ul {
-    padding-left: 20px;
-}
-ul li {
-    font-size: 15px;
-    font-weight: 500;
-    padding: 0px;
-    list-style-type: none;
-}
 .product__detail--ossascomp {
-    margin: 30px 0px 30px 0px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
-.product__ossascomp--size {
-    /* display: contents; */
+.product__ossascomp--size p{
+    margin: 0;
+    white-space: nowrap;
+    font-size: 14px;
 }
 .product__size--code {
     font-size: 13px;
     list-style-type: none;
-    display: inline-grid;
+    margin-top: -3px;
+    padding-left: 5px;
 }
 .product__code_a.active {
     border-radius: 30px;
-    line-height: 24px;
-    padding: 0px 24px;
+    padding: 3px 12px;
     background-color: black;
     color: #fff;
 }
 .product__code_a {
-    font-size: 17px;
+    font-size: 14px;
     line-height: 24px;
-    padding: 0px 24px;
+    padding: 0px 12px;
     color: black;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    margin-top: 10px;
 }
-.product__ossascomp--size {
+.product__code_a:first-child{
+    margin-top: 0;
 }
 .product__ossascomp--other li {
-    font-size: 15px;
+    font-size: 14px;
     list-style-type: none;
     color: black;
     line-height: 30px;
-    padding-left: 15px;
     font-weight: 500;
+}
+.product__ossascomp--other li:first-child{
+    white-space: nowrap;
+}
+.product__ossascomp--other li:first-child span{
+    white-space: break-spaces;
 }
 .product__detail--book {
     width: 100%;

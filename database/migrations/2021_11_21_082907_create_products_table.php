@@ -22,8 +22,8 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->text('specifications')->nullable();
-            $table->decimal('sell_price', 10, 3);
-            $table->decimal('sale_price', 10, 3)->nullable();
+            $table->bigInteger('sell_price');
+            $table->bigInteger('sale_price')->nullable();
             $table->string('material')->nullable();
             $table->string('size')->nullable();
             $table->string('guarantee')->nullable();

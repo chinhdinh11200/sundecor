@@ -42,7 +42,7 @@
                                 <tr class="class">
                                     <td>1</td>
                                     <td>name</td>
-                                    <td><img style="width: 150px;" src="https://longnv.name.vn/wp-content/uploads/2019/09/logo4-150x150.png"></td>
+                                    <td><img style="width: 120px; height: 120px; object-fit: cover;" src="https://longnv.name.vn/wp-content/uploads/2019/09/logo4-150x150.png"></td>
                                     <td>mô tả ngắn</td>
                                     <td>mô tả chi tiết ...&ensp;<a href="#">Xem thêm</a></td>
                                     <td>Hiện</td>

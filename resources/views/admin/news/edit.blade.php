@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label for="">Thay đổi ảnh</label><br>
                     <cite>Chọn Ảnh:&ensp;</cite><input type="file" name="image"><br><br>
-                    <img style="width: 150px;" src="{{asset($news->image)}}">
+                    <img style="width: 120px; height: 120px; object-fit: cover;" src="{{asset($news->image)}}">
                 </div>
                 <div class="form-group">
                     <label for="">Mô Tả Ngắn Bài Viết</label>
@@ -31,7 +31,9 @@
                     <label for="">Mô Tả Chi Tiết Bài Viết</label>
                     <textarea style="height: 1200px;" id="moTaChiTiet"  class="form-control" placeholder="Nhập nội dung bài viết" name="content">{!!$news->content!!}</textarea>
                     <script>
-                        CKEDITOR.replace( 'moTaChiTiet' );
+                        CKEDITOR.replace( 'moTaChiTiet' , {
+                    width: ['100%'], height: ['500px']
+              });
                     </script>
                 </div>
                 <div class="form-group">

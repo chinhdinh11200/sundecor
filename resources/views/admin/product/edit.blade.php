@@ -7,7 +7,7 @@
         <!-- /.card-header -->
         <!-- form start -->
 
-        <form role="form" method="post" enctype="multipart/form-data" action="{{route('admin.product.update',['product' => $product])}}">
+        <form role="form" method="post" enctype="multipart/form-data" action="{{route('admin.product.update',['product' => $product->id])}}">
             @csrf
             @method('put')
             <div class="card-body">
@@ -82,7 +82,9 @@
                         {{ $product->content }}
                     </textarea>
                     <script>
-                        CKEDITOR.replace( 'content' );
+                        CKEDITOR.replace( 'content' , {
+                          width: ['100%'], height: ['500px']
+                        });
                     </script>
           {{--        <input type="text" class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content">--}}
                 </div>
@@ -92,7 +94,9 @@
                         {{ $product->specifications }}
                     </textarea>
                     <script>
-                        CKEDITOR.replace( 'specifications' );
+                        CKEDITOR.replace( 'specifications' , {
+                          width: ['100%'], height: ['500px']
+                        });
                     </script>
                 </div>
                 <div class="form-group">

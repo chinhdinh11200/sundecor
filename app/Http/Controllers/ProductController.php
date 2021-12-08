@@ -38,8 +38,12 @@ class ProductController extends Controller
     public function create()
     {
         $menus = Menu::all();
-
-        return view('admin.product.create', ['menus' => $menus]);
+        $menus2 = Menu::where("parent_menu_id","<>",0)
+                        ->where("menu_type_id",2)
+                        ->where("status",1)
+                        ->limit(8)
+                        ->get();
+        return view('admin.product.create', ['menus' => $menus, 'menus2' => $menus2]);
     }
 
     /**
@@ -50,10 +54,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $menus2 = Menu::where("parent_menu_id","<>",0)
+                        ->where("menu_type_id",2)
+                        ->where("status",1)
+                        ->limit(8)
+                        ->get();
         $product_menus = ProductMenu::where('subcategory_id', $request->input('menu_id'))
             ->where('priority', $request->input('priority'))
             ->first();
-        // dd($request);
         if ($product_menus != null) {
             return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
         }
@@ -96,7 +104,6 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->content = $request->input('content');
         $product->specifications = $request->input('specifications');
-        $product->material = $request->input('material');
         $product->is_contact_product = $request->input('is_contact_product');
         $product->is_sale_in_month = $request->input('is_sale_in_month');
         $product->is_hot_product = $request->input('is_hot_product');
@@ -109,12 +116,19 @@ class ProductController extends Controller
             }
         }
 
-
-        $product_menu = new ProductMenu();
-        $product_menu->subcategory_id = $request->input('menu_id');
-        $product_menu->product_id = $product->id;
-        $product_menu->priority = $request->input('priority');
-        $product_menu->save();
+        foreach($menus2 as $menu2):
+            if($request->input('priority'.$menu2->id) != 0){
+                $product_menu = new ProductMenu();
+                $product_menu->product_id = $product->id;
+                $product_menu->subcategory_id = explode("and", $request->input('priority'.$menu2->id))[1];
+                $product_menu->priority = explode("and", $request->input('priority'.$menu2->id))[0];
+                if($request->input('priority'.$menu2->id) == 9){
+                    $product_menu->priority = null;
+                }
+                
+                $product_menu->save();
+            }
+        endforeach;
 
         return redirect()->route('admin.product.index');
     }
