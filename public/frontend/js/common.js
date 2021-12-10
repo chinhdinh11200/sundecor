@@ -8,9 +8,11 @@ $(window).scroll(function() {
 });
 
 $("#to-top").click(function () {
-   $("html, body").animate({scrollTop: 0}, 2000);
+   $("html, body").animate({scrollTop: 0}, 0);
 });
 
+// video youtube
+    $(".made__block--video").css("height",($(".made__block--item").width())*9/16);
 
 // swiper Banner top
 var swiper = new Swiper(".bannerSwiper", {
@@ -136,4 +138,33 @@ function getDirection() {
     $(".product__detail--image").css({
         "height": $('.product__detail--swiper2').width() ,
     })
+
+    
+
+    var x = 0,
+    container = $('.product__showroom--location'),
+    items = container.find('.product__showroom--eachlocation'),
+    containerHeight = 0,
+    numberVisible = 2;
+
+    container.css("height", numberVisible*($('.product__showroom--eachlocation').height()) );
+
+    if(!container.find('.product__showroom--eachlocation:first').hasClass("product__showroom--first")){
+        container.find('.product__showroom--eachlocation:first').addClass("product__showroom--first");
+    }
+
+    items.each(function(){
+        if(x < numberVisible){
+            containerHeight = containerHeight + $(this).outerHeight();
+            x++;
+        }
+    });
+    function vertCycle() {
+        var firstItem = container.find('.product__showroom--eachlocation.product__showroom--first').html();
+        container.append('<div class=\'product__showroom--eachlocation\'>'+firstItem+'</div>');
+        firstItem = '';
+        container.find('.product__showroom--eachlocation.product__showroom--first').animate({ marginTop: "-" + $('.product__showroom--eachlocation').height() + "px" }, 250, function(){  $(this).remove(); container.find('.product__showroom--eachlocation:first').addClass("product__showroom--first"); });
+    }
+
+    setInterval(vertCycle,5000);
 })( jQuery );

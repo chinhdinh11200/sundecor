@@ -19,8 +19,12 @@
 			</div>
 			<div class="header__center--logo"><img src="{{asset('/frontend/images/common/logo.png')}}" alt=""></div>
 			<div class="header__center--option">
-				<div class="header__center--contact">G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div><a href="#">
-					<div class="header__center--cart"></div>
+				<div class="header__center--contact">
+					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
+					<div>G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div>
+				</div>
+				<a href="#">
+					<div class="header__center--cart"><span>3</span></div>
 				</a>
 			</div>
 		</div>
@@ -50,7 +54,7 @@
 	<div class="bottom-fixed">
 		<div class="position-relative">
 			<div class="bottom-fixed__item" id="to-top">
-				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="/assets/image/common/icon-totop.svg" alt=""></div>
+				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="{{asset('/frontend/images/common/icon-totop.svg')}}" alt=""></div>
 			</div>
 		</div>
 	</div>

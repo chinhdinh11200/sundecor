@@ -37,7 +37,7 @@
                             <p>Đèn chùm ITALY - GP00001</p>
                         </div>
                         <div class = "product__detail--price row">
-                            <div class="product__price--sale col-md-6">
+                            <div class="product__price--sale col-md-12">
                                 <div class="product__sale">
                                     <div class="product__sale--label">
                                         Giảm giá
@@ -46,11 +46,13 @@
                                         50%
                                     </div>
                                 </div>
+                            </div>
+                            <div class="product__price--sale col-md-6">
                                 <p>60,000,000 đ</p>
                             </div>
                             <div class="product__price--sell col-md-6">
                                 <div class="product__sell--old">
-                                    Giá gốc : 120,000,000 đ 
+                                    Giá gốc : <span>120,000,000 đ</span>
                                 </div>
                                 <div class="product__sell--save">
                                     Tiết Kiệm : 60,000,000 đ
@@ -60,22 +62,21 @@
                         <div class = "product__detail--order row">
                             <div class="product__order--label col-md-6">
                                 <span>ĐẶT ONLINE GIẢM </span>
-                                <span style = "color : yellow">  300,000</span>
+                                <span style = "color : yellow"> <b>300,000</b></span>
                             </div>
                             <div class="product__order--phone col-md-6">
                                 <form>
                                     @csrf
                                     <input name = "Tel" type = "text" maxlength = "30" id = "Tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
-                                            <div class="product__phone--sent">
-                                                <b>GỬI</b>
-                                            </div>
+                                    <button class="product__phone--sent">
+                                        <b>GỬI</b>
+                                    </button>
                                 </form>
                             </div>
                         </div>
                         <div class="product__detail--ad">
-                        <!-- <i class="fas fa-wallet col-15 col-md-1"></i> -->
-                        <!-- <i class="fas fa-sack-dollar col-15 col-md-1">Dolla</i> -->
-                            <ul>
+                            <img src="{{asset('frontend\images\product_detail\icon-note.png')}}" alt="">
+                            <ul class="product__detail--note">
                                 <li>
                                 Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc 
                                 </li>
@@ -105,24 +106,22 @@
                                 <b >Mua ngay</b>
                                 <i class="fa fa-cart-arrow-down"></i>
                             </a>
-                            <a class = "product__button product__button--black product__book--contact">
+                            <a class="product__button product__button--black product__book--contact" href = "#">
                                 <b >Tư vấn ngay </b>
                                 <i class="fas fa-phone-volume"></i>
                             </a>
                         </div>
                         <div class="product__detail--showroom">
-                            <div class="product_showroom">
-                            <span class=" product_showroom--title "style="color : black">KHÁCH HÀNG</span>
-                            <span class=" product_showroom--sold" style="color : red">ĐÃ MUA</span>
+                            <div class="product__showroom">
+                            <span class=" product__showroom--title "style="color : black">KHÁCH HÀNG</span>
+                            <span class=" product__showroom--sold" style="color : red">ĐÃ MUA</span>
                             </div>
                             <div class="product__showroom--location">
                             <?php for($i = 0; $i<4;$i++){ ?>
-                            <div class="product_showroom--eachlocation">
-                          
-
-                            <i class="fas fa-map-marker-alt"></i>
-                            <li>LK 12 - 41, KĐT An Hưng, Đường Tố Hữu, Q. Hà Đông, TP. Hà Nội</li>     
-                            </div>
+                                <div class="product__showroom--eachlocation">
+                                    <i class="fas fa-check"></i>
+                                    <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>     
+                                </div>
                             <?php } ?> 
                             </div>
                           
@@ -147,8 +146,10 @@
                     </div>
                 </div>
                 <div class="product__detail--description"></div>
+
+                <!-- Your embedded comments code -->
+                <div class="fb-comments" data-href="https://chinh.fun/" data-width="100%" data-numposts="5"></div>
             </div>
-        
         </div>
       
     </section>

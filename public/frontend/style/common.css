@@ -69,7 +69,7 @@ button {
   height: 44px;
   border-radius: 50%;
   background-color: #ff7f00;
-  opacity: 70%;
+  opacity: 100%;
 }
 .bottom-fixed #to-top img {
   width: 50%;
@@ -207,6 +207,8 @@ button {
 .card__product:hover {
   box-shadow: 0 0 6px 0 #a1a1a1;
 }
+
+/* css card__product */
 .voucher__block {
   padding: 40px 140px;
   background-image: url(../images/common/background-voucher.jpg);
@@ -300,4 +302,74 @@ button {
 }
 .breadcrumb__block a{
   color: #000;
+}
+
+/* css service__block */
+.service__block{
+  background-color: #636363;
+  padding: 60px 0;
+}
+.service__block--heading{
+  margin-bottom: 60px;
+  font-size: 40px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-align: center;
+}
+.service__block--top, .service__block--bottom{
+  justify-content: space-between;
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+}
+.service__block--center{
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.service__block--logo{
+  width: 155px;
+  height: 150px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: polygon(8% 25%, 50% 0, 92% 25%, 92% 75%, 50% 100%, 8% 75%);
+  position: relative;
+}
+.service__block--logo::before{
+  content: "";
+  width: 155px;
+  height: 150px;
+  clip-path: polygon(10% 26%, 50% 2%, 90% 26%, 90% 74%, 50% 98%, 10% 74%);
+  position: absolute;
+  top: 0px;
+  background-color: #909090;
+}
+.service__block--logo img{
+  width: 55%;
+  z-index: 2;
+}
+.service__block--item{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px #fff solid;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.5s all;
+}
+.service__block--item:hover{
+  box-shadow: 0px 6px 20px 0px rgb(232 140 48);
+  -webkit-box-shadow: 0px 6px 20px 0px rgb(232 140 48);
+}
+.service__block--name{
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
 }
