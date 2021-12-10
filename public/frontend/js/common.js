@@ -86,7 +86,23 @@ function getDirection() {
 
     return direction;
 }
+// btnSeeMore
 
+
+// test
+$('.footer__text_readMore_btn').click(function(){
+    var $this = $(this);
+    var currentHeight = $('.footer__text_paragraph').css('height');
+    $this.toggleClass('.footer__text_readMore_btn');
+    if($this.hasClass('.footer__text_readMore_btn')){
+        $this.text('See Less');         
+        $(".footer__text_paragraph").height('auto');
+        // $(".footer__text_paragraph::before").display('none'); 
+    } else {
+        $this.text('See More');
+        $(".footer__text_paragraph").height('200px');
+    }
+});
 // time voucher
 (function( $ ){
     var d_voucher = null;
@@ -128,6 +144,7 @@ function getDirection() {
     //     $('.voucher__block--minutes').text(m_voucher);
     //     $('.voucher__block--seconds').text(s_voucher);
     // }, 1000);
+// readMore btn
 
 })( jQuery );
 
