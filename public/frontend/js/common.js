@@ -1,9 +1,9 @@
 
 $(window).scroll(function() {
     if ($(this).scrollTop()) {
-        $('#to-top').fadeIn();
+        $('#to-top').css("opacity","1");
     } else {
-        $('#to-top').fadeOut();
+        $('#to-top').css("opacity","0");
     }
 });
 
@@ -86,23 +86,23 @@ function getDirection() {
 
     return direction;
 }
-// btnSeeMore
-
-
-// test
-$('.footer__text_readMore_btn').click(function(){
-    var $this = $(this);
-    var currentHeight = $('.footer__text_paragraph').css('height');
-    $this.toggleClass('.footer__text_readMore_btn');
-    if($this.hasClass('.footer__text_readMore_btn')){
-        $this.text('See Less');         
-        $(".footer__text_paragraph").height('auto');
-        // $(".footer__text_paragraph::before").display('none'); 
-    } else {
-        $this.text('See More');
-        $(".footer__text_paragraph").height('200px');
-    }
+// textmore__block--content
+if($(".textmore__block .textmore__block--content1 p").height() <= 120){
+    $(".textmore__block--content1 .textmore__block--overlay").css("display","none");
+    $(".textmore__block--content1").css("height","fit-content");
+    $(".textmore__block .textmore__block--button1").css("display","none");
+}
+if($(".textmore__block .textmore__block--content2 p").height() <= 720){
+    $(".textmore__block--content2 .textmore__block--overlay").css("display","none");
+    $(".textmore__block--content2").css("height","fit-content");
+    $(".textmore__block .textmore__block--button2").css("display","none");
+}
+$(".textmore__block .textmore__block--button").click(function () {
+    $(this).closest('.textmore__block').find('.textmore__block--content').css("height",$(this).closest('.textmore__block').find('.textmore__block--content p').height());
+    $(this).closest('.textmore__block').find('.textmore__block--overlay').css("display","none");
+    $(this).css("display","none");
 });
+
 // time voucher
 (function( $ ){
     var d_voucher = null;
@@ -154,6 +154,9 @@ $('.footer__text_readMore_btn').click(function(){
     })
     $(".product__detail--image").css({
         "height": $('.product__detail--swiper2').width() ,
+    })
+    $(".news__block .news__block--img img").css({
+        "height": $('.news__block .news__block--img img').width() ,
     })
 
     

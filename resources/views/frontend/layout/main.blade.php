@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/header.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/top.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
-	<link rel="stylesheet" href="{{asset('frontend/style/compressed.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 </head>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="8eqkFuJn"></script>

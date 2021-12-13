@@ -1,6 +1,6 @@
 <div class="service__block">
-  <a href=""><h2 class="service__block--heading">DỊCH VỤ 5 SAO TẠI MORANI</h2></a>
-  <div class="main-container product__container">
+  <h2 class="service__block--heading">DỊCH VỤ 5 SAO TẠI MORANI</h2>
+  <div class="main-container">
       <div class="service__block--top">
         <a href="#">
           <div class="service__block--item">
@@ -22,7 +22,12 @@
             <h3 class="service__block--name">bảo hành 10 năm</h3>
           </div>
         </a>
-        <a href="#">
+        <a>
+          <div class="service__block--line">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
           <div class="service__block--logo">
             <img src="{{asset('frontend/images/common/logo-white.png')}}" alt="">
           </div>

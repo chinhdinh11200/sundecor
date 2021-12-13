@@ -276,6 +276,7 @@
             @include('frontend.include.construct')
         </div>
         @include('frontend.include.voucher')
+        @include('frontend.include.news')
         @include('frontend.include.service')
     </div>
 @endsection
