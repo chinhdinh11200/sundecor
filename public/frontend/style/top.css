@@ -2,7 +2,10 @@
     height: 400px;
     margin-bottom: 80px;
   }
-  .page-top .banner__block img {
+.page-top .banner__block img {
     object-fit: cover;
     height: 100%;
-  }
+}
+.page-top .bannerSwiper{
+    height: 100%;
+}

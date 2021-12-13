@@ -382,3 +382,74 @@
     z-index: 2;
     margin: 0 auto;
 }
+
+
+.product__detail .product__detail--adviss{
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    margin-right: calc(var(--bs-gutter-x) * .5);
+    margin-left: calc(var(--bs-gutter-x) * .5);
+}
+.product__detail .product__detail--adviss::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 30%;
+    z-index: 1;
+}
+.product__detail .adviss__frame{
+    width: 290px;
+    margin-left: 45px;
+    box-shadow: 0px 0px 20px #ccc;
+    position: relative;
+    z-index: 2;
+}
+.product__detail .adviss__frame--top{
+    font-size: 14px;
+    text-align: center;
+    line-height: 17px;
+    padding: 7px 0;
+    background-color: #ff7f00;
+    color: #fff;
+    font-weight: 500;
+    margin: -3px 0;
+}
+.product__detail .adviss__frame--top span{
+    font-size: 11px;
+    font-weight: 400;
+}
+.product__detail form{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+}
+.product__detail form input, textarea{
+    border: #e7e7e7 1px solid;
+    font-size: 12px;
+    color: #333;
+    background-color: #f2f2f2;
+    padding-left: 10px;
+    font-family: Arial;
+    margin-bottom: 15px;
+}
+.product__detail form input{
+    height: 30px;
+}
+.product__detail form textarea{
+    height: 60px;
+    resize: none;
+}
+.product__detail form button{
+    background-color: #ed0904;
+    border-color: #ed0904;
+    font-size: 14px;
+}
