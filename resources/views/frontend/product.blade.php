@@ -232,6 +232,22 @@
                             </div>
                             <a class="textmore__block--button textmore__block--button2">Xem thêm</a>
                         </div>
+                        <div class="product__detail--adviss" style="background-image: url({{asset('frontend/images/product_detail/background-adviss.jpg')}});">
+                            <div class="adviss__frame">
+                                <div class="adviss__frame--top">
+                                    ĐĂNG KÝ TƯ VẤN<br>
+                                    THÊM VỀ SẢN PHẨM NÀY<br>
+                                    <span>Chỉ dành cho 100 khách hàng đăng ký nhanh nhất</span>
+                                </div>
+                                <form action="">
+                                    @csrf
+                                    <input type="text" placeholder="Họ tên *" maxlength="30" require minlength="2">
+                                    <input type="text" placeholder="Số điện thoại *" require>
+                                    <textarea name="" rows="10" placeholder="Bạn cần tư vấn về điều gì?"></textarea>
+                                    <button class="btn btn-danger">ĐĂNG KÝ NGAY <i class="fas fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="product__detail--right col-12 row">
                         <div class = "product__detail--staff col-12">
@@ -250,22 +266,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="product__detail--description"></div>
-                <div class="product__detail--adviss">
-                    <div class="adviss__frame">
-                        <div class="adviss__frame--top">
-                            ĐĂNG KÝ TƯ VẤN<br>
-                            THÊM VỀ SẢN PHẨM NÀY<br>
-                            <span>Chỉ dành cho 100 khách hàng đăng ký nhanh nhất</span>
-                        </div>
-                        <form action="">
-                            @csrf
-                            <input type="text" placeholder="Họ tên *" maxlength="30" require minlength="2">
-                            <input type="text" placeholder="Số điện thoại *" require>
-                            
-                        </form>
                     </div>
                 </div>
                 <!-- Your embedded comments code -->
