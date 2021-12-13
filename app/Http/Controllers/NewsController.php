@@ -19,7 +19,7 @@ class NewsController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $news = News::paginate(2);
+        $news = News::paginate(8);
         return view('admin.news.index', ['news' => $news, 'menus' => $menus]);
     }
 
@@ -42,20 +42,12 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $name = '';
-        $temp = str_split($request->input('name'));
-        foreach ($temp as $char) {
-            if($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
-        }
         $request->validate([
             'priority' => 'unique:news,priority'
         ]);
 
         if($request->hasFile('image')){
-            $image_url = time() . '-' . $name . '.' . $request->image->extension();
+            $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 
@@ -112,14 +104,6 @@ class NewsController extends Controller
             ]);
         }
 
-        $name = '';
-        $temp = str_split($request->input('name'));
-        foreach ($temp as $char) {
-            if($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
-        }
         $image_url = '';
         if($request->hasFile('image')){
 
@@ -128,7 +112,7 @@ class NewsController extends Controller
                     unlink(public_path('upload/images/news/'). $news->image);
                 }
             }
-            $image_url = $request->image ? time() . '-' . $name . '.' . $request->image->extension() : $news->image;
+            $image_url = $request->image ? time() . $request->image->extension() : $news->image;
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 

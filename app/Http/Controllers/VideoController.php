@@ -38,16 +38,22 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
+        // dd($request);
+        $image_url = "";
+        if($request->hasFile('image')){
+            $image_url = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('upload/images/video'), $image_url);
+        }
 
-        $request->image->move(public_path('upload/images/video'), $image_url);
-        Video::create([
-            'title' => $request->input('title'),
-            'link' => $request->input('link'),
-            'priority' => $request->input('priority'),
-            'status' => $request->input('status'),
-            'image' => $image_url
-        ]);
+        $video = new Video();
+        $video->title = $request->input('title');
+        $video->link = $request->input('link');
+        $video->priority = $request->input('priority');
+        $video->status = $request->input('status');
+        $video->image = $image_url;
+
+        $video->save();
+
         return redirect()->route('admin.video.index');
     }
 
@@ -89,7 +95,7 @@ class VideoController extends Controller
                     unlink(public_path('upload/images/video/'). $video->image);
                 }
             }
-            $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
+            $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/video/'), $image_url);
         }
 
@@ -123,7 +129,10 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         $data = Video::find($video->id);
-        $image_url = public_path('upload/images/video').'/'.$data->image;
+        $image_url = "";
+        if($data->image){
+            $image_url = public_path('upload/images/video').'/'. $data->image;
+        }
         if(File::exists($image_url)){
             unlink($image_url);
         }

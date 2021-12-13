@@ -20,13 +20,13 @@ class CreateMenusTable extends Migration
             $table->string('title');
             $table->string('keyword');
             $table->text('description');
-            $table->text('priority')->nullable();
+            $table->integer('priority')->nullable();
             $table->boolean('status');
             $table->text('content_1');
             $table->text('content_2');
             $table->string('images')->nullable();
             $table->integer('menu_type_id')->unsigned();
-            $table->integer('parent_menu_id')->unsigned();
+            $table->integer('parent_menu_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('menu_type_id')
                     ->references('id')

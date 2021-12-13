@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Supporter extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = ['fullname', 'tel', 'priority', 'status', 'image_url'];
 }

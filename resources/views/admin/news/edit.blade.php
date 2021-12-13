@@ -38,7 +38,17 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Vị trí</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Ví Trị Của Tin Tức" name="priority" value="{{ $news->priority }}">
+                    <select type="text" class="form-control" id="priority" name="priority">
+                        <option value="null">Chọn vị trí</option>
+                        <option value="1" {{ $news->priority == 1 ? "selected" : "" }}>1</option>
+                        <option value="2" {{ $news->priority == 2 ? "selected" : "" }}>2</option>
+                        <option value="3" {{ $news->priority == 3 ? "selected" : "" }}>3</option>
+                        <option value="4" {{ $news->priority == 4 ? "selected" : "" }}>4</option>
+                        <option value="5" {{ $news->priority == 5 ? "selected" : "" }}>5</option>
+                        <option value="6" {{ $news->priority == 6 ? "selected" : "" }}>6</option>
+                        <option value="7" {{ $news->priority == 7 ? "selected" : "" }}>7</option>
+                        <option value="8" {{ $news->priority == 8 ? "selected" : "" }}>8</option>
+                    </select>
                   </div>
                 <div class="form-group">
                     <label for="" >Trạng Thái</label>

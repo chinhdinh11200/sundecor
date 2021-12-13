@@ -18,8 +18,8 @@ class CreateSupportersTable extends Migration
             $table->string('fullname');
             $table->string('tel');
             $table->boolean('status');
-            $table->integer('priority');
-            $table->string('image_url');
+            $table->integer('priority')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone_number');
-            $table->integer('priority');
+            $table->integer('priority')->nullable();
             $table->timestamps();
             $table->foreign('product_id')
                     ->references('id')

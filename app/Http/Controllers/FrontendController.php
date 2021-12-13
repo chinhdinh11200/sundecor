@@ -7,6 +7,7 @@ use App\Models\Menutype;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
+use App\Models\Product;
 
 class FrontendController extends CommonController
 {
@@ -95,7 +96,8 @@ class FrontendController extends CommonController
         // $data_array[2] = SanPham::latest()->paginate(9);
         // $data_array[3] = KhoiLuong::all();
         // return view('frontend.product',['biendata_array'=>$data_array]);
-        return view('frontend.product');
+        $product = Product::find($id);
+        return view('frontend.product')->with('product',$product);
     }
 
     /**

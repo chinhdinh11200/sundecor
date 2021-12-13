@@ -17,9 +17,9 @@ class CreateAdvertisementsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('description');
-            $table->integer('priority');
+            $table->integer('priority')->nullable();
             $table->string('link');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('status');
             $table->integer('advertisement_type_id')->unsigned();
             $table->foreign('advertisement_type_id')

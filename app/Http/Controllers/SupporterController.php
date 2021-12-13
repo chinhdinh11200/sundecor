@@ -41,30 +41,22 @@ class SupporterController extends Controller
         $request->validate([
             'fullname' => 'required|unique:supporters,fullname',
             'tel' => 'required|min:1|max:10',
-            'priority' => 'unique:supporter,priority'
+            'priority' => 'unique:supporters,priority'
         ]);
 
-        $name = '';
-        $temp = str_split($request->input('fullname'));
-        foreach ($temp as $char) {
-            if($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
-        }
         $image_url = '';
         if($request->hasFile('image')){
-            $image_url = time() . '-' . $name . '.' . $request->image->extension();
+            $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/supporter'), $image_url);
         }
 
-        Supporter::create([
-            'fullname' => $request->input('fullname'),
-            'tel' => $request->input('tel'),
-            'priority' => $request->input('priority'),
-            'status' => $request->input('status') == "1" ? true : false,
-            'image' => $image_url
-        ]);
+        $supporter = new Supporter();
+        $supporter->fullname =  $request->input('fullname');
+        $supporter->tel =  $request->input('tel');
+        $supporter->priority =  $request->input('priority');
+        $supporter->status =  $request->input('status');
+        $supporter->image =  $image_url;
+        $supporter->save();
 
         return redirect()->route('admin.supporter.index');
     }
@@ -101,20 +93,10 @@ class SupporterController extends Controller
     public function update(Request $request, Supporter $supporter)
     {
 
-        // fix lại khi tên thay đổi thì lưu ảnh ????????????????
         if($supporter->priority != $request->input('priority')){
             $request->validate([
-                'priority' => 'unique:supporter,priority'
+                'priority' => 'unique:supporters,priority'
             ]);
-        }
-
-        $name = '';
-        $temp = str_split($request->input('fullname'));
-        foreach ($temp as $char) {
-            if($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
         }
 
         $image_url = '';
@@ -124,7 +106,7 @@ class SupporterController extends Controller
                     unlink(public_path('upload/images/supporter/'). $supporter->image);
                 }
             }
-            $image_url = time() . '-' . $name .'.'. $request->image->extension();
+            $image_url = time() . '.'. $request->image->extension();
             $request->image->move(public_path('upload/images/supporter'), $image_url);
         }
 
@@ -158,9 +140,11 @@ class SupporterController extends Controller
     public function destroy(Supporter $supporter)
     {
         $data = Supporter::find($supporter->id);
-        $image_url = public_path('upload/images/supporter').'/'.$data->image;
-        if(File::exists($image_url)){
-            unlink($image_url);
+        if($data->image){
+            $image_url = public_path('upload/images/supporter').'/'.$data->image;
+            if(File::exists($image_url)){
+                unlink($image_url);
+            }
         }
         Supporter::where('id', $supporter->id)->delete();
 

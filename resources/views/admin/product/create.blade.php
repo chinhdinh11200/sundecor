@@ -31,7 +31,7 @@
       <div class="form-group">
         <label for="image">Ảnh Sản Phẩm</label>
         <div id="image">
-        	<cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
+        	<cite>Chọn Ảnh:&ensp;</cite><input type="file" name="image[]" multiple>
         </div>
       </div>
       <div class="form-group">
