@@ -1,0 +1,96 @@
+.category__frame{
+    border: solid 1px #e6e6e6;
+    border-radius: 5px;
+    padding: 0 20px 20px;
+    position: relative;
+    margin: 30px 0 20px 0;
+}
+.category__frame--title{
+    position: absolute;
+    border-bottom: 0;
+    background-color: #fff;
+    top: -14px;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #434343;
+    font-size: 22px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+.category__frame--title::after{
+    margin-left: 10px;
+    content: "\f054";
+    background-color: #ff7f00;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    border-radius: 50%;
+    font-size: 11px;
+}
+.category__frame--list{
+    margin-top: 30px;
+    margin-bottom: -10px;
+}
+.category__frame--item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.category__frame--link{
+    color: #555;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+.category__frame--link:hover{
+    text-decoration: revert;
+    color: #ff7f00;
+}
+   
+.category__frame--item::before{
+    content: "";
+    background-color: #ff7f00;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: block;
+    margin-right: 7px;
+}
+.page-category .page-category__title{
+    margin-bottom: 30px;
+    font-size: 26px;
+    line-height: 40px;
+    position: relative;
+    color: #434343;
+}
+.page-category .page-category__title::after{
+    content: "";
+    position: absolute;
+    height: 3px;
+    left: 0;
+    background-color: #e6e6e6;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+}
+.page-category .page-category__title::before{
+    content: "";
+    position: absolute;
+    height: 3px;
+    left: 0;
+    background-color: #ff7f00;
+    bottom: 0;
+    animation: full-widht 7s 3s ease forwards;
+}
+.page-category .footer__text {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: justify;
+    line-height: 25px;
+    margin-top: 70px;
+}

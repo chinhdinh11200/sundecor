@@ -19,8 +19,12 @@
 			</div>
 			<div class="header__center--logo"><img src="{{asset('/frontend/images/common/logo.png')}}" alt=""></div>
 			<div class="header__center--option">
-				<div class="header__center--contact">G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div><a href="#">
-					<div class="header__center--cart"></div>
+				<div class="header__center--contact">
+					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
+					<div>G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div>
+				</div>
+				<a href="#">
+					<div class="header__center--cart"><span>3</span></div>
 				</a>
 			</div>
 		</div>
@@ -35,7 +39,7 @@
 							<div class="main-container">
 								<div class="row">
 									<?php foreach($menu2 as $mn2): ?>
-										<?php if($mn2->parent_menu_id ==  $main_mn1->id): ?>
+										<?php if($mn2->parent_menu_id == $main_mn1->id): ?>
 											<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">{{$mn2->name}}</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
@@ -49,8 +53,32 @@
 	</div>
 	<div class="bottom-fixed">
 		<div class="position-relative">
+			<div class="bottom-fixed__item" id="bottom-fixed__item--map">
+				<a href="">
+					<div class="to-top__img justify-content-center align-items-center d-flex">
+						<img src="{{asset('/frontend/images/common/icon-map.png')}}" alt="">
+					</div>
+				</a>
+			</div>
+			<div class="bottom-fixed__item" id="bottom-fixed__item--messen">
+				<a href="https://www.facebook.com/messages/t/790775891055345/">
+					<div class="to-top__img justify-content-center align-items-center d-flex">
+						<img src="{{asset('/frontend/images/common/icon-messen.png')}}" alt="">
+					</div>
+				</a>
+			</div>
+			<div class="bottom-fixed__item" id="bottom-fixed__item--zalo">
+				<a href="https://zalo.me/0978285888">
+					<div class="to-top__img justify-content-center align-items-center d-flex">
+						<img src="{{asset('/frontend/images/common/icon-zalo.png')}}" alt="">
+					</div>
+				</a>
+			</div>
 			<div class="bottom-fixed__item" id="to-top">
-				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="/assets/image/common/icon-totop.svg" alt=""></div>
+				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="{{asset('/frontend/images/common/icon-totop.svg')}}" alt=""></div>
+			</div>
+			<div class="bottom-fixed__item" id="bottom-fixed__item--contact">
+				GỬI LIÊN HỆ TỚI CHÚNG TÔI
 			</div>
 		</div>
 	</div>

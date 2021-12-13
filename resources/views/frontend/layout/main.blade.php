@@ -9,10 +9,9 @@
 
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
-	<link rel="shortcut icon" type="image/png" href="{{asset('frontend/images/logo-con.png')}}"/>
+	<link rel="shortcut icon" type="image/png" href="{{asset('frontend/images/common/logo.png')}}"/>
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('frontend/css/animate.css')}}">
-	<link rel="stylesheet" href="{{asset('frontend/css/login/font-awesome.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('frontend/style/animate.css')}}">
 	
 	<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
@@ -24,9 +23,13 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/header.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/top.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
-	<link rel="stylesheet" href="{{asset('frontend/style/compressed.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 </head>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="8eqkFuJn"></script>
 <body id="welcome">
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1319787985150517&autoLogAppEvents=1" nonce="C00eKajK"></script>
 	@include('frontend.layout.header')
 
 	@yield('content')
