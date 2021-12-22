@@ -23,9 +23,16 @@
 					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
 					<div>G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div>
 				</div>
-				<a href="#">
-					<div class="header__center--cart"><span>3</span></div>
-				</a>
+				<form action="{{ route('cart.index') }}" method="GET">
+                    {{-- @csrf --}}
+                    <input type="hidden" name="session_id">
+                    <button  style="border: none!important; background: transparent!important;" type="submit">
+                        <div class="header__center--cart"><span id="cartQuantity">0</span></div>
+                        <script>
+                            // console.log("cccc");
+                        </script>
+                    </button>
+                </form>
 			</div>
 		</div>
 	</div>
@@ -82,4 +89,7 @@
 			</div>
 		</div>
 	</div>
+
+    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('frontend/js/cart.js') }}"></script>
 </header>

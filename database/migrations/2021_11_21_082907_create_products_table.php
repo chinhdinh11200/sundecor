@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->text('specifications')->nullable();
-            $table->bigInteger('sell_price');
+            $table->bigInteger('sell_price')->nullable();
             $table->bigInteger('sale_price')->nullable();
             $table->string('material')->nullable();
             $table->string('size')->nullable();

@@ -82,7 +82,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.cart.index') }}" class="nav-link">
+            <a href="{{ route('admin.bill.index') }}" class="nav-link">
               <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Quản lý giỏ hàng

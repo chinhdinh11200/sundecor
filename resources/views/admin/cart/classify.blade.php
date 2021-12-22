@@ -13,8 +13,8 @@
                 </div>
 
                 <form action="" class="card-option">
-                    <select name="" id="" aria-label="Default select example" class="form-control" onchange="window.location=this.value">
-                        <option value="{{ route('admin.bill.index') }}">---- Chọn trạng thái ----</option>
+                    <select name="" id="" class="form-control" area onchange="window.location=this.value">
+                        <option value="{{ route('admin.bill.index') }}" selected>---- Chọn trạng thái ----</option>
                         <option value="{{ route('admin.bill.classify', 0) }}">Chưa thanh toán</option>
                         <option value="{{ route('admin.bill.classify', 1) }}">Đã thanh toán</option>
                     </select>
@@ -68,28 +68,9 @@
                         </tbody>
                     </table>
 
-                    <form action="{{ route('cart.create') }}" method="POST">
-                        @csrf
-                        <input type="" name="session_id" id="session_id">
-                        <select type="text" name="product_id" >
-                            @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-
-                        <button class="btn btn-primary" type="submit">Cart</button>
-                    </form>
-
-                    {{-- <form action="{{ route('cart.index') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="session_id" id="session_id">
-                        <button class="btn btn-primary" type="submit">View Cart</button>
-                    </form> --}}
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-    <script src="{{ asset('frontend/js/cart.js') }}"></script>
 @endsection

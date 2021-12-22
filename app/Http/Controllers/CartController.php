@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class CartController extends CommonController
 {
@@ -18,11 +19,11 @@ class CartController extends CommonController
      */
     public function index()
     {
-        $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-                                    ->join('products', 'products.id', '=', 'bill_product.product_id')
-                                    ->select('bills.*', 'products.name', 'bill_product.*')
-                                    ->get();
-
+        // $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
+        //     ->join('products', 'products.id', '=', 'bill_product.product_id')
+        //     ->select('bills.*', 'products.name', 'bill_product.*')
+        //     ->get();
+        $carts = ShoppingCart::all();
         return view('admin.cart.index')->with('carts', $carts);
     }
 
@@ -67,10 +68,11 @@ class CartController extends CommonController
     public function edit($id)
     {
         $cart = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-                                    ->join('products', 'products.id', '=', 'bill_product.product_id')
-                                    ->select('bills.*', 'products.name', 'bill_product.*')
-                                    ->where('bill_product.id', $id)
-                                    ->first();
+            ->join('products', 'products.id', '=', 'bill_product.product_id')
+            ->select('bills.*', 'products.name', 'bill_product.*')
+            ->where('bill_product.id', $id)
+            ->first();
+        dd($cart);
         return view('admin.cart.edit', ['cart' => $cart]);
     }
 
@@ -99,25 +101,23 @@ class CartController extends CommonController
 
     public function cart(Request $request)
     {
-        // dd($request);
         $carts = DB::table('shopping_carts')
             ->join('products', 'products.id', '=', 'shopping_carts.product_id')
             ->select('products.*', 'shopping_carts.*')
-            // ->where('session_id', "085ebce9-b690-469d-8325-8707abd35766")
             ->where('session_id', $request->input('session_id'))
             ->get();
-
         // dd($carts);
         $total = 0;
         foreach ($carts as $key => $cart) {
             $total += $cart->quantity * $cart->sell_price;
         }
-        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total);
+        $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
     }
 
     public function cartUpdate(Request $request)
     {
-        dd($request);
+        // dd($request);
         $cart_updates = $request->input("cartUpdate");
 
         foreach ($cart_updates as $key => $cart_update) {
@@ -125,7 +125,11 @@ class CartController extends CommonController
                 ->where('session_id', $request->input("session_id"))
                 ->first();
             if ($cart) {
-                $cart->quantity = $cart_update["quantity"];
+                if($cart_update["quantity"] == 0){
+                    $cart->delete();
+                }else{
+                    $cart->quantity = $cart_update["quantity"];
+                }
                 $cart->update();
             }
         }
@@ -139,15 +143,16 @@ class CartController extends CommonController
         foreach ($carts as $key => $cart) {
             $total += $cart->quantity * $cart->sell_price;
         }
-        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total);
+        $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
     }
 
     public function cartCreate(Request $request)
     {
-        dd($request);
         $shoppingCart = ShoppingCart::where('product_id', $request->input('product_id'))
             ->where('session_id', $request->input('session_id'))
             ->first();
+
         if ($shoppingCart) {
             $quantity = $shoppingCart->quantity  + 1;
             $shoppingCart->quantity = $quantity;        // thêm mới 1 sản phẩm bị trùng
@@ -160,16 +165,37 @@ class CartController extends CommonController
             $cart->status = 0;
             $cart->save();
         }
-        $carts = DB::table('shopping_carts')
-            ->join('products', 'products.id', '=', 'shopping_carts.product_id')
-            ->select('products.*', 'shopping_carts.*')
-            ->where('session_id', $request->input('session_id'))
-            ->get();
+        return redirect()->route('cart.index', ['session_id' => $request->input('session_id')]);
+    }
 
-        $total = 0;
-        foreach ($carts as $key => $cart) {
-            $total += $cart->quantity * $cart->sell_price;
+    public function cartDelete(Request $request)
+    {
+        $cart = ShoppingCart::where('session_id', '=', $request->input('session_id'))
+            ->where('id', '=', $request->input('id'))
+            ->first();
+        if ($cart) {
+            $cart->delete();
         }
-        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total);
+
+        return redirect()->route('cart.index', ['session_id' => $request->input('session_id')]);
+        // $carts = DB::table('shopping_carts')
+        //     ->join('products', 'products.id', '=', 'shopping_carts.product_id')
+        //     ->select('products.*', 'shopping_carts.*')
+        //     ->where('session_id', $request->input('session_id'))
+        //     ->get();
+
+        // $total = 0;
+        // foreach ($carts as $key => $cart) {
+        //     $total += $cart->quantity * $cart->sell_price;
+        // }
+        // $cartQuantity = ShoppingCart::count();
+        // return "ccc";
+        // return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with("cartQuantity", $cartQuantity);
+    }
+
+    public function cartQuantity(Request $request) {
+        $quantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+
+        return $quantity;
     }
 }

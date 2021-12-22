@@ -47,7 +47,7 @@
                                     @foreach ($datas as $data )
                                         <tr class="class">
                                             <?php if($data->images != null){ ?>
-                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/{{ $data->images }}"></td>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="{{ asset('upload/images/menu1/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
                                                 <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../public/frontend/images/common/logo.png"></td>
                                             <?php } ?>

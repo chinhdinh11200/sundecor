@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rules\Exists;
 
@@ -16,7 +17,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::all();
+        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
         return view('admin.video.index')->with('videos', $videos);
     }
 
@@ -39,11 +40,17 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $video_check = Video::where('priority', $request->input('priority'))->first();
+        if($video_check){
+            $video_check->priority = null;
+            $video_check->update();
+        }
         $image_url = "";
         if($request->hasFile('image')){
             $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/video'), $image_url);
         }
+
 
         $video = new Video();
         $video->title = $request->input('title');
@@ -88,6 +95,11 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
+        $video_check = Video::where('priority', $request->input('priority'))->first();
+        if($video_check){
+            $video_check->priority = null;
+            $video_check->update();
+        }
         $image_url = '';
         if($request->hasFile('image')){
             if($video->image) {

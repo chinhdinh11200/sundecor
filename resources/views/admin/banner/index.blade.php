@@ -15,15 +15,15 @@
 
 
                 <div class="card-body">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover text-center">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Hình ảnh</th>
-                                <th>Link</th>
-                                <th>Thứ tự</th>
-                                <th>Trạng thái</th>
-                                <th></th>
+                                <th class="col-1">STT</th>
+                                <th class="col-2">Hình ảnh</th>
+                                <th class="col-6">Link</th>
+                                <th class="col-1">Thứ tự</th>
+                                <th class="col-1">Trạng thái</th>
+                                <th class="col-3"></th>
                             </tr>
                         </thead>
 
@@ -31,17 +31,19 @@
                             @foreach ($slides as $key => $slide)
                                <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td><img src="{{ asset('upload/images/slides') . '/' .  $slide->image  }}" alt="" style="width: 100px"></td>
+                                    <td><img src="{{ asset('upload/images/slides') . '/' .  $slide->image  }}" alt="" style="width: 80px"></td>
                                     <td>{{ $slide->link }}</td>
                                     <td>{{ $slide->priority }}</td>
-                                    <td>{{ $slide->status }}</td>
+                                    <td>{{ $slide->status == 1 ? "Hiển thị" : "Ẩn" }}</td>
                                     <td>
-                                        <a href="{{ route('admin.banner.edit', $slide->id) }}" class="btn btn-primary">sửa</a>
-                                        <form action="{{ route('admin.banner.destroy', $slide->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">xóa</button>
-                                        </form>
+                                       <div class="d-flex justify-content-around">
+                                            <a href="{{ route('admin.banner.edit', $slide->id) }}" class="btn btn-primary">sửa</a>
+                                            <form action="{{ route('admin.banner.destroy', $slide->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">xóa</button>
+                                            </form>
+                                       </div>
                                     </td>
                                </tr>
                             @endforeach

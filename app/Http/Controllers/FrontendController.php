@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
 use App\Models\Product;
+use App\Models\ShoppingCart;
 
 class FrontendController extends CommonController
 {

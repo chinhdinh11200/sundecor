@@ -30,12 +30,12 @@
                                 </thead>
 
                                 <tbody>
-                                    <form action="{{ route('cart.update') }}" method="POST">
-                                        @csrf
-                                        <input type="text" name="session_id" id="session_id">
+                                    {{-- <form action="{{ route('cart.update') }}" method="POST">
+                                        @csrf --}}
+                                        {{-- <input type="hidden" name="session_id" id="session_id"> --}}
                                         @foreach ($carts as $key => $cart )
                                         <tr>
-                                            <input type="text" name="product_id" id="product_id" value="{{ $cart->product_id }}">
+                                            <input type="hidden" name="product_id" id="product_id" value="{{ $cart->product_id }}">
                                             {{-- cập nhật đơn hàng --}}
                                             <input type="hidden" name="cart_id" id="cart_id" value="{{ $cart->id }}">
                                             <td>
@@ -57,23 +57,27 @@
                                                 {{ $cart->sell_price* $cart->quantity }}
                                             </td>
                                             <td>
-                                                {{-- <button type="hidden" class="btn btn-success">Update</button> --}}
-                                                <button class="btn btn-danger">Delete</button>
+                                                <form action="{{ route('cart.delete', $cart->id) }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="session_id" id="session_id">
+                                                    <input type="hidden" name="id" id="id" value="{{ $cart->id }}">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
-
-                                    </form>
+                                    {{-- </form> --}}
                                 </tbody>
                             </table>
+                            <span>Tổng tiền : </span><span class="mt-4" id="total">&ensp;&ensp;&ensp;&ensp;&ensp;{{ $total }} đ</span> <br>
 
-                            <button class="btn btn-success" id="updateCart" >Cập nhật đơn hàng</button>
-                            <span id="total">&ensp;&ensp;&ensp;&ensp;&ensp;{{ $total }}</span>
+                            <button class="btn btn-success mt-4" id="updateCart" >Cập nhật đơn hàng</button>
+
 
                             <div class="mt-4">
                                 <form role="form" action="{{ route("bill.create") }}" method="POST">
                                     @csrf
-                                    <input type="text" name="session_id" id="session_id">
+                                    <input type="hidden" name="session_id" id="session_id">
                                     <div class="form-group">
                                         <label for="">Tên khách hàng</label>
                                         <input type="text" name="fullname" class="form-control">
@@ -104,7 +108,7 @@
 
                                     <div class="form-group mt-4">
                                         <button class="btn btn-success" id="order">Đặt hàng</button>
-                                    <button type="submit" class="btn btn-warning">Mua tiếp</button>
+                                    <button type="button" onclick="getCartQuantity()" class="btn btn-warning">Mua tiếp</button>
                                     </div>
                                 </form>
                             </div>
@@ -115,10 +119,34 @@
         </div>
     </div>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('frontend/js/common.js')}}"></script>
+    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
+    <script>
+        function getCartQuantity() {
+            console.log("test");
+
+            fetch(`/cart_quantity?session_id=222ae80f-b34c-4f06-ad33-189f2e16e4d3`)
+            .then(res => res.json())
+            .then((data) => {
+                $('#cartQuantity').html(data)
+            })
+            // $.ajax({
+            //     method: "GET",
+            //     url: "/cart_quantity",
+            //     data: {
+            //         _token: $('[name=_token]').attr('value'),
+            //         session_id: '222ae80f-b34c-4f06-ad33-189f2e16e4d3',
+            //     },
+            //     dataType: "dataType",
+            //     success: function (response) {
+            //         console.log(response);
+            //         $('#cartQuantity').innerHTML = response
+            //     }
+            // });
+        }
+    </script>
 @endsection
 
 {{-- <script>

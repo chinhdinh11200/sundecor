@@ -50,7 +50,7 @@
                                         <td>{{number_format($product->sale_price, 0, '.' ,',')}}</td>
                                         <td>{{$product->created_at}}</td>
                                         <td><?php echo (1==$product->status?"Hiện":""); ?></td>
-                                        <!-- <td>{{$product->priority}}</td> -->
+                                        {{-- <!-- <td>{{$product->priority}}</td> --> --}}
                                         <td style="opacity: 1">
                                             <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info">Sửa</a>
                                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">

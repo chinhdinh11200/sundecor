@@ -19,16 +19,16 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover text-center">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
-                                    <th>Ảnh</th>
-                                    <th>Tên</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Sắp xếp</th>
-                                    <th>Trạng thái</th>
-                                    <th>Edit</th>
+                                    <th class="col-1">STT</th>
+                                    <th class="col-2">Ảnh</th>
+                                    <th class="col-5">Tên</th>
+                                    <th class="col-2">Số điện thoại</th>
+                                    <th class="col-1">Sắp xếp</th>
+                                    <th class="col-1">Trạng thái</th>
+                                    <th class="col-2">Edit</th>
                                 </tr>
                             </thead>
 

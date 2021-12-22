@@ -15,7 +15,7 @@
                     </div>
 
                     <!-- /.card-option -->
-                    <form action="" class="card-option">
+                    <form action="" class="card-option mb-4">
                         @csrf
                         <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                             <option selected>---- Chọn menu ----</option>
@@ -34,7 +34,7 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th style="width: 120px;">ẢNH Sản Phẩm</th>
+                                <th style="width: 120px;">Ảnh Sản Phẩm</th>
                                 <th>TIÊU ĐỀ</th>
                                 <th>LOẠI MENU</th>
                                 <th style="width: 70px;">VỊ TRÍ</th>
@@ -47,7 +47,7 @@
                                     @foreach ($datas as $data )
                                         <tr class="class">
                                             <?php if($data->images != null){ ?>
-                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/{{ $data->images }}"></td>
+                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="{{ asset('upload/images/menu2/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
                                                 <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/frontend/images/common/logo.png"></td>
                                             <?php } ?>
@@ -56,7 +56,7 @@
                                             <td style="text-align: center;">{{ $data->priority }}</td>
                                             <td style="text-align: center;">{{ $data->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
                                             <td>
-                                                <a href="{{ route('admin.menu2.edit', ['menu2' => $data]) }}" class="btn btn-info">Sửa</a>
+                                                <a href="{{ route('admin.menu2.edit', ['menu2' => $data->id]) }}" class="btn btn-info">Sửa</a>
                                                 <form action="{{ route('admin.menu2.destroy', ['menu2' => $data]) }}" method="POST">
                                                     @csrf
                                                     @method('delete')

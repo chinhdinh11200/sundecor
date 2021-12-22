@@ -2,7 +2,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Sửa {{$product->tenTinTuc}}</h3>
+            <h3 class="card-title">Sửa {{$product->name}}</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -28,7 +28,7 @@
                   <label for="image">Ảnh Sản Phẩm</label>
                   <div id="image">
                       <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
-                        @if ($product->image_1)
+                        {{-- @if ($product->image_1)
                             <img name style="width: 80px" src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="">
                         @endif
                         @if ($product->image_2)
@@ -36,7 +36,7 @@
                         @endif
                         @if ($product->image_3)
                             <img style="width: 80px" src="{{ asset('upload/images/product/'. $product->image_3) }}" alt="">
-                        @endif
+                        @endif --}}
                   </div>
                 </div>
                 <div class="form-group">
@@ -99,29 +99,44 @@
                         });
                     </script>
                 </div>
+
                 <div class="form-group">
-                  <label for="priority">Vị trí</label>
-                  <input type="text" class="form-control" id="priority" placeholder="Ví Trị Của Sản Phẩm" name="priority" value="{{ $product->priority }}">
-                  @if ($errors->any())
-                        <p>{{ $errors->first() }}</p>
-                  @endif
+                    <label for="priority">Nơi hiện</label>
+                    <div class="d-flex">
+                      @foreach($menus2 as $menu2)
+                        {{-- @foreach ($product_menus as $product_menu)
+                            @if ($product_menu->subcategory_id == $menu2->id && $product_menu->product_id == $product->id) --}}
+                                {{$menu2->name}}&ensp;
+                                <select name="priority{{$menu2->id}}">
+                                <option value="0">- vị trí -</option>
+                                @for($i = 1; $i <= 9; $i++)
+                                    <option value="{{$i}}and{{$menu2->id}}"
+                                        <?php
+                                            foreach ($product_menus as $product_menu) {
+                                                //echo $product_menu->subcategory_id.",";
+                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
+                                                    echo "selected";
+                                                    break;
+                                                }
+                                            }
+                                        ?>
+                                    >{{$i == 9 ? "Mặc định" : $i}}</option>
+                                @endfor
+                                {{-- <option value="9and{{$menu2->id}}" {{  }}>Mặc Định</option> --}}
+                                </select>&emsp;&emsp;
+                            {{-- @endif
+                        @endforeach --}}
+                      @endforeach
+                    </div>
                 </div>
+
                 <div class="form-group">
                   <label for="status">Trạng Thái</label>
                   <div>
                       <input type="checkbox"  name="status" value="1" {{ $product->status == 1 ? 'checked' : '' }}> Hiển Thị&emsp;&emsp;&emsp;
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="status">Trạng Thái</label>
-                  <div>
-                      <select name="subcategory_id" id="">
-                          @foreach ($menus as $menu)
-                            <option value="{{ $menu->id }}">{{ $menu->name }}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                </div>
+
               </div>
             <!-- /.card-body -->
 

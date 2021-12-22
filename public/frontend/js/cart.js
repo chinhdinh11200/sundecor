@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+
     function genSession() {
         let session = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -7,8 +8,20 @@ $(document).ready(function() {
           });
         return session;
     }
+    if(localStorage.getItem('session_id')){
+        var session_id = localStorage.getItem('session_id')
+    }else {
+        var session_id = genSession();
+        localStorage.setItem('session_id', session_id);
+    }
 
-    var session_id = localStorage.getItem('session_id') ? localStorage.getItem('session_id') : genSession();
+    console.log(session_id);
+
+    fetch(`/cart_quantity?session_id=${session_id}`)
+            .then(res => res.json())
+            .then((data) => {
+                $('#cartQuantity').html(data)
+            })
 
     const session_ids = document.getElementsByName("session_id")
     session_ids.forEach(element => {
@@ -29,6 +42,7 @@ $(document).ready(function() {
                 cart_id
             })
         });
+        console.log(cartUpdate);
         $.ajax({
             method: "post",
             url: "/cart_update",
@@ -38,43 +52,50 @@ $(document).ready(function() {
                 cartUpdate
             },
             success: function (response) {
-                // location.reload();
+                location.reload();
             }
         });
     });
 
 
-    // $('#order').click(function (e) {
-    //     e.preventDefault();
-    //     // console.log($("[name=session_id]"));
+    $('#order').click(function (e) {
+        // e.preventDefault();
+        localStorage.removeItem('session_id');
+    });
 
-    //     const carts = document.getElementsByName("cart_id");
-    //     console.log($("[name=_token]").attr("value"));
-    //     const bills = [];
-    //     carts.forEach(cart => {
-    //         const cart_id = cart.value;
-    //         const quantity = document.getElementById(`quantity${cart.value}`).value;
-    //         bills.push({
-    //             quantity,
-    //             cart_id
-    //         })
-    //     });
-
-    //     console.log(bills);
-
+    // function getCartQuantity() {
+    //     console.log("test");
     //     $.ajax({
-    //         method: "post",
-    //         url: "/bill_update",
+    //         method: "GET",
+    //         url: "/cart_quantity",
     //         data: {
-    //             _token: $("[name=_token]").attr("value"),
-    //             session_id,
-    //             bills
+    //             session_id: session_id,
     //         },
+    //         dataType: "dataType",
     //         success: function (response) {
-    //             // location.reload();
+    //             console.log(response);
     //         }
     //     });
+    // }
+    // const cartDeletes = document.getElementsByName('cartDelete');
 
-    // });
+    // for (let i = 0; i < cartDeletes.length; i++) {
+    //     $(cartDeletes[i]).click(function (e) {
+    //         $.ajax({
+    //             method: "POST",
+    //             url: "/cart_delete",
+    //             data: {
+    //                 cart_id : $(cartDeletes[i]).attr('data-id'),
+    //                 session_id: session_id,
+    //                 _token: $('[name=_token]').attr('value'),
+    //             },
+    //             dataType: "dataType",
+    //             success: function (response) {
+    //                 console.log(response);
+    //                 location.reload();
+    //             }
+    //         });
+    //     })
+    // }
 })
 

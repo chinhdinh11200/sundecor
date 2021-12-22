@@ -80,7 +80,7 @@
           $('#menu_type_id').change(function() {
             var menu_type_id = $(this).val();
             $.ajax({
-              url: '{{route("admin.menu_type_id")}}/?id='+menu_type_id,
+              url: '{{route("admin.menu_type_id")}}/?id='+menu_type_id+'&parent_menu_id=',
               method: "GET",
               success:function(data){
                 $('#option_parrent').html(data);

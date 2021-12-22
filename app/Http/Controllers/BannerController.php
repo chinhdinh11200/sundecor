@@ -16,7 +16,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $slides = DB::table('slides')->select('slides.*')->orderBy('priority')->get();
+        $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
         // dd($slides);
         return view('admin.banner.index')->with('slides', $slides);
     }
@@ -39,6 +39,11 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        $slide_check = Slide::where('priority', $request->input('priority'))->first();
+        if($slide_check){
+            $slide_check->priority = null;
+            $slide_check->update();
+        }
         $slide = new Slide();
         if($request->hasFile('image')){
             $image = time() . '.' . $request->image->extension();
@@ -87,6 +92,12 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $slide_check = Slide::where('priority', $request->input('priority'))->first();
+        if($slide_check){
+            $slide_check->priority = null;
+            $slide_check->update();
+        }
+
         $slide_update = Slide::find($id);
 
         if($request->hasFile('image')){
@@ -97,7 +108,7 @@ class BannerController extends Controller
             $request->image->move(public_path('upload/images/slides'), $image);
             $slide_update->image = $image;
         }
-        
+
         $slide_update->link = $request->input('link');
         $slide_update->status = $request->input('status');
         $slide_update->priority = $request->input('priority');

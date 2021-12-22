@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supporter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +17,7 @@ class SupporterController extends Controller
      */
     public function index()
     {
-        $supporters = Supporter::select()->orderBy('priority')->paginate(2);
+        $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         return view('admin.supporter.index', ['supporters' => $supporters]);
     }
 
@@ -38,11 +39,11 @@ class SupporterController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fullname' => 'required|unique:supporters,fullname',
-            'tel' => 'required|min:1|max:10',
-            'priority' => 'unique:supporters,priority'
-        ]);
+        $supporter_check = Supporter::where('priority', $request->input('priority'))->first();
+        if($supporter_check){
+            $supporter_check->priority = null;
+            $supporter_check->update();
+        }
 
         $image_url = '';
         if($request->hasFile('image')){
@@ -92,6 +93,11 @@ class SupporterController extends Controller
      */
     public function update(Request $request, Supporter $supporter)
     {
+        $supporter_check = Supporter::where('priority', $request->input('priority'))->first();
+        if($supporter_check){
+            $supporter_check->priority = null;
+            $supporter_check->update();
+        }
 
         if($supporter->priority != $request->input('priority')){
             $request->validate([

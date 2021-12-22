@@ -42,10 +42,14 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'priority' => 'unique:news,priority'
-        ]);
-
+        // dd($request);
+        $new_check = News::where('menu_id', $request->input('menu_id'))
+                            ->where('priority', $request->input('priority'))
+                            ->first();
+        if($new_check){
+            $new_check->priority = null;
+            $new_check->update();
+        }
         if($request->hasFile('image')){
             $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/news'), $image_url);
@@ -57,12 +61,11 @@ class NewsController extends Controller
         $new->description = $request->input('description');
         $new->content = $request->input('content');
         $new->keyword = $request->input('keyword');
-        $new->priority = $request->input('priority');
         $new->status = $request->input('status') ? true : false;
         $new->menu_id = $request->input('menu_id');
+        $new->priority = $request->input('priority');
         $new->image = $image_url;
         $new->save();
-
         return redirect()->route('admin.news.index');
     }
 
@@ -98,15 +101,19 @@ class NewsController extends Controller
      */
     public function update(Request $request,News  $news)
     {
-        if($news->priority != $request->input('priority')){
-            $request->validate([
-                'priority' => 'unique:news,priority'
-            ]);
+        // var_dump($request->input('priority'));
+        // dd($request->input('priority'));
+        $new_check = News::where('menu_id', $request->input('menu_id'))
+                            ->where('priority', $request->input('priority'))
+                            ->first();
+
+        if($new_check){
+            $new_check->priority = null;
+            $new_check->update();
         }
 
         $image_url = '';
         if($request->hasFile('image')){
-
             if($news->image){
                 if(File::exists(public_path('upload/images/news/'). $news->image)){
                     unlink(public_path('upload/images/news/'). $news->image);
@@ -122,7 +129,7 @@ class NewsController extends Controller
         $new->description = $request->input('description');
         $new->content = $request->input('content');
         $new->keyword = $request->input('keyword');
-        $new->priority = $request->input('priority') ? $request->input('priority'): $news->priority;
+        $new->priority = $request->input('priority');
         $new->status = $request->input('status') ? true : false;
         $new->menu_id = $request->input('menu_id');
         if($image_url) {
