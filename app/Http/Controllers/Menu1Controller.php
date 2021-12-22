@@ -18,7 +18,7 @@ class Menu1Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::where('parent_menu_id', 0)->paginate(20);
+        $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
         $menutype = Menutype::all();
         return view('admin.menu1.index', ['datas' => $menu, 'menutype' => $menutype]);
     }
@@ -60,21 +60,24 @@ class Menu1Controller extends Controller
 //                     $check->save();
 //                     break;
 //                 }
-            $check = Menu::where('priority', $data->menu_type_id)->first();
-            if($check != null){
-                $data->priority=$check->priority;
-                $check->priority= null;
-                $check->save();
+            $menu_check = Menu::where('priority', $request->input('priority'))
+                                ->where('menu_type_id', $request->input('menu_type_id'))->first();
+                                dd($menu_check);
+            if($menu_check != null){
+                if($data->id != $menu_check->id){
+                    $menu_check->priority= null;
+                    $menu_check->update();
+                }
             }
         }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '_' . $file->getClientOriginalName();
-            $path_upload = 'upload/anh/';
-            $request->file('images')->move($path_upload, $ten_images);
-            $data->images = $path_upload . $ten_images;
+            $ten_images = time() . '.' . $file->extension();
+            // $path_upload = 'upload/anh/';
+            $request->file('images')->move(public_path('upload/images/menu1'), $ten_images);
+            $data->images = $ten_images;
         }
         $data->parent_menu_id = "0";
         if ($request->has('parent_menu_id')){
@@ -119,7 +122,7 @@ class Menu1Controller extends Controller
         // $menu = Menu::join('product_menu', 'product_menu.product_id', '=', 'products.id')
         //     ->where('products.id', $id)
         //     ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])->first();
-        
+
         $menutype = Menutype::all();
 
         return view('admin.menu1.edit', ['menutype' => $menutype], ['data' => $menus]);
@@ -134,7 +137,8 @@ class Menu1Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Menu::where('id',$id)->first();  
+        // dd($request);
+        $data = Menu::where('id',$id)->first();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
         $data->title = $request->input('title'); //nhận nhập tên loại trong input
         $data->menu_type_id = $request->input('menu_type_id');
@@ -143,22 +147,29 @@ class Menu1Controller extends Controller
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
-            $check = Menu::where('priority', $data->menu_type_id)->first();
-            if($check != null){
-                $data->priority=$check->priority;
-                $check->priority= null;
-                $check->save();
+            $menu_check = Menu::where('priority', $request->input('priority'))
+                                ->where('menu_type_id', $request->input('menu_type_id'))->first();
+            if($menu_check != null){
+                if($data->id != $menu_check->id){
+                    $menu_check->priority= null;
+                    $menu_check->update();
+                }
             }
         }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '_' . $file->getClientOriginalName();
-            $path_upload = 'upload/anh/';
-            $request->file('images')->move($path_upload, $ten_images);
-            $data->images = $path_upload . $ten_images;
+            $ten_images = time() . '.' . $file->extension();
+            if ($data->images) {  // kieemrtra cẩn sửa có ảnh chưa
+                if (File::exists(public_path('upload/images/menu1/') . $data->images)) {
+                    unlink(public_path('upload/images/menu1/') . $data->images);
+                }
+            }
+            $request->file('images')->move(public_path('upload/images/menu1'), $ten_images);
+            $data->images = $ten_images;
         }
+
         $data->parent_menu_id = "0";
         if ($request->has('parent_menu_id')){
             $data->parent_menu_id = $request->input('parent_menu_id');
@@ -175,7 +186,7 @@ class Menu1Controller extends Controller
         $data->status = $status;
         $data->save();
         return redirect()->route('admin.menu1.index'); //điều hướng đến foder category - flie index
-        
+
     }
 
     /**
@@ -188,7 +199,7 @@ class Menu1Controller extends Controller
     {
         $menu = Menu::find($id);
         if ($menu->images) {
-            $image_url1 = public_path('upload/anh/') . $menu->images;
+            $image_url1 = public_path('upload/images/menu1') . $menu->images;
             if (File::exists($image_url1)) {
                 unlink($image_url1);
             }

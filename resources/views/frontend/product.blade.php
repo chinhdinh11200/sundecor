@@ -7,7 +7,7 @@
                     <div class="product__detail--left col-12 row">
                         <div class = "product__detail--img col-12">
                             <div class="swiper product__detail--swiper2" >
-                                <div class="swiper-wrapper">    
+                                <div class="swiper-wrapper">  
                                     <div class = "product__detail--image swiper-slide">
                                         <img src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera" id = "productImg">
                                     </div>
@@ -121,11 +121,11 @@
                                 <?php for($i = 0; $i<4;$i++){ ?>
                                     <div class="product__showroom--eachlocation">
                                         <i class="fas fa-check"></i>
-                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>     
+                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>    
                                     </div>
                                 <?php } ?> 
                                 </div>
-                            </div>
+                                                        </div>
                         </div>
                         <div class="product__detail--heading"><span>Chi tiết sản phẩm</span></div>
                         <div class="textmore__block">
@@ -277,5 +277,4 @@
         @include('frontend.include.service')
     </section>
    
-
 @endsection

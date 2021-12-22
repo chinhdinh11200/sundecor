@@ -23,10 +23,11 @@ class ProductController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $products = DB::table('products')->join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                        ->select('products.*', 'product_menu.priority')
-                        ->orderBy('product_menu.priority')
-                        ->paginate(2);
+        $products = DB::table('products')
+                        // ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                        // ->select('products.*', 'product_menu.priority')
+                        // ->orderBy('product_menu.priority')
+                        ->paginate(8);
         return view('admin.product.index', ['products' => $products])->with('menus', $menus);
     }
 
@@ -43,6 +44,7 @@ class ProductController extends Controller
                         ->where("status",1)
                         ->limit(8)
                         ->get();
+
         return view('admin.product.create', ['menus' => $menus, 'menus2' => $menus2]);
     }
 
@@ -66,26 +68,20 @@ class ProductController extends Controller
             return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
         }
 
-        $name = '';
-        $temp = str_split($request->input('name'));
-        foreach ($temp as $char) {
-            if ($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
-        }
         $imgData = [];
         if ($request->hasfile('image')) {
+            // dd($request);
             foreach ($request->image as $key => $file) {
                 if ($key == 0) {
-                    $image_url = time() . $name . '.' . $file->extension();
+                    $image_url = time() . '.' . $file->extension();
                     $imgData[] = $image_url;
                 } else {
-                    $image_url = time() . $name . '(' . $key . ')' . '.' . $file->extension();
+                    $image_url = time() . '(' . $key . ')' . '.' . $file->extension();
                     $imgData[] = $image_url;
                 }
             }
         }
+
         $product = new Product();
         if ($imgData) {
             foreach ($imgData as $key => $image) {
@@ -122,10 +118,10 @@ class ProductController extends Controller
                 $product_menu->product_id = $product->id;
                 $product_menu->subcategory_id = explode("and", $request->input('priority'.$menu2->id))[1];
                 $product_menu->priority = explode("and", $request->input('priority'.$menu2->id))[0];
-                if($request->input('priority'.$menu2->id) == 9){
+                if(explode("and", $request->input('priority'.$menu2->id))[0] == 9){
                     $product_menu->priority = null;
                 }
-                
+
                 $product_menu->save();
             }
         endforeach;
@@ -154,10 +150,18 @@ class ProductController extends Controller
     {
         $product_edit = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
             ->where('products.id', $id)
-            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])->first();
-        $menus = Menu::all();
-
-        return view('admin.product.edit', ['product' => $product_edit], ['menus' => $menus]);
+            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])
+            ->first();
+        if($product_edit == null){  // update product don't have menu2
+            $product_edit = Product::find($id);
+        }
+            $menus2 = Menu::where("parent_menu_id","<>",0)
+            ->where("menu_type_id",2)
+            ->where("status",1)
+            ->limit(8)
+            ->get();
+        $product_menus = ProductMenu::all();
+        return view('admin.product.edit', ['product' => $product_edit], ['menus2' => $menus2])->with( 'product_menus', $product_menus);
     }
 
     /**
@@ -169,20 +173,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // dd($request);
+        $product_update = Product::find($product->id);
+        $menus2 = Menu::where("parent_menu_id","<>",0)
+                        ->where("menu_type_id",2)
+                        ->where("status",1)
+                        ->get();
         $product_menus = ProductMenu::where('subcategory_id', $request->input('subcategory_id'))
             ->where('priority', $request->input('priority'))
             ->first();
         if ($product_menus && $product_menus->priority != $request->input('priority')) {
             return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
         }
-        $name = '';
-        $temp = str_split($request->input('name'));
-        foreach ($temp as $char) {
-            if ($char == ' ') {
-                $char = '-';
-            }
-            $name .= $char;
-        }
+
         $imgData = [];
         if ($request->hasfile('image')) {
             foreach ($request->image as $key => $file) {
@@ -192,24 +195,38 @@ class ProductController extends Controller
                             unlink(public_path('upload/images/product/'). $product->image_1);
                         }
                     }
-                    $image_url = time() . $name . '.' . $file->extension();
+                    $image_url = time() . '.' . $file->extension();
                     $file->move(public_path('upload/images/product'), $image_url);
                     $imgData[] = $image_url;
                 } else {
                     $name_temp = 'image_' . ($key + 1);
+                    // dd($product->$name_temp);
                     if($product->$name_temp){
+                        // dd((public_path('upload/images/product/') . $product->name_temp));
+                        // dd(File::exists(public_path('upload/images/product/') . $product->$name_temp));
                         if (File::exists(public_path('upload/images/product/') . $product->$name_temp)) {
+                            dd(File::exists(public_path('upload/images/product/') . $product->$name_temp));
                             unlink(public_path('upload/images/product/'). $product->$name_temp);
                         }
                     }
-                    $image_url = time() . $name . '(' . $key . ')' . '.' . $file->extension();
+                    $image_url = time() . '(' . $key . ')' . '.' . $file->extension();
                     $file->move(public_path('upload/images/product'),  $image_url);
                     $imgData[] = $image_url;
                 }
             }
+            $numofImage = count($imgData);
+            for ($i=$numofImage + 1; $i < 4; $i++) {
+                $name_img = 'image_'.$i;
+                if($product_update->$name_img){
+                    if (File::exists(public_path('upload/images/product/') . $product_update->$name_img)) {
+                        unlink(public_path('upload/images/product/'). $product_update->$name_img);
+                    }
+                }
+                $product_update->$name_img = null;
+            }
         }
 
-        $product_update = Product::find($product->id);
+        // dd($product_update);
         if ($imgData) {
             foreach ($imgData as $key => $image) {
                 $name = 'image_' . ($key + 1);
@@ -220,6 +237,7 @@ class ProductController extends Controller
                 }
             }
         }
+
         $product_update->name = $request->input('name');
         $product_update->title = $request->input('title');
         $product_update->code = $request->input('code');
@@ -235,7 +253,47 @@ class ProductController extends Controller
         $product_update->is_contact_product = $request->input('is_contact_product');
         $product_update->is_sale_in_month = $request->input('is_sale_in_month');
         $product_update->is_hot_product = $request->input('is_hot_product');
-        $success = $product_update->update();
+        $product_update->update();
+
+        foreach($menus2 as $menu2):
+            if($request->input('priority'.$menu2->id) != 0){
+
+                // tìm product_menu hiện tại cần update
+                $product_menu_update = ProductMenu::where('product_id', $product_update->id)
+                                                    ->where('subcategory_id', $menu2->id)
+                                                    ->first();
+                if($product_menu_update){
+                    $product_menu = ProductMenu::where('priority', explode("and", $request->input('priority'.$menu2->id))[0])
+                                            ->where('subcategory_id', $menu2->id)
+                                            ->first();
+                    if($product_menu){
+                        $product_menu->priority = null;
+                        $product_menu->update();
+                    }
+
+                    $product_menu_update->subcategory_id = explode("and", $request->input('priority'.$menu2->id))[1];
+                    $product_menu_update->priority = explode("and", $request->input('priority'.$menu2->id))[0];
+                    $product_menu_update->update();
+                }else{
+                    // tạo mới khi mà thêm một menu cho sản phẩm
+                    $product_menu = new ProductMenu();
+                    $product_menu->product_id = $product->id;
+                    $product_menu->subcategory_id = explode("and", $request->input('priority'.$menu2->id))[1];
+                    $product_menu->priority = explode("and", $request->input('priority'.$menu2->id))[0];
+                    if(explode("and", $request->input('priority'.$menu2->id))[0] == 9){
+                        $product_menu->priority = null;
+                    }
+                    $product_menu->save();
+                }
+            }else{
+                $product_menu = ProductMenu::where('product_id', $product->id)
+                                            ->where('subcategory_id', $menu2->id)
+                                            ->first();
+                if($product_menu){
+                    $product_menu->delete();
+                }
+            }
+        endforeach;
         return redirect()->route('admin.product.index');
     }
 
@@ -260,7 +318,7 @@ class ProductController extends Controller
                 unlink($image_url2);
             }
         }
-        if ($product->image_2) {
+        if ($product->image_3) {
             $image_url3 = public_path('upload/images/product/') . $product->image_3;
             if (File::exists($image_url3)) {
                 unlink($image_url3);

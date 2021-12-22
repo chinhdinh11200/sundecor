@@ -48,7 +48,17 @@
         </div>
       <div class="form-group">
         <label for="priority">Vị trí</label>
-        <input type="text" class="form-control" id="priority" placeholder="Ví Trị Của Tin Tức" name="priority">
+        <select type="text" class="form-control" id="priority" name="priority">
+            <option value="null">Chọn vị trí</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="status">Trạng Thái</label>

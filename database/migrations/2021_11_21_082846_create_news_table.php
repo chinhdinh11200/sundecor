@@ -23,7 +23,7 @@ class CreateNewsTable extends Migration
             $table->tinyInteger('priority')->nullable();
             $table->boolean('status');
             $table->text('content');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('menu_id')->unsigned();
             $table->timestamps();
             $table->foreign('menu_id')
