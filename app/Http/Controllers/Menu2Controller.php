@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Menutype;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class Menu2Controller extends Controller
@@ -13,18 +15,24 @@ class Menu2Controller extends Controller
     public function menu_type_id()
     {
         $id = $_GET['id'];
+        $parent_menu_id = $_GET['parent_menu_id'];
+        // dd($menu_id);
         $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', $id)->orderBy('name', 'ASC')->get();  //paginate: PHÂN TRANG
-        ?>
-        <?php if(count($menu1)!=0): ?>
+?>
+        <?php if (count($menu1) != 0) : ?>
             <label for="exampleInputEmail1">Loại menu</label>
             <select type="text" class="form-control" id="parent_menu_id" name="parent_menu_id">
-                <option value="null" >---Chọn menu cha---</option>
-            <?php foreach($menu1 as $mt1): ?>
-                <option value="<?=$mt1->id?>"><?=$mt1->name?></option>
-            <?php endforeach ?>
+                <option value="null">---Chọn menu cha---</option>
+                <?php foreach ($menu1 as $mt1) : ?>
+                    <option value="<?= $mt1->id ?>" <?php
+                                                    if ($parent_menu_id == $mt1->id) {
+                                                        echo "selected";
+                                                    }
+                                                    ?>><?= $mt1->name ?></option>
+                <?php endforeach ?>
             </select>
         <?php endif; ?>
-        <?php
+<?php
     }
     /**
      * Display a listing of the resource.
@@ -33,7 +41,8 @@ class Menu2Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::where('parent_menu_id', "<>",0)->paginate(20);;
+        $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
+        // dd($menu);
         $menu1 = Menu::where('parent_menu_id', 0)->get();
         return view('admin.menu2.index', ['datas' => $menu, 'menu1' => $menu1]);
     }
@@ -67,19 +76,19 @@ class Menu2Controller extends Controller
         $data->content_2 = $request->input('content_2');
         $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
-        if ($request->has('priority')){
-//             $check = Menu::where('id',$data->menu_type_id);
-//             foreach($check as $ch){
-//                 if($data->priority==$ch->priority){
-//                     $data->priority=$ch->priority;
-//                     $ch->priority="null";
-//                     $check->save();
-//                     break;
-//                 }
+        if ($request->has('priority')) {
+            //             $check = Menu::where('id',$data->menu_type_id);
+            //             foreach($check as $ch){
+            //                 if($data->priority==$ch->priority){
+            //                     $data->priority=$ch->priority;
+            //                     $ch->priority="null";
+            //                     $check->save();
+            //                     break;
+            //                 }
             $check = Menu::where('priority', $data->menu_type_id)->first();
-            if($check != null){
-                $data->priority=$check->priority;
-                $check->priority= null;
+            if ($check != null) {
+                $data->priority = $check->priority;
+                $check->priority = null;
                 $check->save();
             }
         }
@@ -87,13 +96,12 @@ class Menu2Controller extends Controller
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '_' . $file->getClientOriginalName();
-            $path_upload = 'upload/anh/';
-            $request->file('images')->move($path_upload, $ten_images);
-            $data->images = $path_upload . $ten_images;
+            $ten_images = time() . '_' . $file->extension();
+            $request->file('images')->move(public_path('upload/images/menu2'), $ten_images);
+            $data->images = $ten_images;
         }
         $data->parent_menu_id = "0";
-        if ($request->has('parent_menu_id')){
+        if ($request->has('parent_menu_id')) {
             $data->parent_menu_id = $request->input('parent_menu_id');
         }
 
@@ -118,7 +126,7 @@ class Menu2Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('parent_menu_id', $id)->paginate(20);
+        $menu = Menu::where('parent_menu_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
         $menu1 = Menu::where('parent_menu_id', 0)->get();
         return view('admin.menu2.show', ['datas' => $menu, 'menu1' => $menu1, 'parent_menu_id' => $id]);
     }
@@ -131,7 +139,11 @@ class Menu2Controller extends Controller
      */
     public function edit($id)
     {
-        //
+        $menu = Menu::find($id);
+        $menus = Menu::all();
+        $menu1 = Menu::where('parent_menu_id', 0);
+        $menutype = Menutype::all();
+        return view('admin.menu2.edit', ['menu1' => $menu1, 'menutype' => $menutype])->with('menus', $menus)->with('menu', $menu);
     }
 
     /**
@@ -143,7 +155,46 @@ class Menu2Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        // dd($request->images);
+        // $menu2 = Menu::find($id);
+
+        $menu_update = Menu::find($id);
+        $image_url = '';
+
+        if ($request->hasFile('images')) { // kiểm tra có up ảnh
+            if ($menu_update->images) {  // kieemrtra cẩn sửa có ảnh chưa
+                if (File::exists(public_path('upload/images/menu2/') . $menu_update->images)) {
+                    unlink(public_path('upload/images/menu2/') . $menu_update->images);
+                }
+            }
+            $image_url = time() . '.' . $request->images->extension();
+            $request->images->move(public_path('upload/images/menu2'), $image_url);
+            $menu_update->images = $image_url;
+        }
+
+        if ($request->has('priority')) {
+            $menu_check = Menu::where('parent_menu_id', $request->input('parent_menu_id'))
+                ->where('priority', $request->input('priority'))->first();
+            if($menu_check){
+                if($menu_check->id != $menu_update->id){
+                    $menu_check->priority = null;
+                    $menu_check->update();
+                }
+            }
+        }
+
+        $menu_update->name = $request->input('name'); //nhận nhập tên loại trong input
+        $menu_update->title = $request->input('title'); //nhận nhập tên loại trong input
+        $menu_update->menu_type_id = $request->input('menu_type_id');
+        $menu_update->content_1 = $request->input('content_1'); //nhận nhập tên loại trong input
+        $menu_update->content_2 = $request->input('content_2');
+        $menu_update->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
+        $menu_update->priority = $request->input('priority');
+
+        $menu_update->update();
+
+        return redirect()->route('admin.menu2.index');
     }
 
     /**
@@ -154,6 +205,17 @@ class Menu2Controller extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $menu = Menu::find($id);
+
+        if($menu->images){
+            if(File::exists(public_path('upload/images/menu2/') . $menu->images)){
+                unlink(public_path('upload/images/menu2/') . $menu->images);
+            }
+        }
+
+        $menu->delete();
+        return redirect()->route('admin.menu2.index');
+
     }
 }

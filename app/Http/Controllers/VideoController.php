@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rules\Exists;
 
@@ -16,7 +17,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::all();
+        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
         return view('admin.video.index')->with('videos', $videos);
     }
 
@@ -38,16 +39,28 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
+        // dd($request);
+        $video_check = Video::where('priority', $request->input('priority'))->first();
+        if($video_check){
+            $video_check->priority = null;
+            $video_check->update();
+        }
+        $image_url = "";
+        if($request->hasFile('image')){
+            $image_url = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('upload/images/video'), $image_url);
+        }
 
-        $request->image->move(public_path('upload/images/video'), $image_url);
-        Video::create([
-            'title' => $request->input('title'),
-            'link' => $request->input('link'),
-            'priority' => $request->input('priority'),
-            'status' => $request->input('status'),
-            'image' => $image_url
-        ]);
+
+        $video = new Video();
+        $video->title = $request->input('title');
+        $video->link = $request->input('link');
+        $video->priority = $request->input('priority');
+        $video->status = $request->input('status');
+        $video->image = $image_url;
+
+        $video->save();
+
         return redirect()->route('admin.video.index');
     }
 
@@ -82,6 +95,11 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
+        $video_check = Video::where('priority', $request->input('priority'))->first();
+        if($video_check){
+            $video_check->priority = null;
+            $video_check->update();
+        }
         $image_url = '';
         if($request->hasFile('image')){
             if($video->image) {
@@ -89,7 +107,7 @@ class VideoController extends Controller
                     unlink(public_path('upload/images/video/'). $video->image);
                 }
             }
-            $image_url = time() . '-' . $request->input('title') .'.'. $request->image->extension();
+            $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/video/'), $image_url);
         }
 
@@ -123,7 +141,10 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         $data = Video::find($video->id);
-        $image_url = public_path('upload/images/video').'/'.$data->image;
+        $image_url = "";
+        if($data->image){
+            $image_url = public_path('upload/images/video').'/'. $data->image;
+        }
         if(File::exists($image_url)){
             unlink($image_url);
         }

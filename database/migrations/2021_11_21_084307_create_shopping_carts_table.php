@@ -18,6 +18,7 @@ class CreateShoppingCartsTable extends Migration
             $table->increments('id');
             $table->string('session_id');
             $table->integer('product_id')->unsigned();
+            $table->integer('status')->nullable();
             $table->integer('quantity');
             $table->timestamps();
             $table->foreign('product_id')

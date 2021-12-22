@@ -17,7 +17,7 @@ class CreateProductMenusTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
-            $table->Integer('priority');
+            $table->Integer('priority')->nullable();
             $table->foreign('subcategory_id')
                     ->references('id')
                     ->on('menus')

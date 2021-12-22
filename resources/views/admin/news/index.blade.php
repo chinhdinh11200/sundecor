@@ -29,14 +29,14 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Tên tin tức</th>
-                                <th>Tiêu đề tin tức</th>
-                                <th>Mô tả ngắn gọn</th>
-                                <th>Mô tả chi tiết</th>
-                                <th>Ưu tiên</th>
-                                <th>Trạng thái</th>
-                                <th>Edit</th>
+                                <th class="col-1">STT</th>
+                                <th class="col-3">Tên tin tức</th>
+                                <th class="col-1">Ảnh</th>
+                                <th class="col-3">Mô tả ngắn gọn</th>
+                                <th class="col-4">Mô tả chi tiết</th>
+                                <th class="col-1">Ưu tiên</th>
+                                <th class="col-1">Trạng thái</th>
+                                <th class="col-2">Edit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -45,7 +45,7 @@
                                         <tr class="class">
                                             <td>{{ $key + 1}}</td>
                                             <td>{{ $new->name }}</td>
-                                            <td><img style="width: 120px; height: 120px; object-fit: cover;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
+                                            <td><img style="width: 80px; object-fit: cover;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
                                             <td>{{ $new->description }}</td>
                                             <td>{{ $new->content }} ...&ensp;<a href="#">Xem thêm</a></td>
                                             <td>

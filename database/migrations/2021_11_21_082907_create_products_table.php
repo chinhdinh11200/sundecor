@@ -22,13 +22,13 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->text('specifications')->nullable();
-            $table->bigInteger('sell_price');
+            $table->bigInteger('sell_price')->nullable();
             $table->bigInteger('sale_price')->nullable();
             $table->string('material')->nullable();
             $table->string('size')->nullable();
             $table->string('guarantee')->nullable();
             $table->boolean('status');
-            $table->boolean('sold_out');   // bán hết
+            $table->boolean('sold_out');
             $table->string('image_1')->nullable();
             $table->string('image_2')->nullable();
             $table->string('image_3')->nullable();

@@ -19,8 +19,8 @@ class CreateBillProductsTable extends Migration
             $table->integer('bill_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('quantity');
-            $table->decimal('sell_price', 10, 3);
-            $table->decimal('sale_price', 10, 3);
+            $table->decimal('sell_price', 10, 3)->nullable();
+            $table->decimal('sale_price', 10, 3)->nullable();
             $table->timestamps();
             $table->foreign('product_id')
                     ->references('id')
