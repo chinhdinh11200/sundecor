@@ -50,7 +50,6 @@
     font-size: 16px;
     text-transform: uppercase;
     margin-bottom: 20px;
-    font-weight: bold;
   }
   #footer .footer__nav--link:hover {
     color: #ff7f00;
@@ -70,5 +69,10 @@
   }
   #footer .footer__banking--img.background-white img {
     width: 80%;
+  }
+  #footer .footer__fanpage{
+    height: 72px;
+    overflow: hidden;
+    margin-bottom: 20px;
   }
   

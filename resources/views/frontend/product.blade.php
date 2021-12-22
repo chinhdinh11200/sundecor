@@ -125,8 +125,6 @@
                                     </div>
                                 <?php } ?> 
                                 </div>
-                            
-                        
                             </div>
                         </div>
                         <div class="product__detail--heading"><span>Chi tiết sản phẩm</span></div>

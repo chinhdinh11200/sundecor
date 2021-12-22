@@ -13,6 +13,7 @@ $("#to-top").click(function () {
 
 // video youtube
     $(".made__block--video").css("height",($(".made__block--item").width())*9/16);
+    $("#footer .footer__video--iframe").css("height",($("#footer .footer__video").width())*9/16);
 
 // swiper Banner top
 var swiper = new Swiper(".bannerSwiper", {
@@ -105,63 +106,22 @@ $(".textmore__block .textmore__block--button").click(function () {
 
 // time voucher
 (function( $ ){
-    // var d_voucher = null;
-    // var h_voucher;
-    // var m_voucher;
-    // var s_voucher;
-    // function start_timte_voucher(){
-    //     if(d_voucher == null){
-    //         d_voucher = 2;
-    //         h_voucher = 23;
-    //         m_voucher = 59;
-    //         s_voucher = 60;
-    //     }
-
-    //     if (h_voucher == -1){
-    //         d_voucher = -1;
-    //         h_voucher = 23;
-    //     }
-    
-    //     if (m_voucher == -1){
-    //         h_voucher -= 1;
-    //         m_voucher = 59;
-    //     }
-
-    //     if (s_voucher == -1){
-    //         m_voucher -= 1;
-    //         s_voucher = 59;
-    //     }
-
-    //     if (d_voucher == -1){
-    //         d_voucher = null;
-    //     }
-    //     s_voucher--;
-    // }
-    // setInterval(function(){
-    //     start_timte_voucher();
-    //     $('.voucher__block--day').text(d_voucher);
-    //     $('.voucher__block--hours').text(h_voucher);
-    //     $('.voucher__block--minutes').text(m_voucher);
-    //     $('.voucher__block--seconds').text(s_voucher);
-    // }, 1000);
-// readMore btn
-    // Set the date we're counting down to
     var time_start = new Date("December 11, 2021 00:00:00").getTime();
 
-    // Update the count down every 1 second
-    // setInterval(function() {
-
-    // Get today's date and time
     var time_now = new Date().getTime();
 
-    // Find the distance between now and the count down date
     var distance = time_now - time_start ;
 
     // Time calculations for days, hours, minutes and seconds
-    var d_voucher = Math.floor(distance / 86400000);
-    var h_voucher = Math.floor((distance % 86400000) / 3600000);
-    var m_voucher = Math.floor(((distance % 86400000) % 3600000) / 60000);
-    var s_voucher = Math.floor(distance % 86400000 % 3600000 % 60000 / 1000);
+    var d_voucher = Math.floor(distance /(86400000*3));
+    var h_voucher = Math.floor((distance % 86400000*3) / 3600000);
+    var m_voucher = Math.floor(((distance % 86400000*3) % 3600000) / 60000);
+    var s_voucher = Math.floor(distance % 86400000*3 % 3600000 % 60000 / 1000);
+    console.log(distance);
+    console.log(d_voucher);
+    console.log(h_voucher);
+    console.log(m_voucher);
+    console.log(s_voucher);
     function start_timte_voucher(){
         if(d_voucher == 3){
             d_voucher = 2;

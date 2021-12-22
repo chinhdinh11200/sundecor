@@ -23,7 +23,7 @@
           <form class="voucher__block--form d-flex flex-column" action="">
             <input class="voucher__block--input" type="text" placeholder="Nhập họ và tên" />
             <input class="voucher__block--input" type="text" placeholder="Nhập số điện thoại" />
-            <input class="voucher__block--input" type="text" placeholder="Nội dung cần cung cấp" />
+            <input class="voucher__block--input" type="text" placeholder="Nội dung cần tư vấn" />
             <button class="voucher__block--button d-flex justify-content-center align-items-center">gửi ngay</button>
           </form>
       </div>
