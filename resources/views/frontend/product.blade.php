@@ -239,13 +239,17 @@
                                     THÊM VỀ SẢN PHẨM NÀY<br>
                                     <span>Chỉ dành cho 100 khách hàng đăng ký nhanh nhất</span>
                                 </div>
-                                <form action="">
+                                <form action="{{ route('promotion.register') }}" method="POST">
                                     @csrf
-                                    <input type="text" placeholder="Họ tên *" maxlength="30" require minlength="2">
-                                    <input type="text" placeholder="Số điện thoại *" require>
-                                    <textarea name="" rows="10" placeholder="Bạn cần tư vấn về điều gì?"></textarea>
-                                    <button class="btn btn-danger">ĐĂNG KÝ NGAY <i class="fas fa-paper-plane"></i></button>
+                                    <input name="fullname" type="text" placeholder="Họ tên *" maxlength="30" require minlength="2">
+                                    <input name="tel" type="text" placeholder="Số điện thoại *" require>
+                                    <textarea name="description" rows="10" placeholder="Bạn cần tư vấn về điều gì?"></textarea>
+                                    <button type="submit" class="btn btn-danger">ĐĂNG KÝ NGAY <i class="fas fa-paper-plane"></i></button>
                                 </form>
+
+                                <script>
+
+                                </script>
                             </div>
                         </div>
                     </div>

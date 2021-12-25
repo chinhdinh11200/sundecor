@@ -10,12 +10,15 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\WebInfoController;
+
 //fontend
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommonlController;
-use App\Models\Product;
 
 /* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- | | Here is where you can register web routes for your application. These | routes are loaded by the RouteServiceProvider within a group which | contains the "web" middleware group. Now create something great! | */
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -34,6 +37,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('cart', CartController::class);
     Route::resource('bill', BillController::class);
     Route::get('classify/{type}', [BillController::class, 'classify'])->name('bill.classify');
+    Route::resource('consultation', ConsultationController::class);
+    Route::resource('promotion', PromotionController::class);
+    Route::resource('webinfo', WebInfoController::class);
 // Route::resource('user', 'UserAdminController');
 
 // Route::post('/user/{id}', 'UserAdminController@update');
@@ -46,6 +52,8 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
     Route::post('cart_delete', [CartController::class, 'cartDelete'])->name('cart.delete');
     Route::get('cart_quantity', [CartController::class, 'cartQuantity'])->name('cart.quantity');
+    Route::post('consultation', [ConsultationController::class, 'registerConsultation'])->name('consultation.register');
+    Route::post('promotion', [PromotionController::class, 'registerPromotion'])->name('promotion.register');
     // Route::post('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('bill_create', [BillController::class, 'billCreate'])->name('bill.create');
     // Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');

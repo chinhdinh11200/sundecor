@@ -15,7 +15,7 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
+            // $table->integer('product_id');
             $table->string('fullname');
             $table->string('tel');
             $table->text('description');
