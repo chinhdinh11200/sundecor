@@ -20,7 +20,7 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.webinfo.index') }}" class="nav-link">
               <i class="nav-icon fas fa-globe-asia"></i>
               <p>
                 Thông tin website
@@ -60,13 +60,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.promotion.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KH khuyễn mãi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.consultation.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KH tư vấn</p>
                 </a>

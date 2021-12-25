@@ -44,6 +44,8 @@
 
 <!-- Main Footer -->
   	@include('admin.layout.footer')
+    @include('sweetalert::alert')
+
 </div>
 <!-- ./wrapper -->
 

@@ -10,12 +10,12 @@
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 	<link rel="shortcut icon" type="image/png" href="{{asset('frontend/images/common/logo.png')}}"/>
-	
+
 	<link rel="stylesheet" type="text/css" href="{{asset('frontend/style/animate.css')}}">
-	
+
 	<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
-	
+
 	<link rel="stylesheet" href="{{asset('frontend/fonts/font-roboto.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/common.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/custom.css')}}">
@@ -35,6 +35,8 @@
 	@yield('content')
 
 	@include('frontend.layout.footer')
+    
+    @include('sweetalert::alert')
 
 	@yield('script')
 </body>

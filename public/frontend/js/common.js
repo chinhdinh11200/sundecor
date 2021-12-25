@@ -53,7 +53,7 @@ var swiper = new Swiper(".product__detail--swiper1", {
     },
   });
 //   swiper-slide-thumb-active
-(function( $ ){ 
+(function( $ ){
     $(".product__select--image").click(function () {
         $(".product__select--image").removeClass("active");
         $(this).addClass("active");
@@ -121,7 +121,7 @@ $(".textmore__block .textmore__block--button").click(function () {
     //         d_voucher = -1;
     //         h_voucher = 23;
     //     }
-    
+
     //     if (m_voucher == -1){
     //         h_voucher -= 1;
     //         m_voucher = 59;
@@ -146,7 +146,7 @@ $(".textmore__block .textmore__block--button").click(function () {
     // }, 1000);
 // readMore btn
     // Set the date we're counting down to
-    var time_start = new Date("December 11, 2021 00:00:00").getTime();
+    var time_start = new Date("December 19, 2021 00:00:00").getTime();
 
     // Update the count down every 1 second
     // setInterval(function() {
@@ -155,8 +155,7 @@ $(".textmore__block .textmore__block--button").click(function () {
     var time_now = new Date().getTime();
 
     // Find the distance between now and the count down date
-    var distance = time_now - time_start ;
-
+    var distance = (86400000 * 3) - (time_now - time_start ) % (86400000 * 3);
     // Time calculations for days, hours, minutes and seconds
     var d_voucher = Math.floor(distance / 86400000);
     var h_voucher = Math.floor((distance % 86400000) / 3600000);
@@ -174,7 +173,7 @@ $(".textmore__block .textmore__block--button").click(function () {
             d_voucher = -1;
             h_voucher = 23;
         }
-    
+
         if (m_voucher == -1){
             h_voucher -= 1;
             m_voucher = 59;
@@ -211,7 +210,7 @@ $(".textmore__block .textmore__block--button").click(function () {
         "height": $('.news__block .news__block--img img').width() ,
     })
 
-    
+
 
     var x = 0,
     container = $('.product__showroom--location'),

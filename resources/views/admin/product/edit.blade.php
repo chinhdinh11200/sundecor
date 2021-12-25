@@ -39,31 +39,32 @@
                         @endif --}}
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="size">Kích Thước</label>
-                  <input type="text" class="form-control" id="size" placeholder="" name="size"
-                  value="{{ $product->size }}">
-                </div>
+                <div class="form-group" >
+                    <label for="size">Kích Thước </label> <br>
+                    <div id="product_size">
+                        @foreach ($product_sizes as $product_size)
+                        <div style="margin-top: 10px">
+                            <input type="text" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
+                            <input type="text" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px" value="{{ $product_size->sell_price }}">
+                            <input type="text" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px" value="{{ $product_size->sale_price }}">
+                        </div>
+                        @endforeach
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
+                  </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Bảo Hành</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="guarantee" value="{{ $product->guarantee }}">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tình Trạng</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name=""
+                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="sold_out"
                   value="{{ $product->sold_out }}">
                 </div>
                 <div class="form-group">
                   <input type="checkbox" id="is_contact_product" name="is_contact_product" value="{{ $product->is_contact_product }}">&emsp;
                   <label for="is_contact_product">Là Sản Phẩm Liên Hệ? </label>
-                </div>
-                <div class="form-group">
-                  <label for="sell_price">Giá Gốc</label>
-                  <input type="text" class="form-control" id="sell_price" placeholder="" name="sell_price" value="{{ $product->sell_price }}">
-                </div>
-                <div class="form-group">
-                  <label for="sale_price">Giá Sale</label>
-                  <input type="text" class="form-control" id="sale_price" placeholder="" name="sale_price" value="{{ $product->sale_price }}">
                 </div>
                 <div class="form-group">
                   <label for="">Loại Sản Phẩm</label>
@@ -145,4 +146,38 @@
             </div>
         </form>
     </div>
+
+    <script>
+        var index = 1;
+        function addProductSize() {
+            const productSize = document.getElementById('product_size');
+            // const s
+            const size = document.createElement("input");
+            // size.setAttribute('name', `size${index}`)
+            size.setAttribute('name', `size[]`)
+            size.setAttribute('type', 'text')
+            size.setAttribute('placeholder', 'Kích thước')
+            size.style.marginRight = "13px";
+            const sell_price = document.createElement("input");
+            // sell_price.setAttribute('name', `sell_price${index}`)
+            sell_price.setAttribute('name', `sell_price[]`)
+            sell_price.setAttribute('type', 'text')
+            sell_price.setAttribute('placeholder', 'Giá gốc')
+            sell_price.style.marginRight = "13px";
+            const sale_price = document.createElement("input");
+            // sale_price.setAttribute('name', `sale_price${index}`)
+            sale_price.setAttribute('name', `sale_price[]`)
+            sale_price.setAttribute('type', 'text')
+            sale_price.setAttribute('placeholder', 'Giá sale')
+            // sale_price.style.marginLeft = "13px";
+            const div = document.createElement('div');
+            div.style.marginTop = "10px"
+            div.appendChild(size);
+            div.appendChild(sell_price);
+            div.appendChild(sale_price);
+            index++;
+
+            productSize.appendChild(div);
+        }
+    </script>
 @endsection
