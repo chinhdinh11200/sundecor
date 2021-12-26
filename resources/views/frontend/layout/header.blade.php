@@ -27,9 +27,7 @@
                     {{-- @csrf --}}
                     <input type="hidden" name="session_id">
                     <button  style="border: none!important; background: transparent!important;" type="submit">
-                        <div class="header__center--cart"><span id="cartQuantity">0</span></div>
-                        
-                    </button>
+                        <div class="header__center--cart"><span id="cartQuantity">0</span></div>                    </button>
                 </form>
 			</div>
 		</div>
@@ -56,56 +54,6 @@
 			</ul>
 		</div>
 	</div>
-	<div class="bottom-fixed" id="bottom-fixed__call">
-		<div class="position-relative">
-			<div class="bottom-fixed__item bottom-fixed__item--call">
-				<a href="">
-					<div class="to-top__img align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/phone.png')}}" alt="">
-						0942.83.77.99
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item bottom-fixed__item--call" id="bottom-fixed__item--call-red">
-				<a href="https://www.facebook.com/messages/t/790775891055345/">
-					<div class="to-top__img align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/phone.png')}}" alt="">
-						0978.285.888
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="bottom-fixed">
-		<div class="position-relative">
-			<div class="bottom-fixed__item" id="bottom-fixed__item--map">
-				<a href="">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-map.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="bottom-fixed__item--messen">
-				<a href="https://www.facebook.com/messages/t/790775891055345/">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-messen.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="bottom-fixed__item--zalo">
-				<a href="https://zalo.me/0978285888">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-zalo.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="to-top">
-				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="{{asset('/frontend/images/common/icon-totop.svg')}}" alt=""></div>
-			</div>
-		</div>
-	</div>
-	<div id="bottom-fixed__item--contact">
-		GỬI LIÊN HỆ TỚI CHÚNG TÔI
-	</div>
+</header>
 	<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{ asset('frontend/js/cart.js') }}"></script>

@@ -20,11 +20,12 @@
         </div>
       </div>
       <div class="voucher__block--right col-12 col-md-5">
-          <form class="voucher__block--form d-flex flex-column" action="">
-            <input class="voucher__block--input" type="text" placeholder="Nhập họ và tên" />
-            <input class="voucher__block--input" type="text" placeholder="Nhập số điện thoại" />
-            <input class="voucher__block--input" type="text" placeholder="Nội dung cần tư vấn" />
-            <button class="voucher__block--button d-flex justify-content-center align-items-center">gửi ngay</button>
+          <form class="voucher__block--form d-flex flex-column" action="{{ route('consultation.register') }}" method="POST">
+            @csrf
+            <input class="voucher__block--input" type="text" placeholder="Nhập họ và tên" name="fullname"/>
+            <input class="voucher__block--input" type="text" placeholder="Nhập số điện thoại" name="tel"/>
+            <input class="voucher__block--input" type="text" placeholder="Nội dung cần cung cấp" name="description"/>
+            <button type="submit" class="voucher__block--button d-flex justify-content-center align-items-center">gửi ngay</button>
           </form>
       </div>
     </div>

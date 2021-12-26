@@ -195,11 +195,12 @@ button {
   margin-bottom: 20px;
 }
 .product__block .product__block--title h2 {
+  font-weight: bold;
   font-size: 36px;
   text-transform: uppercase;
   color: #0e0e0e;
   margin-bottom: -10px;
-  text-shadow: 3px -2px 5px rgba(0, 0, 0, 35%);
+  text-shadow: 2px -1px 3px rgb(0 0 0 / 35%);
 }
 .product__block .product__block--line {
   height: 1px;
@@ -240,11 +241,12 @@ button {
 }
 .made__block .made__block--heading {
   font-size: 28px;
+  font-weight: bold;
   text-transform: uppercase;
   color: #0e0e0e;
   margin-bottom: 20px;
   text-align: center;
-  text-shadow: 3px -2px 5px rgb(0 0 0 / 35%);
+  text-shadow: 1px -1px 3px rgb(0 0 0 / 35%);
 }
 .made__block .made__block--link {
   font-size: 14px;

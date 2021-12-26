@@ -58,6 +58,11 @@
                                 <div class="justify-content-center align-items-center d-flex footer__banking--img"><img src="{{asset('frontend/images/common/img-bank.png')}}" alt=""></div>
                             </a></div>
                     </div>
+                    <div class="footer__bct">
+                        <a href="http://online.gov.vn/Home/WebDetails/39668">
+                            <img src="{{asset('frontend/images/common/img-bct.png')}}" alt="">
+                        </a> 
+                    </div>
                 </div>
                 <div class="col-md-3 footer__col">
                     <div class="footer__fanpage">

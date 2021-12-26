@@ -159,16 +159,16 @@
 }
 #header .header__menu--link {
   text-transform: uppercase;
-  padding: 0 15px;
+  padding: 0 25px;
   color: #fff;
   display: block;
   font-size: 15px;
-  height: 35px;
-  line-height: 35px;
+  height: 50px;
+  line-height: 50px;
 }
 #header .header__submenu--list{
   position: absolute;
-  top:  35px;
+  top:  50px;
   width: 100%;
   left: 0;
   background-color: #fff;

@@ -60,6 +60,9 @@
   #footer .footer__social-network--item {
     width: 20%;
   }
+  #footer .footer__banking{
+    margin-bottom: 20px;
+  }
   #footer .footer__banking a {
     height: 100%;
   }
@@ -69,6 +72,13 @@
   }
   #footer .footer__banking--img.background-white img {
     width: 80%;
+  }
+  #footer .footer__bct{
+    text-align: center;
+  }
+  #footer .footer__bct img{
+    width: 160px;
+    height: 60px;
   }
   #footer .footer__fanpage{
     height: 72px;

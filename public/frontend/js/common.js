@@ -54,7 +54,7 @@ var swiper = new Swiper(".product__detail--swiper1", {
     },
   });
 //   swiper-slide-thumb-active
-(function( $ ){ 
+(function( $ ){
     $(".product__select--image").click(function () {
         $(".product__select--image").removeClass("active");
         $(this).addClass("active");
@@ -106,23 +106,17 @@ $(".textmore__block .textmore__block--button").click(function () {
 
 // time voucher
 (function( $ ){
-    var time_start = new Date("December 11, 2021 00:00:00").getTime();
+    
+    var time_start = new Date("December 19, 2021 00:00:00").getTime();
 
     var time_now = new Date().getTime();
 
-    var distance = time_now - time_start ;
-
-    var timte = distance % 86400000*3
+    var distance = (86400000 * 3) - (time_now - time_start ) % (86400000 * 3);
     // Time calculations for days, hours, minutes and seconds
-    var d_voucher = Math.floor(distance %(86400000*3));
-    var h_voucher = Math.floor((distance % 86400000*3) / 3600000);
-    var m_voucher = Math.floor(((distance % 86400000*3) % 3600000) / 60000);
-    var s_voucher = Math.floor(distance % 86400000*3 % 3600000 % 60000 / 1000);
-    console.log(distance);
-    console.log(d_voucher);
-    console.log(h_voucher);
-    console.log(m_voucher);
-    console.log(s_voucher);
+    var d_voucher = Math.floor(distance / 86400000);
+    var h_voucher = Math.floor((distance % 86400000) / 3600000);
+    var m_voucher = Math.floor(((distance % 86400000) % 3600000) / 60000);
+    var s_voucher = Math.floor(distance % 86400000 % 3600000 % 60000 / 1000);
     function start_timte_voucher(){
         if(d_voucher == 3){
             d_voucher = 2;
@@ -172,7 +166,7 @@ $(".textmore__block .textmore__block--button").click(function () {
         "height": $('.news__block .news__block--img img').width() ,
     })
 
-    
+
 
     var x = 0,
     container = $('.product__showroom--location'),
