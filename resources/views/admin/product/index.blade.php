@@ -32,8 +32,8 @@
                                 <th>Tên</th>
                                 <th>Ảnh</th>
                                 <th>Tiêu đề</th>
-                                <th>Giá gốc</th>
-                                <th>Giá sale</th>
+                                {{-- <th>Giá gốc</th>
+                                <th>Giá sale</th> --}}
                                 <th style="width: 70px;">Ngày up</th>
                                 <th style="width: 100px;">Trạng thái</th>
                                 <!-- <th>vị trí</th> -->
@@ -46,8 +46,8 @@
                                         <td>{{$product->name}}</td>
                                         <td><img style="width: 80px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
                                         <td>{{$product->title}}</td>
-                                        <td>{{number_format($product->sell_price, 0, '.' ,',')}}</td>
-                                        <td>{{number_format($product->sale_price, 0, '.' ,',')}}</td>
+                                        {{-- <td>{{number_format($product->sell_price, 0, '.' ,',')}}</td>
+                                        <td>{{number_format($product->sale_price, 0, '.' ,',')}}</td> --}}
                                         <td>{{$product->created_at}}</td>
                                         <td><?php echo (1==$product->status?"Hiện":""); ?></td>
                                         {{-- <!-- <td>{{$product->priority}}</td> --> --}}

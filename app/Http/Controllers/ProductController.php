@@ -57,9 +57,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-        // dd($request->input('sell_price')[0]);
-        // dd($request);
         $menus2 = Menu::where("parent_menu_id","<>",0)
                         ->where("menu_type_id",2)
                         ->where("status",1)
@@ -68,9 +65,6 @@ class ProductController extends Controller
         // $product_menus = ProductMenu::where('subcategory_id', $request->input('menu_id'))
         //     ->where('priority', $request->input('priority'))
         //     ->first();
-        // if ($product_menus != null) {
-        //     return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
-        // }
 
         $imgData = [];
         if ($request->hasfile('image')) {
@@ -121,13 +115,15 @@ class ProductController extends Controller
                 $file->move(public_path('upload/images/product'), $imgData[$key]);
             }
         }
-        // dd($request->input('sell_price'));
+
         foreach ($request->input('size') as $key => $value) {
             $product_size = new ProductSize();
             $product_size->product_id = $product->id;
             $product_size->size = $value;
-            $product_size->sell_price = $request->input('sell_price')[$key];
-            $product_size->sale_price = $request->input('sale_price')[$key];
+            if(!$request->input('is_contact_product')){
+                $product_size->sell_price = $request->input('sell_price')[$key];
+                $product_size->sale_price = $request->input('sale_price')[$key];
+            }
             $product_size->save();
         };
 
@@ -179,8 +175,10 @@ class ProductController extends Controller
     {
         $product_edit = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
             ->where('products.id', $id)
-            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])
+            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])
             ->first();
+
+            // dd($product_edit);
         if($product_edit == null){  // update product don't have menu2
             $product_edit = Product::find($id);
         }
@@ -191,7 +189,6 @@ class ProductController extends Controller
             ->get();
         $product_menus = ProductMenu::all();
         $product_sizes = ProductSize::where('product_id', $id)->get();
-        // dd($product_sizes);
         return view('admin.product.edit', ['product' => $product_edit], ['menus2' => $menus2])->with( 'product_menus', $product_menus)->with( 'product_sizes', $product_sizes);
     }
 
@@ -210,12 +207,12 @@ class ProductController extends Controller
                         ->where("menu_type_id",2)
                         ->where("status",1)
                         ->get();
-        $product_menus = ProductMenu::where('subcategory_id', $request->input('subcategory_id'))
-            ->where('priority', $request->input('priority'))
-            ->first();
-        if ($product_menus && $product_menus->priority != $request->input('priority')) {
-            return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
-        }
+        // $product_menus = ProductMenu::where('subcategory_id', $request->input('subcategory_id'))
+        //     ->where('priority', $request->input('priority'))
+        //     ->first();
+        // if ($product_menus && $product_menus->priority != $request->input('priority')) {
+        //     return redirect()->back()->withErrors(['error' => 'Thứ tự ưu tiên đã tồn tại']);
+        // }
 
         $imgData = [];
         if ($request->hasfile('image')) {
@@ -278,14 +275,33 @@ class ProductController extends Controller
         $product_update->is_hot_product = $request->input('is_hot_product');
         $product_update->sold_out = $request->input('sold_out');
         $product_update->update();
+
         $product_sizes = ProductSize::where('product_id', $product->id)->get();
-        foreach ($product_sizes as $key => $product_size) {
-            $product_size->product_id = $product->id;
-            $product_size->size = $request->input('size')[$key];
-            $product_size->sell_price = $request->input('sell_price')[$key];
-            $product_size->sale_price = $request->input('sale_price')[$key];
-            $product_size->update();
-        };
+        if(count($request->input('size')) > count($product_sizes)){
+            foreach ($product_sizes as $key => $product_size) {
+                $product_size->product_id = $product->id;
+                $product_size->size = $request->input('size')[$key];
+                if(!$request->input('is_contact_product')){
+                    $product_size->sell_price = $request->input('sell_price')[$key];
+                    $product_size->sale_price = $request->input('sale_price')[$key];
+                }
+                $product_size->update();
+            };
+            for ($i= count($product_sizes); $i < count($request->input('size')); $i++) {
+                $product_size = new ProductSize();
+                $product_size->product_id = $product->id;
+                $product_size->size = $request->input('size')[$i];
+                if(!$request->input('is_contact_product')){
+                    $product_size->sell_price = $request->input('sell_price')[$i];
+                    $product_size->sale_price = $request->input('sale_price')[$i];
+                }
+                $product_size->save();
+            }
+        }else {
+            for ($i= count($request->input('size')) ; $i < count($product_sizes); $i++) {
+                $product_sizes[$i] -> delete();
+            }
+        }
 
         foreach($menus2 as $menu2):
             if($request->input('priority'.$menu2->id) != 0){

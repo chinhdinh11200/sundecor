@@ -39,19 +39,24 @@
                         @endif --}}
                   </div>
                 </div>
+                <div class="form-group">
+                    <input onchange="isContactProduct()" type="checkbox" id="is_contact_product" name="is_contact_product" {{ $product->is_contact_product == 1 ? "checked" : '' }} value="{{ $product->is_contact_product }}">&emsp;
+                    <label for="is_contact_product">Là Sản Phẩm Liên Hệ? </label>
+                  </div>
                 <div class="form-group" >
                     <label for="size">Kích Thước </label> <br>
                     <div id="product_size">
                         @foreach ($product_sizes as $product_size)
                         <div style="margin-top: 10px">
-                            <input type="text" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
-                            <input type="text" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px" value="{{ $product_size->sell_price }}">
-                            <input type="text" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px" value="{{ $product_size->sale_price }}">
+                            <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
+                            <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
+                            <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
                         </div>
                         @endforeach
                     </div>
                     <br>
                     <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
+                    <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="subProductSize()">-</button>
                   </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Bảo Hành</label>
@@ -61,10 +66,6 @@
                   <label for="exampleInputEmail1">Tình Trạng</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="sold_out"
                   value="{{ $product->sold_out }}">
-                </div>
-                <div class="form-group">
-                  <input type="checkbox" id="is_contact_product" name="is_contact_product" value="{{ $product->is_contact_product }}">&emsp;
-                  <label for="is_contact_product">Là Sản Phẩm Liên Hệ? </label>
                 </div>
                 <div class="form-group">
                   <label for="">Loại Sản Phẩm</label>
@@ -79,19 +80,19 @@
                 </div>
                 <div class="form-group">
                   <label for="content">Mô Tả Chi Tiết</label>
-                    <textarea class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content">
+                    <textarea class="form-control" id="content" name="content">
                         {{ $product->content }}
                     </textarea>
                     <script>
                         CKEDITOR.replace( 'content' , {
                           width: ['100%'], height: ['500px']
                         });
+
                     </script>
-          {{--        <input type="text" class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content">--}}
                 </div>
                 <div class="form-group">
                   <label for="specifications">Thông Số Kỹ Thuật</label>
-                    <textarea class="form-control" id="specifications" placeholder="Mô Tả Chi Tiết" name="specifications" >
+                    <textarea class="form-control" id="specifications" name="specifications" >
                         {{ $product->specifications }}
                     </textarea>
                     <script>
@@ -148,36 +149,77 @@
     </div>
 
     <script>
-        var index = 1;
         function addProductSize() {
             const productSize = document.getElementById('product_size');
-            // const s
             const size = document.createElement("input");
-            // size.setAttribute('name', `size${index}`)
             size.setAttribute('name', `size[]`)
             size.setAttribute('type', 'text')
             size.setAttribute('placeholder', 'Kích thước')
             size.style.marginRight = "13px";
             const sell_price = document.createElement("input");
-            // sell_price.setAttribute('name', `sell_price${index}`)
             sell_price.setAttribute('name', `sell_price[]`)
+            sell_price.setAttribute('class', `sell_price`)
             sell_price.setAttribute('type', 'text')
             sell_price.setAttribute('placeholder', 'Giá gốc')
             sell_price.style.marginRight = "13px";
             const sale_price = document.createElement("input");
-            // sale_price.setAttribute('name', `sale_price${index}`)
             sale_price.setAttribute('name', `sale_price[]`)
+            sale_price.setAttribute('class', `sale_price`)
             sale_price.setAttribute('type', 'text')
             sale_price.setAttribute('placeholder', 'Giá sale')
-            // sale_price.style.marginLeft = "13px";
             const div = document.createElement('div');
             div.style.marginTop = "10px"
             div.appendChild(size);
             div.appendChild(sell_price);
             div.appendChild(sale_price);
-            index++;
-
             productSize.appendChild(div);
+
+            const contactProduct = document.getElementById('is_contact_product')
+            if(contactProduct.checked){
+                const sell = document.querySelectorAll('.sell_price');
+                const sale = document.querySelectorAll('.sale_price');
+                for (let i = 0; i < sell.length; i++) {
+                    sell[i].style.display = "none";
+                    sale[i].style.display = "none";
+                }
+                console.log(sale, sell);
+            }else {
+                const sell = document.querySelectorAll('.sell_price');
+                const sale = document.querySelectorAll('.sale_price');
+                for (let i = 0; i < sell.length; i++) {
+                    sell[i].style.display = "inline-block";
+                    sale[i].style.display = "inline-block";
+                }
+            }
+        }
+
+        function isContactProduct() {
+            const contactProduct = document.getElementById('is_contact_product')
+            if(contactProduct.checked){
+                const sell = document.querySelectorAll('.sell_price');
+                const sale = document.querySelectorAll('.sale_price');
+                for (let i = 0; i < sell.length; i++) {
+                    sell[i].style.display = "none";
+                    sale[i].style.display = "none";
+                }
+                console.log(sale, sell);
+            }else {
+                const sell = document.querySelectorAll('.sell_price');
+                const sale = document.querySelectorAll('.sale_price');
+                for (let i = 0; i < sell.length; i++) {
+                    sell[i].style.display = "inline-block";
+                    sale[i].style.display = "inline-block";
+                }
+            }
+        }
+
+        function subProductSize() {
+            const productSizes = document.querySelectorAll('#product_size div');
+            const lastChild = productSizes.length - 1;
+            if(lastChild != 0){
+                console.log(productSizes[lastChild]);
+                productSizes[lastChild].remove();
+            }
         }
     </script>
 @endsection
