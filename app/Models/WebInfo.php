@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WebInfo extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['receiveEmail','tel','hotline','facebook','reason','promotion','address','tutorial'];
 }
