@@ -112,8 +112,9 @@ $(".textmore__block .textmore__block--button").click(function () {
 
     var distance = time_now - time_start ;
 
+    var timte = distance % 86400000*3
     // Time calculations for days, hours, minutes and seconds
-    var d_voucher = Math.floor(distance /(86400000*3));
+    var d_voucher = Math.floor(distance %(86400000*3));
     var h_voucher = Math.floor((distance % 86400000*3) / 3600000);
     var m_voucher = Math.floor(((distance % 86400000*3) % 3600000) / 60000);
     var s_voucher = Math.floor(distance % 86400000*3 % 3600000 % 60000 / 1000);
