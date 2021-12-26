@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WebInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WebInfoController extends Controller
 {
@@ -14,6 +15,10 @@ class WebInfoController extends Controller
      */
     public function index()
     {
+        $webInfo = WebInfo::first();
+        if($webInfo) {
+            return view('admin.admin')->with('webInfo', $webInfo);
+        }
         return view('admin.admin');
     }
 
@@ -35,7 +40,34 @@ class WebInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $webInfo = WebInfo::first();
+        if($webInfo){
+            DB::table('web_infos')
+                ->where('id', $webInfo->id)
+                ->update([
+                'receiveEmail' => $request->input('receiveEmail'),
+                'tel' => $request->input('tel'),
+                'hotline' => $request->input('hotline'),
+                'facebook' => $request->input('facebook'),
+                'reason' => $request->input('reason'),
+                'promotion' => $request->input('promotion'),
+                'tutorial' => $request->input('tutorial'),
+                'address' => $request->input('address'),
+            ]);
+        }else {
+            DB::table('web_infos')->insert([
+                'receiveEmail' => $request->input('receiveEmail'),
+                'tel' => $request->input('tel'),
+                'hotline' => $request->input('hotline'),
+                'facebook' => $request->input('facebook'),
+                'reason' => $request->input('reason'),
+                'promotion' => $request->input('promotion'),
+                'tutorial' => $request->input('tutorial'),
+                'address' => $request->input('address'),
+            ]);
+        }
+        return redirect()->route('admin.webinfo.index');
     }
 
     /**

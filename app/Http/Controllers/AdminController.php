@@ -4,17 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menutype;
+use App\Models\WebInfo;
 
 class AdminController extends Controller
-{   
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function index()
     {
+        $webInfo = WebInfo::first();
+        if($webInfo) {
+            return view('admin.admin')->with('webInfo', $webInfo);
+        }
         return view('admin.admin');
     }
 
