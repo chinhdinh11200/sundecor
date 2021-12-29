@@ -7,6 +7,10 @@
             @method('put')
             <div class="card-body">
                 <div class="form-group">
+                    <label for=""><Title></Title></label>
+                    <input type="text" name="title" class="form-control" value="{{ $slide->title }}">
+                </div>
+                <div class="form-group">
                     <label for="">Link</label>
                     <input type="text" name="link" class="form-control" value="{{ $slide->link }}">
                 </div>
@@ -20,14 +24,14 @@
                     <label for="">Vị trí</label>
                     <select type="text" name="priority" class="form-control">
                         <option value="{{ null }}">Chọn vị trí</option>
-                        <option value="1" {{ $slide->id == 1 ? "selected" : '' }}>1</option>
-                        <option value="2" {{ $slide->id == 2 ? "selected" : '' }}>2</option>
-                        <option value="3" {{ $slide->id == 3 ? "selected" : '' }}>3</option>
-                        <option value="4" {{ $slide->id == 4 ? "selected" : '' }}>4</option>
-                        <option value="5" {{ $slide->id == 5 ? "selected" : '' }}>5</option>
-                        <option value="6" {{ $slide->id == 6 ? "selected" : '' }}>6</option>
-                        <option value="7" {{ $slide->id == 7 ? "selected" : '' }}>7</option>
-                        <option value="8" {{ $slide->id == 8 ? "selected" : '' }}>8</option>
+                        <option value="1" {{ $slide->priority == 1 ? "selected" : '' }}>1</option>
+                        <option value="2" {{ $slide->priority == 2 ? "selected" : '' }}>2</option>
+                        <option value="3" {{ $slide->priority == 3 ? "selected" : '' }}>3</option>
+                        <option value="4" {{ $slide->priority == 4 ? "selected" : '' }}>4</option>
+                        <option value="5" {{ $slide->priority == 5 ? "selected" : '' }}>5</option>
+                        <option value="6" {{ $slide->priority == 6 ? "selected" : '' }}>6</option>
+                        <option value="7" {{ $slide->priority == 7 ? "selected" : '' }}>7</option>
+                        <option value="8" {{ $slide->priority == 8 ? "selected" : '' }}>8</option>
                     </select>
                 </div>
                 <div class="form-group">

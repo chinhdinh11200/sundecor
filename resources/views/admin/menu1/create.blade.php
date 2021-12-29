@@ -30,6 +30,7 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
+            <option value="null">--Chọn vị trí--</option>
             @for($i = 1; $i < 9; $i++)
               <option value="{{$i}}">{{$i}}</option>
             @endfor

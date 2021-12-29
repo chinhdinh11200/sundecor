@@ -74,7 +74,8 @@ class Menu2Controller extends Controller
         $data->menu_type_id = $request->input('menu_type_id');
         $data->content_1 = $request->input('content_1'); //nhận nhập tên loại trong input
         $data->content_2 = $request->input('content_2');
-        $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
+        $data->slug = Str::slug($request->input('name')). '.html'; //nhận nhập tên loại trong input
+        $data->keyword = $request->input('keyword'); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')) {
             //             $check = Menu::where('id',$data->menu_type_id);
@@ -96,7 +97,7 @@ class Menu2Controller extends Controller
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '_' . $file->extension();
+            $ten_images = time() . '.' . $file->extension();
             $request->file('images')->move(public_path('upload/images/menu2'), $ten_images);
             $data->images = $ten_images;
         }
@@ -189,7 +190,8 @@ class Menu2Controller extends Controller
         $menu_update->menu_type_id = $request->input('menu_type_id');
         $menu_update->content_1 = $request->input('content_1'); //nhận nhập tên loại trong input
         $menu_update->content_2 = $request->input('content_2');
-        $menu_update->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
+        $menu_update->slug = Str::slug($request->input('name')). '.html'; //nhận nhập tên loại trong input
+        $menu_update->keyword = $request->input('keyword'); //nhận nhập tên loại trong input
         $menu_update->priority = $request->input('priority');
 
         $menu_update->update();

@@ -2,7 +2,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Sửa {{$product->name}}</h3>
+            {{-- <h3 class="card-title">Sửa {{$product->name}}</h3> --}}
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -46,13 +46,21 @@
                 <div class="form-group" >
                     <label for="size">Kích Thước </label> <br>
                     <div id="product_size">
-                        @foreach ($product_sizes as $product_size)
-                        <div style="margin-top: 10px">
-                            <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
-                            <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
-                            <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
-                        </div>
-                        @endforeach
+                        @if (count($product_sizes) != 0)
+                            @foreach ($product_sizes as $product_size)
+                                <div style="margin-top: 10px">
+                                    <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
+                                    <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
+                                    <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
+                                </div>
+                            @endforeach
+                        @else
+                            <div>
+                                <input type="text" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px">
+                                <input type="text" id="sell_price" class="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px">
+                                <input type="text" id="sale_price" class="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px">
+                            </div>
+                        @endif
                     </div>
                     <br>
                     <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
@@ -70,8 +78,8 @@
                 <div class="form-group">
                   <label for="">Loại Sản Phẩm</label>
                   <div>
-                      <input type="radio"  name="is_sale_in_month" value="{{ $product->name }}"> Khuyến MãiTháng&emsp;&emsp;&emsp;
-                      <input type="radio"  name="is_hot_product" value="{{ $product->name }}"> Hot Tháng
+                      <input type="radio"  name="is_sale_in_month" value="1" {{ $product->is_sale_in_month == 1 ? "checked" : ""}}> Khuyến MãiTháng&emsp;&emsp;&emsp;
+                      <input type="radio"  name="is_hot_product" value="1" {{ $product->is_hot_product == 1 ? "checked" : ""}}> Hot Tháng
                   </div>
                 </div>
                 <div class="form-group">
@@ -104,32 +112,50 @@
 
                 <div class="form-group">
                     <label for="priority">Nơi hiện</label>
-                    <div class="d-flex">
-                      @foreach($menus2 as $menu2)
-                        {{-- @foreach ($product_menus as $product_menu)
-                            @if ($product_menu->subcategory_id == $menu2->id && $product_menu->product_id == $product->id) --}}
-                                {{$menu2->name}}&ensp;
-                                <select name="priority{{$menu2->id}}">
-                                <option value="0">- vị trí -</option>
-                                @for($i = 1; $i <= 9; $i++)
-                                    <option value="{{$i}}and{{$menu2->id}}"
-                                        <?php
-                                            foreach ($product_menus as $product_menu) {
-                                                //echo $product_menu->subcategory_id.",";
-                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                    echo "selected";
-                                                    break;
-                                                }
-                                            }
-                                        ?>
-                                    >{{$i == 9 ? "Mặc định" : $i}}</option>
-                                @endfor
-                                {{-- <option value="9and{{$menu2->id}}" {{  }}>Mặc Định</option> --}}
-                                </select>&emsp;&emsp;
-                            {{-- @endif
-                        @endforeach --}}
+                    {{-- <div class="d-flex justify-content-between" style="flex-wrap: wrap"> --}}
+                      @foreach ($menus1 as $menu1)
+                        <div style="margin-top: 10px; font-weight: 600; text-transform: uppercase">{{ $menu1->name }}</div>
+                        <div class="d-flex" style="flex-wrap: wrap">
+                            @foreach($menus2 as $menu2)
+                                @if ($menu1->id == $menu2->parent_id)
+                                    <div
+                                        style="width: calc(100% / 3);
+                                        margin-bottom : 8px;
+                                        padding: 0 10px"
+                                    >
+                                        <div>
+                                            <div
+                                                style="display: inline-block;
+                                                width: calc(100% - 100px);
+                                                white-space: nowrap;
+                                                overflow: hidden !important;
+                                                text-overflow: ellipsis;"
+                                            >
+                                                {{$menu2->name}}
+                                            </div>
+                                            <select name="priority{{$menu2->id}}">
+                                                <option value="0">- vị trí -</option>
+                                                @for($i = 1; $i <= 9; $i++)
+                                                    <option value="{{$i}}and{{$menu2->id}}"
+                                                        <?php
+                                                            foreach ($product_menus as $product_menu) {
+                                                                //echo $product_menu->subcategory_id.",";
+                                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
+                                                                    echo "selected";
+                                                                    break;
+                                                                }
+                                                            }
+                                                        ?>
+                                                    >{{$i == 9 ? "Mặc định" : $i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                       @endforeach
-                    </div>
+                    {{-- </div> --}}
                 </div>
 
                 <div class="form-group">

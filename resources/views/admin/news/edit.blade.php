@@ -17,7 +17,11 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Tiêu đề Tin Tức</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên Tin Tức" value="{{$news->title}}" name="title">
-                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="keyword">Keyword</label>
+                    <input type="text" class="form-control" id="keyword" placeholder="Tiêu Đề Tin Tức" name="keyword">
+                </div>
                 <div class="form-group">
                     <label for="">Thay đổi ảnh</label><br>
                     <cite>Chọn Ảnh:&ensp;</cite><input type="file" name="image"><br><br>
@@ -32,8 +36,8 @@
                     <textarea style="height: 1200px;" id="moTaChiTiet"  class="form-control" placeholder="Nhập nội dung bài viết" name="content">{!!$news->content!!}</textarea>
                     <script>
                         CKEDITOR.replace( 'moTaChiTiet' , {
-                    width: ['100%'], height: ['500px']
-              });
+                            width: ['100%'], height: ['500px']
+                        });
                     </script>
                 </div>
                 <div class="form-group">
