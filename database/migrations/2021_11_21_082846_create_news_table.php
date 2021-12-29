@@ -17,6 +17,7 @@ class CreateNewsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->string('title');
             $table->string('keyword')->nullable();
             $table->text('description');

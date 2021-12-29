@@ -50,13 +50,19 @@ class NewsController extends Controller
             $new_check->priority = null;
             $new_check->update();
         }
+
+        $image_url = '';
         if($request->hasFile('image')){
             $image_url = time() . '.' . $request->image->extension();
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 
+        $menu_new = Menu::find($request->input('menu_id'));
+
         $new = new News();
         $new->name = $request->input('name');
+
+        $new->slug = Str::slug($menu_new->name) . '/' . Str::slug($request->input('name')) . '.html';
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');
@@ -101,8 +107,6 @@ class NewsController extends Controller
      */
     public function update(Request $request,News  $news)
     {
-        // var_dump($request->input('priority'));
-        // dd($request->input('priority'));
         $new_check = News::where('menu_id', $request->input('menu_id'))
                             ->where('priority', $request->input('priority'))
                             ->first();
@@ -123,8 +127,11 @@ class NewsController extends Controller
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 
+        $menu_new = Menu::find($request->input('menu_id'));
+
         $new = News::find($news->id);
         $new->name = $request->input('name');
+        $new->slug = Str::slug($menu_new->name) . '/' . Str::slug($request->input('name')) . '.html';
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');

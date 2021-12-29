@@ -17,15 +17,13 @@ class CreateProductsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->string('code');
             $table->string('title');
             $table->text('description');
             $table->text('content');
             $table->text('specifications')->nullable();
-            $table->bigInteger('sell_price')->nullable();
-            $table->bigInteger('sale_price')->nullable();
             $table->string('material')->nullable();
-            $table->string('size')->nullable();
             $table->string('guarantee')->nullable();
             $table->boolean('status');
             $table->string('sold_out')->nullable();

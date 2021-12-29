@@ -20,7 +20,8 @@ class BillController extends Controller
     {
         $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'products.sell_price')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price')
             ->get();
         // dd($carts);
         $products = Product::all();

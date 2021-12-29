@@ -17,11 +17,11 @@
                     <!-- /.card-option -->
                     <form action="" class="card-option mb-4">
                         @csrf
-                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
-                            <option selected>---- Chọn menu ----</option>
+                        <select class="form-control" aria-label="Default select example" onchange="changeMenu(this)">
+                            <option value="0">---- Chọn menu ----</option>
                             @if (!empty($menu1))
                                 @foreach ($menu1 as $mn1 )
-                                    <option value="{{route('admin.menu2.show', ['menu2' => $mn1->id])}}">{{$mn1->name}}</option>
+                                    <option value="{{ $mn1->id }}">{{$mn1->name}}</option>
                                 @endforeach
                             @else
                                 <option>Trống</option>
@@ -83,4 +83,23 @@
         </div>
         <!-- /.row -->
     </section>
+
+    <script>
+        function changeMenu(e){
+            if(e.value > 0) {
+                window.location = window.location.origin + '/admin/menu2/' + e.value;
+            }else {
+                window.location = window.location.origin + '/admin/menu2'
+            }
+        }
+
+        $(document).ready(function() {
+            if(parseInt(window.location.pathname.split('/').pop()) > 0) {
+                console.log("số");
+            }else {
+
+            console.log("chữ");
+            }
+        })
+    </script>
 @endsection

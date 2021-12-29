@@ -19,10 +19,16 @@
       <div class="form-group">
         <label for="name">Tên Sản Phẩm</label>
         <input type="text" class="form-control" id="name" placeholder="Tên Sản Phẩm" name="name" value="{{ old('name') }}">
+        @if($errors->has('name'))
+            <p>{{ $errors->first('name') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="title">Tiêu Đề</label>
         <input type="text" class="form-control" id="title" placeholder="Tiêu Đề Sản Phẩm" name="title" value="{{ old('title') }}">
+        @if($errors->has('title'))
+            <p>{{ $errors->first('title') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="code">Mã Sản Phẩm</label>
@@ -89,24 +95,50 @@
               });
           </script>
         </div>
+
       <div class="form-group">
         <label for="priority">Nơi hiện</label>
-        <div class="d-flex">
-          @foreach($menus2 as $menu2)
-            {{$menu2->name}}&ensp;
-            <select name="priority{{$menu2->id}}">
-              <option value="0">- vị trí -</option>
-              @for($i = 1; $i < 9; $i++)
-                <option value="{{$i}}and{{$menu2->id}}" {{ old("priority$menu2->id") == $i."and".$menu2->id ? 'selected' : ''}}>{{ $i }}</option>
-              @endfor
-              <option value="9and{{$menu2->id}}">Mặc Định</option>
-            </select>&emsp;&emsp;
+        {{-- <div class="d-flex justify-content-between" style="flex-wrap: wrap"> --}}
+          @foreach ($menus1 as $menu1)
+            <div style="margin-top: 10px; font-weight: 600; text-transform: uppercase">{{ $menu1->name }}</div>
+            <div class="d-flex" style="flex-wrap: wrap">
+                @foreach($menus2 as $menu2)
+                    @if ($menu1->id == $menu2->parent_id)
+                    <div
+                        style="width: calc(100% / 3);
+                        margin-bottom : 8px;
+                        padding: 0 10px"
+                    >
+                        <div>
+                            <div
+                                style="display: inline-block;
+                                width: calc(100% - 100px);
+                                white-space: nowrap;
+                                overflow: hidden !important;
+                                text-overflow: ellipsis;"
+                            >
+                                {{$menu2->name}}
+                            </div>
+                            <select name="priority{{$menu2->id}}">
+                                <option value="0">- vị trí -</option>
+                                @for($i = 1; $i < 9; $i++)
+                                <option value="{{$i}}and{{$menu2->id}}" {{ old("priority$menu2->id") == $i."and".$menu2->id ? 'selected' : ''}}>{{ $i }}</option>
+                                @endfor
+                                <option value="9and{{$menu2->id}}">Mặc Định</option>
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+                @endforeach
+            </div>
           @endforeach
-        </div>
-      </div>
-        @if ($errors->any())
-            <p>{{ $errors->first() }}</p>
-        @endif
+        {{-- </div> --}}
+    </div>
+        {{-- @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        @endif --}}
       <div class="form-group">
         <label for="status">Trạng Thái</label>
         <div>

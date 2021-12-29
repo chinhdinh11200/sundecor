@@ -46,10 +46,11 @@ class Menu1Controller extends Controller
         $data = new Menu();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
         $data->title = $request->input('title'); //nhận nhập tên loại trong input
+        $data->keyword = $request->input('keyword');
         $data->menu_type_id = $request->input('menu_type_id');
         $data->content_1 = $request->input('content_1'); //nhận nhập tên loại trong input
         $data->content_2 = $request->input('content_2');
-        $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
+        $data->slug = Str::slug($request->input('name')). '.html';
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
 //             $check = Menu::where('id',$data->menu_type_id);
@@ -62,7 +63,6 @@ class Menu1Controller extends Controller
 //                 }
             $menu_check = Menu::where('priority', $request->input('priority'))
                                 ->where('menu_type_id', $request->input('menu_type_id'))->first();
-                                dd($menu_check);
             if($menu_check != null){
                 if($data->id != $menu_check->id){
                     $menu_check->priority= null;
@@ -144,7 +144,8 @@ class Menu1Controller extends Controller
         $data->menu_type_id = $request->input('menu_type_id');
         $data->content_1 = $request->input('content_1'); //nhận nhập tên loại trong input
         $data->content_2 = $request->input('content_2');
-        $data->keyword = Str::slug($request->input('keyword')); //nhận nhập tên loại trong input
+        $data->slug = Str::slug($request->input('name')). '.html';
+        $data->keyword = $request->input('keyword'); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
             $menu_check = Menu::where('priority', $request->input('priority'))

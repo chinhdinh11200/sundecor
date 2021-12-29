@@ -23,6 +23,7 @@ use App\Http\Controllers\CommonlController;
 /* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- | | Here is where you can register web routes for your application. These | routes are loaded by the RouteServiceProvider within a group which | contains the "web" middleware group. Now create something great! | */
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [AdminController::class , 'index'])->name('quantri');
+    Route::get('/login', [AdminController::class , 'login']);
 
     Route::resource('supporter', SupporterController::class);
     Route::resource('menu1', Menu1Controller::class);
@@ -59,6 +60,9 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     // Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
     Route::get('product/{id}', [FrontendController::class , 'product'])->name('product');
 
+    Route::get('get_list_product', [ProductController::class, 'getListProduct'])->name('getListProduct');
+    Route::get('get_list_product_sale', [ProductController::class, 'getListProductSale'])->name('getListProductSale');
+    Route::get('get_list_product_hot', [ProductController::class, 'getListProductHot'])->name('getListProductHot');
 // Route::get('news/{id?}', 'FrontendController@news')->name('news');
 });
 

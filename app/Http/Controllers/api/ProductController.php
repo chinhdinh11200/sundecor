@@ -8,6 +8,7 @@ use App\Models\ProductMenu;
 use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -29,12 +30,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product_exist = Product::where('name', $request->input('name'))
-                                    ->orWhere('code', $request->input('code'))
+        $product_exist = Product::where('name', $request->input('cloneProject')['name'])
+                                    ->orWhere('code', $request->input('cloneProject')['code'])
                                     ->first();
+        // return $product_exist->name;
         if(!$product_exist) {
             $product = new Product();
             $product->name = $request->input('cloneProject')['name'];
+            $product->slug = Str::slug($request->input('cloneProject')['name']). '.html';
             $product->title = $request->input('cloneProject')['title'];
             $product->code = $request->input('cloneProject')['code'];
             $product->guarantee = $request->input('cloneProject')['guarantee'];
@@ -61,8 +64,9 @@ class ProductController extends Controller
             $product_size->sell_price = $request->input('cloneProject')['sell_price'];
             $product_size->sale_price = $request->input('cloneProject')['sale_price'];
             $product_size->save();
+            return 200;
         }
-        return 200;
+        return 201;
     }
 
     /**

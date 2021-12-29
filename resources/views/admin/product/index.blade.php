@@ -29,30 +29,34 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Tiêu đề</th>
-                                {{-- <th>Giá gốc</th>
-                                <th>Giá sale</th> --}}
-                                <th style="width: 70px;">Ngày up</th>
-                                <th style="width: 100px;">Trạng thái</th>
-                                <!-- <th>vị trí</th> -->
-                                <th style="width: 0;"></th>
+                                <th class="col-1">Ảnh</th>
+                                <th class="col-6">Tên</th>
+                                <th class="col-2">Ngày up</th>
+                                <th class="col-1">Trạng thái</th>
+                                <th class="col-2"></th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
-                                        <td>{{$product->name}}</td>
                                         <td><img style="width: 80px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
-                                        <td>{{$product->title}}</td>
-                                        {{-- <td>{{number_format($product->sell_price, 0, '.' ,',')}}</td>
-                                        <td>{{number_format($product->sale_price, 0, '.' ,',')}}</td> --}}
+                                        <td>
+                                            <div style="margin: auto 0;">
+                                                {{$product->name}}
+                                            </div>
+                                        </td>
                                         <td>{{$product->created_at}}</td>
                                         <td><?php echo (1==$product->status?"Hiện":""); ?></td>
                                         {{-- <!-- <td>{{$product->priority}}</td> --> --}}
-                                        <td style="opacity: 1">
-                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info">Sửa</a>
+                                        <td
+                                            style="opacity: 1;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            height: 105px"
+
+                                        >
+                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info" style="margin: 0 10px 0 0">Sửa</a>
                                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

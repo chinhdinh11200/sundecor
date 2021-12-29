@@ -31,10 +31,13 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
-          @for($i = 1; $i < 9; $i++)
-            <option value="{{$i}}" <?php echo ($i==$data->priority?"selected":""); ?>>{{$i}}</option>
+          @for($i = 1; $i <= 9; $i++)
+            @if ($i == 9)
+                <option value="9" selected>Mặc Định</option>
+            @else
+                <option value="{{$i}}" <?php echo ($i==$data->priority?"selected":""); ?>>{{$i}}</option>
+            @endif
           @endfor
-          <option value="9">Mặc Định</option>
         </select>
       </div>
       <div class="form-group">
@@ -49,7 +52,6 @@
         <label for="exampleInputEmail1">Ảnh</label>
         <div id="exampleInputEmail1">
         	<cite>Chọn Ảnh:&ensp;</cite><input type="file"  name="images">
-          <img style="width: 120px; height: 120px; object-fit: cover;" src="{{asset($data->images)}}">
         </div>
       </div>
       <div class="form-group">
