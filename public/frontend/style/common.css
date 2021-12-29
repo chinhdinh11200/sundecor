@@ -1,5 +1,14 @@
+@font-face{
+  font-family: "Myriad Pro Bold";
+  src: url('../fonts/Myriad_Pro_Bold.ttf');
+  font-weight: bold;
+}
+@font-face{
+  font-family: "Myriad Pro Regula";
+  src: url('../fonts/Myriad_Pro_Regular.ttf');
+}
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Myriad Pro Regular";
   color: #000;
   margin: 0 !important;
   padding: 0 !important;
@@ -70,13 +79,35 @@ button {
 /* css to-top*/
 .bottom-fixed {
   position: fixed;
-  bottom: 0;
+  bottom: 40px;
   right: 10px;
   z-index: 999;
+}
+.bottom-fixed#bottom-fixed__call{
+  left: 10px;
+  right: auto;
+  bottom: 0;
 }
 .bottom-fixed .bottom-fixed__item {
   margin-bottom: 10px;
   transition: 0.5s all;
+}
+.bottom-fixed#bottom-fixed__call .bottom-fixed__item--call{
+  width: fit-content;
+  padding: 0 10px 0 5px;
+  font-size: 14px;
+  border-radius: 20px; 
+  height: 35px;
+  letter-spacing: 0.06em;
+}
+.bottom-fixed .bottom-fixed__item--call{
+  background-color: #ff7f00;
+}
+.bottom-fixed #bottom-fixed__item--call-red{
+  background-color: #f04848;
+}
+.bottom-fixed#bottom-fixed__call .bottom-fixed__item--call a{
+  color: #fff;
 }
 .bottom-fixed .bottom-fixed__item:hover {
   opacity: 70%;
@@ -95,16 +126,50 @@ button {
 }
 .bottom-fixed .bottom-fixed__item img{
   border-radius: 50%;
+  animation: shake 1s infinite;
+}
+.bottom-fixed .bottom-fixed__item--call img{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 .bottom-fixed .to-top__img{
   height: 100%;
+  position: relative;
+}
+.bottom-fixed#bottom-fixed__call .to-top__img::after{
+  height: 35px;
+  width: 35px;
+  left: -5%;
+}
+.bottom-fixed #bottom-fixed__item--call-red .to-top__img::after{
+  background-color: rgba(240, 72, 72, 0.7);
+  box-shadow: 0 0 0 0 #f04848;
+}
+.bottom-fixed .to-top__img::after{
+  content: "";
+    height: 44px;
+    width: 44px;
+    position: absolute;
+    background-color: rgba(255, 127, 0, 0.7);
+    box-shadow: 0 0 0 0 #ff7f00;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    animation: zoom 1s infinite;
+    transition: all 0.5s ease;
+}
+.bottom-fixed #to-top .to-top__img::after{
+  display: none;
 }
 .bottom-fixed #to-top img {
   width: 50%;
   opacity: 50%;
   border-radius: 0;
+  animation: unset;
 }
-.bottom-fixed #bottom-fixed__item--contact{
+#bottom-fixed__item--contact{
   width: fit-content;
   height: fit-content;
   padding: 5px 15px;
@@ -113,6 +178,10 @@ button {
   border-radius: 7px 7px 0 0;
   font-size: 14px;
   cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
 }
 
 
@@ -127,11 +196,12 @@ button {
   margin-bottom: 20px;
 }
 .product__block .product__block--title h2 {
-  font-size: 28px;
-  text-transform: uppercase;
   font-weight: bold;
+  font-size: 36px;
+  text-transform: uppercase;
   color: #0e0e0e;
-  margin-bottom: 10px;
+  margin-bottom: -10px;
+  text-shadow: 2px -1px 3px rgb(0 0 0 / 35%);
 }
 .product__block .product__block--line {
   height: 1px;
@@ -140,9 +210,8 @@ button {
   margin: 0 15px;
 }
 .product__block .product__block--link a {
-  font-size: 12px;
+  font-size: 16px;
   color: #0e0e0e;
-  font-weight: bold;
   text-transform: uppercase;
 }
 .product__block .product__block--link a:hover {
@@ -173,16 +242,16 @@ button {
 }
 .made__block .made__block--heading {
   font-size: 28px;
-  text-transform: uppercase;
   font-weight: bold;
+  text-transform: uppercase;
   color: #0e0e0e;
   margin-bottom: 20px;
   text-align: center;
+  text-shadow: 1px -1px 3px rgb(0 0 0 / 35%);
 }
 .made__block .made__block--link {
-  font-size: 12px;
+  font-size: 14px;
   color: #0e0e0e;
-  font-weight: bold;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -218,7 +287,6 @@ button {
 .card__product {
   padding: 5px;
   transition: 0.4s all;
-  font-weight: bold;
   height: 100%;
 }
 .card__product .cardvproduct--img {
@@ -324,7 +392,8 @@ button {
 .voucher__block .voucher__block--input {
   width: 100%;
   padding-left: 25px;
-  font-size: 14px;
+  font-size: 16px;
+  padding-top: 5px;
   outline: unset;
 }
 .voucher__block .voucher__block--input::placeholder {
@@ -333,7 +402,6 @@ button {
 .voucher__block .voucher__block--button {
   text-transform: uppercase;
   font-size: 18px;
-  font-weight: bold;
   width: 60%;
   margin: 0 auto;
 }
@@ -359,11 +427,14 @@ button {
   position: relative;
 }
 .service__block--heading{
+  text-shadow: 3px -2px 4px #000000c0;
   margin-bottom: 60px;
   font-size: 40px;
   letter-spacing: 0.04em;
   color: #fff;
   text-align: center;
+  /* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgba(129, 129, 129, 6.8);   */
 }
 .service__block--top, .service__block--bottom{
   justify-content: space-between;
@@ -419,6 +490,11 @@ button {
   box-shadow: 0px 0px 20px 0px rgb(232 140 48);
   -webkit-box-shadow: 0px 0px 20px 0px rgb(232 140 48);
 }
+.service__block--img{
+  height: 40%;
+  width: auto;
+  margin-bottom: 10px;
+}
 .service__block--name{
   color: #fff;
   font-size: 11px;
@@ -466,9 +542,9 @@ button {
 .news__block--title h3{
   font-size: 22px;
   text-transform: uppercase;
-  font-weight: bold;
   color: #0e0e0e;
   margin: 10px 0;
+  text-shadow: 1px -1px 3px rgb(0 0 0 / 35%);
 }
 .news__block--line{
   flex: 1;

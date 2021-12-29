@@ -7,7 +7,7 @@
                     <div class="product__detail--left col-12 row">
                         <div class = "product__detail--img col-12">
                             <div class="swiper product__detail--swiper2" >
-                                <div class="swiper-wrapper">
+                                <div class="swiper-wrapper">  
                                     <div class = "product__detail--image swiper-slide">
                                         <img src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera" id = "productImg">
                                     </div>
@@ -79,7 +79,7 @@
                                 <img src="{{asset('frontend\images\product_detail\icon-note.png')}}" alt="">
                                 <ul class="product__detail--note">
                                     <li>
-                                    Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc
+                                    Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc 
                                     </li>
                                     <li>
                                     ( Áp dụng hóa đơn > 3.000.000 vnđ )
@@ -121,13 +121,11 @@
                                 <?php for($i = 0; $i<4;$i++){ ?>
                                     <div class="product__showroom--eachlocation">
                                         <i class="fas fa-check"></i>
-                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>
+                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>    
                                     </div>
-                                <?php } ?>
+                                <?php } ?> 
                                 </div>
-
-
-                            </div>
+                                                        </div>
                         </div>
                         <div class="product__detail--heading"><span>Chi tiết sản phẩm</span></div>
                         <div class="textmore__block">
@@ -282,6 +280,5 @@
         @include('frontend.include.news')
         @include('frontend.include.service')
     </section>
-
-
+   
 @endsection

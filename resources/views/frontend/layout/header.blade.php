@@ -13,6 +13,9 @@
 	<div class="header__center">
 		<div class="main-container">
 			<div class="header__center--search">
+				<p class="icon-open__sp">
+					<img src="{{asset('/frontend/images/common/icon-open.png')}}" alt="" class="">
+				</p>
 				<form class="header__center--form" action="">
 				@csrf
 				<input class="header__center--input" type="text" placeholder="Nhập từ khóa tìm kiếm "><button class="header__center--button" type="submit"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"></button></form>
@@ -21,15 +24,23 @@
 			<div class="header__center--option">
 				<div class="header__center--contact">
 					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
-					<div>G&#x1ECC;I MUA H&Agrave;NG:<b>&ensp;0965.69.8866</b></div>
+					<div>GỌI MUA HÀNG:<b>&ensp;0965.69.8866</b></div>
 				</div>
 				<form action="{{ route('cart.index') }}" method="GET">
-                    {{-- @csrf --}}
-                    <input type="hidden" name="session_id">
-                    <button  style="border: none!important; background: transparent!important;" type="submit">
-                        <div class="header__center--cart"><span id="cartQuantity">0</span></div>
-                    </button>
-                </form>
+					{{-- @csrf --}}
+					<input type="hidden" name="session_id">
+					<button  style="border: none!important; background: transparent!important;" type="submit">
+						<div class="header__center--cart"><span id="cartQuantity">0</span></div>                    </button>
+				</form>
+			</div>
+		</div>
+		<div class="container-menu__sp">
+			<div class="icon-close__sp">
+					<img src="{{asset('/frontend/images/common/icon-close.png')}}" alt="">
+			</div>
+			<div class="nav-menu__sp">
+					<a href="/">HOME</a>
+					<a href="/faq">よくある質問</a>
 			</div>
 		</div>
 	</div>
@@ -53,40 +64,7 @@
 					</li>
 				<?php endforeach; ?>
 			</ul>
-		</div>
 	</div>
-	<div class="bottom-fixed">
-		<div class="position-relative">
-			<div class="bottom-fixed__item" id="bottom-fixed__item--map">
-				<a href="">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-map.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="bottom-fixed__item--messen">
-				<a href="https://www.facebook.com/messages/t/790775891055345/">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-messen.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="bottom-fixed__item--zalo">
-				<a href="https://zalo.me/0978285888">
-					<div class="to-top__img justify-content-center align-items-center d-flex">
-						<img src="{{asset('/frontend/images/common/icon-zalo.png')}}" alt="">
-					</div>
-				</a>
-			</div>
-			<div class="bottom-fixed__item" id="to-top">
-				<div class="to-top__img justify-content-center align-items-center d-flex"><img src="{{asset('/frontend/images/common/icon-totop.svg')}}" alt=""></div>
-			</div>
-			<div class="bottom-fixed__item" id="bottom-fixed__item--contact">
-				GỬI LIÊN HỆ TỚI CHÚNG TÔI
-			</div>
-		</div>
-	</div>
-
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-    <script src="{{ asset('frontend/js/cart.js') }}"></script>
 </header>
+	<script src="{{asset('frontend/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('frontend/js/cart.js') }}"></script>
