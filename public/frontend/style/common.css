@@ -129,7 +129,8 @@ button {
   animation: shake 1s infinite;
 }
 .bottom-fixed .bottom-fixed__item--call img{
-  height: 55%;
+  width: 20px;
+  height: 20px;
   margin-right: 5px;
 }
 .bottom-fixed .to-top__img{
@@ -543,7 +544,7 @@ button {
   text-transform: uppercase;
   color: #0e0e0e;
   margin: 10px 0;
-  text-shadow: 3px -2px 5px rgb(0 0 0 / 35%);
+  text-shadow: 1px -1px 3px rgb(0 0 0 / 35%);
 }
 .news__block--line{
   flex: 1;

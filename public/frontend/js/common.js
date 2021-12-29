@@ -1,3 +1,15 @@
+// open_menu_sp();
+function open_menu_sp() {
+
+    $('#header .icon-open__sp img').click(function() {
+        $(".container-menu__sp").toggleClass("menu__open--sp", { direction: "left" }, 1000);
+    });
+    $('#header .icon-close__sp img').click(function() {
+        $(".container-menu__sp").toggleClass("menu__open--sp", { direction: "left" }, 1000);
+    });
+}
+open_menu_sp();
+
 
 $(window).scroll(function() {
     if ($(this).scrollTop()) {
