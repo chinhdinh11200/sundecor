@@ -96,7 +96,36 @@
                     <div class="swiper-button-prev"></div>
                 </div>
             </div>
+            @foreach ($menus1 as $menu1)
+
             <div class="product__block product__block--chum">
+                <div class="product__block--title">
+                    <h2>{{ $menu1->name }}</h2>
+                    <div class="product__block--line"></div>
+                    <div class="product__block--link"><a href="">Xem tất cả</a></div>
+                </div>
+                <div class="product__block--list">
+                    @foreach ($products as $product)
+                        @if ($menu1->id == $product->parent_id)
+                            <div class="product__block--item col-6 col-sm-4 col-md-3">
+                                <a href="#">
+                                    <div class="card__product">
+                                        <div class="card-product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
+                                        <h3 class="card__product--name">{{ $product->name }}</h3>
+                                        <div class="card__product--price d-flex justify-content-between align-items-center">
+                                            <div class="card__product--promotional">{{ $product->sale_price }} đ</div><span class="card__product--cost">{{ $product->sell_price }} đ</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
+            @endforeach
+
+            {{-- <div class="product__block product__block--chum">
                 <div class="product__block--title">
                     <h2>Đèn chùm</h2>
                     <div class="product__block--line"></div>
@@ -118,6 +147,7 @@
                     <?php }?>
                 </div>
             </div>
+
             <div class="product__block product__block--mam">
                 <div class="product__block--title">
                     <h2>Đèn mâm</h2>
@@ -271,7 +301,7 @@
                         </div>
                     <?php }?>
                 </div>
-            </div>
+            </div> --}}
             @include('frontend.include.video')
             @include('frontend.include.construct')
         </div>

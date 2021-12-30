@@ -13,7 +13,7 @@ class CreateProductMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_product', function (Blueprint $table) {
+        Schema::create('product_menu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
@@ -36,6 +36,6 @@ class CreateProductMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_product');
+        Schema::dropIfExists('product_menu');
     }
 }

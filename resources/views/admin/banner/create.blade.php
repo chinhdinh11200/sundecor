@@ -14,6 +14,10 @@
             @csrf
             <div class="card-body">
                 <div class="form-group">
+                    <label for="">Title</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <div class="form-group">
                     <label for="">Link</label>
                     <input type="text" name="link" class="form-control">
                 </div>

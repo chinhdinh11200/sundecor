@@ -16,10 +16,7 @@ class WebInfoController extends Controller
     public function index()
     {
         $webInfo = WebInfo::first();
-        if($webInfo) {
-            return view('admin.admin')->with('webInfo', $webInfo);
-        }
-        return view('admin.admin');
+        return view('admin.admin')->with('webInfo', $webInfo);
     }
 
     /**

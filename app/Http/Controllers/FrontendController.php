@@ -9,6 +9,7 @@ use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
 use App\Models\Product;
 use App\Models\ShoppingCart;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends CommonController
 {
@@ -40,7 +41,40 @@ class FrontendController extends CommonController
         // }
         // $data[1] = NgheNhan::where('trangThai',1)->get();
         //return view('frontend.index',['biendata'=>$data]);
-        return view('frontend.index');
+
+        $menus1 = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
+        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
+                        ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
+                        ->join('products', 'product_menu.product_id', '=', 'products.id')
+                        ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+                        ->distinct()
+                        ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
+                        ->where('product_menu.priority', '<>', 'NULL')
+                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+                        ->get();
+        $product_result = array();
+        foreach ($menus1 as $key => $menu1) {
+            $quantity = 0;
+            foreach ($products as $key1 => $product) {
+                if($product->parent_id == $menu1->id){
+                    $check = 0;
+                    foreach ($product_result as $key2 => $value) {
+                        if($product->name == $value->name && $product->parent_id == $value->parent_id) {
+                            $check += 1;
+                        }
+                    }
+                    if($check == 0) {
+                        $product_result[] = $product;
+                        $quantity +=1;
+                    }
+                }
+                if($quantity == 8){
+                    break;
+                }
+            }
+        }
+
+        return view('frontend.index')->with('menus1', $menus1)->with('products', $product_result);
     }
     public function category()
     {

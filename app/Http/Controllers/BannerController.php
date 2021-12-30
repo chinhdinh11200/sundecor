@@ -50,6 +50,7 @@ class BannerController extends Controller
             $request->image->move(public_path('upload/images/slides'), $image);
             $slide->image = $image;
         }
+        $slide->title = $request->input('title');
         $slide->link = $request->input('link');
         $slide->status = $request->input('status');
         $slide->priority = $request->input('priority');
@@ -110,6 +111,7 @@ class BannerController extends Controller
         }
 
         $slide_update->link = $request->input('link');
+        $slide_update->title = $request->input('title');
         $slide_update->status = $request->input('status');
         $slide_update->priority = $request->input('priority');
 

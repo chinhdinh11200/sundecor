@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConsultationsTable extends Migration
+class CreateWebInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateConsultationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('consultations', function (Blueprint $table) {
+        Schema::create('web_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fullname');
             $table->string('tel');
-            $table->text('description');
-            $table->boolean('status');
-            $table->timestamps();
+            $table->string('hotline');
+            $table->string('receiveEmail');
+            $table->string('facebook');
+            $table->text('reason');
+            $table->text('address');
+            $table->text('tutorial');
+            $table->text('promotion');
         });
     }
 
@@ -30,6 +33,6 @@ class CreateConsultationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consultations');
+        Schema::dropIfExists('web_infos');
     }
 }
