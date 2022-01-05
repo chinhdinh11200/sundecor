@@ -488,4 +488,9 @@ class ProductController extends Controller
         }
         dd($product_result);
     }
+
+    public function detailProduct ($slug) {
+        $product = Product::where('slug', $slug)->first();
+        return view('frontend.product');
+    }
 }

@@ -60,7 +60,7 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     // Route::post('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('bill_create', [BillController::class, 'billCreate'])->name('bill.create');
     // Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
-    Route::get('product/{id}', [FrontendController::class , 'product'])->name('product');
+    Route::get('/{id}', [FrontendController::class , 'product'])->name('product');
 
     Route::get('get_list_product', [ProductController::class, 'getListProduct'])->name('getListProduct');
     Route::get('get_list_product_sale', [ProductController::class, 'getListProductSale'])->name('getListProductSale');

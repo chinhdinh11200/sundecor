@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
 use App\Models\Product;
+use App\Models\ProductSize;
 use App\Models\ShoppingCart;
 use Illuminate\Support\Facades\DB;
 
@@ -98,8 +99,15 @@ class FrontendController extends CommonController
         // $data_array[2] = SanPham::latest()->paginate(9);
         // $data_array[3] = KhoiLuong::all();
         // return view('frontend.product',['biendata_array'=>$data_array]);
-        $product = Product::find($id);
-        return view('frontend.product')->with('product',$product);
+        // $product = Product::find($id);
+
+        $product = Product::where('slug', $id)
+                            ->first();
+                            // dd($product);
+
+        $product_sizes = ProductSize::where('product_id', $product->id)->get();
+
+        return view('frontend.product')->with('product',$product)->with('product_sizes',$product_sizes);
     }
 
     /**
