@@ -108,12 +108,12 @@
                     @foreach ($products as $product)
                         @if ($menu1->id == $product->parent_id)
                             <div class="product__block--item col-6 col-sm-4 col-md-3">
-                                <a href="#">
+                                <a href="{{ route('product', $product->slug) }}">
                                     <div class="card__product">
                                         <div class="card-product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
                                         <h3 class="card__product--name">{{ $product->name }}</h3>
                                         <div class="card__product--price d-flex justify-content-between align-items-center">
-                                            <div class="card__product--promotional">{{ $product->sale_price }} đ</div><span class="card__product--cost">{{ $product->sell_price }} đ</span>
+                                            <div class="card__product--promotional">{{ number_format($product->sale_price) }} đ</div><span class="card__product--cost">{{ number_format($product->sell_price) }} đ</span>
                                         </div>
                                     </div>
                                 </a>

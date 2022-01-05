@@ -7,35 +7,35 @@
                     <div class="product__detail--left col-12 row">
                         <div class = "product__detail--img col-12">
                             <div class="swiper product__detail--swiper2" >
-                                <div class="swiper-wrapper">  
+                                <div class="swiper-wrapper">
                                     <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
                                     </div>
                                     <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('frontend\images\common\img-bank.png')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
                                     </div>
                                     <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('frontend\images\common\logo.png')}}" alt = "Đèn chùm Hera" id = "productImg">
+                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
                                     </div>
                                 </div>
                             </div>
                             <div thumbsSlider="" class="swiper product__detail--swiper1">
                                 <div class="product__img--select swiper-wrapper">
                                     <div class = "swiper-slide product__select--image active">
-                                        <img class = "select_img"src = "{{asset('frontend\images\common\img-leddetail.jpg')}}" alt = "Đèn chùm Hera">
+                                        <img class = "select_img"src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
                                     </div>
                                     <div class = "swiper-slide product__select--image ">
-                                        <img class = "select_img" src = "{{asset('frontend\images\common\img-bank.png')}}" alt = "Đèn chùm Hera">
+                                        <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
                                     </div>
                                     <div class = "swiper-slide product__select--image ">
-                                        <img class = "select_img" src = "{{asset('frontend\images\common\logo.png')}}" alt = "Đèn chùm Hera">
+                                        <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class = "product__detail--info col-12">
                             <div class = "product__detail--name">
-                                <p>Đèn chùm ITALY - GP00001</p>
+                                <p>{{ $product->name }}</p>
                             </div>
                             <div class = "product__detail--price row">
                                 <div class="product__price--sale col-md-12">
@@ -49,14 +49,14 @@
                                     </div>
                                 </div>
                                 <div class="product__price--sale col-md-6">
-                                    <p>60,000,000 đ</p>
+                                    <p>{{ number_format($product_sizes[0]->sale_price) }} đ</p>
                                 </div>
                                 <div class="product__price--sell col-md-6">
                                     <div class="product__sell--old">
-                                        Giá gốc : <span>120,000,000 đ</span>
+                                        Giá gốc : <span>{{ number_format($product_sizes[0]->sell_price) }} đ</span>
                                     </div>
                                     <div class="product__sell--save">
-                                        Tiết Kiệm : 60,000,000 đ
+                                        Tiết Kiệm : {{ number_format($product_sizes[0]->sell_price - $product_sizes[0]->sale_price) }} đ
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                 <img src="{{asset('frontend\images\product_detail\icon-note.png')}}" alt="">
                                 <ul class="product__detail--note">
                                     <li>
-                                    Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc 
+                                    Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc
                                     </li>
                                     <li>
                                     ( Áp dụng hóa đơn > 3.000.000 vnđ )
@@ -90,9 +90,11 @@
                                 <div class="product__ossascomp--size col-12 col-md-6 d-flex">
                                     <p class="text-center" style="font-weight: 500;">Kích thước:</p>
                                     <div class="product__size--code">
-                                        <li class="product__code_a active" onclick="">D600*H600mm</li>
-                                        <li class="product__code_a" onclick="">D800*H800mm</li>
-                                        <li class="product__code_a" onclick="">D1200*H1200mm</li>
+                                        @foreach ($product_sizes as $key => $product_size)
+                                            <li class="product__code_a <?php if($key == 0) echo 'active'; ?>" onclick="">{{ $product_size->size }}</li>
+                                        @endforeach
+                                        {{-- <li class="product__code_a" onclick="">D800*H800mm</li>
+                                        <li class="product__code_a" onclick="">D1200*H1200mm</li> --}}
                                     </div>
                                 </div>
                                 <div class="product__ossascomp--other col-12 col-md-6">
@@ -121,9 +123,9 @@
                                 <?php for($i = 0; $i<4;$i++){ ?>
                                     <div class="product__showroom--eachlocation">
                                         <i class="fas fa-check"></i>
-                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>    
+                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>
                                     </div>
-                                <?php } ?> 
+                                <?php } ?>
                                 </div>
                                                         </div>
                         </div>
@@ -280,5 +282,5 @@
         @include('frontend.include.news')
         @include('frontend.include.service')
     </section>
-   
+
 @endsection
