@@ -102,16 +102,16 @@
                                     <li>Bảo hành: 10 năm</li>
                                 </div>
                             </div>
-                            <div class="product__detail--book">
-                                <a class="product__button product__button--red product__book--bought" href = "#">
+                            <form action="" class="product__detail--book">
+                                <button class="product__button product__button--red product__book--bought" href = "#">
                                     <b >Mua ngay</b>
                                     <i class="fa fa-cart-arrow-down"></i>
-                                </a>
+                                </button>
                                 <a class="product__button product__button--black product__book--contact" href = "#">
                                     <b >Tư vấn ngay </b>
                                     <i class="fas fa-phone-volume"></i>
                                 </a>
-                            </div>
+                            </form>
                             <div class="product__detail--showroom">
                                 <div class="product__showroom">
                                 <span class=" product__showroom--title "style="color : black">KHÁCH HÀNG</span>

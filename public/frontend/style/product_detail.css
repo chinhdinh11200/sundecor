@@ -237,13 +237,15 @@
     display: inline-flex;
     justify-content: space-between;
 }
-.product__detail .product__detail--book a{
+.product__detail .product__detail--book .product__button{
     width: 46%;
     display: flex;
     justify-content: center;
     color: #fff;
+    align-items: center;
+    border: none;
 }
-.product__detail .product__detail--book a:hover{
+.product__detail .product__detail--book .product__button:hover{
     opacity: 70%;
 }
 .product__detail .product__button > i {
