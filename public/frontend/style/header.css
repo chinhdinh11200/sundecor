@@ -275,6 +275,14 @@
   opacity: 1;
   transform: translateX(0);
 }
+#header .icon-open__sp img{
+  height: 30px;
+  width: 30px;
+}
+#header .icon-close__sp img{
+  height: 30px;
+  width: 30px;
+}
 @media only screen and (max-width: 991px) {
   #header .header__center{
     padding: 0 15px;
@@ -285,14 +293,6 @@
   }
   #header .icon-open__sp{
     display: block;
-  }
-  #header .icon-open__sp img{
-    height: 30px;
-    width: 30px;
-  }
-  #header .icon-close__sp img{
-    height: 30px;
-    width: 30px;
   }
   #header .container-menu__sp.menu__open--sp {
     display: block;

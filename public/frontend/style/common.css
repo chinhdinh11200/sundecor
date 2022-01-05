@@ -59,6 +59,26 @@ button {
   max-width: 1200px;
   margin: 0 auto;
 }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .main-container {
+    max-width: 960px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .main-container {
+    max-width: 720px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .main-container {
+    max-width: 540px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .main-container {
+    max-width: 540px;
+  }
+}
 .mb-30 {
   margin-bottom: 30px;
 }
