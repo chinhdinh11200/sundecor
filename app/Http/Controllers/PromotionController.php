@@ -15,7 +15,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        $promotions = Promotion::all();
+        $promotions = Promotion::paginate(8);
         return view('admin.promotion.index')->with('promotions', $promotions);
     }
 
@@ -103,6 +103,12 @@ class PromotionController extends Controller
 
         Alert::success('Thành công', 'Bạn đã đăng kí tư vấn thành công');
         return redirect()->back();
+    }
+
+    public function classify($type)
+    {
+        $promotions = Promotion::where('status', $type)->paginate(8);
+        return view('admin.promotion.classify')->with('promotions', $promotions)->with('type', $type);
     }
 
 }

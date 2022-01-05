@@ -68,6 +68,11 @@
                             </tbody>
                         </table>
                     </div>
+
+
+                    <div class="box-trang">
+                        {{$supporters->links('pagination::bootstrap-4')}}
+                    </div>
                 </div>
 
             </div>

@@ -60,10 +60,18 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:products',
-            'title' => 'required'
+            'code' => 'required|unique:products',
+            'title' => 'required',
+            'content' => 'required',
+            'description' => 'required'
         ], [
-            'name.unique' => '',
-            'name.'
+            'name.unique' => 'Sản phầm này đã tồn tại!',
+            'name.required' => 'Vui lòng nhập vào tên sản phẩm',
+            'code.unique' => 'Mã sản phầm này đã tồn tại!',
+            'code.required' => 'Vui lòng nhập vào mã sản phẩm',
+            'title.required' => 'Vui lòng nhập vào tiêu đề sản phẩm',
+            'content.required' => 'Vui lòng nhập vào nội dung sản phẩm',
+            'description.required' => 'Vui lòng nhập vào mô tả sản phẩm'
         ]);
 
 
@@ -171,7 +179,17 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        // dd($id);
+        $menus = Menu::all();
+        $products = DB::table('menus')
+                    ->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
+                    ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
+                    ->join('products', 'product_menu.product_id', '=', 'products.id')
+                    ->select('products.*')
+                    ->where('product_menu.subcategory_id', $id)
+                    ->orwhere('menus.id', $id)
+                    ->paginate(8);
+        return view('admin.product.show')->with('menus', $menus)->with('products', $products)->with('menu_id', $id);
     }
 
     /**
@@ -454,6 +472,7 @@ class ProductController extends Controller
                             ->select('products.*', 'product_sizes.*', 'product_menu.priority')
                             ->where('is_sale_in_month', true)
                             ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
+                            ->limit(8)
                             ->get();
         $product_result = array();
         foreach ($products as $key1 => $product) {

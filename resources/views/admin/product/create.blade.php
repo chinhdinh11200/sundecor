@@ -34,6 +34,9 @@
         <label for="code">Mã Sản Phẩm</label>
         <input type="text" class="form-control" id="code" placeholder="Tiêu Đề Sản Phẩm" name="code" value="{{ old('code') }}">
       </div>
+      @if($errors->has('code'))
+        <p>{{ $errors->first('code') }}</p>
+    @endif
       <div class="form-group">
         <label for="image">Ảnh Sản Phẩm</label>
         <div id="image">
@@ -77,9 +80,15 @@
         <label for="description">Mô Tả Ngắn</label>
         <input type="text" class="form-control" id="description" placeholder="Mô Tả Ngắn" name="description" value="{{ old('description') }}">
       </div>
+      @if($errors->has('description'))
+      <p>{{ $errors->first('description') }}</p>
+  @endif
       <div class="form-group">
         <label for="content">Mô Tả Chi Tiết</label>
           <textarea class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content" value="{{ old('content') }}"></textarea>
+          @if($errors->has('content'))
+          <p>{{ $errors->first('content') }}</p>
+      @endif
           <script>
               CKEDITOR.replace( 'content' , {
                     width: ['100%'], height: ['500px']

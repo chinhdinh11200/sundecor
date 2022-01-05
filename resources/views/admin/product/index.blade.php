@@ -16,10 +16,10 @@
 
                     <!-- /.card-option -->
                     <form action="" class="card-option">
-                        <select class="form-control" aria-label="Default select example">
+                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                             <option selected>Open this select menu</option>
                             @foreach ($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                                <option value="{{ route('admin.product.show', $menu->id) }}">{{ $menu->name }}</option>
                             @endforeach
                         </select>
                     </form>
@@ -69,7 +69,7 @@
                         </table>
                     </div>
                     <div class="box-trang">
-                        {{$products->links()}}
+                        {{$products->links('pagination::bootstrap-4')}}
                     </div>
                     <!-- /.card-body -->
                 </div>

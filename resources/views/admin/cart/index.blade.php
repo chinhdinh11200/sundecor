@@ -86,6 +86,10 @@
                         <button class="btn btn-primary" type="submit">View Cart</button>
                     </form> --}}
                 </div>
+
+                <div class="box-trang">
+                    {{$carts->links('pagination::bootstrap-4')}}
+                </div>
             </div>
         </div>
     </div>

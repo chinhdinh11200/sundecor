@@ -50,6 +50,10 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="box-trang">
+                    {{$slides->links('pagination::bootstrap-4')}}
+                </div>
             </div>
         </div>
     </div>

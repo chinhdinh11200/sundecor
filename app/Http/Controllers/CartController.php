@@ -23,7 +23,7 @@ class CartController extends CommonController
         //     ->join('products', 'products.id', '=', 'bill_product.product_id')
         //     ->select('bills.*', 'products.name', 'bill_product.*')
         //     ->get();
-        $carts = ShoppingCart::all();
+        $carts = ShoppingCart::paginate(8);
         return view('admin.cart.index')->with('carts', $carts);
     }
 

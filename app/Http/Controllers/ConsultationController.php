@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Consultation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,7 +17,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        $consultations = Consultation::all();
+        $consultations = Consultation::paginate(8);
         return view('admin.consultation.index')->with('consultations', $consultations);
     }
 
@@ -102,5 +103,11 @@ class ConsultationController extends Controller
 
         Alert::success('Chúc mừng', 'Bạn đã nhận khuyến mãi thành công');
         return redirect()->back();
+    }
+
+    public function classify($type)
+    {
+        $consultations = Consultation::where('status', $type)->paginate(8);
+        return view('admin.consultation.classify')->with('consultations', $consultations)->with('type', $type);
     }
 }

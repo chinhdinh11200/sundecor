@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\MenuNew;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -81,9 +82,16 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show($id)
     {
-        //
+        $menus = Menu::all();
+        $news = DB::table('menus')
+                    ->join('news', 'news.menu_id', '=', 'menus.id')
+                    ->where('news.menu_id', $id)
+                    ->orWhere('menus.id', $id)
+                    ->select('news.*')
+                    ->paginate(8);
+        return view('admin.news.show', ['news' => $news, 'menus' => $menus, 'menu_id' => $id]);
     }
 
     /**
@@ -92,8 +100,9 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit($id)
     {
+        $news = News::find($id);
         $menus = Menu::all();
         return view('admin.news.edit', ['news' => $news, 'menus' => $menus]);
     }
@@ -156,9 +165,9 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy($id)
     {
-        $new = News::find($news->id);
+        $new = News::find($id);
 
         $image_url = public_path('upload/images/news/'). $new->image;
         if(File::exists($image_url)){

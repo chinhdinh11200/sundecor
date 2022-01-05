@@ -16,10 +16,10 @@
 
                     <!-- /.card-option -->
                     <form action="" class="card-option">
-                        <select class="form-control" aria-label="Default select example" onchange="getNewByMenu()">
+                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                             <option selected>Open this select menu</option>
                             @foreach ($menus as $menu)
-                                <option value="{{ $menu->id }}" >{{ $menu->name }}</option>
+                                <option value="{{ route('admin.news.show', $menu->id) }}" >{{ $menu->name }}</option>
                             @endforeach
                         </select>
                     </form>
@@ -53,8 +53,8 @@
                                             </td>
                                             <td>{{ $new->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
                                             <td>
-                                                <a href="{{ route('admin.news.edit', ['news' => $new]) }}" class="btn btn-info">Sửa</a>
-                                                <form action="{{ route('admin.news.destroy', ['news' => $new]) }}" method="POST">
+                                                <a href="{{ route('admin.news.edit', $new->id) }}" class="btn btn-info">Sửa</a>
+                                                <form action="{{ route('admin.news.destroy', $new->id) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger">Xóa</button>
@@ -68,8 +68,9 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="box-trang">
-                        {{ $news->links() }}
+                        {{$news->links('pagination::bootstrap-4')}}
                     </div>
                     <!-- /.card-body -->
                 </div>
