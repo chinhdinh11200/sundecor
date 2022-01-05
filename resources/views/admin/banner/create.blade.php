@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label for="">Vị trí</label>
                     <select type="text" name="priority" class="form-control">
-                        <option value="null">Chọn vị trí</option>
+                        <option value="">Chọn vị trí</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

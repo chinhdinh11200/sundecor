@@ -22,7 +22,7 @@ class BillController extends Controller
             ->join('products', 'products.id', '=', 'bill_product.product_id')
             ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
             ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price')
-            ->get();
+            ->paginate(8);
         // dd($carts);
         $products = Product::all();
         return view('admin.cart.index')->with('carts', $carts)->with('products', $products);
@@ -117,15 +117,13 @@ class BillController extends Controller
 
     public function classify($type)
     {
-        if($type == null) {
-            return redirect()->route('admin.bill.index');
-        }
         $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'products.sell_price')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price', 'product_sizes.sale_price')
             ->where('bills.status', $type)->get();
         // dd($carts);
-        return view('admin.cart.classify')->with('carts', $carts);
+        return view('admin.cart.classify')->with('carts', $carts)->with('type', $type);
     }
 
     public function billCreate(Request $request)

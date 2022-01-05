@@ -13,6 +13,15 @@
                             {{-- <h3 class="card-title"><a href="{{route('admin.product.create')}}"></a></h3> --}}
                         </div>
                     </div>
+
+                    <form action="" class="card-option">
+                        <select name="" id="" class="form-control" area onchange="window.location=this.value">
+                            <option value="{{ route('admin.promotion.index') }}" selected>---- Chọn trạng thái ----</option>
+                            <option value="{{ route('admin.promotion.classify', 0) }}">Chưa liên hệ</option>
+                            <option value="{{ route('admin.promotion.classify', 1) }}">Đã liên hệ</option>
+                        </select>
+                    </form>
+
                     <div class="card-body">
                         <table class="table table-bordered table-hover text-center">
                             <thead>
@@ -45,6 +54,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+
+
+                    <div class="box-trang">
+                        {{$promotions->links('pagination::bootstrap-4')}}
                     </div>
                 </div>
             </div>

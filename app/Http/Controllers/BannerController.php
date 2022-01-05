@@ -16,7 +16,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
+        $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         // dd($slides);
         return view('admin.banner.index')->with('slides', $slides);
     }

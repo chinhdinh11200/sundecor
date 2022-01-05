@@ -37,9 +37,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('banner', BannerController::class);
     Route::resource('cart', CartController::class);
     Route::resource('bill', BillController::class);
-    Route::get('classify/{type}', [BillController::class, 'classify'])->name('bill.classify');
+    Route::get('bill/classify/{type}', [BillController::class, 'classify'])->name('bill.classify');
     Route::resource('consultation', ConsultationController::class);
+    Route::get('consultation/classify/{type}', [ConsultationController::class, 'classify'])->name('consultation.classify');
     Route::resource('promotion', PromotionController::class);
+    Route::get('promotion/classify/{type}', [PromotionController::class, 'classify'])->name('promotion.classify');
     Route::resource('webinfo', WebInfoController::class);
 // Route::resource('user', 'UserAdminController');
 

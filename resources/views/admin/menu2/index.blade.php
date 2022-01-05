@@ -72,8 +72,9 @@
 
                         </table>
                     </div>
+
                     <div class="box-trang">
-                        {{ $datas->links() }}
+                        {{ $datas->links('pagination::bootstrap-4') }}
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -93,13 +94,13 @@
             }
         }
 
-        $(document).ready(function() {
-            if(parseInt(window.location.pathname.split('/').pop()) > 0) {
-                console.log("số");
-            }else {
+        // $(document).ready(function() {
+        //     if(parseInt(window.location.pathname.split('/').pop()) > 0) {
+        //         console.log("số");
+        //     }else {
 
-            console.log("chữ");
-            }
-        })
+        //     console.log("chữ");
+        //     }
+        // })
     </script>
 @endsection

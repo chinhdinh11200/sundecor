@@ -41,7 +41,7 @@ class Menu2Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
+        $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         // dd($menu);
         $menu1 = Menu::where('parent_menu_id', 0)->get();
         return view('admin.menu2.index', ['datas' => $menu, 'menu1' => $menu1]);
