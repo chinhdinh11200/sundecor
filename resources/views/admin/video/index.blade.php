@@ -66,6 +66,11 @@
                             </tbody>
                         </table>
                     </div>
+
+
+                    <div class="box-trang">
+                        {{$videos->links('pagination::bootstrap-4')}}
+                    </div>
                 </div>
             </div>
         </div>

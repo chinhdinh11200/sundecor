@@ -17,7 +17,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
+        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         return view('admin.video.index')->with('videos', $videos);
     }
 

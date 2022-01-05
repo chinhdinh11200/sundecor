@@ -15,8 +15,8 @@
                 <form action="" class="card-option">
                     <select name="" id="" class="form-control" area onchange="window.location=this.value">
                         <option value="{{ route('admin.bill.index') }}" selected>---- Chọn trạng thái ----</option>
-                        <option value="{{ route('admin.bill.classify', 0) }}">Chưa thanh toán</option>
-                        <option value="{{ route('admin.bill.classify', 1) }}">Đã thanh toán</option>
+                        <option value="{{ route('admin.bill.classify', 0) }}" {{ 0 == $type ? 'selected' : '' }}>Chưa thanh toán</option>
+                        <option value="{{ route('admin.bill.classify', 1) }}" {{ 1 == $type ? 'selected' : '' }}>Đã thanh toán</option>
                     </select>
                 </form>
 

@@ -105,7 +105,7 @@ class Menu1Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('menu_type_id', $id)->paginate(20);;
+        $menu = Menu::where('menu_type_id', $id)->paginate(20);
         $menutype = Menutype::all();
         return view('admin.menu1.show', ['datas' => $menu, 'menutype' => $menutype, 'menu_type_id' => $id]);
     }
