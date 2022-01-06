@@ -55,7 +55,7 @@
 								<div class="row">
 									<?php foreach($menu2 as $mn2): ?>
 										<?php if($mn2->parent_menu_id == $main_mn1->id): ?>
-											<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="#">{{$mn2->name}}</a>
+											<li class="header__submenu--item col-md-2-4"><a class="header__submenu--link" href="{{ route('category', $mn2->slug) }}">{{$mn2->name}}</a>
 										<?php endif; ?>
 									<?php endforeach; ?>
 								</div>

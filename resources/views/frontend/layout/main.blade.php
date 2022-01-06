@@ -36,11 +36,11 @@
 	@yield('content')
 
 	@include('frontend.layout.footer')
-    
+
     @include('sweetalert::alert')
 
 	@yield('script')
-	
+
 	<div class="bottom-fixed" id="bottom-fixed__call">
 		<div class="position-relative">
 			<div class="bottom-fixed__item bottom-fixed__item--call">
