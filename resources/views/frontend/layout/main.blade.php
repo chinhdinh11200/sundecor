@@ -16,7 +16,8 @@
 	<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
-	<link rel="stylesheet" href="{{asset('frontend/fonts/font-roboto.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/fonts/Myriad_Pro_Bold.ttf')}}">
+	<link rel="stylesheet" href="{{asset('frontend/fonts/Myriad_Pro_Regular.ttf')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/common.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/custom.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/footer.css')}}">
