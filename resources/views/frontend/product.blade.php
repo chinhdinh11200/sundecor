@@ -104,8 +104,11 @@
                                     <li>Bảo hành: 10 năm</li>
                                 </div>
                             </div>
-                            <form action="" class="product__detail--book">
-                                <button class="product__button product__button--red product__book--bought" href = "#">
+                            <form action="{{ route('cart.create') }}" class="product__detail--book" method="POST">
+                                @csrf
+                                <input type="hidden" name="session_id" id="session_id">
+                                <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                                <button type="submit" class="product__button product__button--red product__book--bought">
                                     <b >Mua ngay</b>
                                     <i class="fa fa-cart-arrow-down"></i>
                                 </button>
@@ -114,6 +117,7 @@
                                     <i class="fas fa-phone-volume"></i>
                                 </a>
                             </form>
+
                             <div class="product__detail--showroom">
                                 <div class="product__showroom">
                                 <span class=" product__showroom--title "style="color : black">KHÁCH HÀNG</span>

@@ -33,31 +33,31 @@ class FrontendController extends CommonController
     {
         $menus1 = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
         $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
-                        ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
-                        ->join('products', 'product_menu.product_id', '=', 'products.id')
-                        ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-                        ->distinct()
-                        ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
-                        ->where('product_menu.priority', '<>', 'NULL')
-                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-                        ->get();
+            ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
+            ->join('products', 'product_menu.product_id', '=', 'products.id')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->distinct()
+            ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
+            ->where('product_menu.priority', '<>', 'NULL')
+            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+            ->get();
         $product_result = array();
         foreach ($menus1 as $key => $menu1) {
             $quantity = 0;
             foreach ($products as $key1 => $product) {
-                if($product->parent_id == $menu1->id){
+                if ($product->parent_id == $menu1->id) {
                     $check = 0;
                     foreach ($product_result as $key2 => $value) {
-                        if($product->name == $value->name && $product->parent_id == $value->parent_id) {
+                        if ($product->name == $value->name && $product->parent_id == $value->parent_id) {
                             $check += 1;
                         }
                     }
-                    if($check == 0) {
+                    if ($check == 0) {
                         $product_result[] = $product;
-                        $quantity +=1;
+                        $quantity += 1;
                     }
                 }
-                if($quantity == 8){
+                if ($quantity == 8) {
                     break;
                 }
             }
@@ -65,9 +65,12 @@ class FrontendController extends CommonController
 
         return view('frontend.index')->with('menus1', $menus1)->with('products', $product_result);
     }
-    
-    public function category()
+
+    public function category($slug)
     {
+        $menu2 = Menu::where('slug', $slug)->first();    // mai tiếp đi m
+        $products = Product::join()
+            ->where()->get();
         return view('frontend.category');
     }
 
@@ -89,8 +92,8 @@ class FrontendController extends CommonController
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     *///
-    
+     */ //
+
     //    ---------------------------------------- Sản Phẩm --------------------------------------------
     public function product($id)
     {
@@ -102,12 +105,11 @@ class FrontendController extends CommonController
         // $product = Product::find($id);
 
         $product = Product::where('slug', $id)
-                            ->first();
-                            // dd($product);
+            ->first();
 
         $product_sizes = ProductSize::where('product_id', $product->id)->get();
-
-        return view('frontend.product')->with('product',$product)->with('product_sizes',$product_sizes);
+        // dd($product);
+        return view('frontend.product')->with('product', $product)->with('product_sizes', $product_sizes);
     }
 
     /**
@@ -118,7 +120,7 @@ class FrontendController extends CommonController
      */
     public function showNews($id)
     {
-    //
+        //
     }
 
     /**
@@ -129,7 +131,7 @@ class FrontendController extends CommonController
      */
     public function edit($id)
     {
-    //
+        //
     }
 
     /**
@@ -141,7 +143,7 @@ class FrontendController extends CommonController
      */
     public function update(Request $request, $id)
     {
-    //
+        //
     }
 
     /**
@@ -152,6 +154,6 @@ class FrontendController extends CommonController
      */
     public function destroy($id)
     {
-    //
+        //
     }
 }

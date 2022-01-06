@@ -103,7 +103,8 @@ class CartController extends CommonController
     {
         $carts = DB::table('shopping_carts')
             ->join('products', 'products.id', '=', 'shopping_carts.product_id')
-            ->select('products.*', 'shopping_carts.*')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->select('products.name','products.image_1', 'shopping_carts.*', 'product_sizes.size', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('session_id', $request->input('session_id'))
             ->get();
         // dd($carts);
@@ -136,7 +137,8 @@ class CartController extends CommonController
 
         $carts = DB::table('shopping_carts')
             ->join('products', 'products.id', '=', 'shopping_carts.product_id')
-            ->select('products.*', 'shopping_carts.*')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->select('products.*', 'shopping_carts.*', 'product_sizes.*')
             ->where('session_id', $request->input('session_id'))
             ->get();
         $total = 0;
