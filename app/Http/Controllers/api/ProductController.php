@@ -66,7 +66,7 @@ class ProductController extends Controller
             $product_size->save();
             return 200;
         }
-        return 201;
+        return $product_exist->name;
     }
 
     /**

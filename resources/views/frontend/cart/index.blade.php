@@ -48,13 +48,13 @@
                                                 {{ $cart->name }}
                                             </td>
                                             <td>
-                                                {{ $cart->sell_price }}
+                                                {{ number_format($cart->sell_price) }}
                                             </td>
                                             <td>
                                                 <input type="text" name="quantity" id={{ "quantity". $cart->id }} value="{{ $cart->quantity }}" style="width: 100px" class="text-center">
                                             </td>
                                             <td>
-                                                {{ $cart->sell_price* $cart->quantity }}
+                                                {{ number_format($cart->sell_price* $cart->quantity) }}
                                             </td>
                                             <td>
                                                 <form action="{{ route('cart.delete', $cart->id) }}" method="post">
@@ -69,7 +69,7 @@
                                     {{-- </form> --}}
                                 </tbody>
                             </table>
-                            <span>Tổng tiền : </span><span class="mt-4" id="total">&ensp;&ensp;&ensp;&ensp;&ensp;{{ $total }} đ</span> <br>
+                            <span>Tổng tiền : </span><span class="mt-4" id="total">&ensp;&ensp;&ensp;&ensp;&ensp;{{ number_format($total) }} đ</span> <br>
 
                             <button class="btn btn-success mt-4" id="updateCart" >Cập nhật đơn hàng</button>
 
