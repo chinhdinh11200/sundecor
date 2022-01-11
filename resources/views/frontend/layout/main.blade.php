@@ -16,8 +16,6 @@
 	<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
-	<link rel="stylesheet" href="{{asset('frontend/fonts/Myriad_Pro_Bold.ttf')}}">
-	<link rel="stylesheet" href="{{asset('frontend/fonts/Myriad_Pro_Regular.ttf')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/common.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/custom.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/footer.css')}}">
@@ -26,6 +24,12 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 </head>
+<style type="text/css">
+	@font-face {
+		font-family: "Myriad Pro Bold";
+		src: url('{{ public_path('frontend/fonts/Myriad_Pro_Bold.otf') }}');
+	}
+</style>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="8eqkFuJn"></script>
 <body id="welcome">

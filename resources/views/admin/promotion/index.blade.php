@@ -1,5 +1,7 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'promotion'])
+<!-- /.navbar -->
 @extends('admin.layout.main')
-
 @section('content')
     <section class="content">
         <div class="row">

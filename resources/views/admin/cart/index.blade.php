@@ -68,10 +68,10 @@
                         </tbody>
                     </table>
 
-                    <form action="{{ route('cart.create') }}" method="POST">
+                    <form action="{{ route('cart.create') }}" method="POST" class="d-flex mt-2">
                         @csrf
-                        <input type="" name="session_id" id="session_id">
-                        <select type="text" name="product_id" >
+                        <input type="" name="session_id" class="form-control col-4 mr-2" id="session_id">
+                        <select type="text" name="product_id" class="form-control col-4">
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach

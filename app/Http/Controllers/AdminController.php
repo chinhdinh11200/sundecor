@@ -20,6 +20,11 @@ class AdminController extends Controller
         return view('admin.admin')->with('webInfo', $webInfo);
     }
 
+    public function login()
+    {
+        return view('admin.login');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -84,24 +89,5 @@ class AdminController extends Controller
     public function destroy($id)
     {
     //
-    }
-
-    public function login()
-    {
-        $menutype = Menutype::all();
-        if(count($menutype)!=4){
-            for($i=0; $i<4; $i++){
-                $menutype = new Menutype();
-                if($i==0)
-                    $menutype->name = "Menu top";
-                if($i==1)
-                    $menutype->name = "Menu chính";
-                if($i==2)
-                    $menutype->name = "Menu chân trang";
-                if($i==3)
-                    $menutype->name = "Menu khác";
-                $menutype->save();
-            }
-        }
     }
 }

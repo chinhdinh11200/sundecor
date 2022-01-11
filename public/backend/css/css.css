@@ -129,7 +129,7 @@
     min-height: 78px;
 }
 
-/*/*----------------------- custom /*-----------------------*/
+/*----------------------- custom -----------------------*/
 .card-body>.table>thead>tr>td, .card-body>.table>thead>tr>th{
     text-align: center;
     vertical-align: middle;
@@ -137,3 +137,167 @@
 .btn.btn-info{
     margin-bottom: 12px;
 }
+
+/*----------------------- page-login -----------------------*/
+.page-login {
+    padding: 118px 0;
+    font-family: source-han-sans-japanese, sans-serif;
+    background-color: #DDD;
+    overflow: hidden;
+  }
+  .page-login .mt-10 {
+    margin-top: 10px;
+  }
+  .page-login .frame-form {
+    background-color: #fff;
+    width: 600px;
+    padding: 50px;
+    margin: 0 auto;
+    transition: 0.5s all;
+    border-radius: 15px;
+  }
+  .page-login .form-logo {
+    height: 120px;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .page-login .form-logo img {
+    height: 100%;
+    width: auto;
+  }
+  .page-login .form-nav {
+    margin-bottom: 20px;
+    padding: 0;
+  }
+  .page-login .form-nav-item {
+    transition: 0.5s all;
+    border: #ddd 1px solid;
+    list-style: none;
+    color: #999;
+    width: 100%;
+    height: 42px;
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .page-login .form-nav-item:first-child {
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .page-login .form-nav-item:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+  }
+  .page-login .form-nav-item:not(.form-nav-active):hover {
+    color: #000;
+  }
+  .page-login .form-nav-active {
+    background-color: #333;
+    color: #fff;
+    border: #333 1px solid;
+  }
+  .page-login .form-label {
+    font-size: 14px;
+    line-height: 30px;
+    color: #333;
+    margin-bottom: 0;
+    text-align: left;
+    font-weight: bold;
+  }
+  .page-login .form-input-text {
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 5px;
+    border: #eee 2px solid;
+    max-height: 42px;
+  }
+  .page-login .frame-form-login .form-button-submit {
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .page-login .form-input-text::placeholder {
+    color: #bbb;
+  }
+  .page-login .form-button-submit {
+    border: none;
+    background-color: #000;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.5s all;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-top: 10px;
+    width: 100%;
+    height: 54px;
+  }
+  .page-login .form-button-submit:hover {
+    background-color: #333;
+  }
+  .page-login .form-link {
+    color: #0047dc;
+    font-size: 12px;
+    line-height: 30px;
+    width: 100%;
+    margin-bottom: 60px;
+    text-decoration: underline;
+    transition: 0.5s all;
+    margin-top: 20px;
+  }
+  .page-login .form-link:hover {
+    opacity: 75%;
+  }
+  .page-login .form-button-link {
+    margin-top: 20px;
+    height: 54px;
+    line-height: 30px;
+    width: 100%;
+    border: #000 2px solid;
+    color: #000;
+    padding: 15px 0;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.5s all;
+    border-radius: 5px;
+  }
+  .page-login .form-button-link:hover {
+    color: #999;
+  }
+  .page-login .form-note {
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  .page-login .form-note-link {
+    color: #333;
+    text-decoration: revert;
+  }
+  .page-login .container-form {
+    overflow-x: hidden;
+  }
+  .page-login .frame-form-login {
+    transition: 0.7s all;
+  }
+  .page-login .frame-form-register {
+    position: relative;
+    top: -360px;
+    left: 540px;
+    transition: 0.7s all;
+    opacity: 0;
+  }
+  .page-login .frame-form-active {
+    transform: translateX(calc(-100% - 160px));
+    opacity: 1;
+  }
+  .page-login .frame-form-inactive {
+    transform: translateX(calc(-100% - 160px));
+    opacity: 0;
+  }
+  

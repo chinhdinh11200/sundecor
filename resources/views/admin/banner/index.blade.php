@@ -1,3 +1,6 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'banner'])
+<!-- /.navbar -->
 @extends('admin.layout.main')
 @section('content')
     <div class="row">

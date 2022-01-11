@@ -1,3 +1,6 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'contact'])
+<!-- /.navbar -->
 @extends('admin.layout.main')
 @section('content')
     <section class="content">
