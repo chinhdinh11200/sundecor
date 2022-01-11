@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 });
 Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('/', [FrontendController::class , 'index'])->name('web');
+    Route::get('login', [FrontendController::class , 'login'])->name('login');
     Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');
     Route::get('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('cart_create', [CartController::class, 'cartCreate'])->name('cart.create');

@@ -48,17 +48,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="product__price--sale col-md-6">
-                                    <p>{{ number_format($product_sizes[0]->sale_price) }} đ</p>
-                                </div>
-                                <div class="product__price--sell col-md-6">
-                                    <div class="product__sell--old">
-                                        Giá gốc : <span>{{ number_format($product_sizes[0]->sell_price) }} đ</span>
+                                @foreach ($product_sizes as $key => $product_size)
+                                    <div class="product__price--show product__price--show<?php echo $key+1 ?>">
+                                        <div class="product__price--sale col-md-6">
+                                            <p>{{ number_format($product_size->sale_price) }} đ</p>
+                                        </div>
+                                        <div class="product__price--sell col-md-6">
+                                            <div class="product__sell--old">
+                                                Giá gốc : <span>{{ number_format($product_size->sell_price) }} đ</span>
+                                            </div>
+                                            <div class="product__sell--save">
+                                                Tiết Kiệm : {{ number_format($product_size->sell_price - $product_size->sale_price) }} đ
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="product__sell--save">
-                                        Tiết Kiệm : {{ number_format($product_sizes[0]->sell_price - $product_sizes[0]->sale_price) }} đ
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                             <div class = "product__detail--order row">
                                 <div class="product__order--label col-md-6">
@@ -91,7 +95,7 @@
                                     <p class="text-center" style="font-weight: 500;">Kích thước:</p>
                                     <div class="product__size--code">
                                         @foreach ($product_sizes as $key => $product_size)
-                                            <li class="product__code_a <?php if($key == 0) echo 'active'; ?>" onclick="">{{ $product_size->size }}</li>
+                                            <li class="product__code_a <?php if($key == 0) echo 'active'; ?>" target="<?= $key+1 ?>">{{ $product_size->size }}</li>
                                         @endforeach
                                         {{-- <li class="product__code_a" onclick="">D800*H800mm</li>
                                         <li class="product__code_a" onclick="">D1200*H1200mm</li> --}}

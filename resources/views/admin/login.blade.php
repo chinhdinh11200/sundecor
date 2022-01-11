@@ -20,31 +20,37 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
-<!-- Main Sidebar Container -->
-  	@include('admin.layout.menu')
+<body class="vh-100">
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-<!-- Content Header (Page header) -->
-   @yield('content') <!-- VI TRI MINH CAN THAY THE -->
-<!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-<!-- Main Footer -->
-  	@include('admin.layout.footer')
-    @include('sweetalert::alert')
-
-</div>
-<!-- ./wrapper -->
+<section style="text-align: center; height: 100%">
+	<div class="page-login h-100">
+    <div class="container container-main">
+        <div class="frame-form">
+            <?php if(isset($alert)){?>
+                <section class="alert alert-danger"><?=$alert?></section>
+            <?php }?>
+            <div class="form-logo">
+                <a href="">
+                    <img src="{{asset('/frontend/images/common/logo.png')}}" alt="">
+                </a>
+            </div>
+            <div class="container-form">
+                <form class="frame-form-login" action=""  method="post"> 
+                    <div class="d-flex align-items-center mb-3">
+                        <label class="form-label col-3"> Tên đăng nhập:</label>
+                        <input class="form-input-text col-9" required="" type="text" name="tenDangNhap" />
+                    </div>
+                    <div class="d-flex align-items-center mb-5">
+                        <label class="form-label col-3"> Mật khẩu:</label>
+                        <input class="form-input-text col-9" required="" type="password" min="8" name="matKhau" />
+                    </div>
+                    <input class="form-button-submit" value="ĐĂNG NHẬP" type="submit" name="dangnhap"/>
+                </form>
+            </div>
+        </div>
+    </div>
+	</div>
+</section>
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->

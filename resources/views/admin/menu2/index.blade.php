@@ -1,3 +1,6 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'menu2'])
+<!-- /.navbar -->
 @extends('admin.layout.main')
 @section('content')
 
