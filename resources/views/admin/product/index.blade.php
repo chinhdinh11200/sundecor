@@ -10,10 +10,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách SẢN PHẨM</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh sách sản phẩm</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm SẢN PHẨM</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm sản phẩm</a></h3>
                         </div>
                     </div>
 
@@ -42,29 +42,24 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
-                                        <td><img style="width: 80px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
+                                        <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
                                         <td>
                                             <div style="margin: auto 0;">
                                                 {{$product->name}}
                                             </div>
                                         </td>
-                                        <td>{{$product->created_at}}</td>
-                                        <td><?php echo (1==$product->status?"Hiện":""); ?></td>
+                                        <td style="vertical-align: middle; text-align: center">{{$product->created_at}}</td>
+                                        <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->status?"Hiện":""); ?></td>
                                         {{-- <!-- <td>{{$product->priority}}</td> --> --}}
-                                        <td
-                                            style="opacity: 1;
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-                                            height: 105px"
-
-                                        >
-                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info" style="margin: 0 10px 0 0">Sửa</a>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center">
+                                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info" style="margin: 0 10px 0 0">Sửa</a>
                                             <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
                                             </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

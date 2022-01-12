@@ -39,18 +39,20 @@
                             <tbody>
                                 @foreach ($promotions as $key => $promotion)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
-                                        <td>{{ $promotion->fullname }}</td>
-                                        <td>{{ $promotion->tel }}</td>
+                                        <td style="vertical-align: middle">{{ $key+1 }}</td>
+                                        <td style="vertical-align: middle">{{ $promotion->fullname }}</td>
+                                        <td style="vertical-align: middle">{{ $promotion->tel }}</td>
                                         <td>{{ $promotion->description }}</td>
-                                        <td>{{ $promotion->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
-                                        <td style="display: flex;">
-                                            <a href="{{ route('admin.promotion.edit', $promotion) }}" class="btn btn-primary">Sửa</a>
+                                        <td style="vertical-align: middle">{{ $promotion->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
+                                        <td style="vertical-align: middle">
+                                            <div class="d-flex">
+                                                <a href="{{ route('admin.promotion.edit', $promotion) }}" class="btn btn-primary">Sửa</a>
                                             <form action="{{ route('admin.promotion.destroy', $promotion) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-danger">Xóa</button>
                                             </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

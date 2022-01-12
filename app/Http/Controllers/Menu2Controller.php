@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Menutype;
+use App\Rules\Required;
+use App\Rules\Unique;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -68,6 +70,11 @@ class Menu2Controller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => [new Required],
+            'title' => [new Required],
+            'keyword' => [new Required],
+        ]);
         $data = new Menu();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
         $data->title = $request->input('title'); //nhận nhập tên loại trong input

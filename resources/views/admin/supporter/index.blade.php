@@ -37,26 +37,24 @@
 
                             <tbody>
                                 @foreach ($supporters as $key => $supporter)
-                                    <tr class="class">
-                                        <td>{{ $key + 1 }}</td>
+                                    <tr>
+                                        <td style="vertical-align: middle">{{ $key + 1 }}</td>
                                         <td>
                                             <img src="{{ $supporter->image ?  asset('upload/images/supporter/' . $supporter->image) : "" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
                                         </td>
-                                        <td>
-                                            <div>{{ $supporter->fullname }}</div>
+                                        <td style="vertical-align: middle">
+                                            {{ $supporter->fullname }}
                                         </td>
-                                        <td>
-                                            <div>{{ $supporter->tel }}</div>
+                                        <td style="vertical-align: middle">
+                                            {{ $supporter->tel }}
                                         </td>
-                                        <td>
-                                            <div>{{ $supporter->priority }}</div>
+                                        <td style="vertical-align: middle">
+                                            {{ $supporter->priority }}
                                         </td>
-                                        <td>
-                                            <div>
-                                                {{ $supporter->status ? 'Hiển thị' : 'Ẩn' }}
-                                            </div>
+                                        <td style="vertical-align: middle">
+                                            {{ $supporter->status ? 'Hiển thị' : 'Ẩn' }}
                                         </td>
-                                        <td>
+                                        <td style="vertical-align: middle">
                                             <div class="d-flex">
                                                 <a href="{{ route('admin.supporter.edit', ['supporter' => $supporter]) }}" class="btn btn-primary mr-3">sửa</a>
                                                 <form action="{{ route('admin.supporter.destroy',  ['supporter' => $supporter]) }}" method="POST">

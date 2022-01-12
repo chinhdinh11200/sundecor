@@ -69,8 +69,8 @@ class FrontendController extends CommonController
     public function category($slug)
     {
         $menu2 = Menu::where('slug', $slug)->first();    // mai tiếp đi m
-        $products = Product::join()
-            ->where()->get();
+        // $products = Product::join()
+        //     ->where()->get();
         return view('frontend.category');
     }
 

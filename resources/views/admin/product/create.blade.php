@@ -4,10 +4,10 @@
 
     <div class="card-header">
         <div class="left no-click">
-            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách Sản Phẩm</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh sách sản phẩm</a></h3>
         </div>
         <div class="right">
-            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm Sản Phẩm</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm sản phẩm</a></h3>
         </div>
     </div>
   <!-- /.card-header -->
@@ -18,25 +18,25 @@
     <div class="card-body">
       <div class="form-group">
         <label for="name">Tên Sản Phẩm</label>
-        <input type="text" class="form-control" id="name" placeholder="Tên Sản Phẩm" name="name" value="{{ old('name') }}">
+        <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm" name="name" value="{{ old('name') }}">
         @if($errors->has('name'))
-            <p>{{ $errors->first('name') }}</p>
+            <p style="color: red">{{ $errors->first('name') }}</p>
         @endif
       </div>
       <div class="form-group">
         <label for="title">Tiêu Đề</label>
-        <input type="text" class="form-control" id="title" placeholder="Tiêu Đề Sản Phẩm" name="title" value="{{ old('title') }}">
+        <input type="text" class="form-control" id="title" placeholder="Tiêu Đề sản phẩm" name="title" value="{{ old('title') }}">
         @if($errors->has('title'))
-            <p>{{ $errors->first('title') }}</p>
+            <p style="color: red">{{ $errors->first('title') }}</p>
         @endif
       </div>
       <div class="form-group">
         <label for="code">Mã Sản Phẩm</label>
-        <input type="text" class="form-control" id="code" placeholder="Tiêu Đề Sản Phẩm" name="code" value="{{ old('code') }}">
-      </div>
-      @if($errors->has('code'))
-        <p>{{ $errors->first('code') }}</p>
-    @endif
+        <input type="text" class="form-control" id="code" placeholder="Mã sản phẩm" name="code" value="{{ old('code') }}">
+        @if($errors->has('code'))
+        <p style="color: red">{{ $errors->first('code') }}</p>
+      @endif
+    </div>
       <div class="form-group">
         <label for="image">Ảnh Sản Phẩm</label>
         <div id="image">
@@ -45,11 +45,11 @@
       </div>
       <div class="form-group">
         <label for="guarantee">Bảo Hành</label>
-        <input type="text" class="form-control" id="guarantee" placeholder="Tiêu Đề Sản Phẩm" name="guarantee" value="{{ old('guarantee') }}">
+        <input type="text" class="form-control" id="guarantee" placeholder="Bảo hành sản phẩm" name="guarantee" value="{{ old('guarantee') }}">
       </div>
       <div class="form-group">
         <label for="">Tình Trạng</label>
-        <input type="text" class="form-control" id="sold_out" placeholder="Tiêu Đề Sản Phẩm" name="sold_out" value="{{ old('sold_out') }}">
+        <input type="text" class="form-control" id="sold_out" placeholder="Trạng thái sản phẩm" name="sold_out" value="{{ old('sold_out') }}">
       </div>
       <div class="form-group">
         <input onchange="isContactProduct()" type="checkbox" id="is_contact_product" name="is_contact_product" value="1" {{ old('is_contact_product') == 1 ? "checked" : '' }}>&emsp;
@@ -64,6 +64,10 @@
                 <input type="text" id="sale_price" class="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px">
             </div>
         </div>
+
+        @if($errors->has('size'))
+            <p style="color: red">{{ $errors->first('size') }}</p>
+        @endif
         <br>
         <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
         <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="subProductSize()">-</button>
@@ -81,13 +85,13 @@
         <input type="text" class="form-control" id="description" placeholder="Mô Tả Ngắn" name="description" value="{{ old('description') }}">
       </div>
       @if($errors->has('description'))
-      <p>{{ $errors->first('description') }}</p>
-  @endif
+      <p style="color: red">{{ $errors->first('description') }}</p>
+    @endif
       <div class="form-group">
         <label for="content">Mô Tả Chi Tiết</label>
           <textarea class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content" value="{{ old('content') }}"></textarea>
           @if($errors->has('content'))
-          <p>{{ $errors->first('content') }}</p>
+          <p style="color: red">{{ $errors->first('content') }}</p>
       @endif
           <script>
               CKEDITOR.replace( 'content' , {

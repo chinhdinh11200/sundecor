@@ -6,6 +6,8 @@ use App\Models\Menu;
 use App\Models\Product;
 use App\Models\ProductMenu;
 use App\Models\ProductSize;
+use App\Rules\Required;
+use App\Rules\Unique;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -58,24 +60,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+        //     'name' => 'required|unique:products',
+        //     'code' => 'required|unique:products',
+        //     'title' => 'required',
+        //     'content' => 'required',
+        //     'description' => 'required'
+        // ], [
+        //     'name.unique' => 'Sản phầm này đã tồn tại!',
+        //     'name.required' => 'Vui lòng nhập vào tên sản phẩm',
+        //     'code.unique' => 'Mã sản phầm này đã tồn tại!',
+        //     'code.required' => 'Vui lòng nhập vào mã sản phẩm',
+        //     'title.required' => 'Vui lòng nhập vào tiêu đề sản phẩm',
+        //     'content.required' => 'Vui lòng nhập vào nội dung sản phẩm',
+        //     'description.required' => 'Vui lòng nhập vào mô tả sản phẩm'
+        // ]);
+
         $request->validate([
-            'name' => 'required|unique:products',
-            'code' => 'required|unique:products',
-            'title' => 'required',
-            'content' => 'required',
-            'description' => 'required'
-        ], [
-            'name.unique' => 'Sản phầm này đã tồn tại!',
-            'name.required' => 'Vui lòng nhập vào tên sản phẩm',
-            'code.unique' => 'Mã sản phầm này đã tồn tại!',
-            'code.required' => 'Vui lòng nhập vào mã sản phẩm',
-            'title.required' => 'Vui lòng nhập vào tiêu đề sản phẩm',
-            'content.required' => 'Vui lòng nhập vào nội dung sản phẩm',
-            'description.required' => 'Vui lòng nhập vào mô tả sản phẩm'
+            'name' => [new Required, new Unique],
+            'title' => [new Required, new Unique],
+            'code' => [new Required, new Unique],
+            // 'description' => new Required,
+            'size' => new Required,
+            // 'content' => new Required,
         ]);
-
-
-
         $menus2 = Menu::where("parent_menu_id","<>",0)
                         ->where("menu_type_id",2)
                         ->where("status",1)
@@ -229,7 +237,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // dd($request);
         $product_update = Product::find($product->id);
         $menus2 = Menu::where("parent_menu_id","<>",0)
                         ->where("menu_type_id",2)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slide;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -39,6 +40,10 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => [new Required],
+            'link' => [new Required],
+        ]);
         $slide_check = Slide::where('priority', $request->input('priority'))->first();
         if($slide_check){
             $slide_check->priority = null;

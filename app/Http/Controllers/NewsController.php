@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\MenuNew;
 use App\Models\News;
+use App\Rules\Required;
+use App\Rules\Unique;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -43,7 +45,11 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        $request->validate([
+            'name' => [new Required],
+            'title' => [new Required],
+            'keyword' => [new Required],
+        ]);
         $new_check = News::where('menu_id', $request->input('menu_id'))
                             ->where('priority', $request->input('priority'))
                             ->first();
