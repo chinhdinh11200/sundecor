@@ -16,12 +16,18 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="title">Title : </label>
-                    <input type="text" id="title" name="title" value="" class="form-control">
+                    <input type="text" id="title" name="title" value="" class="form-control" placeholder="Tiêu đề video">
+                    @if($errors->has('title'))
+                                <p style="color: red">{{ $errors->first('title') }}</p>
+                              @endif
                 </div>
 
                 <div class="form-group">
                     <label for="link">Link : </label>
-                    <input type="text" id="link" name="link" value="" class="form-control">
+                    <input type="text" id="link" name="link" value="" class="form-control" placeholder="Link video">
+                    @if($errors->has('link'))
+                                <p style="color: red">{{ $errors->first('link') }}</p>
+                              @endif
                 </div>
 
                 <div class="form-group">
@@ -51,13 +57,6 @@
                     </select>
                 </div>
                 <button class="btn btn-primary" type="submit">Submit</button>
-                @if ($errors->any)
-                    <div>
-                        @foreach ($errors->all() as $error)
-                            {{ $error }}
-                        @endforeach
-                    </div>
-                @endif
             </div>
 
         </form>

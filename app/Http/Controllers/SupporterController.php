@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supporter;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -39,6 +40,10 @@ class SupporterController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'fullname' => [new Required],
+            'tel' => [new Required],
+        ]);
         $supporter_check = Supporter::where('priority', $request->input('priority'))->first();
         if($supporter_check){
             $supporter_check->priority = null;
@@ -155,5 +160,20 @@ class SupporterController extends Controller
         Supporter::where('id', $supporter->id)->delete();
 
         return redirect()->route('admin.supporter.index');
+    }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.promotion.index');
+        }else {
+            $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->where('fullname', 'like', '%'.$search.'%')
+            ->orWhere('tel', 'like', '%'.$search.'%')
+            ->paginate(8);
+
+            $supporters->appends(['s' => $search]);
+            return view('admin.supporter.index', ['supporters' => $supporters]);
+        }
     }
 }

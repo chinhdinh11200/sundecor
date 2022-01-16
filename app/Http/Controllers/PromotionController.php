@@ -111,4 +111,16 @@ class PromotionController extends Controller
         return view('admin.promotion.classify')->with('promotions', $promotions)->with('type', $type);
     }
 
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.promotion.index');
+        }else {
+            $promotions = Promotion::where('fullname', 'like', '%'.$search.'%')
+            ->orWhere('tel', 'like', '%'.$search.'%')
+            ->paginate(8);
+            $promotions->appends(['s' => $search]);
+            return view('admin.promotion.search')->with('promotions', $promotions);
+        }
+    }
 }

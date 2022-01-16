@@ -44,25 +44,29 @@
                                             Giảm giá
                                         </div>
                                         <div class="product__sale--percent">
-                                            50%
+                                            {{-- {{ floor(($product_sizes[0]->sell_price - $product_sizes[0]->sale_price) * 100/$product_sizes[0]->sell_price) }} % --}}
                                         </div>
                                     </div>
                                 </div>
-                                @foreach ($product_sizes as $key => $product_size)
-                                    <div class="product__price--show product__price--show<?php echo $key+1 ?>">
-                                        <div class="product__price--sale col-md-6">
-                                            <p>{{ number_format($product_size->sale_price) }} đ</p>
-                                        </div>
-                                        <div class="product__price--sell col-md-6">
-                                            <div class="product__sell--old">
-                                                Giá gốc : <span>{{ number_format($product_size->sell_price) }} đ</span>
+                                @if ($product->is_contact_product)
+                                    <div>Giá liên hệ</div>
+                                @else
+                                    @foreach ($product_sizes as $key => $product_size)
+                                        <div class="product__price--show product__price--show<?php echo $key+1 ?>">
+                                            <div class="product__price--sale col-md-6">
+                                                <p>{{ number_format($product_size->sale_price) }} đ</p>
                                             </div>
-                                            <div class="product__sell--save">
-                                                Tiết Kiệm : {{ number_format($product_size->sell_price - $product_size->sale_price) }} đ
+                                            <div class="product__price--sell col-md-6">
+                                                <div class="product__sell--old">
+                                                    Giá gốc : <span>{{ number_format($product_size->sell_price) }} đ</span>
+                                                </div>
+                                                <div class="product__sell--save">
+                                                    Tiết Kiệm : {{ number_format($product_size->sell_price - $product_size->sale_price) }} đ
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
                             </div>
                             <div class = "product__detail--order row">
                                 <div class="product__order--label col-md-6">
@@ -95,7 +99,7 @@
                                     <p class="text-center" style="font-weight: 500;">Kích thước:</p>
                                     <div class="product__size--code">
                                         @foreach ($product_sizes as $key => $product_size)
-                                            <li class="product__code_a <?php if($key == 0) echo 'active'; ?>" target="<?= $key+1 ?>">{{ $product_size->size }}</li>
+                                            <li class="product__code_a {{-- <?php if($key == 0) echo 'active'; ?> --}}" target="<?= $key+1 ?>" onclick="selectPrice({{ $product_size->id }})">{{ $product_size->size }}</li>
                                         @endforeach
                                         {{-- <li class="product__code_a" onclick="">D800*H800mm</li>
                                         <li class="product__code_a" onclick="">D1200*H1200mm</li> --}}
@@ -104,11 +108,11 @@
                                 <div class="product__ossascomp--other col-12 col-md-6">
                                     <li class="d-flex">Chất liệu: <span> Pha lê K9, hợp kim thép chống gỉ<span></li>
                                     <li>Màu sắc : Trắng trong pha lê</li>
-                                    <li>Tình trạng : Còn hàng</li>
-                                    <li>Bảo hành: 10 năm</li>
+                                    <li>Tình trạng : {{' '. $product->sold_out }}</li>
+                                    <li>Bảo hành : {{' '. $product->guarantee }} tháng</li>
                                 </div>
                             </div>
-                            <form action="{{ route('cart.create') }}" class="product__detail--book" method="POST">
+                            <form action="{{ route('cart.create') }}" class="product__detail--book" method="POST" id="form_cart">
                                 @csrf
                                 <input type="hidden" name="session_id" id="session_id">
                                 <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
@@ -286,6 +290,25 @@
                 @include('frontend.include.construct')
             </div>
         </div>
+        <script>
+            function selectPrice(id) {
+                const form = document.getElementById('form_cart');
+
+                var productSize_id = document.getElementById('product_size_id');
+                if(productSize_id){
+                    console.log(productSize_id);
+                    productSize_id.remove();
+                }
+
+                productSize_id = document.createElement("input");
+                productSize_id.setAttribute('name', 'product_size_id');
+                productSize_id.setAttribute('id', 'product_size_id');
+                productSize_id.setAttribute('type', 'hidden');
+                productSize_id.setAttribute('value', id);
+                form.appendChild(productSize_id);
+                console.log(productSize_id);
+            }
+        </script>
         @include('frontend.include.voucher')
         @include('frontend.include.news')
         @include('frontend.include.service')

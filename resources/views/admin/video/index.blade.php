@@ -1,3 +1,5 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'video'])
 @extends('admin.layout.main')
 @section('content')
 
@@ -34,29 +36,27 @@
                             <tbody>
                                 @foreach ($videos as $key => $video)
                                     <tr class="class">
-                                        <td>{{ $key + 1 }}</td>
+                                        <td style="vertical-align: middle">{{ $key + 1 }}</td>
                                         <td>
-                                            <img src="{{ $video->image ?  asset('upload/images/video/'. $video->image) : "ccc" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
+                                            <img src="{{ $video->image ?  asset('upload/images/video/'. $video->image) : "" }}" alt="ảnh" style="width: 60px; height: 60px" srcset="">
                                         </td>
                                         <td>
                                             <div>{{ $video->title }}</div>
                                             <div>{{ $video->link }}</div>
                                         </td>
-                                        <td>
-                                            <div>{{ $video->priority }}</div>
+                                        <td  style="vertical-align: middle">
+                                            {{ $video->priority }}
                                         </td>
-                                        <td>
-                                            <div>
+                                        <td style="vertical-align: middle">
                                                 {{ $video->status ? 'Hiển thị' : 'Ẩn' }}
-                                            </div>
                                         </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="{{ route('admin.video.edit', ['video' => $video]) }}" class="btn btn-primary mr-3">sửa</a>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                <a href="{{ route('admin.video.edit', ['video' => $video]) }}" class="btn btn-primary mr-3">Sửa</a>
                                                 <form action="{{ route('admin.video.destroy',  ['video' => $video]) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-danger">xóa</button>
+                                                    <button type="submit" class="btn btn-danger">Xóa</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -66,7 +66,6 @@
                             </tbody>
                         </table>
                     </div>
-
 
                     <div class="box-trang">
                         {{$videos->links('pagination::bootstrap-4')}}

@@ -300,4 +300,9 @@
     transform: translateX(calc(-100% - 160px));
     opacity: 0;
   }
-  
+
+
+  .layout-navbar-fixed .wrapper .content-wrapper
+ {
+     margin-top: 0;
+ }

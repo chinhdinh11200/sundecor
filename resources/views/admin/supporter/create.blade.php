@@ -22,11 +22,17 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="fullname">Họ và tên : </label>
-                        <input type="text" id="fullname" name="fullname" value=""  class="form-control">
+                        <input type="text" id="fullname" name="fullname" value=""  class="form-control" placeholder="Họ và tên người hỗ trợ">
+                        @if($errors->has('fullname'))
+                        <p style="color: red">{{ $errors->first('fullname') }}</p>
+                      @endif
                     </div>
                     <div class="form-group">
                         <label for="tel">Số điện thoại : </label>
-                                <input type="text" id="tel" name="tel" value="" class="form-control">
+                                <input type="text" id="tel" name="tel" value="" class="form-control" placeholder="Số điện thoại người hỗ trợ">
+                                @if($errors->has('tel'))
+                                <p style="color: red">{{ $errors->first('tel') }}</p>
+                              @endif
                     </div>
                     <div class="form-group">
                         <label for="priority">Vị trí</label>
@@ -55,14 +61,6 @@
                     </div>
 
                     <button class="btn btn-primary" type="submit">Submit</button>
-
-                    @if ($errors->any)
-                        <div>
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}
-                            @endforeach
-                        </div>
-                    @endif
                 </div>
 
             </form>

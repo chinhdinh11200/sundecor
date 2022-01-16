@@ -3,10 +3,10 @@
 <div class="card">
     <div class="card-header">
         <div class="left no-click">
-            <h3 class="card-title"><a href="{{route('admin.menu2.index')}}">Danh Sách</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.menu2.index')}}">Danh Sách menu</a></h3>
         </div>
         <div class="right">
-            <h3 class="card-title"><a href="{{route('admin.menu2.create')}}">Thêm</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.menu2.create')}}">Thêm mới menu</a></h3>
         </div>
     </div>
   <!-- /.card-header -->

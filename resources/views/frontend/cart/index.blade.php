@@ -45,16 +45,16 @@
                                                 <img src="{{ asset('upload/images/product') .'/'. $cart->image_1 }}" alt="Ảnh" style="width: 80px">
                                             </td>
                                             <td>
-                                                {{ $cart->name }}
+                                                {{ $cart->name. ' ('.$cart->size . ')' }}
                                             </td>
                                             <td>
-                                                {{ number_format($cart->sell_price) }}
+                                                {{ number_format($cart->sell_price) }} đ
                                             </td>
                                             <td>
                                                 <input type="text" name="quantity" id={{ "quantity". $cart->id }} value="{{ $cart->quantity }}" style="width: 100px" class="text-center">
                                             </td>
                                             <td>
-                                                {{ number_format($cart->sell_price* $cart->quantity) }}
+                                                {{ number_format($cart->sell_price* $cart->quantity) }} đ
                                             </td>
                                             <td>
                                                 <form action="{{ route('cart.delete', $cart->id) }}" method="post">
@@ -108,7 +108,7 @@
 
                                     <div class="form-group mt-4">
                                         <button class="btn btn-success" id="order">Đặt hàng</button>
-                                    <button type="button" onclick="getCartQuantity()" class="btn btn-warning">Mua tiếp</button>
+                                        <a href="{{ route('web') }}" class="btn btn-warning">Mua tiếp</a>
                                     </div>
                                 </form>
                             </div>
@@ -132,19 +132,6 @@
             .then((data) => {
                 $('#cartQuantity').html(data)
             })
-            // $.ajax({
-            //     method: "GET",
-            //     url: "/cart_quantity",
-            //     data: {
-            //         _token: $('[name=_token]').attr('value'),
-            //         session_id: '222ae80f-b34c-4f06-ad33-189f2e16e4d3',
-            //     },
-            //     dataType: "dataType",
-            //     success: function (response) {
-            //         console.log(response);
-            //         $('#cartQuantity').innerHTML = response
-            //     }
-            // });
         }
     </script>
 @endsection

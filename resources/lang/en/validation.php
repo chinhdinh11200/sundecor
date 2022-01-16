@@ -155,6 +155,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => "Tên",
+        'code' => 'Mã',
+        'title' => 'Tiêu đề',
+        'description' => 'Mô tả',
+        'size' => 'Kích thước',
+        'content' => 'Nội dung',
+        'keyword' => 'Từ khóa',
+        'tel' => 'Số điện thoại',
+        'fullname' => 'Tên',
+        'link' => 'Link',
+    ],
 
 ];

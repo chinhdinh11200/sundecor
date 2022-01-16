@@ -94,6 +94,7 @@ class ConsultationController extends Controller
     }
 
     public function registerConsultation(Request $request) {
+        // dd(url()->previous());
         $consultation = new Consultation();
         $consultation->fullname = $request->input('fullname');
         $consultation->tel = $request->input('tel');
@@ -101,13 +102,28 @@ class ConsultationController extends Controller
         $consultation->status = false;
         $consultation->save();
 
-        Alert::success('Chúc mừng', 'Bạn đã nhận khuyến mãi thành công');
-        return redirect()->back();
+        Alert::success('Chúc mừng', 'Bạn đã nhận khuyến mãi thành công')->persistent('Ok');
+
+        return redirect(url()->previous());
+        return back();
     }
 
     public function classify($type)
     {
         $consultations = Consultation::where('status', $type)->paginate(8);
         return view('admin.consultation.classify')->with('consultations', $consultations)->with('type', $type);
+    }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.consultation.index');
+        }else {
+            $consultations = Consultation::where('fullname', 'like', '%'.$search.'%')
+            ->orWhere('tel', 'like', '%'.$search.'%')
+            ->paginate(8);
+            $consultations->appends(['s' => $search]);
+            return view('admin.consultation.index')->with('consultations', $consultations);
+        }
     }
 }

@@ -24,8 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Thay đổi ảnh</label><br>
-                    <cite>Chọn Ảnh:&ensp;</cite><input type="file" name="image"><br><br>
-                    <img style="width: 120px; height: 120px; object-fit: cover;" src="{{asset($news->image)}}">
+                    <cite>Chọn Ảnh:&ensp;</cite><input type="file" name="image"><br>
                 </div>
                 <div class="form-group">
                     <label for="">Mô Tả Ngắn Bài Viết</label>
