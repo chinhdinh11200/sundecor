@@ -75,6 +75,8 @@ var swiper = new Swiper(".product__detail--swiper1", {
 
      
 // product__price--show
+$('.product__price--show').hide();
+$('.product__price--show1').show();
 $('.product__detail .product__code_a').click(function() {
     $('.product__code_a').removeClass("active");
     $(this).addClass("active");
