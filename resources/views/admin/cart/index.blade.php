@@ -1,3 +1,4 @@
+@include('admin.layout.header', ['text' => 'cart'])
 @extends('admin.layout.main')
 @section('content')
     <div class="row">
@@ -41,7 +42,7 @@
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày tạo</th>
-                                <th></th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -55,36 +56,20 @@
                                     <td>{{ $cart->sell_price * $cart->quantity }}</td>
                                     <td>{{ $cart->status }}</td>
                                     <td>{{ $cart->created_at }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary">sửa</a>
-                                        <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">xóa</button>
-                                        </form>
+                                    <td style="vertical-align: middle">
+                                        <div class="d-flex justify-content-center" style="max-height: 38px">
+                                            <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary mr-3">sửa</a>
+                                            <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">xóa</button>
+                                            </form>
+                                        </div>
                                     </td>
                                </tr>
                             @endforeach
                         </tbody>
                     </table>
-
-                    <form action="{{ route('cart.create') }}" method="POST" class="d-flex mt-2">
-                        @csrf
-                        <input type="" name="session_id" class="form-control col-4 mr-2" id="session_id">
-                        <select type="text" name="product_id" class="form-control col-4">
-                            @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
-                            @endforeach
-                        </select>
-
-                        <button class="btn btn-primary" type="submit">Cart</button>
-                    </form>
-
-                    {{-- <form action="{{ route('cart.index') }}" method="post">
-                        @csrf
-                        <input type="hidden" name="session_id" id="session_id">
-                        <button class="btn btn-primary" type="submit">View Cart</button>
-                    </form> --}}
                 </div>
 
                 <div class="box-trang">

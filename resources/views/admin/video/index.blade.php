@@ -1,3 +1,5 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'video'])
 @extends('admin.layout.main')
 @section('content')
 
@@ -48,8 +50,8 @@
                                         <td style="vertical-align: middle">
                                                 {{ $video->status ? 'Hiển thị' : 'Ẩn' }}
                                         </td>
-                                        <td style="vertical-align: middle; height: 100%;">
-                                            <div class="d-flex">
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center" style="max-height: 38px">
                                                 <a href="{{ route('admin.video.edit', ['video' => $video]) }}" class="btn btn-primary mr-3">Sửa</a>
                                                 <form action="{{ route('admin.video.destroy',  ['video' => $video]) }}" method="POST">
                                                     @csrf

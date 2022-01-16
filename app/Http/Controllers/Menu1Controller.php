@@ -216,4 +216,17 @@ class Menu1Controller extends Controller
         $menu->delete();
         return redirect()->route('admin.menu1.index');
     }
+
+    public function search(Request $request){
+        $search = Str::slug(($request->input('s')));
+        if($search == ''){
+            return redirect()->route('admin.menu1.index');
+        }else {
+            $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
+            $menutype = Menutype::all();
+            $menu->appends(['s' => $search]);
+            // dd($menu);
+            return view('admin.menu1.search', ['datas' => $menu, 'menutype' => $menutype]);
+        }
+    }
 }

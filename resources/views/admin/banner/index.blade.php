@@ -26,7 +26,7 @@
                                 <th class="col-5">Link</th>
                                 <th class="col-1">Thứ tự</th>
                                 <th class="col-1">Trạng thái</th>
-                                <th class="col-2"></th>
+                                <th class="col-2">Edit</th>
                             </tr>
                         </thead>
 
@@ -35,11 +35,11 @@
                                <tr>
                                     <td style="text-align: center; vertical-align: middle">{{ $key + 1 }}</td>
                                     <td style="text-align: center; vertical-align: middle"><img src="{{ asset('upload/images/slides') . '/' .  $slide->image  }}" alt="" style="width: 60px;"></td>
-                                    <td style="">{{ $slide->link }}</td>
+                                    <td style="">{{ $slide->title }}</td>
                                     <td style="text-align: center; vertical-align: middle">{{ $slide->priority }}</td>
                                     <td style="text-align: center; vertical-align: middle">{{ $slide->status == 1 ? "Hiển thị" : "Ẩn" }}</td>
                                     <td  style="text-align: center; vertical-align: middle">
-                                       <div class="d-flex justify-content-center">
+                                       <div class="d-flex justify-content-center" style="max-height: 38px">
                                             <a href="{{ route('admin.banner.edit', $slide->id) }}" class="btn btn-primary mr-3">Sửa</a>
                                             <form action="{{ route('admin.banner.destroy', $slide->id) }}" method="POST">
                                                 @csrf

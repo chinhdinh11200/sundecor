@@ -38,4 +38,7 @@ class Product extends Model
     public function product_menu() {
         return $this->belongsToMany(ProductMenu::class, Menu::class, 'product_id', 'subcategory_id');
     }
+    public function product_size() {
+        return $this->hasMany(ProductSize::class);
+    }
 }

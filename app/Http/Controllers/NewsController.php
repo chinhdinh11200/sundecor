@@ -182,4 +182,17 @@ class NewsController extends Controller
         News::where('id', $new->id)->delete();
         return redirect()->route('admin.news.index');
     }
+
+    public function search(Request $request){
+        $search = Str::slug(($request->input('s')));
+        // dd($search);
+        if($search == ''){
+            return redirect()->route('admin.news.index');
+        }else {
+            $menus = Menu::all();
+            $news = News::where('slug', 'like', '%'. $search . '%')->paginate(8);
+            $news->appends(['s' => $search]);
+            return view('admin.news.search', ['news' => $news, 'menus' => $menus]);
+        }
+    }
 }

@@ -41,7 +41,7 @@
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày tạo</th>
-                                <th></th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -55,13 +55,15 @@
                                     <td>{{ $cart->sell_price * $cart->quantity }}</td>
                                     <td>{{ $cart->status }}</td>
                                     <td>{{ $cart->created_at }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary">sửa</a>
-                                        <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">xóa</button>
-                                        </form>
+                                    <td style="vertical-align: middle">
+                                        <div class="d-flex justify-content-center" style="max-height: 38px">
+                                            <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary mr-3">sửa</a>
+                                            <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">xóa</button>
+                                            </form>
+                                        </div>
                                     </td>
                                </tr>
                             @endforeach

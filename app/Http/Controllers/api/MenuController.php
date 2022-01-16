@@ -27,6 +27,8 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->input('menu')['subcategories'][0];
+
         $menu_exist = Menu::where('name', '=', $request->input('menu')['category'])->first();
         if($menu_exist) {
             $menu_exist->priority = $request->input('menu')['index'];

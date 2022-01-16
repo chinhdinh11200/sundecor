@@ -161,4 +161,19 @@ class SupporterController extends Controller
 
         return redirect()->route('admin.supporter.index');
     }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.promotion.index');
+        }else {
+            $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->where('fullname', 'like', '%'.$search.'%')
+            ->orWhere('tel', 'like', '%'.$search.'%')
+            ->paginate(8);
+
+            $supporters->appends(['s' => $search]);
+            return view('admin.supporter.index', ['supporters' => $supporters]);
+        }
+    }
 }

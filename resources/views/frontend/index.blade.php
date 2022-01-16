@@ -49,7 +49,22 @@
                 </div>
                 <div class="swiper productSwiper">
                     <div class="swiper-wrapper">
-                        <?php for ($i = 0; $i < 10; ++$i) { ?>
+                        @foreach ($product_result_sale as $product_sale)
+                            <div class="swiper-slide">
+                                <div class="product__block--item col-12">
+                                    <a href="{{ route('category', $product_sale->slug) }}">
+                                        <div class="card__product">
+                                            <div class="card-product--img"><img src="{{ asset('upload/images/product/'. $product_sale->image_1) }}" alt="" /></div>
+                                            <h3 class="card__product--name">{{ $product_sale->name }}</h3>
+                                            <div class="card__product--price d-flex justify-content-between align-items-center">
+                                                <div class="card__product--promotional">{{ number_format($product_sale->sale_price) }} đ</div><span class="card__product--cost">{{  number_format($product_sale->sell_price) }} đ</span>
+                                            </div>
+                                        </div>
+                                </a>
+                                </div>
+                            </div>
+                        @endforeach
+                        {{-- <?php for ($i = 0; $i < 10; ++$i) { ?>
                             <div class="swiper-slide">
                                 <div class="product__block--item col-12">
                                     <a href="#">
@@ -63,7 +78,7 @@
                                 </a>
                                 </div>
                             </div>
-                        <?php }?>
+                        <?php }?> --}}
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
@@ -77,20 +92,27 @@
                 </div>
                 <div class="swiper productSwiper">
                     <div class="swiper-wrapper">
-                        <?php for ($i = 0; $i < 10; ++$i) { ?>
+                        @foreach ($product_hots as $product_hot)
                             <div class="swiper-slide">
-                                <div class="product__block--item col-12"><a href="#">
+                                <div class="product__block--item col-12">
+                                    <a href="{{ route('category', $product_hot->slug) }}">
                                         <div class="card__product">
-                                            <div class="card-product--img"><img src="https://sundecor.vn/img/p/den-chum-dong-phong-khach-sp005685-3603.jpg" alt="" /></div>
-                                            <h3 class="card__product--name">Đèn Chùm Pha Lê Màu Trắng GP 00001</h3>
+                                            <div class="card-product--img"><img src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
+                                            <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                                             <div class="card__product--price d-flex justify-content-between align-items-center">
-                                                <div class="card__product--promotional">60,000,000 đ</div><span class="card__product--cost">120,000,000 đ</span>
+                                                @if (!($product_hot->product_size()->get()->isEmpty()))
+                                                    <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
+                                                    <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
+                                                @else
+                                                    <div class="card__product--promotional">Giá liên hệ : </div>
+                                                    <span>0987654321</span>
+                                                @endif
                                             </div>
                                         </div>
-                                    </a>
+                                </a>
                                 </div>
                             </div>
-                        <?php }?>
+                        @endforeach
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
@@ -108,7 +130,7 @@
                     @foreach ($products as $product)
                         @if ($menu1->id == $product->parent_id)
                             <div class="product__block--item col-6 col-sm-4 col-md-3">
-                                <a href="{{ route('product', $product->slug) }}">
+                                <a href="{{ route('category', $product->slug) }}">
                                     <div class="card__product">
                                         <div class="card-product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
                                         <h3 class="card__product--name">{{ $product->name }}</h3>

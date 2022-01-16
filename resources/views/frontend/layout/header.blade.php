@@ -49,7 +49,7 @@
 			<ul class="header__menu--list">
 				<li class="header__menu--item header__menu-active"><a class="header__menu--link" href="#">Trang ch&#x1EE7;</a></li>
 				<?php foreach($main_menu1 as $main_mn1): ?>
-					<li class="header__menu--item"><a class="header__menu--link" href="#">{{$main_mn1->name}}</a>
+					<li class="header__menu--item"><a class="header__menu--link" href="{{ route('category', $main_mn1->slug) }}">{{$main_mn1->name}}</a>
 						<ul class="header__submenu--list">
 							<div class="main-container">
 								<div class="row">

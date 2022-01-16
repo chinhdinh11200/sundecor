@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CartController extends CommonController
 {
@@ -101,9 +103,10 @@ class CartController extends CommonController
 
     public function cart(Request $request)
     {
+        // dd($request);
         $carts = DB::table('shopping_carts')
             ->join('products', 'products.id', '=', 'shopping_carts.product_id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->join('product_sizes', 'product_sizes.id', '=', 'product_size_id')
             ->select('products.name','products.image_1', 'shopping_carts.*', 'product_sizes.size', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('session_id', $request->input('session_id'))
             ->get();
@@ -151,10 +154,17 @@ class CartController extends CommonController
 
     public function cartCreate(Request $request)
     {
+        if(!$request->has('product_size_id')){
+            Alert::error("Lỗi", "Bạn chưa chọn kích cỡ sản phẩm");
+            return redirect()->back();
+        }else {
+            dd('d');
+        }
         $shoppingCart = ShoppingCart::where('product_id', $request->input('product_id'))
             ->where('session_id', $request->input('session_id'))
+            ->where('product_size_id', $request->input('product_size_id'))
             ->first();
-
+        // dd($shoppingCart);
         if ($shoppingCart) {
             $quantity = $shoppingCart->quantity  + 1;
             $shoppingCart->quantity = $quantity;        // thêm mới 1 sản phẩm bị trùng
@@ -163,6 +173,7 @@ class CartController extends CommonController
             $cart = new ShoppingCart();
             $cart->session_id = $request->input('session_id');
             $cart->product_id = $request->input('product_id');
+            $cart->product_size_id = $request->input('product_size_id');
             $cart->quantity = 1;
             $cart->status = 0;
             $cart->save();
@@ -199,5 +210,20 @@ class CartController extends CommonController
         $quantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
 
         return $quantity;
+    }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.cart.index');
+        }else {
+            $carts = Bill::where('fullname', 'like', '%'.$search.'%')
+            ->orWhere('gender', 'like', '%'.$search.'%')
+            ->orWhere('phone_number', 'like', '%'.$search.'%')
+            ->orWhere('address', 'like', '%'.$search.'%')
+            ->paginate(8);
+            $carts->appends(['s' => $search]);
+            return view('admin.cart.search')->with('carts', $carts);
+        }
     }
 }

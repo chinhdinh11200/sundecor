@@ -227,4 +227,16 @@ class Menu2Controller extends Controller
         return redirect()->route('admin.menu2.index');
 
     }
+
+    public function search(Request $request){
+        $search = Str::slug(($request->input('s')));
+        if($search == ''){
+            return redirect()->route('admin.menu2.index');
+        }else {
+            $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
+            $menu1 = Menu::where('parent_menu_id', 0)->get();
+            $menu->appends(['s' => $search]);
+            return view('admin.menu2.search', ['datas' => $menu, 'menu1' => $menu1]);
+        }
+    }
 }

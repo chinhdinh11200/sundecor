@@ -29,7 +29,7 @@
                                     <th class="col-2">Số điện thoại</th>
                                     <th class="col-3">Mô tả</th>
                                     <th class="col-2">Trạng thái</th>
-                                    <th class="col-4"></th>
+                                    <th class="col-4">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,13 +40,15 @@
                                         <td>{{ $consultation->tel }}</td>
                                         <td>{{ $consultation->description }}</td>
                                         <td>{{ $consultation->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
-                                        <td style="display: flex">
-                                            <a href="{{ route('admin.consultation.edit', $consultation) }}" class="btn btn-primary">Sửa</a>
-                                            <form action="{{ route('admin.consultation.destroy', $consultation) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">Xóa</button>
-                                            </form>
+                                        <td style="vertical-align: middle">
+                                            <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                <a href="{{ route('admin.consultation.edit', $consultation) }}" class="btn btn-primary mr-3">Sửa</a>
+                                                <form action="{{ route('admin.consultation.destroy', $consultation) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">Xóa</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
