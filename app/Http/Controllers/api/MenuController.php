@@ -27,55 +27,76 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->input('menu')['subcategories'][0];
-
+        $subcategories = $request->input('menu')['subcategories'];
         $menu_exist = Menu::where('name', '=', $request->input('menu')['category'])->first();
         if($menu_exist) {
             $menu_exist->priority = $request->input('menu')['index'];
-            $menu_exist->title = $request->input('menu')['category'];
+            $menu_exist->title = $request->input('menu')['title'];
+            $menu_exist->content_1 = $request->input('menu')['content1'];
+            $menu_exist->content_2 = $request->input('menu')['content2'];
+            $menu_exist->description = $request->input('menu')['description'];
             $menu_exist->update();
-            foreach($request->input('menu')['subcategories'] as $key => $subcategory) {
-                $menu2_exist = Menu::where('name', '=', $subcategory)->first();
+            foreach($subcategories as $subcategory) {
+                $menu2_exist = Menu::where('name', '=', $subcategory['name'])->first();
                 if(!$menu2_exist){
                     $menu2 = new Menu();
-                    $menu2->name = $subcategory;
-                    $menu2->title = $subcategory;
-                    $menu2->keyword = $subcategory;
-                    $menu2->slug = Str::slug($subcategory). '.html';
+                    $menu2->name = $subcategory['name'];
+                    $menu2->title = $subcategory['title'];
+                    $menu2->priority = $subcategory['index'];
+                    $menu2->description = $subcategory['description'];
+                    $menu2->content_1 = $subcategory['content1'];
+                    $menu2->content_2 = $subcategory['content2'];
+                    $menu2->keyword = $subcategory['name'];
+                    $menu2->slug = Str::slug($subcategory['name']). '.html';
                     $menu2->status = true;
                     $menu2->parent_menu_id = $menu_exist->id;
                     $menu2->menu_type_id = 2;
                     $menu2->save();
                 }else {
-                    $menu2_exist->title = $subcategory;
+                    $menu2_exist->title = $subcategory['title'];
+                    $menu2_exist->priority = $subcategory['index'];
+                    $menu2_exist->description = $subcategory['description'];
+                    $menu2_exist->content_1 = $subcategory['content1'];
+                    $menu2_exist->content_2 = $subcategory['content2'];
                     $menu2_exist->update();
                 }
             }
         }else {
             $menu1 = new Menu();
             $menu1->name = $request->input('menu')['category'];
-            $menu1->title = $request->input('menu')['category'];
             $menu1->keyword = $request->input('menu')['category'];
             $menu1->status = true;
             $menu1->slug = Str::slug($request->input('menu')['category']). '.html';
-            $menu1->priority = $request->input('menu')['index'];
+            $menu_exist->priority = $request->input('menu')['index'];
+            $menu_exist->title = $request->input('menu')['title'];
+            $menu_exist->content_1 = $request->input('menu')['content1'];
+            $menu_exist->content_2 = $request->input('menu')['content2'];
+            $menu_exist->description = $request->input('menu')['description'];
             $menu1->parent_menu_id = 0;
             $menu1->menu_type_id = 2;
             $menu1->save();
-            foreach($request->input('menu')['subcategories'] as $key => $subcategory) {
-                $menu2_exist = Menu::where('name', '=', $subcategory)->first();
+            foreach($subcategories as $subcategory) {
+                $menu2_exist = Menu::where('name', '=', $subcategory['name'])->first();
                 if(!$menu2_exist){
                     $menu2 = new Menu();
-                    $menu2->name = $subcategory;
-                    $menu2->title = $subcategory;
-                    $menu2->keyword = $subcategory;
-                    $menu2->slug = Str::slug($subcategory). '.html';
+                    $menu2->name = $subcategory['name'];
+                    $menu2->title = $subcategory['title'];
+                    $menu2->priority = $subcategory['index'];
+                    $menu2->description = $subcategory['description'];
+                    $menu2->content_1 = $subcategory['content1'];
+                    $menu2->content_2 = $subcategory['content2'];
+                    $menu2->keyword = $subcategory['name'];
+                    $menu2->slug = Str::slug($subcategory['name']). '.html';
                     $menu2->status = true;
                     $menu2->parent_menu_id = $menu1->id;
                     $menu2->menu_type_id = 2;
                     $menu2->save();
                 }else {
-                    $menu2_exist->title = $subcategory;
+                    $menu2_exist->title = $subcategory['title'];
+                    $menu2_exist->priority = $subcategory['index'];
+                    $menu2_exist->description = $subcategory['description'];
+                    $menu2_exist->content_1 = $subcategory['content1'];
+                    $menu2_exist->content_2 = $subcategory['content2'];
                     $menu2_exist->update();
                 }
             }

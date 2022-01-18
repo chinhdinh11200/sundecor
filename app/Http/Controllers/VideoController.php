@@ -116,6 +116,12 @@ class VideoController extends Controller
             $request->image->move(public_path('upload/images/video/'), $image_url);
         }
 
+        $video_check = Video::where('priority', $request->input('priority'))->first();
+        if($video_check){
+            $video_check->priority = null;
+            $video_check->update();
+        }
+
         if($image_url){
             Video::where('id', $video->id)->update([
                 'title' => $request->input('title'),

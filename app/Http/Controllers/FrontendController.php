@@ -7,6 +7,7 @@ use App\Models\Menutype;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
+use App\Models\News;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ShoppingCart;
@@ -31,7 +32,10 @@ class FrontendController extends CommonController
      */
     public function index()
     {
-        $menus1 = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
+        $menus1 = Menu::where('parent_menu_id', 0)
+                        ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                        ->where('menu_type_id', 2)
+                        ->limit(8)->get();
         $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
             ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
             ->join('products', 'product_menu.product_id', '=', 'products.id')
@@ -82,8 +86,6 @@ class FrontendController extends CommonController
             }
         }
 
-        // return view('wel2')->with('products', $product_result_sale);
-
         return view('frontend.index', compact('product_result_sale'))->with('menus1', $menus1)->with('products', $product_result);
     }
 
@@ -93,7 +95,11 @@ class FrontendController extends CommonController
         $menu = Menu::where('slug', $slug)->first();
         if($product){
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
-            return view('frontend.product')->with('product', $product)->with('product_sizes', $product_sizes);
+            $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                    ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
+                    ->paginate(20);
+            dd($products);
+            return view('frontend.product', compact('products'))->with('product', $product)->with('product_sizes', $product_sizes);
         }else {
             if($menu){
                 $menu = Menu::where('slug', $slug)->first();
@@ -115,7 +121,7 @@ class FrontendController extends CommonController
                     foreach ($product_hots as $key1 => $product) {
                         $check = 0;
                         foreach ($product_menu_hots as $key2 => $value) {
-                            if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
+                            if($product->name == $value->name) {
                                 $check += 1;
                             }
                         }
@@ -124,8 +130,6 @@ class FrontendController extends CommonController
                         }
                     }
 
-                                        // return view('wel2')->with('products', $product_menu_hots);
-                                        // dd($product_menu_hots);
                 }else {
                     $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
                                         ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
@@ -139,7 +143,7 @@ class FrontendController extends CommonController
                     ->where('menus.parent_menu_id', $menu->id)
                     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
                     ->get();
-                    
+
                     $product_menu_hots = array();
                     foreach ($product_hots as $key1 => $product) {
                         $check = 0;
@@ -154,10 +158,16 @@ class FrontendController extends CommonController
                     }
                 }
 
+                $news = News::where('menu_id', $menu->id)->get();
+                dd($news);
                 return view('frontend.category', compact('products', 'product_menu_hots'))->with('menu', $menu);
             }
             else{
-                // tin tức
+                $new = News::where('slug', $slug)->get();
+                if($new){
+                    dd($new);
+                    // return view();
+                }
             }
         }
 

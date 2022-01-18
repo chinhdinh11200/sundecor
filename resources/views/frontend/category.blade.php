@@ -54,32 +54,14 @@
                     @endif
                 @endforeach
             @endif
-
-          {{-- <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Phòng Khách Hiện Đại</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Phòng Ăn</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Phòng Ngủ Hiện Đại</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Tường Hiện Đại</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Pha Lê Hiện Đại</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn Đọc Sách Hiện Đại</a>
-          </li> --}}
         </ul>
       </div>
-      <h2 class="page-category__title">ĐÈN CHÙM ĐỒNG ITALY ĐẲNG CẤP VÀ SANG TRỌNG</h2>
+      <h2 class="page-category__title">{{ $menu->title }}</h2>
       <div class="textmore__block">
         <div class="textmore__block--content textmore__block--content1">
           <span class="textmore__block--overlay"></span>
-          <p>Đèn chùm đồng từ ngày xưa đã rất được ưa chuộng và ứng dụng rộng rãi trong các không gian sang trọng, trang
+          <p>{!! $menu->content_1 !!}</p>
+          {{-- <p>Đèn chùm đồng từ ngày xưa đã rất được ưa chuộng và ứng dụng rộng rãi trong các không gian sang trọng, trang
             nghiêm
             như phòng khách, phòng thờ phòng khách, phòng thờ phòng khách, phòng thờ phòng khách, phòng thờ phòng khách, phòng thờ,… với tùy kiểu dáng, nhưng hầu hết là sản phẩm được làm bằng
             đồng thô được đánh bóng. Ngày nay, sản phẩm đèn chùm đồng đã được những bàn tay nghệ
@@ -100,7 +82,7 @@
             đồng hiện nay là được kết hợp thêm với những vật liệu cao cấp như pha lê k9, thủy tinh
             cao cấp, sử dụng công nghệ đèn led giúp giảm tiêu hao điện năng mà cung cấp ánh sáng tốt
             hơn nhưng vẫn mang lại vẻ đẹp truyền thống.
-          </p>
+          </p> --}}
         </div>
         <a class="textmore__block--button textmore__block--button1">Xem thêm</a>
       </div>
@@ -204,22 +186,6 @@
                     </div>
                 </div>
             @endforeach
-            {{-- <?php for ($i = 0; $i < 10; ++$i) { ?>
-            <div class="swiper-slide">
-              <div class="product__block--item col-12"><a href="#">
-                  <div class="card__product">
-                    <div class="card-product--img"><img
-                        src="https://sundecor.vn/img/p/den-chum-dong-phong-khach-sp005685-3603.jpg" alt="" /></div>
-                    <h3 class="card__product--name">Đèn Chùm Pha Lê Màu Trắng GP 00001</h3>
-                    <div class="card__product--price d-flex justify-content-between align-items-center">
-                      <div class="card__product--promotional">60,000,000 đ</div><span
-                        class="card__product--cost">120,000,000 đ</span>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <?php }?> --}}
           </div>
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
@@ -228,7 +194,8 @@
         <div class="textmore__block">
           <div class="textmore__block--content textmore__block--content2">
             <span class="textmore__block--overlay"></span>
-            <p>
+            <p>{!! $menu->content_2 !!}</p>
+            {{-- <p>
               Đèn chùm pha lê giúp không gian nâng tầm đẳng cấp<br>
               Đèn chùm pha lê luôn là những mẫu đèn tạo được nhiều ấn tượng cũng
               như nhận được sự chú ý đông đảo của khách hàng. Những mẫu đèn chùm pha lê được làm từ những
@@ -323,7 +290,7 @@
 
               Để được báo giá đèn chùm nhanh chóng và tiện lợi nhất vui lòng gọi điện tới số Hotline: 0942.83.77.99 -
               0987.02.55.88 hoặc tới trực tiếp showroom LK 06 - 28, KĐT An Hưng, Đường Tố Hữu,Q. Hà Đông, TP. Hà Nội.
-            </p>
+            </p> --}}
           </div>
           <a class="textmore__block--button textmore__block--button2">Xem thêm</a>
         </div>

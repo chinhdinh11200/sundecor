@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="priority">Vị trí</label>
                     <select type="text" class="form-control" id="priority" name="priority">
-                        <option value="{{ null }}">Chọn vị trí</option>
+                        <option value>Chọn vị trí</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

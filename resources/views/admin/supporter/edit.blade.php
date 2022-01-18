@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="exampleInputEmail1">Vị trí</label>
                     <select type="text" class="form-control" id="priority" name="priority">
-                        <option value="null">Chọn vị trí</option>
+                        <option value>Chọn vị trí</option>
                         <option value="1" {{ $supporter->priority == 1 ? "selected" : "" }}>1</option>
                         <option value="2" {{ $supporter->priority == 2 ? "selected" : "" }}>2</option>
                         <option value="3" {{ $supporter->priority == 3 ? "selected" : "" }}>3</option>
