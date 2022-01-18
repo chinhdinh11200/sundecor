@@ -135,14 +135,23 @@
                                             >
                                                 {{$menu2->name}}
                                             </div>
-                                            <select name="priority{{$menu2->id}}">
-                                                <option value="0">- vị trí -</option>
+                                            <select name="priority{{$menu2->id}}"
+                                                <?php
+                                                    foreach ($product_menus as $product_menu) {
+                                                        if(($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
+                                                            echo 'style="background: red"';
+                                                            break;
+                                                        }
+                                                    }
+                                                ?>
+                                            >
+                                                <option value="0"> - vị trí - </option>
                                                 @for($i = 1; $i <= 9; $i++)
                                                     <option value="{{$i}}and{{$menu2->id}}"
                                                         <?php
                                                             foreach ($product_menus as $product_menu) {
                                                                 if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                                    echo 'selected style="background: red"';
+                                                                    echo 'selected';
                                                                     break;
                                                                 }
                                                             }

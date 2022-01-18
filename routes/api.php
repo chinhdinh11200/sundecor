@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\MenuController;
+use App\Http\Controllers\api\NewController;
 use App\Http\Controllers\api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('product', ProductController::class);
 Route::apiResource('menu', MenuController::class);
+Route::apiResource('new', NewController::class);

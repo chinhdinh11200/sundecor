@@ -54,7 +54,7 @@
                                     <td>{{ $cart->name }}</td>
                                     <td>{{ $cart->phone_number }}</td>
                                     <td>{{ $cart->sell_price * $cart->quantity }}</td>
-                                    <td>{{ $cart->status }}</td>
+                                    <td>{{ $cart->status == 0 ? "Chưa thanh toán" : "Đã thanh toán"}}</td>
                                     <td>{{ $cart->created_at }}</td>
                                     <td style="vertical-align: middle">
                                         <div class="d-flex justify-content-center" style="max-height: 38px">

@@ -173,14 +173,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        // dd($id);
         $menus = Menu::all();
         $products = DB::table('menus')
                     ->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
                     ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
                     ->join('products', 'product_menu.product_id', '=', 'products.id')
                     ->select('products.*')
-                    ->where('product_menu.product_id', $id)
+                    ->where('product_menu.subcategory_id', $id)
+                    ->orWhere('menus.id', $id)
                     ->distinct()
                     ->paginate(8);
         return view('admin.product.show')->with('menus', $menus)->with('products', $products)->with('menu_id', $id);

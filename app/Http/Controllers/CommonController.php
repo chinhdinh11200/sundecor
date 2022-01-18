@@ -15,9 +15,12 @@ class CommonController extends Controller
     {
         $main_menu1 = Menu::where('parent_menu_id', 0)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                        // ->where('menu_types', 2)
+                        ->where('menu_type_id', 2)
                         ->limit(8)->get();
-        $menu2 = Menu::where("parent_menu_id","<>",0)->where("status",1)->get();
+        $menu2 = Menu::where("parent_menu_id","<>",0)
+                        ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                        ->where("status",1)
+                        ->get();
 
         $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
 

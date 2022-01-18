@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('cart', CartController::class);
     Route::get('search_cart', [CartController::class, 'search']);
     Route::resource('bill', BillController::class);
-    Route::get('search_news', [BillController::class, 'search']);
+    Route::get('search_cart', [BillController::class, 'search']);
     Route::get('bill/classify/{type}', [BillController::class, 'classify'])->name('bill.classify');
     Route::resource('consultation', ConsultationController::class);
     Route::get('search_consultation', [ConsultationController::class, 'search']);
@@ -73,14 +73,11 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('cart_quantity', [CartController::class, 'cartQuantity'])->name('cart.quantity');
     Route::post('consultation', [ConsultationController::class, 'registerConsultation'])->name('consultation.register');
     Route::post('promotion', [PromotionController::class, 'registerPromotion'])->name('promotion.register');
-    // Route::post('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('bill_create', [BillController::class, 'billCreate'])->name('bill.create');
-    // Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
 
     Route::get('get_list_product', [ProductController::class, 'getListProduct'])->name('getListProduct');
     Route::get('get_list_product_sale', [ProductController::class, 'getListProductSale'])->name('getListProductSale');
     Route::get('get_list_product_hot', [ProductController::class, 'getListProductHot'])->name('getListProductHot');
-    // Route::get('/{id}', [FrontendController::class , 'product'])->name('product');
     Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');
 // Route::get('news/{id?}', 'FrontendController@news')->name('news');
 });

@@ -54,7 +54,7 @@ class ProductController extends Controller
             if($request->input('cloneProject')['is_contact_product']){
                 $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];
             }
-            
+
             $product->save();
 
             $product_menu = new ProductMenu();
@@ -102,7 +102,7 @@ class ProductController extends Controller
                                             ->first();
 
                 if(!$product_exist->is_contact_product){
-                    if(!$product_size_exist->product_id){
+                    if(!$product_size_exist){
                         $product_size = new ProductSize();
                         $product_size->product_id = $product_exist->id;
                         $product_size->size = $request->input('cloneProject')['size'];
