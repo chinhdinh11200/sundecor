@@ -35,14 +35,15 @@
                 </a>
             </div>
             <div class="container-form">
-                <form class="frame-form-login" action=""  method="post"> 
+                <form class="frame-form-login" action="{{ route('admin.authenticate') }}"  method="post">
+                    @csrf
                     <div class="d-flex align-items-center mb-3">
                         <label class="form-label col-3"> Tên đăng nhập:</label>
-                        <input class="form-input-text col-9" required="" type="text" name="tenDangNhap" />
+                        <input class="form-input-text col-9" required="" type="text" name="username" />
                     </div>
                     <div class="d-flex align-items-center mb-5">
                         <label class="form-label col-3"> Mật khẩu:</label>
-                        <input class="form-input-text col-9" required="" type="password" min="8" name="matKhau" />
+                        <input class="form-input-text col-9" required="" type="password" min="8" name="password" />
                     </div>
                     <input class="form-button-submit" value="ĐĂNG NHẬP" type="submit" name="dangnhap"/>
                 </form>

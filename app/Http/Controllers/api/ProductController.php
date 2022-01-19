@@ -51,6 +51,10 @@ class ProductController extends Controller
             $name = time() . rand(1, 100) . '.' . $extension;
             $product->image_1 = $name;
             Storage::disk('public')->put($name, $contents);   // sửa lại filesystem = storage_path('app/public') ( gốc ) ;
+            if($request->input('cloneProject')['is_contact_product']){
+                $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];
+            }
+            
             $product->save();
 
             $product_menu = new ProductMenu();
@@ -61,12 +65,62 @@ class ProductController extends Controller
             $product_size = new ProductSize();
             $product_size->product_id = $product->id;
             $product_size->size = $request->input('cloneProject')['size'];
-            $product_size->sell_price = $request->input('cloneProject')['sell_price'];
-            $product_size->sale_price = $request->input('cloneProject')['sale_price'];
+            if(!$request->input('cloneProject')['is_contact_product']){
+                $product_size->sell_price = $request->input('cloneProject')['sell_price'];
+                $product_size->sale_price = $request->input('cloneProject')['sale_price'];
+            }
             $product_size->save();
             return 200;
+        } else {
+
+            if($request->input('cloneProject')['is_contact_product']){
+                $product_exist->is_contact_product = $request->input('cloneProject')['is_contact_product'];
+                $product_exist->update();
+
+                $product_size_exist = ProductSize::where('product_id', $product_exist->id)
+                                            ->where('size', $request->input('cloneProject')['size'])
+                                            ->first();
+
+                if(!$product_exist->is_contact_product){
+                    if(!$product_size_exist->product_id){
+                        $product_size = new ProductSize();
+                        $product_size->product_id = $product_exist->id;
+                        $product_size->size = $request->input('cloneProject')['size'];
+                        $product_size->save();
+                    }else {
+                        $product_size_exist->product_id = $product_exist->id;
+                        $product_size_exist->size = $request->input('cloneProject')['size'];
+                        $product_size_exist->update();
+                    }
+                }
+                return "update contact 201";
+            }else {
+                $product_size_exist = ProductSize::where('product_id', $product_exist->id)
+                                            ->where('size', $request->input('cloneProject')['size'])
+                                            ->orWhere('sell_price', $request->input('cloneProject')['sell_price'])
+                                            ->orWhere('sale_price', $request->input('cloneProject')['sale_price'])
+                                            ->first();
+
+                if(!$product_exist->is_contact_product){
+                    if(!$product_size_exist->product_id){
+                        $product_size = new ProductSize();
+                        $product_size->product_id = $product_exist->id;
+                        $product_size->size = $request->input('cloneProject')['size'];
+                        $product_size->sell_price = $request->input('cloneProject')['sell_price'];
+                        $product_size->sale_price = $request->input('cloneProject')['sale_price'];
+                        $product_size->save();
+                    }else {
+                        $product_size_exist->product_id = $product_exist->id;
+                        $product_size_exist->size = $request->input('cloneProject')['size'];
+                        $product_size_exist->sell_price = $request->input('cloneProject')['sell_price'];
+                        $product_size_exist->sale_price = $request->input('cloneProject')['sale_price'];
+                        $product_size_exist->update();
+                    }
+                }
+            }
+
         }
-        return $product_exist->name;
+        return $product_exist->name . '201';
     }
 
     /**

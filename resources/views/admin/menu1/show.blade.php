@@ -33,12 +33,13 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th style="width: 120px;">ẢNH Sản Phẩm</th>
-                                <th>TIÊU ĐỀ</th>
-                                <th>LOẠI MENU</th>
-                                <th style="width: 70px;">VỊ TRÍ</th>
-                                <th style="width: 100px;">TRẠNG THÁI</th>
-                                <th style="width: 0;">EDIT</th>
+
+                                <th class="col-1">Ảnh</th>
+                                <th class="col-4">Tiêu đề</th>
+                                <th class="col-2">Loại menu</th>
+                                <th class="col-1">Vị trí</th>
+                                <th class="col-1">Trạng thái</th>
+                                <th class="col-2">Edit</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,21 +47,23 @@
                                     @foreach ($datas as $data )
                                         <tr class="class">
                                             <?php if($data->images != null){ ?>
-                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/{{ $data->images }}"></td>
+                                                <td style="vertical-align: middle; text-align: center"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu1/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
-                                                <td><img style="width: 120px; height: 120px; object-fit: cover;" src="../../public/frontend/images/common/logo.png"></td>
+                                                <td style="vertical-align: middle; text-align: center"><img style="width: 60px; height: 60px; object-fit: cover;" src="../public/frontend/images/common/logo.png"></td>
                                             <?php } ?>
                                             <td>{{ $data->name }}</td>
-                                            <td>{{ $data->menuType->name }}</td>
-                                            <td style="text-align: center;">{{ $data->priority }}</td>
-                                            <td style="text-align: center;">{{ $data->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.menu1.edit', ['menu1' => $data]) }}" class="btn btn-info">Sửa</a>
+                                            <td style="vertical-align: middle; text-align: center">{{ $data->menuType->name }}</td>
+                                            <td style="vertical-align: middle; text-align: center" style="text-align: center;">{{ $data->priority }}</td>
+                                            <td style="vertical-align: middle; text-align: center" style="text-align: center;">{{ $data->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
+                                            <td style="vertical-align: middle; text-align: center">
+                                                <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                    <a href="{{ route('admin.menu1.edit', ['menu1' => $data]) }}" class="btn btn-primary mr-3">Sửa</a>
                                                 <form action="{{ route('admin.menu1.destroy', ['menu1' => $data->id]) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger" onClick="confirm('Bạn có chắc muốn xóa?')">Xóa</button>
                                                 </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

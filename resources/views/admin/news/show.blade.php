@@ -30,10 +30,10 @@
                             <thead>
                             <tr>
                                 <th class="col-1">STT</th>
-                                <th class="col-3">Tên tin tức</th>
+                                <th class="col-2">Tên tin tức</th>
                                 <th class="col-1">Ảnh</th>
                                 <th class="col-3">Mô tả ngắn gọn</th>
-                                <th class="col-4">Mô tả chi tiết</th>
+                                {{-- <th class="col-4">Mô tả chi tiết</th> --}}
                                 <th class="col-1">Ưu tiên</th>
                                 <th class="col-1">Trạng thái</th>
                                 <th class="col-2">Edit</th>
@@ -43,22 +43,24 @@
                                 @if (!empty($news))
                                     @foreach ($news as $key => $new )
                                         <tr class="class">
-                                            <td>{{ $key + 1}}</td>
+                                            <td style="vertical-align: middle; text-align: center">{{ $key + 1}}</td>
                                             <td>{{ $new->name }}</td>
-                                            <td><img style="width: 80px; object-fit: cover;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
+                                            <td style="vertical-align: middle; text-align: center"><img style="width: 60px; object-fit: cover;" src="{{ asset('upload/images/news/' . $new->image) }}"></td>
                                             <td>{{ $new->description }}</td>
-                                            <td>{{ $new->content }} ...&ensp;<a href="#">Xem thêm</a></td>
-                                            <td>
+                                            {{-- <td>{{ $new->content }} ...&ensp;<a href="#">Xem thêm</a></td> --}}
+                                            <td style="vertical-align: middle; text-align: center">
                                                 {{ $new->priority }}
                                             </td>
-                                            <td>{{ $new->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.news.edit', $new->id) }}" class="btn btn-info">Sửa</a>
+                                            <td style="vertical-align: middle; text-align: center">{{ $new->status == true ? 'Hiển thị' : 'Ẩn' }}</td>
+                                            <td style="vertical-align: middle; text-align: center">
+                                                <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                    <a href="{{ route('admin.news.edit', $new->id) }}" class="btn btn-primary mr-3">Sửa</a>
                                                 <form action="{{ route('admin.news.destroy', $new->id) }}" method="POST">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-danger">Xóa</button>
                                                 </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

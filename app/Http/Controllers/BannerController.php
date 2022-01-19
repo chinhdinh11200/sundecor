@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slide;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -39,6 +41,10 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => [new Required],
+            'link' => [new Required],
+        ]);
         $slide_check = Slide::where('priority', $request->input('priority'))->first();
         if($slide_check){
             $slide_check->priority = null;
@@ -134,5 +140,16 @@ class BannerController extends Controller
         }
         $slide_delete->delete();
         return redirect()->route('admin.banner.index');
+    }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.banner.index');
+        }else {
+            $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('title', 'like', '%'.$search.'%')->paginate(8);
+            $slides->appends(['s' => $search]);
+            return view('admin.banner.search')->with('slides', $slides);
+        }
     }
 }

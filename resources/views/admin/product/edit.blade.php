@@ -43,29 +43,31 @@
                     <input onchange="isContactProduct()" type="checkbox" id="is_contact_product" name="is_contact_product" {{ $product->is_contact_product == 1 ? "checked" : '' }} value="{{ $product->is_contact_product }}">&emsp;
                     <label for="is_contact_product">Là Sản Phẩm Liên Hệ? </label>
                   </div>
-                <div class="form-group" >
-                    <label for="size">Kích Thước </label> <br>
-                    <div id="product_size">
-                        @if (count($product_sizes) != 0)
-                            @foreach ($product_sizes as $product_size)
-                                <div style="margin-top: 10px">
-                                    <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
-                                    <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
-                                    <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
+                @if ($product->is_contact_product == false)
+                    <div class="form-group" >
+                        <label for="size">Kích Thước </label> <br>
+                        <div id="product_size">
+                            @if (count($product_sizes) != 0)
+                                @foreach ($product_sizes as $product_size)
+                                    <div style="margin-top: 10px">
+                                        <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
+                                        <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
+                                        <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
+                                    </div>
+                                @endforeach
+                            @else
+                                <div>
+                                    <input type="text" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px">
+                                    <input type="text" id="sell_price" class="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px">
+                                    <input type="text" id="sale_price" class="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px">
                                 </div>
-                            @endforeach
-                        @else
-                            <div>
-                                <input type="text" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px">
-                                <input type="text" id="sell_price" class="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px">
-                                <input type="text" id="sale_price" class="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px">
-                            </div>
-                        @endif
+                            @endif
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
+                        <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="subProductSize()">-</button>
                     </div>
-                    <br>
-                    <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
-                    <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="subProductSize()">-</button>
-                  </div>
+                @endif
                 <div class="form-group">
                   <label for="exampleInputEmail1">Bảo Hành</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="guarantee" value="{{ $product->guarantee }}">
@@ -139,9 +141,8 @@
                                                     <option value="{{$i}}and{{$menu2->id}}"
                                                         <?php
                                                             foreach ($product_menus as $product_menu) {
-                                                                //echo $product_menu->subcategory_id.",";
                                                                 if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                                    echo "selected";
+                                                                    echo 'selected style="background: red"';
                                                                     break;
                                                                 }
                                                             }
@@ -233,8 +234,8 @@
                 const sell = document.querySelectorAll('.sell_price');
                 const sale = document.querySelectorAll('.sale_price');
                 for (let i = 0; i < sell.length; i++) {
-                    sell[i].style.display = "inline-block";
-                    sale[i].style.display = "inline-block";
+                    sell[i].remove();
+                    // sale[i].style.display = "inline-block";
                 }
             }
         }

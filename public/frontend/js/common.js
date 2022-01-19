@@ -28,6 +28,9 @@ $("#to-top").click(function () {
     $(".made__block--video").css("height",($(".made__block--item").width())*9/16);
     $("#footer .footer__video--iframe").css("height",($("#footer .footer__video").width())*9/16);
 
+// img product\
+    $(".card__product--img").css("height",($(".product__block--normal .card__product--img").width())*5/4.5);
+
 // swiper Banner top
 var swiper = new Swiper(".bannerSwiper", {
     spaceBetween: 30,
@@ -75,6 +78,8 @@ var swiper = new Swiper(".product__detail--swiper1", {
 
      
 // product__price--show
+
+$('.product__code_a:nth-child(1)').addClass("active");
 $('.product__price--show').hide();
 $('.product__price--show1').show();
 $('.product__detail .product__code_a').click(function() {

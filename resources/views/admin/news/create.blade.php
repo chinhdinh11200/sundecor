@@ -3,10 +3,10 @@
 <div class="card">
     <div class="card-header">
         <div class="left no-click">
-            <h3 class="card-title"><a href="{{route('admin.news.index')}}">Danh Sách Tin Tức</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.news.index')}}">Danh sách tin tức</a></h3>
         </div>
         <div class="right">
-            <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm Tin Tức</a></h3>
+            <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm tin tức</a></h3>
         </div>
     </div>
   <!-- /.card-header -->
@@ -18,14 +18,23 @@
       <div class="form-group">
         <label for="name">Tên Tin Tức</label>
         <input type="text" class="form-control" id="name" placeholder="Tên Tin Tức" name="name">
+        @if($errors->has('name'))
+        <p style="color: red">{{ $errors->first('name') }}</p>
+      @endif
       </div>
       <div class="form-group">
         <label for="title">Tiêu Đề</label>
         <input type="text" class="form-control" id="title" placeholder="Tiêu Đề Tin Tức" name="title">
+        @if($errors->has('title'))
+        <p style="color: red">{{ $errors->first('title') }}</p>
+      @endif
       </div>
       <div class="form-group">
         <label for="keyword">Keyword</label>
-        <input type="text" class="form-control" id="keyword" placeholder="Tiêu Đề Tin Tức" name="keyword">
+        <input type="text" class="form-control" id="keyword" placeholder="Từ Khóa Tin Tức" name="keyword">
+        @if($errors->has('keyword'))
+        <p style="color: red">{{ $errors->first('keyword') }}</p>
+      @endif
       </div>
       <div class="form-group">
         <label for="image">Ảnh Tin Tức</label>

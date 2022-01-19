@@ -1,3 +1,4 @@
+@include('admin.layout.header', ['text' => 'product'])
 @extends('admin.layout.main')
 @section('content')
 
@@ -33,35 +34,30 @@
                                 <th class="col-6">Tên</th>
                                 <th class="col-2">Ngày up</th>
                                 <th class="col-1">Trạng thái</th>
-                                <th class="col-2"></th>
+                                <th class="col-2">Edit</th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
-                                        <td><img style="width: 80px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
+                                        <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
                                         <td>
                                             <div style="margin: auto 0;">
                                                 {{$product->name}}
                                             </div>
                                         </td>
-                                        <td>{{$product->created_at}}</td>
-                                        <td><?php echo (1==$product->status?"Hiện":""); ?></td>
+                                        <td style="vertical-align: middle; text-align: center">{{$product->created_at}}</td>
+                                        <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->status?"Hiện":""); ?></td>
                                         {{-- <!-- <td>{{$product->priority}}</td> --> --}}
-                                        <td
-                                            style="opacity: 1;
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-                                            height: 105px"
-
-                                        >
-                                            <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-info" style="margin: 0 10px 0 0">Sửa</a>
-                                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
-                                            </form>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary mr-3">Sửa</a>
+                                                <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

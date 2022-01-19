@@ -152,4 +152,22 @@ class BillController extends Controller
 
         return redirect()->route('web');
     }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.cart.index');
+        }else {
+            $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
+            ->join('products', 'products.id', '=', 'bill_product.product_id')
+            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price')
+            ->where('title', 'like', '%'.$search.'%')
+            ->paginate(8);
+            $carts->appends(['s' => $search]);
+            // dd($carts);
+            $products = Product::all();
+            return view('admin.cart.search')->with('carts', $carts)->with('products', $products);
+        }
+    }
 }

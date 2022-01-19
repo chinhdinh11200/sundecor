@@ -35,6 +35,13 @@ body {
     transparent
   );
 }
+.box-trang{
+  margin: 0 auto;
+}
+.box-trang .page-item.active .page-link{
+  background-color: #ff7f00;
+  border-color: #ff7f00;
+}
 @media screen and (max-width: 767px) {
   body {
     background-color: #fff;
@@ -308,9 +315,13 @@ button {
   padding: 5px;
   transition: 0.4s all;
   height: 100%;
-}
-.card__product .cardvproduct--img {
+} 
+.card__product .card__product--img {
   border: #ebebeb 1px solid;
+}
+.card__product .card__product--img img{
+  height: 100%;
+  object-fit: cover;
 }
 .card__product .card__product--name {
   text-transform: capitalize;

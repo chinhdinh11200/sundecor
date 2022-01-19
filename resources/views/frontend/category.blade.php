@@ -1,5 +1,13 @@
 @extends('frontend.layout.main')
 @section('content')
+<?php
+    $mang = []
+    // @foreach ($main_menu1 as $menu1)
+    //     @if ($menu1->id == $menu->parent_menu_id)
+    //         {{ $menu1->name }}
+    //     @endif
+    // @endforeach
+?>
 <section>
   <div class="page-category">
     <div class="breadcrumb__block">
@@ -8,20 +16,57 @@
           style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
           aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            @if ($menu->parent_menu_id==0)
+              <li class="breadcrumb-item active" aria-current="page">{{$menu->name}}</li>
+            @else
+              <li class="breadcrumb-item">
+                @foreach ($main_menu1 as $menu1)
+                  @if ($menu1->id == $menu->parent_menu_id)                      
+                      <a href="{{ route('category', $menu1->slug) }}">{{ $menu1->name }}</a>
+                  @endif
+                @endforeach
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">{{$menu->name}}</li>
+            @endif
           </ol>
         </nav>
       </div>
     </div>
     <div class="main-container">
       <div class="category__frame">
-        <h4 class="category__frame--title">Đèn hiện đại</h4>
+        <h4 class="category__frame--title">
+            @if ($menu->parent_menu_id)
+                @foreach ($main_menu1 as $menu1)
+                    @if ($menu1->id == $menu->parent_menu_id)
+                        {{ $menu1->name }}
+                    @endif
+                @endforeach
+            @else
+                {{ $menu->name }}
+            @endif
+        </h4>
         <ul class="category__frame--list row">
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
-            <a href="" class="category__frame--link">Đèn chùm hiện đại</a>
-          </li>
-          <li class="category__frame--item col-6 col-sm-4 col-md-3">
+
+            @if ($menu->parent_menu_id)
+                @foreach ($menu2 as $mn2)
+                    @if ($mn2->parent_menu_id == $menu->parent_menu_id)
+                    <li class="category__frame--item col-6 col-sm-4 col-md-3" <?php ?>>
+                        <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
+                    </li>
+                    @endif
+                @endforeach
+            @else
+                @foreach ($menu2 as $mn2)
+                    @if ($mn2->parent_menu_id == $menu->id)
+                    <li class="category__frame--item col-6 col-sm-4 col-md-3">
+                      <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
+                    </li>
+                    @endif
+                @endforeach
+            @endif
+
+          {{-- <li class="category__frame--item col-6 col-sm-4 col-md-3">
             <a href="" class="category__frame--link">Đèn Phòng Khách Hiện Đại</a>
           </li>
           <li class="category__frame--item col-6 col-sm-4 col-md-3">
@@ -38,7 +83,7 @@
           </li>
           <li class="category__frame--item col-6 col-sm-4 col-md-3">
             <a href="" class="category__frame--link">Đèn Đọc Sách Hiện Đại</a>
-          </li>
+          </li> --}}
         </ul>
       </div>
       <h2 class="page-category__title">ĐÈN CHÙM ĐỒNG ITALY ĐẲNG CẤP VÀ SANG TRỌNG</h2>
@@ -72,28 +117,36 @@
       </div>
       <div class="product__block product__block--sale">
         <div class="product__block--title">
-          <h2>Sản phẩm Đèn chùm đồng bán chạy</h2>
+          <h2>Sản phẩm {{ $menu->name }} bán chạy</h2>
           <div class="product__block--line"></div>
           <div class="product__block--link"><a href="">Xem tất cả</a></div>
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
-            <?php for ($i = 0; $i < 10; ++$i) { ?>
-            <div class="swiper-slide">
-              <div class="product__block--item col-12">
-                <a href="#">
-                  <div class="card__product">
-                    <div class="card-product--img"><img
-                        src="https://sundecor.vn/img/p/den-chum-dong-phong-khach-sp005685-3603.jpg" alt="" /></div>
-                    <h3 class="card__product--name">Đèn Chùm Pha Lê Màu Trắng GP 00001</h3>
-                    <div class="card__product--price d-flex justify-content-between align-items-center">
-                      <div class="card__product--promotional">60,000,000 đ</div><span
-                        class="card__product--cost">120,000,000 đ</span>
+              @foreach ($product_menu_hots as $product_hot)
+                <div class="swiper-slide">
+                    <div class="product__block--item col-12">
+                    <a href="{{ route('category', $product_hot->slug) }}">
+                        <div class="card__product">
+                        <div class="card__product--img"><img
+                            src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
+                        <h3 class="card__product--name">{{ $product_hot->name }}</h3>
+                        <div class="card__product--price d-flex justify-content-between align-items-center">
+                            @if (!($product_hot->product_size()->get()->isEmpty()))
+                                <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
+                                <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
+                            @else
+                                <div class="card__product--promotional">Giá liên hệ : </div>
+                                <span>0987654321</span>
+                            @endif
+                        </div>
+                        </div>
+                    </a>
                     </div>
-                  </div>
-                </a>
-              </div>
-            </div>
+                </div>
+              @endforeach
+            <?php for ($i = 0; $i < 10; ++$i) { ?>
+
             <?php }?>
           </div>
           <div class="swiper-button-next"></div>
@@ -102,26 +155,35 @@
       </div>
       <div class="product__block product__block--chum">
         <div class="product__block--title">
-          <h2>Đèn chùm đồng Italy</h2>
+          <h2>{{ $menu->name }}</h2>
           <div class="product__block--line"></div>
           <div class="product__block--link"><a href="">Xem tất cả</a></div>
         </div>
         <div class="product__block--list">
-          <?php for ($i = 0; $i < 44; ++$i) { ?>
-          <div class="product__block--item col-6 col-sm-4 col-md-3">
-            <a href="#">
-              <div class="card__product">
-                <div class="card-product--img"><img
-                    src="https://sundecor.vn/img/p/den-chum-dong-phong-khach-sp005685-3603.jpg" alt="" /></div>
-                <h3 class="card__product--name">Đèn Chùm Pha Lê Màu Trắng GP 00001</h3>
-                <div class="card__product--price d-flex justify-content-between align-items-center">
-                  <div class="card__product--promotional">60,000,000 đ</div><span
-                    class="card__product--cost">120,000,000 đ</span>
-                </div>
+            @foreach ($products as $product)
+            <div class="product__block--item col-6 col-sm-4 col-md-3">
+                <a href="{{ route('category', $product->slug) }}">
+                  <div class="card__product">
+                    <div class="card__product--img"><img
+                        src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
+                    <h3 class="card__product--name">{{ $product->name }}</h3>
+                    <div class="card__product--price d-flex justify-content-between align-items-center">
+                        @if (!($product->product_size()->get()->isEmpty()))
+                            <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
+                            <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
+                        @else
+                            <div class="card__product--promotional">Giá liên hệ : </div>
+                            <span>0987654321</span>
+                        @endif
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-          <?php }?>
+            @endforeach
+
+            <div class="box-trang">
+                {{$products->links('pagination::bootstrap-4')}}
+            </div>
         </div>
       </div>
       <div class="product__block product__block--hot">
@@ -132,11 +194,32 @@
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
-            <?php for ($i = 0; $i < 10; ++$i) { ?>
+            @foreach ($product_hots as $product_hot)
+                <div class="swiper-slide">
+                    <div class="product__block--item col-12">
+                        <a href="{{ route('category', $product_hot->slug) }}">
+                            <div class="card__product">
+                                <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
+                                <h3 class="card__product--name">{{ $product_hot->name }}</h3>
+                                <div class="card__product--price d-flex justify-content-between align-items-center">
+                                    @if (!($product_hot->product_size()->get()->isEmpty()))
+                                        <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
+                                        <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
+                                    @else
+                                        <div class="card__product--promotional">Giá liên hệ : </div>
+                                        <span>0987654321</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+            {{-- <?php for ($i = 0; $i < 10; ++$i) { ?>
             <div class="swiper-slide">
               <div class="product__block--item col-12"><a href="#">
                   <div class="card__product">
-                    <div class="card-product--img"><img
+                    <div class="card__product--img"><img
                         src="https://sundecor.vn/img/p/den-chum-dong-phong-khach-sp005685-3603.jpg" alt="" /></div>
                     <h3 class="card__product--name">Đèn Chùm Pha Lê Màu Trắng GP 00001</h3>
                     <div class="card__product--price d-flex justify-content-between align-items-center">
@@ -147,7 +230,7 @@
                 </a>
               </div>
             </div>
-            <?php }?>
+            <?php }?> --}}
           </div>
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>

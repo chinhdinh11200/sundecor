@@ -60,13 +60,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('admin.promotion.index') }}" class="nav-link">
+                <a href="{{ route('admin.consultation.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KH khuyễn mãi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin.consultation.index') }}" class="nav-link">
+                <a href="{{ route('admin.promotion.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>KH tư vấn</p>
                 </a>
@@ -130,7 +130,7 @@
             </a>
           </li>
           <li class="nav-item my-4">
-            <a href="#" class="nav-link btn btn-danger">
+            <a href="{{ route('admin.logout') }}" class="nav-link btn btn-danger">
               <i class="nav-icon"></i>
               <p>
                 Đăng xuất

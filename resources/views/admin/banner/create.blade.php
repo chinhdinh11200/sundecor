@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header">
             <div class="left no-click">
-                <h3 class="card-title"><a href="{{route('admin.banner.index')}}">Danh Sách</a></h3>
+                <h3 class="card-title"><a href="{{route('admin.banner.index')}}">Danh sách</a></h3>
             </div>
             <div class="right">
                 <h3 class="card-title"><a href="{{route('admin.banner.create')}}">Thêm banner</a></h3>
@@ -15,11 +15,17 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" class="form-control" placeholder="Tiêu đề banner">
+                    @if($errors->has('title'))
+                                <p style="color: red">{{ $errors->first('title') }}</p>
+                              @endif
                 </div>
                 <div class="form-group">
                     <label for="">Link</label>
-                    <input type="text" name="link" class="form-control">
+                    <input type="text" name="link" class="form-control" placeholder="Link">
+                    @if($errors->has('link'))
+                                <p style="color: red">{{ $errors->first('link') }}</p>
+                              @endif
                 </div>
                 <div class="form-group">
                     <label for="">Ảnh</label>

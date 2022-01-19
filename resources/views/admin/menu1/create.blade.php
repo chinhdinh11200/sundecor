@@ -17,16 +17,25 @@
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1">Tên</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" required name="name">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên"  name="name">
+        @if($errors->has('name'))
+      <p style="color: red">{{ $errors->first('name') }}</p>
+    @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Tiêu đề</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" required name="title">
-      </div>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề"  name="title">
+        @if($errors->has('title'))
+      <p style="color: red">{{ $errors->first('title') }}</p>
+    @endif
+    </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Keyword</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword">
-      </div>
+        @if($errors->has('keyword'))
+      <p style="color: red">{{ $errors->first('keyword') }}</p>
+    @endif
+    </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
@@ -39,7 +48,7 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
-        <select type="text" class="form-control" id="menu_type_id" name="menu_type_id" required>
+        <select type="text" class="form-control" id="menu_type_id" name="menu_type_id" >
           <option value="null" >--- Chọn loại menu ---</option>
           <?php foreach($menutype as $mt): ?>
               <option value="{{$mt->id}}" >{{$mt->name}}</option>
@@ -54,11 +63,14 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Mô Tả Ngắn</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description" required>
-      </div>
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description" >
+        @if($errors->has('description'))
+      <p style="color: red">{{ $errors->first('description') }}</p>
+    @endif
+    </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung trên</label>
-          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" required></textarea>
+          <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" ></textarea>
           <script>
               CKEDITOR.replace( 'content_1', {
                 height: '300'
