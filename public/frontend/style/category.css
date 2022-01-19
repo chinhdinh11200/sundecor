@@ -39,7 +39,7 @@
 }
 .category__frame--item{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 10px;
 }
 .category__frame--link{
@@ -60,6 +60,11 @@
     border-radius: 50%;
     display: block;
     margin-right: 7px;
+    top: 8px;
+    position: relative;
+}
+.category__frame--active{
+    color: #ff7f00;
 }
 .page-category .page-category__title{
     margin-bottom: 30px;

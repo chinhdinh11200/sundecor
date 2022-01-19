@@ -35,8 +35,7 @@ class FrontendController extends CommonController
         $menus1 = Menu::where('parent_menu_id', 0)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->where('menu_type_id', 2)
-                        ->limit(8)->get();
-        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
+                        ->limit(8)->get();        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
             ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
             ->join('products', 'product_menu.product_id', '=', 'products.id')
             ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
@@ -95,6 +94,7 @@ class FrontendController extends CommonController
         $menu = Menu::where('slug', $slug)->first();
         if($product){
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
+            
             $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
                     ->paginate(20);
@@ -121,7 +121,7 @@ class FrontendController extends CommonController
                     foreach ($product_hots as $key1 => $product) {
                         $check = 0;
                         foreach ($product_menu_hots as $key2 => $value) {
-                            if($product->name == $value->name) {
+                            if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
                                 $check += 1;
                             }
                         }
@@ -129,7 +129,6 @@ class FrontendController extends CommonController
                             $product_menu_hots[] = $product;
                         }
                     }
-
                 }else {
                     $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
                                         ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
@@ -143,7 +142,6 @@ class FrontendController extends CommonController
                     ->where('menus.parent_menu_id', $menu->id)
                     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
                     ->get();
-
                     $product_menu_hots = array();
                     foreach ($product_hots as $key1 => $product) {
                         $check = 0;

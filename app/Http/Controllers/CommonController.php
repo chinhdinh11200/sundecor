@@ -22,9 +22,7 @@ class CommonController extends Controller
                         ->where("status",1)
                         ->get();
 
-        $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
-
-//        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
+        $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);//        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
 //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();
 //        $this->categories = $category;
         //$this->menu1 = $menu1;
