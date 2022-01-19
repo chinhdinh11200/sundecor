@@ -11,6 +11,8 @@ use App\Models\News;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ShoppingCart;
+use App\Models\Video;
+use Facade\FlareClient\View;
 use Illuminate\Support\Facades\DB;
 
 class FrontendController extends CommonController
@@ -85,7 +87,9 @@ class FrontendController extends CommonController
             }
         }
 
-        return view('frontend.index', compact('product_result_sale'))->with('menus1', $menus1)->with('products', $product_result);
+        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
+
+        return view('frontend.index', compact('product_result_sale', 'videos'))->with('menus1', $menus1)->with('products', $product_result);
     }
 
     public function category($slug)
@@ -98,7 +102,7 @@ class FrontendController extends CommonController
             $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
                     ->paginate(20);
-            dd($products);
+            // dd($products);
             return view('frontend.product', compact('products'))->with('product', $product)->with('product_sizes', $product_sizes);
         }else {
             if($menu){
@@ -157,7 +161,7 @@ class FrontendController extends CommonController
                 }
 
                 $news = News::where('menu_id', $menu->id)->get();
-                dd($news);
+                // dd($news);
                 return view('frontend.category', compact('products', 'product_menu_hots'))->with('menu', $menu);
             }
             else{

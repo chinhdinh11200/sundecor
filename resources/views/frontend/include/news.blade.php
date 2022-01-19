@@ -8,30 +8,20 @@
           <a href="" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
+            @foreach ($news_know as $new_know)
+                <div class="news__block--item row">
+                    <div class="news__block--img col-5">
+                    <a href="">
+                        <img src="{{ asset('upload/images/news/'. $new_know->image) }}" alt="">
+                    </a>
+                    </div>
+                    <p class="news__block--description col-7">
+                    <a href="">
+                        {{ $new_know->name }}
+                    </a>
+                    </p>
+                </div>
+            @endforeach
         </div>
       </div>
       <div class="col-md-4 news__block--col">
@@ -41,30 +31,20 @@
           <a href="" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
+            @foreach ($news_collection as $new_collection)
+                <div class="news__block--item row">
+                    <div class="news__block--img col-5">
+                    <a href="">
+                        <img src="{{ asset('upload/images/news/'. $new_collection->image) }}" alt="">
+                    </a>
+                    </div>
+                    <p class="news__block--description col-7">
+                    <a href="">
+                        {{ $new_collection->name }}
+                    </a>
+                    </p>
+                </div>
+            @endforeach
         </div>
       </div>
       <div class="col-md-4 news__block--item">
@@ -74,30 +54,20 @@
           <a href="" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
-          <div class="news__block--item row">
-            <div class="news__block--img col-5">
-              <a href="">
-                <img src="https://sundecor.vn/img/n/huong-dan-ban-chon-den-chum-kieu-hien-dai-phu-hop-voi-khong-gian.jpg" alt="">
-              </a>
-            </div>
-            <p class="news__block--description col-7">
-              <a href="">
-                Sản phẩm này đang được nhiều người dùng lựa chọn và tìm kiếm cho không gian gia đình mình. Mẫu đèn chùm này phần khung đèn được làm từ hợp kim thép không gỉ mang đến độ bền bỉ cao với thời gian. Ngoài ra phần thân đèn có màu vàng titan cùng với những viên pha lê dải thẳng xuống dưới giúp cho sản phẩm trở nên sinh động và bắt mắt hơn.
-              </a>
-            </p>
-          </div>
+          @foreach ($news_tutorial as $new_tutorial)
+                <div class="news__block--item row">
+                    <div class="news__block--img col-5">
+                    <a href="">
+                        <img src="{{ asset('upload/images/news/'. $new_tutorial->image) }}" alt="">
+                    </a>
+                    </div>
+                    <p class="news__block--description col-7">
+                    <a href="">
+                        {{ $new_tutorial->name }}
+                    </a>
+                    </p>
+                </div>
+            @endforeach
         </div>
       </div>
     </div>
