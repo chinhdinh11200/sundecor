@@ -22,7 +22,7 @@ class NewsController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $news = News::paginate(8);
+        $news = News::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         return view('admin.news.index', ['news' => $news, 'menus' => $menus]);
     }
 
@@ -69,7 +69,7 @@ class NewsController extends Controller
         $new = new News();
         $new->name = $request->input('name');
 
-        $new->slug = Str::slug($menu_new->name) . '/' . Str::slug($request->input('name')) . '.html';
+        $new->slug = Str::slug($request->input('name')) . '.html';
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');
@@ -146,7 +146,7 @@ class NewsController extends Controller
 
         $new = News::find($news->id);
         $new->name = $request->input('name');
-        $new->slug = Str::slug($menu_new->name) . '/' . Str::slug($request->input('name')) . '.html';
+        $new->slug = Str::slug($request->input('name')) . '.html';
         $new->title = $request->input('title');
         $new->description = $request->input('description');
         $new->content = $request->input('content');

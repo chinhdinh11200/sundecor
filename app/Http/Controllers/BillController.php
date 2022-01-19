@@ -20,10 +20,8 @@ class BillController extends Controller
     {
         $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price')
+            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
             ->paginate(8);
-        // dd($carts);
         $products = Product::all();
         return view('admin.cart.index')->with('carts', $carts)->with('products', $products);
     }
@@ -70,7 +68,7 @@ class BillController extends Controller
     {
         $cart = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.sell_price', 'products.name')
+            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
             ->where('bill_product.id', $id)->first();
         // dd($cart);
         return view('admin.cart.edit')->with('cart', $cart);
@@ -119,15 +117,19 @@ class BillController extends Controller
     {
         $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
             ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price', 'product_sizes.sale_price')
+            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
             ->where('bills.status', $type)->get();
-        // dd($carts);
         return view('admin.cart.classify')->with('carts', $carts)->with('type', $type);
     }
 
     public function billCreate(Request $request)
     {
+        $carts = DB::table('shopping_carts')
+                    ->join('product_sizes', 'product_sizes.id', '=', 'shopping_carts.product_size_id')
+                    ->select('shopping_carts.*', 'product_sizes.sell_price', 'product_sizes.sale_price')
+                    ->where('session_id', $request->input('session_id'))
+                    ->get();
+        // dd($carts);
         $bill = new Bill();
         $bill->fullname = $request->input('fullname');
         $bill->phone_number = $request->input('phone_number');
@@ -137,8 +139,6 @@ class BillController extends Controller
         $bill->gender = $request->input('gender');
         $bill->status = 0;    // đơn vừa tạo là chưa thanh toán
         $bill->save();
-
-        $carts = DB::table('shopping_carts')->join('products', 'products.id', '=', 'shopping_carts.product_id')->select('shopping_carts.*', 'products.sell_price', 'products.sale_price')->where('session_id', $request->input('session_id'))->get();
 
         foreach ($carts as $key => $cart) {
             $bill_product = new BillProduct();
@@ -159,15 +159,12 @@ class BillController extends Controller
             return redirect()->route('admin.cart.index');
         }else {
             $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-            ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-            ->select('bills.*', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'product_sizes.sell_price')
-            ->where('title', 'like', '%'.$search.'%')
-            ->paginate(8);
+                        ->join('products', 'products.id', '=', 'bill_product.product_id')
+                        ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
+                        ->where('fullname', 'like', '%'.$search.'%')
+                        ->paginate(8);
             $carts->appends(['s' => $search]);
-            // dd($carts);
-            $products = Product::all();
-            return view('admin.cart.search')->with('carts', $carts)->with('products', $products);
+            return view('admin.cart.search')->with('carts', $carts);
         }
     }
 }
