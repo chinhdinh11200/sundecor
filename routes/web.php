@@ -19,6 +19,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommonlController;
+use App\Http\Controllers\CustomerController;
 
 /* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- | | Here is where you can register web routes for your application. These | routes are loaded by the RouteServiceProvider within a group which | contains the "web" middleware group. Now create something great! | */
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -29,7 +30,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('/registerauth', [AdminController::class , 'registerauth'])->name('register');
     Route::get('/logout', [AdminController::class , 'logout'])->name('logout');
 
-    Route::resource('supporter', SupporterController::class);
+    Route::resource('customer', CustomerController::class);
     Route::get('search_supporter', [SupporterController::class, 'search']);
     Route::resource('supporter', SupporterController::class);
     Route::resource('menu1', Menu1Controller::class);

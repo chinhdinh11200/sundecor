@@ -166,6 +166,9 @@ return [
         'tel' => 'Số điện thoại',
         'fullname' => 'Tên',
         'link' => 'Link',
+        'address' => 'Địa chỉ',
+        'tel' => 'Số điện thoại',
+        'phone_number' => 'Số điện thoại',
     ],
 
 ];
