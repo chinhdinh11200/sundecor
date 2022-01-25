@@ -76,7 +76,7 @@ var swiper = new Swiper(".product__detail--swiper1", {
         $(this).addClass("active");
      });
 
-     
+
 // product__price--show
 
 $('.product__code_a:nth-child(1)').addClass("active");
@@ -110,6 +110,27 @@ var swiperProduct = new Swiper(".productSwiper", {
       disableOnInteraction: false,
     },
 });
+
+//swiper Video
+var swiperVideo = new Swiper(".videoSwiper", {
+    slidesPerView: 3,
+    direction: getDirection(),
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    on: {
+        resize: function () {
+            swiperVideo.changeDirection(getDirection());
+        },
+    },
+    speed: 1000,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+    },
+});
+
 function getDirection() {
     var windowWidth = window.innerWidth;
     var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
@@ -135,7 +156,7 @@ $(".textmore__block .textmore__block--button").click(function () {
 
 // time voucher
 (function( $ ){
-    
+
     var time_start = new Date("December 19, 2021 00:00:00").getTime();
 
     var time_now = new Date().getTime();
@@ -158,7 +179,7 @@ $(".textmore__block .textmore__block--button").click(function () {
             d_voucher = -1;
             h_voucher = 23;
         }
-    
+
         if (m_voucher == -1){
             h_voucher -= 1;
             m_voucher = 59;

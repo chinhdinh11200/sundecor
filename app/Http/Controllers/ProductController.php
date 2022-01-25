@@ -277,7 +277,7 @@ class ProductController extends Controller
         }
 
         $product_update->name = $request->input('name');
-        $product->slug = Str::slug($request->input('name')).'.html';
+        $product_update->slug = Str::slug($request->input('name')).'.html';
         $product_update->title = $request->input('title');
         $product_update->code = $request->input('code');
         $product_update->guarantee = $request->input('guarantee');
@@ -359,12 +359,12 @@ class ProductController extends Controller
                     $product_menu->save();
                 }
             }else{
-                // $product_menu = ProductMenu::where('product_id', $product->id)
-                //                             ->where('subcategory_id', $menu2->id)
-                //                             ->first();
-                // if($product_menu){
-                //     $product_menu->delete();
-                // }
+                $product_menu = ProductMenu::where('product_id', $product->id)
+                                            ->where('subcategory_id', $menu2->id)
+                                            ->first();
+                if($product_menu){
+                    $product_menu->delete();
+                }
             }
         endforeach;
         return redirect()->route('admin.product.index');

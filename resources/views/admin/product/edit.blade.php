@@ -28,15 +28,6 @@
                   <label for="image">Ảnh Sản Phẩm</label>
                   <div id="image">
                       <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
-                        {{-- @if ($product->image_1)
-                            <img name style="width: 80px" src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="">
-                        @endif
-                        @if ($product->image_2)
-                            <img style="width: 80px" src="{{ asset('upload/images/product/'. $product->image_2) }}" alt="">
-                        @endif
-                        @if ($product->image_3)
-                            <img style="width: 80px" src="{{ asset('upload/images/product/'. $product->image_3) }}" alt="">
-                        @endif --}}
                   </div>
                 </div>
                 <div class="form-group">
@@ -51,8 +42,8 @@
                                 @foreach ($product_sizes as $product_size)
                                     <div style="margin-top: 10px">
                                         <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
-                                        <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sell_price }}">
-                                        <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ $product_size->sale_price }}">
+                                        <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sell_price) }}">
+                                        <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sale_price) }}">
                                     </div>
                                 @endforeach
                             @else

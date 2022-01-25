@@ -87,9 +87,7 @@ class FrontendController extends CommonController
             }
         }
 
-        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
-
-        return view('frontend.index', compact('product_result_sale', 'videos'))->with('menus1', $menus1)->with('products', $product_result);
+        return view('frontend.index', compact('product_result_sale'))->with('menus1', $menus1)->with('products', $product_result);
     }
 
     public function category($slug)
@@ -98,7 +96,7 @@ class FrontendController extends CommonController
         $menu = Menu::where('slug', $slug)->first();
         if($product){
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
-            
+
             $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
                     ->paginate(20);
