@@ -26,7 +26,7 @@ class CommonController extends Controller
 
         $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
 
-        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
+        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->get();
 
         $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(8);
 

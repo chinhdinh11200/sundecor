@@ -60,11 +60,11 @@
                                                 <div class="card__product--promotional">{{ number_format($product_sale->sale_price) }} đ</div><span class="card__product--cost">{{  number_format($product_sale->sell_price) }} đ</span>
                                             </div>
                                         </div>
-                                </a>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
-                                            </div>
+                    </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
