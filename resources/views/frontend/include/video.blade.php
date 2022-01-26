@@ -21,9 +21,6 @@
     </div>
 </div>
 
-<div>
-    <iframe width="616" height="315" src="https://www.youtube.com/embed/ceAJCDDEuBk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
 
 
 
