@@ -173,4 +173,9 @@ class VideoController extends Controller
             return view('admin.video.search')->with('videos', $videos);
         }
     }
+
+    public function showAll() {
+        $videos = Video::paginate(20);
+        return view('', compact('videos'));
+    }
 }
