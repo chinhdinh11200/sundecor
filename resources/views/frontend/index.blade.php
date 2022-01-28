@@ -104,7 +104,7 @@
                 </div>
             </div>
             @foreach ($menus1 as $menu1)
-            <div class="product__block product__block--chum product__block--normal">
+            <div class="product__block product__block--normal">
                     <div class="product__block--title">
                         <h2>{{ $menu1->name }}</h2>
                         <div class="product__block--line"></div>

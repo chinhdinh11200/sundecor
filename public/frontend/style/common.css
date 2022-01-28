@@ -36,7 +36,10 @@ body {
   );
 }
 .box-trang{
-  margin: 0 auto;
+  margin: 0 auto 50px auto;
+}
+.box-trang .page-link{
+  color: #0d0d0d;
 }
 .box-trang .page-item.active .page-link{
   background-color: #ff7f00;
@@ -339,6 +342,10 @@ button {
 .card__product .card__product--promotional {
   font-size: 24px;
   color: #ed0904;
+}
+.card__product .card__product--price span{
+  font-size: 14px;
+  color: #4a4957;
 }
 .card__product .card__product--cost {
   font-size: 14px;
