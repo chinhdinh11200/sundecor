@@ -120,7 +120,7 @@
           <div class="product__block--line"></div>
           <div class="product__block--link"><a href="">Xem tất cả</a></div>
         </div>
-        <div class="product__block--list">
+        <div class="product__block--list row">
             @foreach ($products as $product)
             <div class="product__block--item col-6 col-sm-4 col-md-3">
                 <a href="{{ route('category', $product->slug) }}">

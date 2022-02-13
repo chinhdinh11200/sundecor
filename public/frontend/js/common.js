@@ -92,9 +92,19 @@ $('.product__detail .product__code_a').click(function() {
 
 
 //swiper product
+
+if(window.innerWidth >= 576){
+    var slidesPerView = 3;
+    if(window.innerWidth >= 768){
+        var slidesPerView = 4;
+    }
+}
+if(window.innerWidth < 576){
+    var slidesPerView = 2;
+}
 var swiperProduct = new Swiper(".productSwiper", {
-    slidesPerView: 4,
-    direction: getDirection(),
+    slidesPerView: slidesPerView,
+    // direction: getDirection(),
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -244,4 +254,6 @@ $(".textmore__block .textmore__block--button").click(function () {
     }
 
     setInterval(vertCycle,5000);
+    
 })( jQuery );
+

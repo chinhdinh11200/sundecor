@@ -195,4 +195,29 @@ class NewsController extends Controller
             return view('admin.news.search', ['news' => $news, 'menus' => $menus]);
         }
     }
+
+    public function showAllNew($slug) {
+        $news = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('slug', $slug)->paginate(20);
+        return view('', compact('news'));
+    }
+
+    // public function showAllMade() {
+    //     $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(20);
+    //     return view('', compact('news_made'));
+    // }
+
+    // public function showAllKnow() {
+    //     $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)->paginate(20);
+    //     return view('', compact('news_know'));
+    // }
+
+    // public function showAllTutorial() {
+    //     $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)->paginate(20);
+    //     return view('', compact('news_tutorial'));
+    // }
+
+    // public function showAllKnowCollection() {
+    //     $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)->paginate(20);
+    //     return view('', compact('news_collection'));
+    // }
 }

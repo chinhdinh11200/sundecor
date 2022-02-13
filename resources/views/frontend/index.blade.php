@@ -110,7 +110,7 @@
                         <div class="product__block--line"></div>
                         <div class="product__block--link"><a href="{{ route('category', $menu1->slug) }}">Xem tất cả</a></div>
                     </div>
-                    <div class="product__block--list">
+                    <div class="product__block--list row">
                         @foreach ($products as $product)
                             @if ($menu1->id == $product->parent_id)
                                 <div class="product__block--item col-6 col-sm-4 col-md-3">

@@ -7,7 +7,9 @@ use App\Models\Menu;
 use App\Models\Menutype;
 use App\Models\News;
 use App\Models\Product;
+use App\Models\Slide;
 use App\Models\Video;
+use App\Models\WebInfo;
 use Illuminate\Support\Facades\DB;
 
 class CommonController extends Controller
@@ -26,16 +28,19 @@ class CommonController extends Controller
 
         $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
 
-        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->get();
+        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
 
-        $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(8);
+        $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(4);
 
-        $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)->paginate(8);
+        $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)->paginate(2);
 
-        $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)->paginate(8);
+        $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)->paginate(2);
 
-        $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)->paginate(8);
+        $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)->paginate(2);
 
+        $webInfo = WebInfo::first();
+
+        $banners = Slide::orderBY(DB::raw('ISNULL(slides.priority)'), 'ASC')->limit(8)->get();
         //        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
         //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();
         //        $this->categories = $category;
@@ -49,6 +54,7 @@ class CommonController extends Controller
             'news_know' => $news_know,
             'news_collection' => $news_collection,
             'news_tutorial' => $news_tutorial,
+            'webInfo' => $webInfo,
         ]);
     }
 }

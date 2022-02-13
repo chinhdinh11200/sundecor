@@ -38,6 +38,9 @@ body {
 .box-trang{
   margin: 0 auto 50px auto;
 }
+.box-trang .pagination{
+  justify-content: center;
+}
 .box-trang .page-link{
   color: #0d0d0d;
 }
@@ -82,6 +85,8 @@ button {
 @media only screen and (max-width: 767px) {
   .main-container {
     max-width: 540px;
+    padding-right: var(--bs-gutter-x,.75rem);
+    padding-left: var(--bs-gutter-x,.75rem);
   }
 }
 @media only screen and (max-width: 575px) {
@@ -233,6 +238,27 @@ button {
   margin-bottom: -10px;
   text-shadow: 2px -1px 3px rgb(0 0 0 / 35%);
 }
+@media only screen and (max-width: 767px) {
+  .product__block{
+    margin-bottom: 60px;
+  }
+  .product__block .product__block--title{
+    background: linear-gradient(90deg, rgba(255,127,0,1) 70%, rgba(0,0,0,1) 100%);
+    color: white!important;
+    padding: 5px var(--bs-gutter-x,.75rem);
+    margin: 0 var(--bs-gutter-x,-.75rem) 10px var(--bs-gutter-x,-.75rem);
+    justify-content: space-between;
+  }
+  .product__block .product__block--title h2 {
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 2px -1px 3px rgb(0 0 0 / 15%);
+    margin-bottom: -5px;
+  }
+  .productSwiper{
+    margin-bottom: -60px;
+  }
+}
 .product__block .product__block--line {
   height: 1px;
   flex: 1;
@@ -247,6 +273,17 @@ button {
 .product__block .product__block--link a:hover {
   color: #ff7f00;
 }
+@media only screen and (max-width: 767px) {
+  .product__block .product__block--line {
+    /* margin: 4px 15px 0 15px; */
+    display: none;
+  }
+  .product__block .product__block--link a {
+    font-size: 14px;
+    color: #fff;
+    text-transform: inherit;
+  }
+}
 .product__block .product__block--list {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -257,14 +294,34 @@ button {
   margin-left: -15px;
   margin-bottom: -60px;
 }
+@media only screen and (max-width: 767px) {
+  .product__block .product__block--list {
+    margin-top: -5px;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+}
 .product__block .product__block--item {
   padding: 0 15px;
   margin-bottom: 60px;
+}
+@media only screen and (max-width: 767px) {
+  .product__block .product__block--item {
+    padding: 0 ;
+    margin-bottom: 30px;
+  }
 }
 .product__block--sale .productSwiper, .product__block--hot .productSwiper {
   margin-bottom: -60px;
   margin-left: -15px;
   margin-right: -15px;
+}
+@media only screen and (max-width: 767px) {
+  .product__block--sale .productSwiper, .product__block--hot .productSwiper {
+    margin-top: -5px;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
 }
 /* css made__block */
 .made__block {
@@ -313,12 +370,36 @@ button {
   transition: 0.5s all;
   -webkit-line-clamp: 3;
 }
+@media only screen and (max-width: 767px) {
+  .made__block .made__block--heading {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .made__block .made__block--link {
+    font-size: 12px;
+  }
+  .made__block .made__block--item {
+    margin-bottom: 20px;
+  }
+  .made__block .made__block--name {
+    font-size: 14px;
+    margin-top: 0;
+    height: 32px;
+    -webkit-line-clamp: 2;
+  }
+}
+
 /* css card__product */
 .card__product {
   padding: 5px;
   transition: 0.4s all;
   height: 100%;
-} 
+}
+/* @media only screen and (max-width: 767px) {
+  .card__product {
+    padding: 0;
+  }
+} */
 .card__product .card__product--img {
   border: #ebebeb 1px solid;
 }
@@ -343,10 +424,6 @@ button {
   font-size: 24px;
   color: #ed0904;
 }
-.card__product .card__product--price span{
-  font-size: 14px;
-  color: #4a4957;
-}
 .card__product .card__product--cost {
   font-size: 14px;
   color: #4a4957;
@@ -354,6 +431,20 @@ button {
 }
 .card__product:hover {
   box-shadow: 0 0 6px 0 #a1a1a1;
+}
+@media only screen and (max-width: 767px) {
+  .card__product .card__product--name {
+    font-size: 16px;
+    height: 36px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  .card__product .card__product--promotional {
+    font-size: 16px;
+  }
+  .card__product .card__product--cost {
+    font-size: 12px;
+  }
 }
 
 /* css card__product */
@@ -443,6 +534,52 @@ button {
   width: 60%;
   margin: 0 auto;
 }
+@media only screen and (max-width: 991px) {
+  .voucher__block {
+    padding: 40px var(--bs-gutter-x,.75rem);
+    background-size: auto 100%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .voucher__block .voucher__block--title{
+    font-size: 20px;
+    padding: 10px 10px;
+    width: 90%;
+    margin: 0 auto 45px auto;
+  }
+  .voucher__block .voucher__block--note{
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-top: 7px;
+    padding-bottom: 3px;
+    padding-top: 10px;
+  }
+  .voucher__block .voucher__block--left{
+    margin-bottom: 10px;
+  }
+  .voucher__block .voucher__block--date{
+    padding: 0 20px;
+  }
+  .voucher__block .voucher__block--time{
+    margin: 0 -20px;
+    padding-bottom: 10px;
+    font-size: 26px;
+  }
+  .voucher__block .voucher__block--time span {
+    font-size: 10px;
+    bottom: 5px;
+  }
+  .voucher__block .voucher__block--input, .voucher__block .voucher__block--button{
+    margin-bottom: 10px;
+    height: 36px;
+    font-size: 14px;
+  }
+  .voucher__block--button{
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 4px;
+  }
+}
 
 .breadcrumb__block{
   border-bottom: 1px #ced4da solid;
@@ -474,6 +611,16 @@ button {
   /* -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: rgba(129, 129, 129, 6.8);   */
 }
+@media only screen and (max-width: 767px) {
+  .service__block{
+    padding: 40px 0;
+  }
+  .service__block--heading{
+    text-shadow: 3px -2px 4px #0000008a;
+    margin-bottom: 30px;
+    font-size: 22px;
+  }
+}
 .service__block--top, .service__block--bottom{
   justify-content: space-between;
   display: flex;
@@ -486,6 +633,16 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@media only screen and (max-width: 767px) {
+  .service__block--top, .service__block--bottom{
+    justify-content: space-around;
+    width: 85%;
+  }
+  .service__block--center{
+    justify-content: space-around;
+    margin: 20px auto;
+  }
 }
 .service__block--logo{
   width: 155px;
@@ -509,6 +666,11 @@ button {
 .service__block--logo img{
   width: 55%;
   z-index: 2;
+}
+@media only screen and (max-width: 767px) {
+  .service__block--logo{
+    display: none;
+  }
 }
 .service__block--item{
   width: 120px;
@@ -561,6 +723,11 @@ button {
   transform: rotate(330deg) translateY(-50%) translateX(-52%);
   top: 10%;
   right: 2.5%;
+}
+@media only screen and (max-width: 767px) {
+  .service__block--line{
+    display: none;
+  }
 }
 
 

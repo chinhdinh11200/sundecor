@@ -6,11 +6,11 @@
                 <div class="col-md-2 footer__col">
                     <h3 class="footer__title">Hà Nội </h3>
                     <ul class="footer__list">
-                        <li class="footer__item mb-30"><a class="footer__link"> 0978.285.888</a><a class="footer__link"> LK 12 - 41, KĐT An hưng,<br>đường tố hữu, Q. Hà đông.<br><span>(Có chỗ để ô tô)</span></a></li>
+                        <li class="footer__item mb-30"><a class="footer__link"> 0978.285.888<br></a><a class="footer__link"> LK 12 - 41, KĐT An hưng,<br>đường tố hữu, Q. Hà đông.<br><span>(Có chỗ để ô tô)</span></a></li>
                     </ul>
                     <h3 class="footer__title">Sài Gòn</h3>
                     <ul class="footer__list">
-                        <li class="footer__item"> <a class="footer__link">0978.285.888 </a><a class="footer__link">2C - đường đồng văn cống,<br>Khu phố 3, p bình trưng tây, q2<br><span>(Có chỗ để ô tô)</span></a></li>
+                        <li class="footer__item"> <a class="footer__link">0978.285.888<br></a><a class="footer__link">2C - đường đồng văn cống,<br>Khu phố 3, p bình trưng tây, q2<br><span>(Có chỗ để ô tô)</span></a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 footer__col">
