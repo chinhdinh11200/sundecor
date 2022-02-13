@@ -35,7 +35,7 @@
                 </a>
             </div>
             <div class="container-form">
-                <form class="frame-form-login" action="{{ route('admin.authenticate') }}"  method="post">
+                <form class="frame-form-login" action="{{ route('admin.login') }}"  method="post">
                     @csrf
                     <div class="d-flex align-items-center mb-3">
                         <label class="form-label col-3"> Tên đăng nhập:</label>

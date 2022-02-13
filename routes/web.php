@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\WebInfoController;
@@ -20,15 +21,25 @@ use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommonlController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FiveStarController;
+//login
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::match(['get', 'post'], '/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/register', [LoginController::class , 'register']);
+    // Route::post('/authenticate', [LoginController::class , 'authenticate'])->name('authenticate');
+    Route::post('/registerauth', [LoginController::class , 'registerauth'])->name('register');
+});
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/logout', [LogoutController::class , 'logout'])->name('logout');
+});
+
 
 /* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- | | Here is where you can register web routes for your application. These | routes are loaded by the RouteServiceProvider within a group which | contains the "web" middleware group. Now create something great! | */
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'], function () {
     Route::get('/', [AdminController::class , 'index'])->name('quantri');
-    Route::get('/login', [AdminController::class , 'login'])->name('login');
-    Route::get('/register', [AdminController::class , 'register']);
-    Route::post('/authenticate', [AdminController::class , 'authenticate'])->name('authenticate');
-    Route::post('/registerauth', [AdminController::class , 'registerauth'])->name('register');
-    Route::get('/logout', [AdminController::class , 'logout'])->name('logout');
 
     Route::resource('customer', CustomerController::class);
     Route::get('search_supporter', [SupporterController::class, 'search']);
@@ -60,13 +71,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('search_promotion', [PromotionController::class, 'search']);
     Route::get('promotion/classify/{type}', [PromotionController::class, 'classify'])->name('promotion.classify');
     Route::resource('webinfo', WebInfoController::class);
+    Route::resource('createfivestar', FiveStarController::class);
 // Route::resource('user', 'UserAdminController');
 
 // Route::post('/user/{id}', 'UserAdminController@update');
 });
 Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('/', [FrontendController::class , 'index'])->name('web');
-    Route::get('login', [FrontendController::class , 'login'])->name('login');
+    // Route::get('login', [FrontendController::class , 'login'])->name('login');
     Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');    Route::get('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('cart_create', [CartController::class, 'cartCreate'])->name('cart.create');
     Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
@@ -80,6 +92,7 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('get_list_product_sale', [ProductController::class, 'getListProductSale'])->name('getListProductSale');
     Route::get('get_list_product_hot', [ProductController::class, 'getListProductHot'])->name('getListProductHot');
     Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');
+    Route::post('tim-kiem.html', [FrontendController::class , 'search']);
 // Route::get('news/{id?}', 'FrontendController@news')->name('news');
 });
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use App\Models\Menutype;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
@@ -14,6 +13,7 @@ use App\Models\ShoppingCart;
 use App\Models\Video;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class FrontendController extends CommonController
 {
@@ -94,13 +94,13 @@ class FrontendController extends CommonController
     {
         $product = Product::where('slug', $slug)->first();
         $menu = Menu::where('slug', $slug)->first();
+        // dd($menu);
         if($product){
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
             $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
                     ->paginate(20);
-            // dd($products);
             return view('frontend.product', compact('products'))->with('product', $product)->with('product_sizes', $product_sizes);
         }else {
             if($menu){
@@ -159,7 +159,9 @@ class FrontendController extends CommonController
                 }
 
                 $news = News::where('menu_id', $menu->id)->get();
-                // dd($news);
+                if($menu->id <= 5) {
+                    return "Trang 5 sao";
+                }
                 return view('frontend.category', compact('products', 'product_menu_hots'))->with('menu', $menu);
             }
             else{
@@ -254,5 +256,13 @@ class FrontendController extends CommonController
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request) {
+        $keyword = Str::slug($request->keyword);
+        $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
+
+        $products->appends(['keyword' => $keyword]);
+        dd($products);
     }
 }

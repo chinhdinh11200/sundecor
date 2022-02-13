@@ -13,7 +13,7 @@ class Menu extends Model
 
     protected $primaryKey = 'id';
 
-    // protected $fillable = [''];
+    protected $fillable = ['name', 'slug', 'title', 'menu_type_id', 'parent_menu_id', 'keyword', 'status'];
 
     // connect to MenuType
     public function menuType() {

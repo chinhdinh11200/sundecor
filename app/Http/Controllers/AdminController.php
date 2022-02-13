@@ -19,59 +19,12 @@ class AdminController extends Controller
 
     public function index()
     {
-        if(Auth::user()){
+        if(Auth::guard('admin')->user()){
             $webInfo = WebInfo::first();
             return view('admin.admin')->with('webInfo', $webInfo);
         }else {
             return view('admin.login');
         }
-    }
-
-    public function login()
-    {
-        return view('admin.login');
-    }
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('admin.login');
-    }
-    public function register()
-    {
-        return view('admin.register');
-    }
-
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->validate([
-            'username' => ['required'],
-            'password' => ['required'],
-        ]);
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('admin.quantri');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-    }
-
-    public function registerauth(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        $user = User::create([
-            'username' => $request->input('username'),
-            'name' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
-        ]);
-
-        dd($user);
-        return 200;
     }
 
     /**
