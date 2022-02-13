@@ -16,9 +16,9 @@
 				<p class="icon-open__sp">
 					<img src="{{asset('/frontend/images/common/icon-open.png')}}" alt="" class="">
 				</p>
-				<form class="header__center--form" action="">
+				<form class="header__center--form" action="tim-kiem.html" method="POST">
 				@csrf
-				<input class="header__center--input" type="text" placeholder="Nhập từ khóa tìm kiếm "><button class="header__center--button" type="submit"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"></button></form>
+				<input class="header__center--input" type="text" placeholder="Nhập từ khóa tìm kiếm " name="keyword"><button class="header__center--button" type="submit"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"></button></form>
 			</div>
 			<div class="header__center--logo"><img src="{{asset('/frontend/images/common/logo.png')}}" alt=""></div>
 			<div class="header__center--option">

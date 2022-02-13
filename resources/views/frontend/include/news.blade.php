@@ -5,7 +5,7 @@
         <div class="news__block--title d-flex">
           <h3>kiến thức về đèn</h3>
           <div class="news__block--line"></div>
-          <a href="" class="news__block--link">xem tất cả</a>
+          <a href="{{ route('category', \App\Models\Menu::find(3)->slug ) }}" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
             @foreach ($news_know as $new_know)
@@ -28,7 +28,7 @@
         <div class="news__block--title d-flex">
           <h3>bộ sưu tập đèn</h3>
           <div class="news__block--line"></div>
-          <a href="" class="news__block--link">xem tất cả</a>
+          <a href="{{ route('category', \App\Models\Menu::find(4)->slug ) }}" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
             @foreach ($news_collection as $new_collection)
@@ -51,7 +51,7 @@
         <div class="news__block--title d-flex">
           <h3>hướng dẫn sử dụng</h3>
           <div class="news__block--line"></div>
-          <a href="" class="news__block--link">xem tất cả</a>
+          <a href="{{ route('category', \App\Models\Menu::find(5)->slug ) }}" class="news__block--link">xem tất cả</a>
         </div>
         <div class="news__block--list">
           @foreach ($news_tutorial as $new_tutorial)
