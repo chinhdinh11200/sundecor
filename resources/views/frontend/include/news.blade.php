@@ -47,7 +47,7 @@
             @endforeach
         </div>
       </div>
-      <div class="col-md-4 news__block--item">
+      <div class="col-md-4 news__block--col">
         <div class="news__block--title d-flex">
           <h3>hướng dẫn sử dụng</h3>
           <div class="news__block--line"></div>

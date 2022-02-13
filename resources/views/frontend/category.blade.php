@@ -89,7 +89,7 @@
                     <div class="product__block--item col-12">
                     <a href="{{ route('category', $product_hot->slug) }}">
                         <div class="card__product">
-                        <div class="card-product--img"><img
+                        <div class="card__product--img"><img
                             src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
                         <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                         <div class="card__product--price d-flex justify-content-between align-items-center">
@@ -114,18 +114,18 @@
           <div class="swiper-button-prev"></div>
         </div>
       </div>
-      <div class="product__block product__block--chum">
+      <div class="product__block product__block--normal">
         <div class="product__block--title">
           <h2>{{ $menu->name }}</h2>
           <div class="product__block--line"></div>
           <div class="product__block--link"><a href="">Xem tất cả</a></div>
         </div>
-        <div class="product__block--list">
+        <div class="product__block--list row">
             @foreach ($products as $product)
             <div class="product__block--item col-6 col-sm-4 col-md-3">
                 <a href="{{ route('category', $product->slug) }}">
                   <div class="card__product">
-                    <div class="card-product--img"><img
+                    <div class="card__product--img"><img
                         src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
                     <h3 class="card__product--name">{{ $product->name }}</h3>
                     <div class="card__product--price d-flex justify-content-between align-items-center">

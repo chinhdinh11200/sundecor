@@ -1,7 +1,7 @@
 .page-top .banner__block {
     height: 600px;
     margin-bottom: 80px;
-  }
+}
 .page-top .banner__block img {
     object-fit: cover;
     height: 100%;
@@ -9,3 +9,8 @@
 .page-top .bannerSwiper{
     height: 100%;
 }
+@media only screen and (max-width: 767px) {
+    .page-top .banner__block {
+      margin-bottom: 60px;
+    }
+  }

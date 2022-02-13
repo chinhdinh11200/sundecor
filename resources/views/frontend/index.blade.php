@@ -104,13 +104,13 @@
                 </div>
             </div>
             @foreach ($menus1 as $menu1)
-            <div class="product__block product__block--chum product__block--normal">
+            <div class="product__block product__block--normal">
                     <div class="product__block--title">
                         <h2>{{ $menu1->name }}</h2>
                         <div class="product__block--line"></div>
                         <div class="product__block--link"><a href="{{ route('category', $menu1->slug) }}">Xem tất cả</a></div>
                     </div>
-                    <div class="product__block--list">
+                    <div class="product__block--list row">
                         @foreach ($products as $product)
                             @if ($menu1->id == $product->parent_id)
                                 <div class="product__block--item col-6 col-sm-4 col-md-3">

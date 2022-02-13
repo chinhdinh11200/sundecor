@@ -40,7 +40,7 @@ class CommonController extends Controller
 
         $webInfo = WebInfo::first();
 
-        $banners = Slide::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->limit(8)->get();
+        $banners = Slide::orderBY(DB::raw('ISNULL(slides.priority)'), 'ASC')->limit(8)->get();
         //        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
         //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();
         //        $this->categories = $category;
