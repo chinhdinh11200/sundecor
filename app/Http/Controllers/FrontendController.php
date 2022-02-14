@@ -167,8 +167,9 @@ class FrontendController extends CommonController
             else{
                 $new = News::where('slug', $slug)->get();
                 if($new){
-                    dd($new);
-                    // return view();
+                    //dd($new);
+                    return view('frontend.news')->with('product', $new)->with('menu', $menu);
+                    //return view('frontend.newsDetail')->with('product', $new)->with('menu', $menu);
                 }
             }
         }
@@ -262,7 +263,18 @@ class FrontendController extends CommonController
         $keyword = Str::slug($request->keyword);
         $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
 
-        $products->appends(['keyword' => $keyword]);
-        dd($products);
+
+                    $menu = Menu::where('menu_type_id', 2)
+                    ->limit(8)->get();
+                    $products->appends(['keyword' => $keyword]);
+                    return view('frontend.search')->with('products', $products)->with('menu', $menu);
+        // dd($products);
+    }
+
+    public function tinTuc() {
+        $keyword = Str::slug($request->keyword);
+        $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
+
+        return view('frontend.news')->with('products', $products)->with('menu', $menu);
     }
 }

@@ -225,6 +225,13 @@ button {
 .product__block {
   margin-bottom: 80px;
 }
+.product__block--swiper {
+  margin-bottom: 0;
+}
+.productSwiper{
+  margin-left: -15px;
+  margin-right: -15px;
+}
 .product__block .product__block--title {
   display: flex;
   align-items: center;

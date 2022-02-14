@@ -105,28 +105,29 @@
             </div>
             @foreach ($menus1 as $menu1)
             <div class="product__block product__block--normal">
-                    <div class="product__block--title">
-                        <h2>{{ $menu1->name }}</h2>
-                        <div class="product__block--line"></div>
-                        <div class="product__block--link"><a href="{{ route('category', $menu1->slug) }}">Xem tất cả</a></div>
-                    </div>
-                    <div class="product__block--list row">
-                        @foreach ($products as $product)
-                            @if ($menu1->id == $product->parent_id)
-                                <div class="product__block--item col-6 col-sm-4 col-md-3">
-                                    <a href="{{ route('category', $product->slug) }}">
-                                        <div class="card__product">
-                                            <div class="card__product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
-                                            <h3 class="card__product--name">{{ $product->name }}</h3>
-                                            <div class="card__product--price d-flex justify-content-between align-items-center">
-                                                <div class="card__product--promotional">{{ number_format($product->sale_price) }} đ</div><span class="card__product--cost">{{ number_format($product->sell_price) }} đ</span>
-                                            </div>                                        </div>
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
+                <div class="product__block--title">
+                    <h2>{{ $menu1->name }}</h2>
+                    <div class="product__block--line"></div>
+                    <div class="product__block--link"><a href="{{ route('category', $menu1->slug) }}">Xem tất cả</a></div>
                 </div>
+                <div class="product__block--list row">
+                    @foreach ($products as $product)
+                        @if ($menu1->id == $product->parent_id)
+                            <div class="product__block--item col-6 col-sm-4 col-md-3">
+                                <a href="{{ route('category', $product->slug) }}">
+                                    <div class="card__product">
+                                        <div class="card__product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
+                                        <h3 class="card__product--name">{{ $product->name }}</h3>
+                                        <div class="card__product--price d-flex justify-content-between align-items-center">
+                                            <div class="card__product--promotional">{{ number_format($product->sale_price) }} đ</div><span class="card__product--cost">{{ number_format($product->sell_price) }} đ</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
             @endforeach
 
             @include('frontend.include.video')
