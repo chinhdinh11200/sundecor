@@ -22,7 +22,7 @@
             @else
               <li class="breadcrumb-item">
                 @foreach ($main_menu1 as $menu1)
-                  @if ($menu1->id == $menu->parent_menu_id)                      
+                  @if ($menu1->id == $menu->parent_menu_id)
                       <a href="{{ route('category', $menu1->slug) }}">{{ $menu1->name }}</a>
                   @endif
                 @endforeach
@@ -34,85 +34,14 @@
       </div>
     </div>
     <div class="main-container">
-      <div class="category__frame">
-        <h4 class="category__frame--title">
-            @if ($menu->parent_menu_id)
-                @foreach ($main_menu1 as $menu1)
-                    @if ($menu1->id == $menu->parent_menu_id)
-                        {{ $menu1->name }}
-                    @endif
-                @endforeach
-            @else
-                {{ $menu->name }}
-            @endif
-        </h4>
-        <ul class="category__frame--list row">
-
-            @if ($menu->parent_menu_id)
-                @foreach ($menu2 as $mn2)
-                    @if ($mn2->parent_menu_id == $menu->parent_menu_id)
-                    <li class="category__frame--item col-6 col-sm-4 col-md-3" <?php ?>>
-                        <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
-                    </li>
-                    @endif
-                @endforeach
-            @else
-                @foreach ($menu2 as $mn2)
-                    @if ($mn2->parent_menu_id == $menu->id)
-                    <li class="category__frame--item col-6 col-sm-4 col-md-3">
-                      <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
-                    </li>
-                    @endif
-                @endforeach
-            @endif
-        </ul>
-      </div>
-      <h2 class="page-category__title">{{ $menu->title }}</h2>
+      <h2 class="page-category__title">abc</h2>
       <div class="textmore__block">
         <div class="textmore__block--content textmore__block--content1">
           <span class="textmore__block--overlay"></span>
           <p>{!! $menu->content_1 !!}</p>
-          
+
         </div>
         <a class="textmore__block--button textmore__block--button1">Xem thêm</a>
-      </div>
-      <div class="product__block product__block--sale">
-        <div class="product__block--title">
-          <h2>Sản phẩm {{ $menu->name }} bán chạy</h2>
-          <div class="product__block--line"></div>
-          <div class="product__block--link"><a href="">Xem tất cả</a></div>
-        </div>
-        <div class="swiper productSwiper">
-          <div class="swiper-wrapper">
-              @foreach ($product_menu_hots as $product_hot)
-                <div class="swiper-slide">
-                    <div class="product__block--item col-12">
-                    <a href="{{ route('category', $product_hot->slug) }}">
-                        <div class="card__product">
-                        <div class="card__product--img"><img
-                            src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
-                        <h3 class="card__product--name">{{ $product_hot->name }}</h3>
-                        <div class="card__product--price d-flex justify-content-between align-items-center">
-                            @if (!($product_hot->product_size()->get()->isEmpty()))
-                                <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
-                                <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
-                            @else
-                                <div class="card__product--promotional">Giá liên hệ : </div>
-                                <span>0987654321</span>
-                            @endif
-                        </div>
-                        </div>
-                    </a>
-                    </div>
-                </div>
-              @endforeach
-            <?php for ($i = 0; $i < 10; ++$i) { ?>
-
-            <?php }?>
-          </div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-        </div>
       </div>
       <div class="product__block product__block--normal">
         <div class="product__block--title">
@@ -121,37 +50,32 @@
           <div class="product__block--link"><a href="">Xem tất cả</a></div>
         </div>
         <div class="product__block--list row">
-            @foreach ($products as $product)
+            @foreach ($news as $new)
             <div class="product__block--item col-6 col-sm-4 col-md-3">
-                <a href="{{ route('category', $product->slug) }}">
+                <a href="{{ route('category', $new->slug) }}">
                   <div class="card__product">
                     <div class="card__product--img"><img
-                        src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
-                    <h3 class="card__product--name">{{ $product->name }}</h3>
-                    <div class="card__product--price d-flex justify-content-between align-items-center">
-                        @if (!($product->product_size()->get()->isEmpty()))
-                            <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
-                            <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
-                        @else
-                            <div class="card__product--promotional">Giá liên hệ : </div>
-                            <span>0987654321</span>
-                        @endif
-                    </div>
+                        src="{{ asset('upload/images/news/'. $new->image) }}" alt="" /></div>
+                    <h3 class="card__product--name">{{ $new->name }}</h3>
+                        {{-- thêm mô tả của tin tức --}}
+                    <p>{{ $new->description }}</p>
                   </div>
                 </a>
               </div>
             @endforeach
 
             <div class="box-trang">
-                {{$products->links('pagination::bootstrap-4')}}
+                {{$news->links('pagination::bootstrap-4')}}
             </div>
         </div>
       </div>
       <div class="product__block product__block--hot">
         <div class="product__block--title">
-          <h2>Sản phẩm hot trong tháng</h2>
-          <div class="product__block--line"></div>
-          <div class="product__block--link"><a href="">Xem tất cả</a></div>
+            <h2>Sản phẩm hot trong tháng</h2>
+            <div class="product__block--line"></div>
+            <div class="product__block--link">
+                {{-- <a href="{ }}">Xem tất cả</a> --}}
+        </div>
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
@@ -184,7 +108,7 @@
           <div class="textmore__block--content textmore__block--content2">
             <span class="textmore__block--overlay"></span>
             <p>{!! $menu->content_2 !!}</p>
-            
+
           </div>
           <a class="textmore__block--button textmore__block--button2">Xem thêm</a>
         </div>

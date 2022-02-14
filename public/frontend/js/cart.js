@@ -15,10 +15,8 @@ $(document).ready(function() {
         localStorage.setItem('session_id', session_id);
     }
 
-    console.log(session_id);
-
     fetch(`/cart_quantity?session_id=${session_id}`)
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((data) => {
                 $('#cartQuantity').html(data)
             })
@@ -63,39 +61,5 @@ $(document).ready(function() {
         localStorage.removeItem('session_id');
     });
 
-    // function getCartQuantity() {
-    //     console.log("test");
-    //     $.ajax({
-    //         method: "GET",
-    //         url: "/cart_quantity",
-    //         data: {
-    //             session_id: session_id,
-    //         },
-    //         dataType: "dataType",
-    //         success: function (response) {
-    //             console.log(response);
-    //         }
-    //     });
-    // }
-    // const cartDeletes = document.getElementsByName('cartDelete');
-
-    // for (let i = 0; i < cartDeletes.length; i++) {
-    //     $(cartDeletes[i]).click(function (e) {
-    //         $.ajax({
-    //             method: "POST",
-    //             url: "/cart_delete",
-    //             data: {
-    //                 cart_id : $(cartDeletes[i]).attr('data-id'),
-    //                 session_id: session_id,
-    //                 _token: $('[name=_token]').attr('value'),
-    //             },
-    //             dataType: "dataType",
-    //             success: function (response) {
-    //                 console.log(response);
-    //                 location.reload();
-    //             }
-    //         });
-    //     })
-    // }
 })
 

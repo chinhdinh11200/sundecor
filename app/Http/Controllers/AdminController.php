@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\WebInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -91,5 +92,23 @@ class AdminController extends Controller
     public function destroy($id)
     {
     //
+    }
+
+    public function changepassword(Request $request) {
+        // dd($request);
+        if ($request->getMethod() == 'GET') {
+            return view('admin.changepassword');
+        }
+
+        $user = User::first();
+        $pass = $user->password;
+        if(Hash::check($request->input('password'), $user->password)) {
+            $user->password = Hash::make($request->input('newpassword'));
+            $user->update();
+            return redirect()->route('admin.quantri');
+        }else {
+            Alert::error("Lỗi", "Mật khẩu cũ không chính xác");
+            return back();
+        }
     }
 }

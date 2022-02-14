@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 });
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/logout', [LogoutController::class , 'logout'])->name('logout');
+    Route::match(['get', 'post'], '/changepassword', [AdminController::class , 'changepassword'])->name('changepassword');
 });
 
 
@@ -78,8 +79,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'
 });
 Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('/', [FrontendController::class , 'index'])->name('web');
-    // Route::get('login', [FrontendController::class , 'login'])->name('login');
-    Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');    Route::get('cart', [CartController::class, 'cart'])->name('cart.index');
+    Route::get('cart', [CartController::class, 'cart'])->name('cart.index');
     Route::post('cart_create', [CartController::class, 'cartCreate'])->name('cart.create');
     Route::post('cart_update', [CartController::class, 'cartUpdate'])->name('cart.update');
     Route::post('cart_delete', [CartController::class, 'cartDelete'])->name('cart.delete');
@@ -95,6 +95,5 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::post('tim-kiem.html', [FrontendController::class , 'search']);
 
     Route::get('tin-tuc', [FrontendController::class , 'tinTuc'])->name('tinTuc');
-// Route::get('news/{id?}', 'FrontendController@news')->name('news');
 });
 

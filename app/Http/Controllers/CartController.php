@@ -74,7 +74,6 @@ class CartController extends CommonController
             ->select('bills.*', 'products.name', 'bill_product.*')
             ->where('bill_product.id', $id)
             ->first();
-        dd($cart);
         return view('admin.cart.edit', ['cart' => $cart]);
     }
 
@@ -103,14 +102,12 @@ class CartController extends CommonController
 
     public function cart(Request $request)
     {
-        // dd($request);
         $carts = DB::table('shopping_carts')
             ->join('products', 'products.id', '=', 'shopping_carts.product_id')
             ->join('product_sizes', 'product_sizes.id', '=', 'product_size_id')
             ->select('products.name','products.image_1', 'shopping_carts.*', 'product_sizes.size', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('session_id', $request->input('session_id'))
             ->get();
-        // dd($carts);
         $total = 0;
         foreach ($carts as $key => $cart) {
             $total += $cart->quantity * $cart->sell_price;
@@ -121,7 +118,6 @@ class CartController extends CommonController
 
     public function cartUpdate(Request $request)
     {
-        // dd($request);
         $cart_updates = $request->input("cartUpdate");
 
         foreach ($cart_updates as $key => $cart_update) {
@@ -154,17 +150,15 @@ class CartController extends CommonController
 
     public function cartCreate(Request $request)
     {
+        return redirect()->route('cart.index', ['session_id' => $request->input('session_id')]);
         if(!$request->has('product_size_id')){
             Alert::error("Lỗi", "Bạn chưa chọn kích cỡ sản phẩm");
             return redirect()->back();
-        }else {
-            dd('d');
         }
         $shoppingCart = ShoppingCart::where('product_id', $request->input('product_id'))
             ->where('session_id', $request->input('session_id'))
             ->where('product_size_id', $request->input('product_size_id'))
             ->first();
-        // dd($shoppingCart);
         if ($shoppingCart) {
             $quantity = $shoppingCart->quantity  + 1;
             $shoppingCart->quantity = $quantity;        // thêm mới 1 sản phẩm bị trùng
@@ -208,7 +202,6 @@ class CartController extends CommonController
 
     public function cartQuantity(Request $request) {
         $quantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
-
         return $quantity;
     }
 

@@ -130,7 +130,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.changepassword') }}" class="nav-link">
               <i class="nav-icon fas fa-key"></i>
               <p>
                 Đổi mật khẩu

@@ -193,12 +193,27 @@
             </div>
         </div>
         <script>
+            $(document).ready(function(){
+                console.log("Test select sp");
+                const form = document.getElementById('form_cart');
+
+                var productSize_id = document.getElementById('product_size_id');
+                if(productSize_id){
+                    productSize_id.remove();
+                }
+
+                productSize_id = document.createElement("input");
+                productSize_id.setAttribute('name', 'product_size_id');
+                productSize_id.setAttribute('id', 'product_size_id');
+                productSize_id.setAttribute('type', 'hidden');
+                productSize_id.setAttribute('value', <?php echo $product_sizes[0]->id ?>);
+                form.appendChild(productSize_id);
+            });
             function selectPrice(id) {
                 const form = document.getElementById('form_cart');
 
                 var productSize_id = document.getElementById('product_size_id');
                 if(productSize_id){
-                    console.log(productSize_id);
                     productSize_id.remove();
                 }
 
@@ -208,7 +223,6 @@
                 productSize_id.setAttribute('type', 'hidden');
                 productSize_id.setAttribute('value', id);
                 form.appendChild(productSize_id);
-                console.log(productSize_id);
             }
         </script>
         @include('frontend.include.voucher')

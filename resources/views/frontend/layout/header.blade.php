@@ -30,7 +30,8 @@
 					{{-- @csrf --}}
 					<input type="hidden" name="session_id">
 					<button  style="border: none!important; background: transparent!important;" type="submit">
-						<div class="header__center--cart"><span id="cartQuantity">0</span></div>                    </button>
+						<div class="header__center--cart"><span id="cartQuantity">0</span></div>
+                    </button>
 				</form>
 			</div>
 		</div>
