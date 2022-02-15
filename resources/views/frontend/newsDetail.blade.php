@@ -5,7 +5,8 @@
             <div class="main-container product__container">
                 <div class="row product__detail--row">
                     <div class="product__detail--left col-12 row">
-                        abc
+                        detail New
+                        {{-- biến trang này là $new --}}
                     </div>
                     <div class="product__detail--right col-12 row">
                         <div class = "product__detail--staff col-12">

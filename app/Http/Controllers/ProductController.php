@@ -290,7 +290,14 @@ class ProductController extends Controller
         $product_update->update();
 
         $product_sizes = ProductSize::where('product_id', $product->id)->get();
-        if(count($request->input('size')) > count($product_sizes)){
+        $count_product_sizes = ProductSize::where('product_id', $product->id)->count();
+        if($request->has('size')) {
+            $count_product_size_request =  count($request->input('size'));
+        }else {
+            $count_product_size_request =  0;
+        }
+        
+        if($count_product_size_request > $count_product_sizes){
             foreach ($product_sizes as $key => $product_size) {
                 $product_size->product_id = $product->id;
                 $product_size->size = $request->input('size')[$key];
@@ -300,7 +307,7 @@ class ProductController extends Controller
                 }
                 $product_size->update();
             };
-            for ($i= count($product_sizes); $i < count($request->input('size')); $i++) {
+            for ($i= $count_product_sizes; $i < $count_product_size_request; $i++) {
                 $product_size = new ProductSize();
                 $product_size->product_id = $product->id;
                 $product_size->size = $request->input('size')[$i];
@@ -311,7 +318,7 @@ class ProductController extends Controller
                 $product_size->save();
             }
         }else {
-            for ($i= count($request->input('size')) ; $i < count($product_sizes); $i++) {
+            for ($i= $count_product_size_request ; $i < $count_product_sizes; $i++) {
                 $product_sizes[$i] -> delete();
             }
         }

@@ -108,9 +108,11 @@ class BillController extends Controller
      * @param  \App\Models\Bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bill $bill)
+    public function destroy($id)
     {
-        //
+        $cart = Bill::find($id);
+        $cart->delete();
+        return redirect()->route('admin.bill.index');
     }
 
     public function classify($type)

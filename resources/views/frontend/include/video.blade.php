@@ -1,5 +1,5 @@
 <div class="made__block">
-  <h2 class="made__block--heading">video dự án đã thực hiện</h2><a class="made__block--link" href="">xem tất cả</a>
+  <h2 class="made__block--heading">video dự án đã thực hiện</h2><a class="made__block--link" href="{{ route('category', 'tat-ca-video') }}">xem tất cả</a>
     <div class="row made__block--list">
         @foreach ($videos as $video)
                 <div class="col-md-4 made__block--item">

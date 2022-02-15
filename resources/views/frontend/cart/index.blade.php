@@ -39,7 +39,7 @@
                                             {{-- cập nhật đơn hàng --}}
                                             <input type="hidden" name="cart_id" id="cart_id" value="{{ $cart->id }}">
                                             <td>
-                                                {{ $key }}
+                                                {{ $key + 1 }}
                                             </td>
                                             <td>
                                                 <img src="{{ asset('upload/images/product') .'/'. $cart->image_1 }}" alt="Ảnh" style="width: 80px">
