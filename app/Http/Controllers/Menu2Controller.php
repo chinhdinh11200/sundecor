@@ -24,7 +24,7 @@ class Menu2Controller extends Controller
         <?php if (count($menu1) != 0) : ?>
             <label for="exampleInputEmail1">Loại menu</label>
             <select type="text" class="form-control" id="parent_menu_id" name="parent_menu_id">
-                <option value="null">---Chọn menu cha---</option>
+                <option value=<?php echo null?> >---Chọn menu cha---</option>
                 <?php foreach ($menu1 as $mt1) : ?>
                     <option value="<?= $mt1->id ?>" <?php
                                                     if ($parent_menu_id == $mt1->id) {
@@ -45,7 +45,7 @@ class Menu2Controller extends Controller
     {
         $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         // dd($menu);
-        $menu1 = Menu::where('parent_menu_id', 0)->get();
+        $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
         return view('admin.menu2.index', ['datas' => $menu, 'menu1' => $menu1]);
     }
 
@@ -74,6 +74,8 @@ class Menu2Controller extends Controller
             'name' => [new Required],
             'title' => [new Required],
             'keyword' => [new Required],
+            'menu_type_id' => [new Required],
+            'parent_menu_id' => [new Required],
         ]);
         $data = new Menu();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
@@ -163,10 +165,13 @@ class Menu2Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // dd($request->images);
-        // $menu2 = Menu::find($id);
-
+        $request->validate([
+            'name' => [new Required],
+            'title' => [new Required],
+            'keyword' => [new Required],
+            'menu_type_id' => [new Required],
+            'parent_menu_id' => [new Required],
+        ]);
         $menu_update = Menu::find($id);
         $image_url = '';
 

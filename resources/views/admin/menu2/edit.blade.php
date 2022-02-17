@@ -20,19 +20,28 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Tên</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" name="name" value="{{ $menu->name }}">
+        @if($errors->has('name'))
+            <p style="color: red">{{ $errors->first('name') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Tiêu đề</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" name="title" value="{{ $menu->title }}">
+        @if($errors->has('title'))
+      <p style="color: red">{{ $errors->first('title') }}</p>
+    @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Keyword</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword" value="{{ $menu->keyword }}">
+        @if($errors->has('keyword'))
+            <p style="color: red">{{ $errors->first('keyword') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
-          <option value="null" >---Chọn vị trí---</option>
+          <option value >---Chọn vị trí---</option>
           <option value="1" {{ $menu->priority == 1 ? "selected" : '' }}>1</option>
           <option value="2" {{ $menu->priority == 2 ? "selected" : '' }}>2</option>
           <option value="3" {{ $menu->priority == 3 ? "selected" : '' }}>3</option>
@@ -63,37 +72,58 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
         <select type="text" class="form-control" id="menu_type_id" name="menu_type_id">
-          <option value="null" >---Chọn loại menu---</option>
+          <option value={{ null }}>---Chọn loại menu---</option>
             <?php foreach($menutype as $mt): ?>
                 <option value="{{$mt->id}}"
-                    <?php
-                    if($mt->id==$check_mt[$i]){
-                        echo "selected";
-                    }
-                    else {
-                        echo "disabled";
-                    }
-                    ?> >{{$mt->name}}</option>
-                    <?php $i++; ?>
+                <?php
+                if($mt->id==$menu->menu_type_id){
+                    echo "selected";
+                }
+                else if($mt->id!=$check_mt[$i]){
+                    echo "disabled";
+                }
+                else {
+                    echo "";
+                }
+                ?> >{{$mt->name}}</option>
+                <?php $i++; ?>
             <?php endforeach ?>
         </select>
+
+        @if($errors->has('menu_type_id'))
+            <p style="color: red">{{ $errors->first('menu_type_id') }}</p>
+        @endif
       </div>
-      <div class="form-group" id="option_parrent"></div>
-      <script>
-        $(function() {
-            console.log("test44");
-        //   $('#menu_type_id').change(function() {
+      <div class="form-group" id="option_parrent">
+        @if($errors->has('parent_menu_id'))
+            <p style="color: red">{{ $errors->first('parent_menu_id') }}</p>
+        @endif
+      </div>
+        <script>
+            $(document).ready(function () {
                 var menu_type_id = $('#menu_type_id').val();
                 $.ajax({
-                url: '{{route("admin.menu_type_id")}}/?id='+menu_type_id+'&parent_menu_id='+$('[name=parent_menu_id]').attr('value'),
-                method: "GET",
-                success:function(data){
-                    $('#option_parrent').html(data);
-                }
+                    url: '{{route("admin.menu_type_id")}}/?id='+menu_type_id+'&parent_menu_id='+$('[name=parent_menu_id]').attr('value'),
+                    method: "GET",
+                    success:function(data){
+                        $('#option_parrent').html(data);
+                    }
                 });
-        //   });
-        });
-      </script>
+            });
+            $(function() {
+                console.log("test44");
+                $('#menu_type_id').change(function() {
+                        var menu_type_id = $('#menu_type_id').val();
+                        $.ajax({
+                            url: '{{route("admin.menu_type_id")}}/?id='+menu_type_id+'&parent_menu_id='+$('[name=parent_menu_id]').attr('value'),
+                            method: "GET",
+                            success:function(data){
+                                $('#option_parrent').html(data);
+                            }
+                        });
+                });
+            });
+        </script>
 
       <div class="form-group">
         <label for="exampleInputEmail1">Ảnh</label>

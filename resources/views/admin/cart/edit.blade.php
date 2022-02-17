@@ -16,31 +16,31 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="">Họ và tên</label>
-                    <input type="text" name="fullname" class="form-control" value="{{ $cart->fullname }}">
+                    <input type="text" name="fullname" class="form-control" value="{{ $cart->fullname }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Số điện thoại</label>
-                    <input type="text" name="phone_number" class="form-control" value="{{ $cart->phone_number }}">
+                    <input type="text" name="phone_number" class="form-control" value="{{ $cart->phone_number }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Email</label>
-                    <input type="text" name="email" class="form-control" value="{{ $cart->email }}">
+                    <input type="text" name="email" class="form-control" value="{{ $cart->email }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Địa chỉ</label>
-                    <input type="text" name="address" class="form-control" value="{{ $cart->address }}">
+                    <input type="text" name="address" class="form-control" value="{{ $cart->address }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Tên sản phẩm</label>
-                    <input type="text" name="name" class="form-control" value="{{ $cart->name }}">
+                    <input type="text" name="name" class="form-control" value="{{ $cart->name }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng</label>
-                    <input type="text" name="quantity" class="form-control" value="{{ $cart->quantity }}">
+                    <input type="text" name="quantity" class="form-control" value="{{ $cart->quantity }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Đơn giá</label>
-                    <input type="text" name="sell_price" class="form-control" value="{{ $cart->sell_price }}">
+                    <input type="text" name="sell_price" class="form-control" value="{{ $cart->sell_price }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="">Trạng thái</label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Mô tả</label>
-                    <input type="textarea" name="description" class="form-control" value="{{ $cart->description }}">
+                    <input type="textarea" name="description" class="form-control" value="{{ $cart->description }}" disabled>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

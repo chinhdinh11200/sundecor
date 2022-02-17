@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WebInfo;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,14 +38,26 @@ class WebInfoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+
+        $request->validate([
+            'receiveEmail' => [new Required],
+            'tel1' => [new Required],
+            'tel2' => [new Required],
+            'hotline' => [new Required],
+            'facebook' => [new Required],
+            'reason' => [new Required],
+            'promotion' => [new Required],
+            'tutorial' => [new Required],
+            'address' => [new Required],
+        ]);
         $webInfo = WebInfo::first();
         if($webInfo){
             DB::table('web_infos')
                 ->where('id', $webInfo->id)
                 ->update([
                 'receiveEmail' => $request->input('receiveEmail'),
-                'tel' => $request->input('tel'),
+                'tel1' => $request->input('tel1'),
+                'tel2' => $request->input('tel2'),
                 'hotline' => $request->input('hotline'),
                 'facebook' => $request->input('facebook'),
                 'reason' => $request->input('reason'),
@@ -55,7 +68,8 @@ class WebInfoController extends Controller
         }else {
             DB::table('web_infos')->insert([
                 'receiveEmail' => $request->input('receiveEmail'),
-                'tel' => $request->input('tel'),
+                'tel1' => $request->input('tel1'),
+                'tel2' => $request->input('tel2'),
                 'hotline' => $request->input('hotline'),
                 'facebook' => $request->input('facebook'),
                 'reason' => $request->input('reason'),

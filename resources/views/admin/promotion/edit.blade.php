@@ -20,10 +20,16 @@
                             <div class="form-group">
                                 <label for="status">Họ và tên</label>
                                 <input type="text" id="fullname" name="fullname" class="form-control" value="{{ $promotion->fullname }}">
+                                @if($errors->has('fullname'))
+                                    <p style="color: red">{{ $errors->first('fullname') }}</p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="tel">Số điện thoại</label>
                                 <input type="text" id="tel" name="tel" class="form-control" value="{{ $promotion->tel }}">
+                                @if($errors->has('tel'))
+                                    <p style="color: red">{{ $errors->first('tel') }}</p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="description">Mô tả</label>

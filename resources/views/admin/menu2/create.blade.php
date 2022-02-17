@@ -33,8 +33,8 @@
         <label for="exampleInputEmail1">Keyword</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword">
         @if($errors->has('keyword'))
-      <p style="color: red">{{ $errors->first('keyword') }}</p>
-    @endif
+            <p style="color: red">{{ $errors->first('keyword') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
@@ -70,7 +70,7 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
         <select type="text" class="form-control" id="menu_type_id" name="menu_type_id">
-          <option value="null" >---Chọn loại menu---</option>
+          <option value={{ null }} >---Chọn loại menu---</option>
             <?php foreach($menutype as $mt): ?>
                 <option value="{{$mt->id}}"
                     <?php
@@ -81,9 +81,18 @@
                     <?php $i++; ?>
             <?php endforeach ?>
         </select>
+
+        @if($errors->has('menu_type_id'))
+            <p style="color: red">{{ $errors->first('menu_type_id') }}</p>
+        @endif
       </div>
 
-      <div class="form-group" id="option_parrent"></div>
+      <div class="form-group" id="option_parrent">
+        @if($errors->has('parent_menu_id'))
+            <p style="color: red">{{ $errors->first('parent_menu_id') }}</p>
+        @endif
+      </div>
+
       <script>
         $(function() {
           $('#menu_type_id').change(function() {

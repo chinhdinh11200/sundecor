@@ -99,6 +99,10 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => [new Required],
+            'link' => [new Required],
+        ]);
         $slide_check = Slide::where('priority', $request->input('priority'))->first();
         if($slide_check){
             $slide_check->priority = null;

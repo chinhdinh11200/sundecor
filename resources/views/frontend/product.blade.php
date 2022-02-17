@@ -132,12 +132,12 @@
                                 <span class=" product__showroom--sold" style="color : red">ĐÃ MUA</span>
                                 </div>
                                 <div class="product__showroom--location">
-                                <?php for($i = 0; $i<4;$i++){ ?>
-                                    <div class="product__showroom--eachlocation">
-                                        <i class="fas fa-check"></i>
-                                        <li>Ms Dinh - 096704xxxx <span>19 ngõ 192 thái thịnh, đống đa, hn</span></li>
-                                    </div>
-                                <?php } ?>
+                                    @foreach ($customers as $customer)
+                                        <div class="product__showroom--eachlocation">
+                                            <i class="fas fa-check"></i>
+                                            <li>{{ $customer->name }} - {{ $customer->phone_number }} <span>{{ $customer->address }}</span></li>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -174,12 +174,15 @@
                                     <b>NHÂN VIÊN BÁN HÀNG</b>
                                 </div>
                                 <div class = "product__list--ad">
+                                    @foreach ($supporters as $supporter)
+                                        <div class="product__list--infor">
+                                            <img src = "{{asset('upload/images/supporter/'. $supporter->image)}}" alt = "">
+                                            <span>{{ $supporter->fullname }}</span>
+                                            <strong>{{ $supporter->tel }}</strong>
+                                        </div>
+                                    @endforeach
                                     <?php for($i = 0 ; $i < 8; ++$i){ ?>
-                                    <div class="product__list--infor">
-                                        <img src = "https://casani.vn/img/o/6.jpg" alt = "Huyền Trang">
-                                        <span>Huyền Trang</span>
-                                        <strong>0859.407.322</strong>
-                                    </div>
+
                                     <?php } ?>
                                 </div>
                             </div>

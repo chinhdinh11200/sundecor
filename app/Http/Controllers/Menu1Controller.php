@@ -49,6 +49,7 @@ class Menu1Controller extends Controller
             'name' => [new Required],
             'title' => [new Required],
             'keyword' => [new Required],
+            'menu_type_id' => [new Required],
         ]);
         $data = new Menu();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
@@ -144,7 +145,13 @@ class Menu1Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
+        $request->validate([
+            'name' => [new Required],
+            'title' => [new Required],
+            'keyword' => [new Required],
+            'menu_type_id' => [new Required],
+        ]);
+        
         $data = Menu::where('id',$id)->first();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
         $data->title = $request->input('title'); //nhận nhập tên loại trong input

@@ -18,35 +18,45 @@
     <div class="card-body">
       <div class="form-group">
         <label for="exampleInputEmail1">Tên</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" required name="name" value="{{ $data->name }}">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên" name="name" value="{{ $data->name }}">
+        @if($errors->has('name'))
+      <p style="color: red">{{ $errors->first('name') }}</p>
+    @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Tiêu đề</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" required name="title" value="{{ $data->title }}">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tiêu đề" name="title" value="{{ $data->title }}">
+        @if($errors->has('title'))
+      <p style="color: red">{{ $errors->first('title') }}</p>
+    @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Keyword</label>
         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Keyword" name="keyword" value="{{ $data->keyword }}">
+        @if($errors->has('keyword'))
+      <p style="color: red">{{ $errors->first('keyword') }}</p>
+    @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
-          @for($i = 1; $i <= 9; $i++)
-            @if ($i == 9)
-                <option value="9" selected>Mặc Định</option>
-            @else
-                <option value="{{$i}}" <?php echo ($i==$data->priority?"selected":""); ?>>{{$i}}</option>
-            @endif
+            <option value selected>Mặc Định</option>
+          @for($i = 1; $i < 9; $i++)
+            <option value="{{$i}}" <?php echo ($i==$data->priority ? "selected" : ""); ?> >{{$i}}</option>
           @endfor
         </select>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Loại menu</label>
-        <select type="text" class="form-control" id="menu_type_id" name="menu_type_id" required>
+        <select type="text" class="form-control" id="menu_type_id" name="menu_type_id">
+          <option value >--- Chọn loại menu ---</option>
           <?php foreach($menutype as $mt): ?>
               <option value="{{$mt->id}}" <?php echo ($mt->id==$data->menu_type_id?"selected":""); ?>>{{$mt->name}}</option>
           <?php endforeach ?>
         </select>
+        @if($errors->has('menu_type_id'))
+            <p style="color: red">{{ $errors->first('menu_type_id') }}</p>
+        @endif
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Ảnh</label>
@@ -56,7 +66,7 @@
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Mô Tả Ngắn</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description" required value="{{ $data->description }}">
+        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Mô Tả Ngắn" name="description" value="{{ $data->description }}">
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung trên</label>

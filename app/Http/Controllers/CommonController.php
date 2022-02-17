@@ -8,6 +8,7 @@ use App\Models\Menutype;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\Supporter;
 use App\Models\Video;
 use App\Models\WebInfo;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,10 @@ class CommonController extends Controller
             ->where("status", 1)
             ->get();
 
+        $menu_tops = Menu::where('menu_type_id', 1)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')->limit(4)->get();
+
+        $menu_bottoms = Menu::where('menu_type_id', 3)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')->limit(8)->get();
+
         $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
 
         $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
@@ -41,6 +46,9 @@ class CommonController extends Controller
         $webInfo = WebInfo::first();
 
         $banners = Slide::orderBY(DB::raw('ISNULL(slides.priority)'), 'ASC')->limit(8)->get();
+
+        $supporters = Supporter::all();
+
         //        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
         //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();
         //        $this->categories = $category;
@@ -48,6 +56,8 @@ class CommonController extends Controller
         view()->share([
             'main_menu1' => $main_menu1,
             'menu2' => $menu2,
+            'menu_tops' => $menu_tops,
+            'menu_bottoms' => $menu_bottoms,
             'product_hots' => $product_hots,
             'videos' => $videos,
             'news_made' => $news_made,
@@ -55,6 +65,8 @@ class CommonController extends Controller
             'news_collection' => $news_collection,
             'news_tutorial' => $news_tutorial,
             'webInfo' => $webInfo,
+            'banners' => $banners,
+            'supporters' => $supporters,
         ]);
     }
 }

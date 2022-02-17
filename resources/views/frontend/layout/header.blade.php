@@ -2,10 +2,9 @@
 	<div class="header__top">
 		<div class="main-container">
 			<ul class="header__top--list">
-				<li class="header__top--item"><a class="header__top--link" href="#">Gi&#x1EDB;i thi&#x1EC7;u</a></li>
-				<li class="header__top--item"><a class="header__top--link" href="#">H&#x1B0;&#x1EDB;ng d&#x1EAB;n mua h&agrave;ng</a></li>
-				<li class="header__top--item"><a class="header__top--link" href="#">Link</a></li>
-				<li class="header__top--item"><a class="header__top--link" href="#">S&#x1A1; &dstrok;&#x1ED3; ch&#x1EC9; &dstrok;&#x1B0;&#x1EDD;ng</a></li>
+				@foreach ($menu_tops as $menu_top)
+                    <li class="header__top--item"><a class="header__top--link" href="{{ route( 'category', $menu_top->slug ) }}">{{ $menu_top->name }}</a></li>
+                @endforeach
 				<li class="header__top--item"><a class="header__top--link" href="tel:+84978285888"><b>HOTLINE: 0978.285.888</b></a></li>
 			</ul>
 		</div>

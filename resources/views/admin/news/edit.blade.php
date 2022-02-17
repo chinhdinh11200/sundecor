@@ -13,14 +13,23 @@
                 <div class="form-group">
                     <label for="">Tên Bài Viết</label>
                     <input type="text" value="{{$news->name}}" class="form-control" id="" placeholder="Tên" name="name">
+                    @if($errors->has('name'))
+                        <p style="color: red">{{ $errors->first('name') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Tiêu đề Tin Tức</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tên Tin Tức" value="{{$news->title}}" name="title">
+                    @if($errors->has('title'))
+                        <p style="color: red">{{ $errors->first('title') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="keyword">Keyword</label>
                     <input type="text" class="form-control" id="keyword" placeholder="Tiêu Đề Tin Tức" name="keyword">
+                    @if($errors->has('keyword'))
+                        <p style="color: red">{{ $errors->first('keyword') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="">Thay đổi ảnh</label><br>
@@ -64,7 +73,7 @@
                     <div>
                       <select name="menu_id" id="typemenu" class="form-control">
                           @foreach ($menus as $menu)
-                            <option value="{{ $menu->id }}" {{ $menu->id == $news->menu_id ? "selected" : '' }}>{{ $menu->title }}</option>
+                            <option value="{{ $menu->id }}" {{ $menu->id == $news->menu_id ? "selected" : '' }}>{{ $menu->name }}</option>
                           @endforeach
                       </select>
                     </div>

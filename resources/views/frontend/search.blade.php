@@ -26,28 +26,28 @@
       <!-- <h2 class="page-category__title">anb</h2> -->
       <div class="product__block product__block--normal">
         <div class="product__block--title">
-          <h2 class="mt-5 mb-3">Kết quả tìm kiếm:&ensp;<span style="font-weight: 500; text-transform: none;">aaa</span></h2>
+          <h2 class="mt-5 mb-3">Kết quả tìm kiếm:&ensp;<span style="font-weight: 500; text-transform: none;"></span></h2>
         </div>
         <div class="product__block--list row">
             @foreach ($products as $product)
-            <div class="product__block--item col-6 col-sm-4 col-md-3">
-                <a href="{{ route('category', $product->slug) }}">
-                  <div class="card__product">
-                    <div class="card__product--img"><img
-                        src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
-                    <h3 class="card__product--name">{{ $product->name }}</h3>
-                    <div class="card__product--price d-flex justify-content-between align-items-center">
-                        @if (!($product->product_size()->get()->isEmpty()))
-                            <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
-                            <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
-                        @else
-                            <div class="card__product--promotional">Giá liên hệ : </div>
-                            <span>0987654321</span>
-                        @endif
+                <div class="product__block--item col-6 col-sm-4 col-md-3">
+                    <a href="{{ route('category', $product->slug) }}">
+                    <div class="card__product">
+                        <div class="card__product--img"><img
+                            src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
+                        <h3 class="card__product--name">{{ $product->name }}</h3>
+                        <div class="card__product--price d-flex justify-content-between align-items-center">
+                            @if (!($product->product_size()->get()->isEmpty()))
+                                <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
+                                <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
+                            @else
+                                <div class="card__product--promotional">Giá liên hệ : </div>
+                                <span>0987654321</span>
+                            @endif
+                        </div>
                     </div>
-                  </div>
-                </a>
-              </div>
+                    </a>
+                </div>
             @endforeach
 
             <div class="box-trang">

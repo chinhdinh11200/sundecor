@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consultation;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -73,6 +74,10 @@ class ConsultationController extends Controller
      */
     public function update(Request $request, Consultation $consultation)
     {
+        $request->validate([
+            'fullname' => new Required,
+            'tel' => new Required,
+        ]);
         $consultation->fullname = $request->input('fullname');
         $consultation->tel = $request->input('tel');
         $consultation->description = $request->input('description');
@@ -94,7 +99,10 @@ class ConsultationController extends Controller
     }
 
     public function registerConsultation(Request $request) {
-        // dd(url()->previous());
+        $request->validate([
+            'fullname' => new Required,
+            'tel' => new Required,
+        ]);
         $consultation = new Consultation();
         $consultation->fullname = $request->input('fullname');
         $consultation->tel = $request->input('tel');
