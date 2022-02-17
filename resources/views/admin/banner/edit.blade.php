@@ -9,10 +9,16 @@
                 <div class="form-group">
                     <label for=""><Title></Title></label>
                     <input type="text" name="title" class="form-control" value="{{ $slide->title }}">
+                    @if($errors->has('title'))
+                                <p style="color: red">{{ $errors->first('title') }}</p>
+                              @endif
                 </div>
                 <div class="form-group">
                     <label for="">Link</label>
                     <input type="text" name="link" class="form-control" value="{{ $slide->link }}">
+                    @if($errors->has('link'))
+                                <p style="color: red">{{ $errors->first('link') }}</p>
+                              @endif
                 </div>
                 <div class="form-group">
                     <label for="">Ảnh</label>

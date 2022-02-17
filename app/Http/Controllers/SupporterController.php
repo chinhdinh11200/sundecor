@@ -98,6 +98,10 @@ class SupporterController extends Controller
      */
     public function update(Request $request, Supporter $supporter)
     {
+        $request->validate([
+            'fullname' => [new Required],
+            'tel' => [new Required],
+        ]);
         $supporter_check = Supporter::where('priority', $request->input('priority'))->first();
         if($supporter_check){
             $supporter_check->priority = null;

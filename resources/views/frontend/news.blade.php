@@ -1,13 +1,5 @@
 @extends('frontend.layout.main')
 @section('content')
-<?php
-    $mang = []
-    // @foreach ($main_menu1 as $menu1)
-    //     @if ($menu1->id == $menu->parent_menu_id)
-    //         {{ $menu1->name }}
-    //     @endif
-    // @endforeach
-?>
 <section>
   <div class="page-category">
     <div class="breadcrumb__block">
@@ -34,21 +26,18 @@
       </div>
     </div>
     <div class="main-container">
-      <h2 class="page-category__title">abc</h2>
-      <div class="textmore__block">
-        <div class="textmore__block--content textmore__block--content1">
-          <span class="textmore__block--overlay"></span>
-          <p>{!! $menu->content_1 !!}</p>
+      <h2 class="page-category__title">{{ $menu->name }}</h2>
+        @if ($menu->content_1)
+            <div class="textmore__block">
+                <div class="textmore__block--content textmore__block--content1">
+                <span class="textmore__block--overlay"></span>
+                <p>{!! $menu->content_1 !!}</p>
 
-        </div>
-        <a class="textmore__block--button textmore__block--button1">Xem thêm</a>
-      </div>
+                </div>
+                <a class="textmore__block--button textmore__block--button1">Xem thêm</a>
+            </div>
+        @endif
       <div class="product__block product__block--normal">
-        <div class="product__block--title">
-          <h2>{{ $menu->name }}</h2>
-          <div class="product__block--line"></div>
-          <div class="product__block--link"><a href="">Xem tất cả</a></div>
-        </div>
         <div class="product__block--list row">
             @foreach ($news as $new)
             <div class="product__block--item col-6 col-sm-4 col-md-3">

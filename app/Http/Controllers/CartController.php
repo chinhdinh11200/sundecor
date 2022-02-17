@@ -150,7 +150,6 @@ class CartController extends CommonController
 
     public function cartCreate(Request $request)
     {
-        return redirect()->route('cart.index', ['session_id' => $request->input('session_id')]);
         if(!$request->has('product_size_id')){
             Alert::error("Lỗi", "Bạn chưa chọn kích cỡ sản phẩm");
             return redirect()->back();

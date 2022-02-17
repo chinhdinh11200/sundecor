@@ -34,8 +34,8 @@
         <label for="code">Mã Sản Phẩm</label>
         <input type="text" class="form-control" id="code" placeholder="Mã sản phẩm" name="code" value="{{ old('code') }}">
         @if($errors->has('code'))
-        <p style="color: red">{{ $errors->first('code') }}</p>
-      @endif
+            <p style="color: red">{{ $errors->first('code') }}</p>
+        @endif
     </div>
       <div class="form-group">
         <label for="image">Ảnh Sản Phẩm</label>

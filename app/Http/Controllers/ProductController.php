@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
+        $menus = Menu::where('menu_type_id', 2)->get();
         $products = DB::table('products')
                         ->distinct()
                         ->paginate(8);
@@ -37,8 +37,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $menus = Menu::all();
-        $menus1 = Menu::where("parent_menu_id", "=", 0)->get();
+        $menus = Menu::where('menu_type_id', 2)->get();
+        $menus1 = Menu::where("parent_menu_id", "=", 0)->where('menu_type_id', 2)->get();
 
         $menus2 = Menu::join('menus AS menus1', 'menus1.id', '=', 'menus.parent_menu_id')
             ->select('menus.*', 'menus1.name AS parant_name', 'menus1.id AS parent_id')
@@ -59,14 +59,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => [new Required, new Unique],
-            'title' => [new Required, new Unique],
-            'code' => [new Required, new Unique],
-            // 'description' => new Required,
-            'size' => new Required,
-            // 'content' => new Required,
-        ]);
+        // dd($request);
+
+        if(!$request->input('is_contact_product')) {
+            $request->validate([
+                'name' => [new Required, new Unique],
+                'title' => [new Required, new Unique],
+                'code' => [new Required, new Unique],
+                'size' => new Required,
+            ]);
+        }else {
+            $request->validate([
+                'name' => [new Required, new Unique],
+                'title' => [new Required, new Unique],
+                'code' => [new Required, new Unique],
+            ]);
+        }
         $menus2 = Menu::where("parent_menu_id","<>",0)
                         ->where("menu_type_id",2)
                         ->where("status",1)
@@ -171,7 +179,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $menus = Menu::all();
+        $menus = Menu::where('menu_type_id', 2)->get();
         $products = DB::table('menus')
                     ->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
                     ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
@@ -199,7 +207,7 @@ class ProductController extends Controller
         if($product_edit == null){  // update product don't have menu2
             $product_edit = Product::find($id);
         }
-        $menus1 = Menu::where("parent_menu_id", "=", 0)->get();
+        $menus1 = Menu::where("parent_menu_id", "=", 0)->where('menu_type_id', 2)->get();
         $menus2 = Menu::join('menus AS menus1', 'menus1.id', '=', 'menus.parent_menu_id')
             ->select('menus.*', 'menus1.name AS parant_name', 'menus1.id AS parent_id')
             ->where("menus.parent_menu_id","<>",0)
@@ -221,6 +229,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        if(!$request->input('is_contact_product')) {
+            $request->validate([
+                'name' => [new Required, new Unique],
+                'title' => [new Required, new Unique],
+                'code' => [new Required, new Unique],
+                'size' => new Required,
+            ]);
+        }else {
+            $request->validate([
+                'name' => [new Required, new Unique],
+                'title' => [new Required, new Unique],
+                'code' => [new Required, new Unique],
+            ]);
+        }
         $product_update = Product::find($product->id);
         $menus2 = Menu::where("parent_menu_id","<>",0)
                         ->where("menu_type_id",2)
@@ -296,7 +318,7 @@ class ProductController extends Controller
         }else {
             $count_product_size_request =  0;
         }
-        
+
         if($count_product_size_request > $count_product_sizes){
             foreach ($product_sizes as $key => $product_size) {
                 $product_size->product_id = $product->id;

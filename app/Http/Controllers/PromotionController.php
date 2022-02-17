@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Promotion;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -72,6 +73,10 @@ class PromotionController extends Controller
      */
     public function update(Request $request, Promotion $promotion)
     {
+        $request->validate([
+            'fullname' => new Required,
+            'tel' => new Required,
+        ]);
         $promotion->fullname = $request->input('fullname');
         $promotion->tel = $request->input('tel');
         $promotion->description = $request->input('description');
@@ -94,6 +99,10 @@ class PromotionController extends Controller
 
 
     public function registerPromotion(Request $request) {
+        $request->validate([
+            'fullname' => new Required,
+            'tel' => new Required,
+        ]);
         $promotion = new Promotion();
         $promotion->fullname = $request->input('fullname');
         $promotion->tel = $request->input('tel');

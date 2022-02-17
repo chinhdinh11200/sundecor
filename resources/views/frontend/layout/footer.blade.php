@@ -24,13 +24,10 @@
                 <div class="col-md-1 footer__col">
                     <div class="footer__nav">
                         <ul class="footer__nav--list">
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">Giới thiệu</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">cửa hàng</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">dịch vụ</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">sản phẩm</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">phong cách</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">tuyển dụng</a></li>
-                            <li class="footer__nav--item"><a class="footer__nav--link" href="#">Liên hệ</a></li>
+                            @foreach ($menu_bottoms as $menu_bottom)
+                                <li class="footer__nav--item"><a class="footer__nav--link" href="{{ route('category', $menu_bottom->slug) }}">{{ $menu_bottom->name }}</a></li>
+                            @endforeach
+
                         </ul>
                     </div>
                 </div>
@@ -61,7 +58,7 @@
                     <div class="footer__bct">
                         <a href="http://online.gov.vn/Home/WebDetails/39668">
                             <img src="{{asset('frontend/images/common/img-bct.png')}}" alt="">
-                        </a> 
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-3 footer__col">

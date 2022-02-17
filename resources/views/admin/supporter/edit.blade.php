@@ -11,10 +11,16 @@
                 <div class="form-group">
                     <label for="fullname">Họ và tên : </label>
                         <input type="text" id="fullname" name="fullname" value="{{ $supporter->fullname }}" class="form-control">
+                        @if($errors->has('fullname'))
+                            <p style="color: red">{{ $errors->first('fullname') }}</p>
+                        @endif
                 </div>
                 <div class="form-group">
                     <label for="tel">Số điện thoại : </label>
                         <input type="text" id="tel" name="tel" value="{{ $supporter->tel }}" class="form-control">
+                        @if($errors->has('tel'))
+                            <p style="color: red">{{ $errors->first('tel') }}</p>
+                        @endif
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Vị trí</label>

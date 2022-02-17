@@ -12,17 +12,26 @@
             @method('put')
             <div class="card-body">
                 <div class="form-group">
-                  <label for="name">Tên Sản Phẩm</label>
-                  <input type="text" class="form-control" id="name" placeholder="Tên Sản Phẩm" name="name" value="{{ $product->name }}">
+                    <label for="name">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" id="name" placeholder="Tên Sản Phẩm" name="name" value="{{ $product->name }}">
+                    @if($errors->has('name'))
+                        <p style="color: red">{{ $errors->first('name') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
-                  <label for="title">Tiêu Đề</label>
-                  <input type="text" class="form-control" id="title" placeholder="Tiêu Đề Sản Phẩm" name="title" value="{{ $product->title }}">
+                    <label for="title">Tiêu Đề</label>
+                    <input type="text" class="form-control" id="title" placeholder="Tiêu Đề Sản Phẩm" name="title" value="{{ $product->title }}">
+                    @if($errors->has('title'))
+                        <p style="color: red">{{ $errors->first('title') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
-                  <label for="code">Mã Sản Phẩm</label>
-                  <input type="text" class="form-control" id="code" placeholder="Tiêu Đề Sản Phẩm" name="code"
-                  value="{{ $product->code }}">
+                    <label for="code">Mã Sản Phẩm</label>
+                    <input type="text" class="form-control" id="code" placeholder="Tiêu Đề Sản Phẩm" name="code"
+                    value="{{ $product->code }}">
+                    @if($errors->has('code'))
+                        <p style="color: red">{{ $errors->first('code') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                   <label for="image">Ảnh Sản Phẩm</label>
@@ -49,6 +58,9 @@
                                 @endforeach
                             @endif
                         </div>
+                        @if($errors->has('size'))
+                            <p style="color: red">{{ $errors->first('size') }}</p>
+                        @endif
                         <br>
                         <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
                         <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="subProductSize()">-</button>
