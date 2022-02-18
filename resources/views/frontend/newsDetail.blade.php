@@ -1,12 +1,15 @@
 @extends('frontend.layout.main')
 @section('content')
     <section>
-        <div class="product__detail">
+        <div class="product__detail news_detail">
             <div class="main-container product__container">
                 <div class="row product__detail--row">
                     <div class="product__detail--left col-12 row">
-                        detail New
                         {{-- biến trang này là $new --}}
+                        <h2 class="col-12">{{$new->title}}</h2>
+                        <div class="product__detail--content">
+                            {!!$new->content!!}
+                        </div>
                     </div>
                     <div class="product__detail--right col-12 row">
                         <div class = "product__detail--staff col-12">

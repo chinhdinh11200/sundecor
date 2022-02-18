@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/footer.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/header.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/top.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/news_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 </head>
