@@ -18,16 +18,16 @@
                     <label for="title">Title : </label>
                     <input type="text" id="title" name="title" value="" class="form-control" placeholder="Tiêu đề video">
                     @if($errors->has('title'))
-                                <p style="color: red">{{ $errors->first('title') }}</p>
-                              @endif
+                        <p style="color: red">{{ $errors->first('title') }}</p>
+                    @endif
                 </div>
 
                 <div class="form-group">
                     <label for="link">Link : </label>
                     <input type="text" id="link" name="link" value="" class="form-control" placeholder="Link video">
                     @if($errors->has('link'))
-                                <p style="color: red">{{ $errors->first('link') }}</p>
-                              @endif
+                        <p style="color: red">{{ $errors->first('link') }}</p>
+                    @endif
                 </div>
 
                 <div class="form-group">

@@ -39,7 +39,7 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Vị trí</label>
         <select type="text" class="form-control" id="exampleInputEmail1" name="priority">
-          <option value="null" >---Chọn vị trí---</option>
+          <option value >---Chọn vị trí---</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -74,11 +74,11 @@
             <?php foreach($menutype as $mt): ?>
                 <option value="{{$mt->id}}"
                     <?php
-                    if($mt->id!=$check_mt[$i]){
+                    if($mt->id!= 2){
                         echo "disabled";
                     }
-                    ?>>{{$mt->name}}</option>
-                    <?php $i++; ?>
+                    ?>>{{$mt->name}}
+                </option>
             <?php endforeach ?>
         </select>
 

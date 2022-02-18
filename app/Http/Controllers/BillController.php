@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\BillProduct;
 use App\Models\Product;
 use App\Models\ShoppingCart;
+use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -126,12 +127,17 @@ class BillController extends Controller
 
     public function billCreate(Request $request)
     {
+        $request->validate([
+            'fullname' => new Required,
+            'phone_number' => new Required,
+            'address' => new Required,
+            'email' => new Required,
+        ]);
         $carts = DB::table('shopping_carts')
                     ->join('product_sizes', 'product_sizes.id', '=', 'shopping_carts.product_size_id')
                     ->select('shopping_carts.*', 'product_sizes.sell_price', 'product_sizes.sale_price')
                     ->where('session_id', $request->input('session_id'))
                     ->get();
-        // dd($carts);
         $bill = new Bill();
         $bill->fullname = $request->input('fullname');
         $bill->phone_number = $request->input('phone_number');

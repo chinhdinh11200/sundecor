@@ -91,10 +91,9 @@ class NewsController extends Controller
     public function show($id)
     {
         $menus = Menu::all();
-        $news = DB::table('menus')
-                    ->join('news', 'news.menu_id', '=', 'menus.id')
+        $news = DB::table('news')
                     ->where('news.menu_id', $id)
-                    ->orWhere('menus.id', $id)
+                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                     ->select('news.*')
                     ->paginate(8);
         return view('admin.news.show', ['news' => $news, 'menus' => $menus, 'menu_id' => $id]);
@@ -180,9 +179,11 @@ class NewsController extends Controller
     {
         $new = News::find($id);
 
-        $image_url = public_path('upload/images/news/'). $new->image;
-        if(File::exists($image_url)){
-            unlink($image_url);
+        if($new->image){
+            $image_url = public_path('upload/images/news/'). $new->image;
+            if(File::exists($image_url)){
+                unlink($image_url);
+            }
         }
         News::where('id', $new->id)->delete();
         return redirect()->route('admin.news.index');

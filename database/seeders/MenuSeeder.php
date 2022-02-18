@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Database\Seeders;
 
 use App\Models\Menu;
-use Illuminate\Http\Request;
+use App\Models\Menutype;
+use Illuminate\Database\Seeder;
 
-class FiveStarController extends Controller
+class MenuSeeder extends Seeder
 {
     /**
-     * Display a listing of the resource.
+     * Run the database seeds.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function run()
     {
         Menu::create([
             'name' => 'Dịch vụ 5 sao',
@@ -60,72 +61,20 @@ class FiveStarController extends Controller
             'status' => true,
         ]);
 
-        return "success";
-    }
+        Menutype::create([
+            'name' => 'Menu top'
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        Menutype::create([
+            'name' => 'Menu chính'
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        Menutype::create([
+            'name' => 'Menu chân trang'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Menu  $menus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Menu $menus)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Menu  $menus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Menu $menus)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Menu  $menus
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Menu $menus)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Menu  $menus
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Menu $menus)
-    {
-        //
+        Menutype::create([
+            'name' => 'Menu khác'
+        ]);
     }
 }

@@ -159,7 +159,13 @@
                                 <form action="{{ route('promotion.register') }}" method="POST">
                                     @csrf
                                     <input name="fullname" type="text" placeholder="Họ tên *" maxlength="30" require minlength="2">
+                                    @if($errors->has('fullname'))
+                                        <p style="color: red">{{ $errors->first('fullname') }}</p>
+                                    @endif
                                     <input name="tel" type="text" placeholder="Số điện thoại *" require>
+                                    @if($errors->has('tel'))
+                                        <p style="color: red">{{ $errors->first('tel') }}</p>
+                                    @endif
                                     <textarea name="description" rows="10" placeholder="Bạn cần tư vấn về điều gì?"></textarea>
                                     <button type="submit" class="btn btn-danger">ĐĂNG KÝ NGAY <i class="fas fa-paper-plane"></i></button>
                                 </form>

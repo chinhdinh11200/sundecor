@@ -10,10 +10,16 @@
                 <div class="form-group">
                     <label for="title">Title : </label>
                     <input type="text" id="title" name="title" value="{{ $video->title }}"  class="form-control">
+                    @if($errors->has('title'))
+                        <p style="color: red">{{ $errors->first('title') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="link">Link : </label>
                     <input type="text" id="link" name="link" value="{{ $video->link }}" class="form-control">
+                    @if($errors->has('link'))
+                        <p style="color: red">{{ $errors->first('link') }}</p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Vị trí</label>

@@ -61,14 +61,6 @@ class Menu1Controller extends Controller
         $data->slug = Str::slug($request->input('name')). '.html';
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
-//             $check = Menu::where('id',$data->menu_type_id);
-//             foreach($check as $ch){
-//                 if($data->priority==$ch->priority){
-//                     $data->priority=$ch->priority;
-//                     $ch->priority="null";
-//                     $check->save();
-//                     break;
-//                 }
             $menu_check = Menu::where('priority', $request->input('priority'))
                                 ->where('menu_type_id', $request->input('menu_type_id'))->first();
             if($menu_check != null){
@@ -113,7 +105,7 @@ class Menu1Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('menu_type_id', $id)->paginate(20);
+        $menu = Menu::where('menu_type_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
         $menutype = Menutype::all();
         return view('admin.menu1.show', ['datas' => $menu, 'menutype' => $menutype, 'menu_type_id' => $id]);
     }
@@ -151,7 +143,7 @@ class Menu1Controller extends Controller
             'keyword' => [new Required],
             'menu_type_id' => [new Required],
         ]);
-        
+
         $data = Menu::where('id',$id)->first();
         $data->name = $request->input('name'); //nhận nhập tên loại trong input
         $data->title = $request->input('title'); //nhận nhập tên loại trong input
