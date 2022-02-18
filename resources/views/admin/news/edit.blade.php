@@ -1,8 +1,13 @@
 @extends('admin.layout.main')
 @section('content')
-    <div class="card card-primary">
+    <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Sửa {{$news->name}}</h3>
+            <div class="left">
+                <h3 class="card-title"><a href="{{route('admin.news.index')}}">Danh sách tin tức</a></h3>
+            </div>
+            <div class="right no-click">
+                <h3 class="card-title"><a href="{{route('admin.news.create')}}">Thêm tin tức</a></h3>
+            </div>
         </div>
         <!-- /.card-header -->
         <!-- form start -->

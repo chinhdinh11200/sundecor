@@ -37,7 +37,7 @@
                             src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
                         <h3 class="card__product--name">{{ $product->name }}</h3>
                         <div class="card__product--price d-flex justify-content-between align-items-center">
-                            @if (!($product->product_size()->get()->isEmpty()))
+                            @if (!($product->product_size()->get()->isEmpty()) && $product->product_size()->get()[0]->sell_price)
                                 <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
                                 <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
                             @else

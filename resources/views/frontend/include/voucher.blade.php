@@ -23,7 +23,13 @@
           <form class="voucher__block--form d-flex flex-column" action="{{ route('consultation.register') }}" method="POST">
             @csrf
             <input class="voucher__block--input" type="text" placeholder="Nhập họ và tên" name="fullname"/>
+            @if($errors->has('fullname'))
+                <p style="color: red">{{ $errors->first('fullname') }}</p>
+            @endif
             <input class="voucher__block--input" type="text" placeholder="Nhập số điện thoại" name="tel"/>
+            @if($errors->has('tel'))
+                <p style="color: red">{{ $errors->first('tel') }}</p>
+            @endif
             <input class="voucher__block--input" type="text" placeholder="Nội dung cần cung cấp" name="description"/>
             <button type="submit" class="voucher__block--button d-flex justify-content-center align-items-center">gửi ngay</button>
           </form>

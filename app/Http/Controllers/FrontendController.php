@@ -279,7 +279,6 @@ class FrontendController extends CommonController
         }
         $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
 
-
                     $menu = Menu::where('menu_type_id', 2)
                     ->limit(8)->get();
                     $products->appends(['keyword' => $keyword]);

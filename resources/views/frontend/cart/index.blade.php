@@ -81,6 +81,9 @@
                                     <div class="form-group">
                                         <label for="">Tên khách hàng</label>
                                         <input type="text" name="fullname" class="form-control">
+                                        @if($errors->has('fullname'))
+                                            <p style="color: red">{{ $errors->first('fullname') }}</p>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="">Giới tính</label>
@@ -92,14 +95,23 @@
                                     <div class="form-group">
                                         <label for="">Số điện thoại</label>
                                         <input type="text" name="phone_number" class="form-control">
+                                        @if($errors->has('phone_number'))
+                                            <p style="color: red">{{ $errors->first('phone_number') }}</p>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="">Địa chỉ</label>
                                         <input type="text" name="address" class="form-control">
+                                        @if($errors->has('address'))
+                                            <p style="color: red">{{ $errors->first('address') }}</p>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="">Email</label>
                                         <input type="text" name="email" class="form-control">
+                                        @if($errors->has('email'))
+                                            <p style="color: red">{{ $errors->first('email') }}</p>
+                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <label for="">Mô tả</label>
