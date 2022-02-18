@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supporter;
 use App\Rules\Required;
+use App\Rules\Unique;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -41,7 +42,7 @@ class SupporterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fullname' => [new Required],
+            'fullname' => [new Required, new Unique],
             'tel' => [new Required],
         ]);
         $supporter_check = Supporter::where('priority', $request->input('priority'))->first();

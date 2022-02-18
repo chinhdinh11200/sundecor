@@ -4,7 +4,7 @@
         <div class="made__block">
             <h2 class="made__block--heading">video dự án đã thực hiện</h2><a class="made__block--link" href="{{ route('category', 'tat-ca-video') }}">xem tất cả</a>
             <div class="row made__block--list">
-                @foreach ($videos as $video)
+                @foreach ($videoalls as $video)
                     <div class="col-md-4 made__block--item">
                         <iframe class="made__block--video" id="framevideo" width="100%" height="600" src="https://www.youtube.com/embed/<?php
                         preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->link, $matches);

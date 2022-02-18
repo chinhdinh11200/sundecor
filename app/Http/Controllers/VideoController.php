@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use App\Rules\Required;
+use App\Rules\Unique;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -41,7 +42,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => [new Required],
+            'title' => [new Required, new Unique],
             'link' => [new Required],
         ]);
         $video_check = Video::where('priority', $request->input('priority'))->first();

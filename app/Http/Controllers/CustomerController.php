@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Rules\PhoneNumber;
 use App\Rules\Required;
+use App\Rules\Unique;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,9 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => new Required(),
+            'name' => [new Required(), new Unique],
             'address' => new Required(),
-            'phone_number' => new PhoneNumber()
+            'phone_number' => [new Required(), new Unique]
         ]);
 
         $customer = new Customer();
