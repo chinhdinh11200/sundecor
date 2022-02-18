@@ -51,8 +51,11 @@
                                     <div style="margin-top: 10px">
                                         <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px" value="{{ $product_size->size }}">
                                         @if ($product->is_contact_product == false)
-                                            <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sell_price) }}">
-                                            <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sale_price) }}">
+                                            <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sell_price) }}" onchange="format_price(this)">
+                                            <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" value="{{ number_format($product_size->sale_price) }}" onchange="format_price(this)">
+                                        @else
+                                            <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" onchange="format_price(this)">
+                                            <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" onchange="format_price(this)">
                                         @endif
                                     </div>
                                 @endforeach
@@ -191,12 +194,14 @@
             size.style.marginRight = "13px";
             const sell_price = document.createElement("input");
             sell_price.setAttribute('name', `sell_price[]`)
+            sell_price.setAttribute('onchange', `format_price(this)`)
             sell_price.setAttribute('class', `sell_price`)
             sell_price.setAttribute('type', 'text')
             sell_price.setAttribute('placeholder', 'Giá gốc')
             sell_price.style.marginRight = "13px";
             const sale_price = document.createElement("input");
             sale_price.setAttribute('name', `sale_price[]`)
+            sale_price.setAttribute('onchange', `format_price(this)`)
             sale_price.setAttribute('class', `sale_price`)
             sale_price.setAttribute('type', 'text')
             sale_price.setAttribute('placeholder', 'Giá sale')
@@ -252,6 +257,16 @@
                 console.log(productSizes[lastChild]);
                 productSizes[lastChild].remove();
             }
+        }
+
+        function format_price(e) {
+            console.log(e.value);
+            var formatter = new Intl.NumberFormat('en-US', {
+                style: undefined,
+                currency: 'VND',
+            });
+            const price = formatter.format(e.value);
+            e.value = price;
         }
     </script>
 @endsection

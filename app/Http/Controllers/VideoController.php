@@ -100,6 +100,10 @@ class VideoController extends Controller
      */
     public function update(Request $request, Video $video)
     {
+        $request->validate([
+            'title' => [new Required],
+            'link' => [new Required],
+        ]);
         $video_check = Video::where('priority', $request->input('priority'))->first();
         if($video_check){
             $video_check->priority = null;

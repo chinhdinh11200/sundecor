@@ -87,19 +87,10 @@ class Menu2Controller extends Controller
         $data->keyword = $request->input('keyword'); //nhận nhập tên loại trong input
         $data->priority = $request->input('priority');
         if ($request->has('priority')) {
-            //             $check = Menu::where('id',$data->menu_type_id);
-            //             foreach($check as $ch){
-            //                 if($data->priority==$ch->priority){
-            //                     $data->priority=$ch->priority;
-            //                     $ch->priority="null";
-            //                     $check->save();
-            //                     break;
-            //                 }
-            $check = Menu::where('priority', $data->menu_type_id)->first();
+            $check = Menu::where('priority', $data->priority)->where('parent_menu_id', $request->input('parent_menu_id'))->first();
             if ($check != null) {
-                $data->priority = $check->priority;
                 $check->priority = null;
-                $check->save();
+                $check->update();
             }
         }
         //$data->ten_img = $request->input('images'); //nhận nhập tên loại trong input
@@ -137,7 +128,7 @@ class Menu2Controller extends Controller
     public function show($id)
     {
         $menu = Menu::where('parent_menu_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
-        $menu1 = Menu::where('parent_menu_id', 0)->get();
+        $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
         return view('admin.menu2.show', ['datas' => $menu, 'menu1' => $menu1, 'parent_menu_id' => $id]);
     }
 

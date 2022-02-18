@@ -139,8 +139,10 @@ class BannerController extends Controller
     public function destroy($id)
     {
         $slide_delete = Slide::find($id);
-        if(File::exists(public_path('upload/images/slides/'). $slide_delete->image)){
-            unlink(public_path('upload/images/slides/'). $slide_delete->image);
+        if($slide_delete->image){
+            if(File::exists(public_path('upload/images/slides/'). $slide_delete->image)){
+                unlink(public_path('upload/images/slides/'). $slide_delete->image);
+            }
         }
         $slide_delete->delete();
         return redirect()->route('admin.banner.index');
