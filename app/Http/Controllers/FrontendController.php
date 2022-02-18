@@ -38,10 +38,13 @@ class FrontendController extends CommonController
         $menus1 = Menu::where('parent_menu_id', 0)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->where('menu_type_id', 2)
-                        ->limit(8)->get();        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
+                        ->where('status', true)
+                        ->limit(8)->get();
+        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
             ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
             ->join('products', 'product_menu.product_id', '=', 'products.id')
             ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+            ->where('products.status', true)
             ->distinct()
             ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('product_menu.priority', '<>', 'NULL')
@@ -71,6 +74,7 @@ class FrontendController extends CommonController
 
         $product_sales = DB::table('products')->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
                             ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                            ->where('products.status', true)
                             ->select('products.*', 'product_sizes.*', 'product_menu.priority')
                             ->where('is_sale_in_month', true)
                             ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
@@ -101,12 +105,14 @@ class FrontendController extends CommonController
                 if($menu->parent_menu_id == 0){
                     $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
                                         ->join('menus', 'menus.id', 'product_menu.subcategory_id')
+                                        ->where('products.status', true)
                                         ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
                                         ->select('products.*')
                                         ->where('menus.parent_menu_id', $menu->id)
                                         ->paginate(20);
                     $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                                         ->join('menus', 'menus.id', '=', 'product_menu.subcategory_id')
+                                        ->where('products.status', true)
                                         ->select('products.*', 'product_menu.priority')
                                         ->where('is_hot_product', true)
                                         ->where('menus.parent_menu_id', $menu->id)
@@ -126,12 +132,14 @@ class FrontendController extends CommonController
                     }
                 }else {
                     $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
+                                        ->where('products.status', true)
                                         ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
                                         ->select('products.*')
                                         ->where('product_menu.subcategory_id', $menu->id)->paginate(20);
 
                     $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->join('menus', 'menus.id', '=', 'product_menu.subcategory_id')
+                    ->where('products.status', true)
                     ->select('products.*', 'product_menu.priority')
                     ->where('is_hot_product', true)
                     ->where('menus.parent_menu_id', $menu->id)
@@ -151,10 +159,10 @@ class FrontendController extends CommonController
                     }
                 }
                 return view('frontend.category', compact('products', 'product_menu_hots'))->with('menu', $menu);
-            }else if($menu->menu_type_id == 4) {
-                $news = News::where('menu_id', $menu->id)->paginate(20);
-                dd($news);
-                if($news){
+            }else if($menu->menu_type_id != 2) {
+                $news = News::where('menu_id', $menu->id)
+                                ->where('status', true)->paginate(20);
+                if(isset($news)){
                     return view('frontend.news')->with('news', $news)->with('menu', $menu);
                 }
             }
@@ -166,18 +174,16 @@ class FrontendController extends CommonController
             if($new){
                 return view('frontend.newsDetail')->with('new', $new)->with('menu', $menu);
             }
-            else {
-                if($slug == 'tat-ca-video'){
-                    $videos = Video::paginate(20);
-                    // dd($videos);
-                    return view('frontend.videos', compact('videos'));
-                }
-            }
+        }
+        else if($slug == 'tat-ca-video.html'){
+            $videoalls = Video::paginate(20);
+            return view('frontend.videos', compact('videoalls'));
         }
         else if($product) {
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
             $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                    ->where('products.status', true)
                     ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
                     ->paginate(20);
             $customers = Customer::inRandomOrder()->limit(5)->get();
@@ -277,7 +283,8 @@ class FrontendController extends CommonController
         if(empty($keyword)) {
             return redirect()->route('web');
         }
-        $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
+        $products = Product::where('slug', 'like', '%'. $keyword . '%')
+                            ->where('status', true)->paginate(20);
 
                     $menu = Menu::where('menu_type_id', 2)
                     ->limit(8)->get();

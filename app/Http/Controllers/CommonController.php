@@ -21,33 +21,43 @@ class CommonController extends Controller
         $main_menu1 = Menu::where('parent_menu_id', 0)
             ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
             ->where('menu_type_id', 2)
+            ->where('status', true)
             ->limit(8)->get();
         $menu2 = Menu::where("parent_menu_id", "<>", 0)
             ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-            ->where("status", 1)
+            ->where('status', true)
             ->get();
 
-        $menu_tops = Menu::where('menu_type_id', 1)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')->limit(4)->get();
+        $menu_tops = Menu::where('menu_type_id', 1)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')
+        ->where('status', true)->limit(4)->get();
 
-        $menu_bottoms = Menu::where('menu_type_id', 3)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')->limit(8)->get();
+        $menu_bottoms = Menu::where('menu_type_id', 3)->orderBY(DB::raw('ISNULL(menus.priority)'), 'ASC')
+        ->where('status', true)->limit(8)->get();
 
-        $product_hots = Product::where('is_hot_product', true)->distinct()->paginate(8);
+        $product_hots = Product::where('is_hot_product', true)->distinct()
+        ->where('status', true)->paginate(8);
 
-        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')->paginate(3);
+        $videos = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')
+        ->where('status', true)->paginate(3);
 
-        $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(4);
+        $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)
+        ->where('status', true)->paginate(4);
 
-        $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)->paginate(2);
+        $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)
+        ->where('status', true)->paginate(2);
 
-        $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)->paginate(2);
+        $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)
+        ->where('status', true)->paginate(2);
 
-        $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)->paginate(2);
+        $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)
+        ->where('status', true)->paginate(2);
 
         $webInfo = WebInfo::first();
 
-        $banners = Slide::orderBY(DB::raw('ISNULL(slides.priority)'), 'ASC')->limit(8)->get();
+        $banners = Slide::orderBY(DB::raw('ISNULL(slides.priority)'), 'ASC')
+        ->where('status', true)->limit(8)->get();
 
-        $supporters = Supporter::all();
+        $supporters = Supporter::where('status', true)->get();
 
         //        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
         //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();

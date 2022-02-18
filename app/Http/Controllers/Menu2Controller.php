@@ -71,9 +71,9 @@ class Menu2Controller extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => [new Required],
-            'title' => [new Required],
-            'keyword' => [new Required],
+            'name' => [new Required, new Unique],
+            'title' => [new Required, new Unique],
+            'keyword' => [new Required, new Unique],
             'menu_type_id' => [new Required],
             'parent_menu_id' => [new Required],
         ]);

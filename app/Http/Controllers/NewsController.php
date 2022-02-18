@@ -46,8 +46,8 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => [new Required],
-            'title' => [new Required],
+            'name' => [new Required, new Unique],
+            'title' => [new Required, new Unique],
             'keyword' => [new Required],
         ]);
         $new_check = News::where('menu_id', $request->input('menu_id'))
