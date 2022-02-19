@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="keyword">Keyword</label>
-                    <input type="text" class="form-control" id="keyword" placeholder="Tiêu Đề Tin Tức" name="keyword">
+                    <input type="text" class="form-control" id="keyword" placeholder="Tiêu Đề Tin Tức" name="keyword" value="{{ $news->keyword }}">
                     @if($errors->has('keyword'))
                         <p style="color: red">{{ $errors->first('keyword') }}</p>
                     @endif
