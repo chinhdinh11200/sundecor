@@ -395,6 +395,9 @@ button {
     -webkit-line-clamp: 2;
   }
 }
+.made__block--construct .made__block--img img{
+  object-fit: cover;
+}
 
 /* css card__product */
 .card__product {
@@ -814,11 +817,11 @@ button {
   text-align: center;
   letter-spacing: 0.02em;
 }
-.textmore__block > p {
-  font-size: 20px;
+.textmore__block p {
+  font-size: 18px;
   font-weight: 500;
   text-align: justify;
-  line-height: 2;
+  line-height: 26px;
   margin-top: 30px;
 }
 
@@ -833,10 +836,13 @@ button {
 .textmore__block--content2{
   height: 750px;
 }
-.textmore__block--content p{
-  margin-bottom: 0;
-  text-align: justify;
+.textmore__block--content ul{
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
+/* .textmore__block--content p{
+  margin-bottom: 0;
+} */
 .textmore__block--overlay {
   position: absolute;
   bottom: 0;
@@ -867,4 +873,10 @@ button {
   background: #ff7f00;
   color: #fff;
   border: #fff 1px solid;
+}
+@media only screen and (max-width: 767px) {
+  .textmore__block p {
+    font-size: 16px;
+    margin-top: 24px;
+  }
 }

@@ -27,6 +27,10 @@ $("#to-top").click(function () {
 // video youtube
     $(".made__block--video").css("height",($(".made__block--item").width())*9/16);
     $("#footer .footer__video--iframe").css("height",($("#footer .footer__video").width())*9/16);
+    $(".page-video .made__block--video").css("height",($(".made__block--item").width())*9/16);
+
+// construct img
+$(".made__block--construct .made__block--img img").css("height",($(".made__block--construct .made__block--item").width())*4/6);
 
 // img product\
     $(".card__product--img").css("height",($(".product__block--normal .card__product--img").width())*5/4.5);
