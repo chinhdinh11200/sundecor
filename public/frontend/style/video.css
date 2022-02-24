@@ -1,0 +1,23 @@
+.page-video .product__block--list {
+    margin-bottom: -60px;
+}
+.page-video .product__block--item {
+    margin-bottom: 60px;
+}
+.page-video .product__block--item:hover .made__block--name {
+    color: #ff7f00;
+}
+.page-video .made__block--name {
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-top: 15px;
+    height: 62px;
+    color: #0d0d0d;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    transition: 0.5s all;
+    -webkit-line-clamp: 3;
+}

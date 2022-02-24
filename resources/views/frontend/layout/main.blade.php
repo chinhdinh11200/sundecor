@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/news_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/video.css')}}">
 </head>
 <style type="text/css">
 	@font-face {
