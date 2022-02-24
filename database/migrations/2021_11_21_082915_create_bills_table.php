@@ -16,13 +16,13 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('fullname');
-            $table->string('gender');
-            $table->string('phone_number');
-            $table->string('address');
-            $table->string('email');
-            $table->text('description');
-            $table->boolean('status');
+            $table->string('fullname')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

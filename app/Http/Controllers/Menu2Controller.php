@@ -196,6 +196,7 @@ class Menu2Controller extends Controller
         $menu_update->slug = Str::slug($request->input('name')). '.html'; //nhận nhập tên loại trong input
         $menu_update->keyword = $request->input('keyword'); //nhận nhập tên loại trong input
         $menu_update->priority = $request->input('priority');
+        $menu_update->status = $request->input('status');
 
         $menu_update->update();
 
@@ -229,8 +230,8 @@ class Menu2Controller extends Controller
         if($search == ''){
             return redirect()->route('admin.menu2.index');
         }else {
-            $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
-            $menu1 = Menu::where('parent_menu_id', 0)->get();
+            $menu = Menu::where('parent_menu_id', "<>", 0)->where('menu_type_id', 2)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
+            $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
             $menu->appends(['s' => $search]);
             return view('admin.menu2.search', ['datas' => $menu, 'menu1' => $menu1]);
         }

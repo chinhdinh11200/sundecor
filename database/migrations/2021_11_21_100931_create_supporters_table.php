@@ -15,9 +15,9 @@ class CreateSupportersTable extends Migration
     {
         Schema::create('supporters', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fullname');
-            $table->string('tel');
-            $table->boolean('status');
+            $table->string('fullname')->nullable();
+            $table->string('tel')->nullable();
+            $table->boolean('status')->nullable();
             $table->integer('priority')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

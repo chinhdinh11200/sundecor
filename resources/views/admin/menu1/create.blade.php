@@ -76,8 +76,9 @@
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" ></textarea>
           <script>
               CKEDITOR.replace( 'content_1', {
-                height: '300'
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
       </div>
       <div class="form-group">
@@ -85,8 +86,9 @@
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2" required></textarea>
           <script>
               CKEDITOR.replace( 'content_2' , {
-                    width: ['100%'], height: ['300px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
       </div>
       <div class="form-group">

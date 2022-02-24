@@ -48,13 +48,62 @@
                                                 {{ $cart->name. ' ('.$cart->size . ')' }}
                                             </td>
                                             <td>
-                                                {{ number_format($cart->sell_price) }} đ
+                                                @if(isset($cart->sale_price))
+                                                    {{ number_format($cart->sale_price) }} đ
+                                                @else
+                                                    Liên hệ
+                                                @endif
                                             </td>
                                             <td>
                                                 <input type="text" name="quantity" id={{ "quantity". $cart->id }} value="{{ $cart->quantity }}" style="width: 100px" class="text-center">
                                             </td>
                                             <td>
-                                                {{ number_format($cart->sell_price* $cart->quantity) }} đ
+                                                @if(isset($cart->sale_price))
+                                                {{ number_format($cart->sale_price* $cart->quantity) }} đ
+                                                @else
+                                                    Liên hệ
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('cart.delete', $cart->id) }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="session_id" id="session_id">
+                                                    <input type="hidden" name="id" id="id" value="{{ $cart->id }}">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @foreach ($cart_contacts as $key => $cart)
+                                        <tr>
+                                            <input type="hidden" name="product_id" id="product_id" value="{{ $cart->product_id }}">
+                                            {{-- cập nhật đơn hàng --}}
+                                            <input type="hidden" name="cart_id" id="cart_id" value="{{ $cart->id }}">
+                                            <td>
+                                                {{ count($carts) + $key + 1}}
+                                            </td>
+                                            <td>
+                                                <img src="{{ asset('upload/images/product') .'/'. $cart->image_1 }}" alt="Ảnh" style="width: 80px">
+                                            </td>
+                                            <td>
+                                                {{ $cart->name. ' ('.$cart->size . ')' }}
+                                            </td>
+                                            <td>
+                                                @if(isset($cart->sale_price))
+                                                    {{ number_format($cart->sale_price) }} đ
+                                                @else
+                                                    Liên hệ
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <input type="text" name="quantity" id={{ "quantity". $cart->id }} value="{{ $cart->quantity }}" style="width: 100px" class="text-center">
+                                            </td>
+                                            <td>
+                                                @if(isset($cart->sale_price))
+                                                {{ number_format($cart->sale_price* $cart->quantity) }} đ
+                                                @else
+                                                    Liên hệ
+                                                @endif
                                             </td>
                                             <td>
                                                 <form action="{{ route('cart.delete', $cart->id) }}" method="post">

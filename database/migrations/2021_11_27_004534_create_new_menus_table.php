@@ -17,7 +17,7 @@ class CreateNewMenusTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('news_id');
             $table->unsignedInteger('menu_id');
-            $table->Integer('priority');
+            $table->Integer('priority')->nullable();
             $table->timestamps();
             $table->foreign('news_id')
                     ->references('id')

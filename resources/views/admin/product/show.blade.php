@@ -1,4 +1,4 @@
-@include('admin.layout.header', ['text' => 'product'])
+{{-- @include('admin.layout.header', ['text' => 'product']) --}}
 @extends('admin.layout.main')
 @section('content')
 
@@ -16,51 +16,89 @@
                     </div>
 
                     <!-- /.card-option -->
+
                     <form action="" class="card-option">
                         <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
-                            <option value="{{ route('admin.product.index') }}">Open this select menu</option>
-                            @foreach ($menus as $menu)
-                                <option value="{{ route('admin.product.show', $menu->id) }}" {{ $menu->id == $menu_id ? 'selected' : '' }}>{{ $menu->name }}</option>
+                            <option selected>Open this select menu</option>
+                            @foreach ($menus1 as $menu1)
+                                <option value="{{ route('admin.product.show', $menu1->id) }}" {{ $menu1->id == $menu_show->id ? 'selected' : '' }}>{{ $menu1->name }}</option>
+                                @foreach ($menus2 as $menu2)
+                                    @if ($menu2->parent_menu_id == $menu1->id)
+                                        <option value="{{ route('admin.product.show', $menu2->id) }}" {{ $menu2->id == $menu_show->id ? 'selected' : '' }}>...{{ $menu2->name }}</option>
+                                    @endif
+                                @endforeach
                             @endforeach
                         </select>
                     </form>
-
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 <th class="col-1">Ảnh</th>
-                                <th class="col-6">Tên</th>
+                                <th class="col-5">Tên</th>
                                 <th class="col-2">Ngày up</th>
+                                {{-- @if ($menu_show->parent_menu_id != 0) --}}
+                                    <th class="col-1">Thứ tự</th>
+                                {{-- @endif --}}
                                 <th class="col-1">Trạng thái</th>
                                 <th class="col-2">Edit</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($products as $product)
-                                    <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
-                                        <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
-                                        <td>
-                                            <div style="margin: auto 0;">
-                                                {{$product->name}}
-                                            </div>
-                                        </td>
-                                        <td style="vertical-align: middle; text-align: center">{{$product->created_at}}</td>
-                                        <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->status?"Hiện":""); ?></td>
-                                        {{-- <!-- <td>{{$product->priority}}</td> --> --}}
-                                        <td style="vertical-align: middle;">
-                                            <div class="d-flex justify-content-center" style="max-height: 38px">
-                                                <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary mr-3">Sửa</a>
-                                                <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @if ($menu_show->parent_menu_id == 0)
+                                    @foreach ($products as $product)
+                                        <tr class="loai-{{$product->product()->first()->id}} {{$product->product()->first()->status!=1?'trangThaiAn':''}}">
+                                            <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->product()->first()->image_1)}}"></td>
+                                            <td>
+                                                <div style="margin: auto 0;">
+                                                    {{$product->product()->first()->name}}
+                                                </div>
+                                            </td>
+                                            <td style="vertical-align: middle; text-align: center">{{$product->product()->first()->created_at}}</td>
+                                            {{-- @if ($menu_show->parent_menu_id != 0) --}}
+                                                <td style="vertical-align: middle; text-align: center">{{$product->priority}}</td>
+                                            {{-- @endif --}}
+                                            <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->product()->first()->status?"Hiện":""); ?></td>
+                                            {{-- <!-- <td>{{$product->product()->first()->priority}}</td> --> --}}
+                                            <td style="vertical-align: middle;">
+                                                <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                    <a href="{{ route('admin.product.edit', $product->product()->first()->id) }}" class="btn btn-primary mr-3">Sửa</a>
+                                                    <form action="{{ route('admin.product.destroy', $product->product()->first()->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    @foreach ($products as $product)
+                                        <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
+                                            <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
+                                            <td>
+                                                <div style="margin: auto 0;">
+                                                    {{$product->name}}
+                                                </div>
+                                            </td>
+                                            <td style="vertical-align: middle; text-align: center">{{$product->created_at}}</td>
+                                                <td style="vertical-align: middle; text-align: center">{{$product->product_menu()->where('subcategory_id', $menu_show->id)->first()->priority}}</td>
+                                            {{-- @endif --}}
+                                            <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->status?"Hiện":""); ?></td>
+                                            <td style="vertical-align: middle;">
+                                                <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                    <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-primary mr-3">Sửa</a>
+                                                    <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

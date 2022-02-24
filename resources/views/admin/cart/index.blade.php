@@ -37,9 +37,9 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Họ tên</th>
-                                <th>Tên sản phẩm</th>
-                                <th>số điện thoại</th>
-                                <th>Tổng tiền</th>
+                                {{-- <th>Tên sản phẩm</th> --}}
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày tạo</th>
                                 <th>Edit</th>
@@ -51,14 +51,14 @@
                                <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $cart->fullname }}</td>
-                                    <td>{{ $cart->name }}</td>
+                                    {{-- <td>{{ $cart->name }}</td> --}}
                                     <td>{{ $cart->phone_number }}</td>
-                                    <td>{{ $cart->sell_price * $cart->quantity }}</td>
+                                    <td>{{ $cart->address }}</td>
                                     <td>{{ $cart->status == 0 ? "Chưa thanh toán" : "Đã thanh toán"}}</td>
                                     <td>{{ $cart->created_at }}</td>
                                     <td style="vertical-align: middle">
                                         <div class="d-flex justify-content-center" style="max-height: 38px">
-                                            <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary mr-3">sửa</a>
+                                            <a href="{{ route('admin.bill.edit', $cart->id) }}" class="btn btn-primary mr-3">sửa</a>
                                             <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')

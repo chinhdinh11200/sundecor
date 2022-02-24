@@ -15,7 +15,28 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        Menu::create([
+        $menu_top = Menutype::where('name', 'Menu top')->first();
+        !$menu_top ? Menutype::create([
+            'name' => 'Menu top'
+        ]) : null;
+
+        $menu_main = Menutype::where('name', 'Menu chính')->first();
+        !$menu_main ? Menutype::create([
+            'name' => 'Menu chính'
+        ]) : null;
+
+        $menu_bottom = Menutype::where('name', 'Menu chân trang')->first();
+        !$menu_bottom ? Menutype::create([
+            'name' => 'Menu chân trang'
+        ]) : null;
+
+        $menu_other = Menutype::where('name', 'Menu khác')->first();
+        !$menu_other ? Menutype::create([
+            'name' => 'Menu khác'
+        ]) : null;
+
+        $service = Menu::where('slug' , 'dich-vu-5-sao.html')->first();
+        !$service ? Menu::create([
             'name' => 'Dịch vụ 5 sao',
             'slug' => 'dich-vu-5-sao.html',
             'title' => 'Dịch vụ 5 sao',
@@ -23,8 +44,10 @@ class MenuSeeder extends Seeder
             'menu_type_id' => 4,
             'parent_menu_id' => 0,
             'status' => true,
-        ]);
-        Menu::create([
+        ]) : null;
+
+        $construction = Menu::where('slug' , 'cong-trinh-da-thuc-hien.html')->first();
+        !$construction ? Menu::create([
             'name' => 'Công trình đã thực hiện',
             'slug' => 'cong-trinh-da-thuc-hien.html',
             'title' => 'Công trình đã thực hiện',
@@ -32,8 +55,10 @@ class MenuSeeder extends Seeder
             'menu_type_id' => 4,
             'parent_menu_id' => 0,
             'status' => true,
-        ]);
-        Menu::create([
+        ]) : null;
+
+        $know = Menu::where('slug' , 'kien-thuc-ve-den.html')->first();
+        !$know ? Menu::create([
             'name' => 'Kiến thức về đèn',
             'slug' => 'kien-thuc-ve-den.html',
             'title' => 'Kiến thức về đèn',
@@ -41,8 +66,10 @@ class MenuSeeder extends Seeder
             'menu_type_id' => 4,
             'parent_menu_id' => 0,
             'status' => true,
-        ]);
-        Menu::create([
+        ]) : null;
+
+        $collection = Menu::where('slug' , 'bo-suu-tap-den.html')->first();
+        !$collection ? Menu::create([
             'name' => 'Bộ sưu tập đèn',
             'slug' => 'bo-suu-tap-den.html',
             'title' => 'Bộ sưu tập đèn',
@@ -50,8 +77,10 @@ class MenuSeeder extends Seeder
             'menu_type_id' => 4,
             'parent_menu_id' => 0,
             'status' => true,
-        ]);
-        Menu::create([
+        ]) : null;
+
+        $tutorial = Menu::where('slug' , 'huong-dan-su-dung.html',)->first();
+        !$tutorial ? Menu::create([
             'name' => 'Hướng dẫn sử dụng',
             'slug' => 'huong-dan-su-dung.html',
             'title' => 'Hướng dẫn sử dụng',
@@ -59,22 +88,7 @@ class MenuSeeder extends Seeder
             'menu_type_id' => 4,
             'parent_menu_id' => 0,
             'status' => true,
-        ]);
+        ]) : null;
 
-        Menutype::create([
-            'name' => 'Menu top'
-        ]);
-
-        Menutype::create([
-            'name' => 'Menu chính'
-        ]);
-
-        Menutype::create([
-            'name' => 'Menu chân trang'
-        ]);
-
-        Menutype::create([
-            'name' => 'Menu khác'
-        ]);
     }
 }

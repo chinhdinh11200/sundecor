@@ -51,8 +51,9 @@
           <textarea class="form-control" id="content" placeholder="Mô Tả Chi Tiết" name="content"></textarea>
           <script>
               CKEDITOR.replace( 'content' , {
-                    width: ['100%'], height: ['500px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
         </div>
       <div class="form-group">

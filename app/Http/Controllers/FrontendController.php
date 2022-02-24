@@ -35,64 +35,85 @@ class FrontendController extends CommonController
      */
     public function index()
     {
-        $menus1 = Menu::where('parent_menu_id', 0)
+        // $menus1 = Menu::where('parent_menu_id', 0)
+        //                 ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+        //                 ->where('menu_type_id', 2)
+        //                 ->where('status', true)
+        //                 ->limit(8)->get();
+                        $menus1 = Menu::where(function ($query) {
+                            $query->Where('menu_type_id', 4)
+                                ->orWhere('menu_type_id', 2);
+                        })
+                        ->where('parent_menu_id', 0)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                        ->where('menu_type_id', 2)
-                        ->where('status', true)
-                        ->limit(8)->get();
-        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
-            ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
-            ->join('products', 'product_menu.product_id', '=', 'products.id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-            ->where('products.status', true)
-            ->distinct()
-            ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
-            ->where('product_menu.priority', '<>', 'NULL')
-            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-            ->get();
-        $product_result = array();
-        foreach ($menus1 as $key => $menu1) {
-            $quantity = 0;
-            foreach ($products as $key1 => $product) {
-                if ($product->parent_id == $menu1->id) {
-                    $check = 0;
-                    foreach ($product_result as $key2 => $value) {
-                        if ($product->name == $value->name && $product->parent_id == $value->parent_id) {
-                            $check += 1;
-                        }
-                    }
-                    if ($check == 0) {
-                        $product_result[] = $product;
-                        $quantity += 1;
-                    }
-                }
-                if ($quantity == 8) {
-                    break;
-                }
-            }
-        }
-
-        $product_sales = DB::table('products')->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-                            ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                            ->where('products.status', true)
-                            ->select('products.*', 'product_sizes.*', 'product_menu.priority')
-                            ->where('is_sale_in_month', true)
-                            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
+                        ->get();
+        // $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
+        //     ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
+        //     ->join('products', 'product_menu.product_id', '=', 'products.id')
+        //     ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+        //     ->where('products.status', true)
+        //     ->distinct()
+        //     ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
+        //     ->where('product_menu.priority', '<>', 'NULL')
+        //     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+        //     ->get();
+        $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                            ->join('menus', 'menus.id', '=', 'product_menu.subcategory_id')
+                            // ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+                            ->where('product_menu.priority', '!=', null)
+                            ->where('menus.parent_menu_id', '==', 0)
+                            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+                            ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id')
                             ->get();
-        $product_result_sale = array();
-        foreach ($product_sales as $key1 => $product) {
-            $check = 0;
-            foreach ($product_result_sale as $key2 => $value) {
-                if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
-                    $check += 1;
-                }
-            }
-            if($check == 0) {
-                $product_result_sale[] = $product;
-            }
-        }
 
-        return view('frontend.index', compact('product_result_sale'))->with('menus1', $menus1)->with('products', $product_result);
+
+// dd($products);
+        // $product_result = array();
+        // foreach ($menus1 as $key => $menu1) {
+        //     $quantity = 0;
+        //     foreach ($products as $key1 => $product) {
+        //         if ($product->parent_id == $menu1->id) {
+        //             $check = 0;
+        //             foreach ($product_result as $key2 => $value) {
+        //                 if ($product->name == $value->name && $product->parent_id == $value->parent_id) {
+        //                     $check += 1;
+        //                 }
+        //             }
+        //             if ($check == 0) {
+        //                 $product_result[] = $product;
+        //                 $quantity += 1;
+        //             }
+        //         }
+        //         if ($quantity == 8) {
+        //             break;
+        //         }
+        //     }
+        // }
+
+        // $product_sales = DB::table('products')->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+        //                     ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
+        //                     ->where('products.status', true)
+        //                     ->select('products.*', 'product_sizes.sell_price', 'product_sizes.sale_price', 'product_menu.priority')
+        //                     ->where('is_sale_in_month', true)
+        //                     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
+        //                     ->get();
+
+        // $product_result_sale = array();
+        // foreach ($product_sales as $key1 => $product) {
+        //     $check = 0;
+        //     foreach ($product_result_sale as $key2 => $value) {
+        //         if($product->id == $value->id) {     // trùng tên khác ưu tiên mà cùng menu
+        //             $check += 1;
+        //         }
+        //     }
+        //     if($check == 0) {
+        //         $product_result_sale[] = $product;
+        //     }
+        // }
+
+        $product_result_sale = [];
+
+        return view('frontend.index', compact('product_result_sale'))->with('products', $products);
     }
 
     public function category($slug)
@@ -100,65 +121,29 @@ class FrontendController extends CommonController
         $product = Product::where('slug', $slug)->first();
         $menu = Menu::where('slug', $slug)->first();
         $new = News::where('slug', $slug)->first();
-        if($menu) {
+        if($new) {
+            return view('frontend.newsDetail')->with('new', $new)->with('menu', $menu);
+        }
+        else if($menu) {
             if($menu->menu_type_id == 2) {
-                if($menu->parent_menu_id == 0){
-                    $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
-                                        ->join('menus', 'menus.id', 'product_menu.subcategory_id')
-                                        ->where('products.status', true)
-                                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-                                        ->select('products.*')
-                                        ->where('menus.parent_menu_id', $menu->id)
-                                        ->paginate(20);
-                    $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                                        ->join('menus', 'menus.id', '=', 'product_menu.subcategory_id')
-                                        ->where('products.status', true)
-                                        ->select('products.*', 'product_menu.priority')
-                                        ->where('is_hot_product', true)
-                                        ->where('menus.parent_menu_id', $menu->id)
-                                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
-                                        ->get();
-                    $product_menu_hots = array();
-                    foreach ($product_hots as $key1 => $product) {
-                        $check = 0;
-                        foreach ($product_menu_hots as $key2 => $value) {
-                            if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
-                                $check += 1;
-                            }
-                        }
-                        if($check == 0) {
-                            $product_menu_hots[] = $product;
-                        }
-                    }
-                }else {
-                    $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
-                                        ->where('products.status', true)
-                                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-                                        ->select('products.*')
-                                        ->where('product_menu.subcategory_id', $menu->id)->paginate(20);
-
-                    $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+                $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
                     ->join('menus', 'menus.id', '=', 'product_menu.subcategory_id')
                     ->where('products.status', true)
                     ->select('products.*', 'product_menu.priority')
                     ->where('is_hot_product', true)
-                    ->where('menus.parent_menu_id', $menu->id)
+                    ->where('menus.id', $menu->id)
+                    ->distinct()
                     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
                     ->get();
-                    $product_menu_hots = array();
-                    foreach ($product_hots as $key1 => $product) {
-                        $check = 0;
-                        foreach ($product_menu_hots as $key2 => $value) {
-                            if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
-                                $check += 1;
-                            }
-                        }
-                        if($check == 0) {
-                            $product_menu_hots[] = $product;
-                        }
-                    }
-                }
-                return view('frontend.category', compact('products', 'product_menu_hots'))->with('menu', $menu);
+                $products = Product::join('product_menu', 'product_menu.product_id', 'products.id')
+                    ->join('menus', 'menus.id', 'product_menu.subcategory_id')
+                    ->where('products.status', true)
+                    ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+                    ->select('products.*', 'product_menu.priority')
+                    ->distinct()
+                    ->where('product_menu.subcategory_id', $menu->id)
+                    ->paginate(20);
+                return view('frontend.category', compact('products', 'product_hots'))->with('menu', $menu);
             }else if($menu->menu_type_id != 2) {
                 $news = News::where('menu_id', $menu->id)
                                 ->where('status', true)->paginate(20);
@@ -166,29 +151,26 @@ class FrontendController extends CommonController
                     return view('frontend.news')->with('news', $news)->with('menu', $menu);
                 }
             }
-            else {
-                return redirect()->route('web');
-            }
-        }
-        else if($new) {
-            if($new){
-                return view('frontend.newsDetail')->with('new', $new)->with('menu', $menu);
-            }
+            // else {
+            //     return redirect()->route('web');
+            // }
         }
         else if($slug == 'tat-ca-video.html'){
-            $videoalls = Video::paginate(20);
+            $videoalls = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')
+            ->where('status', true)->paginate(20);
             return view('frontend.videos', compact('videoalls'));
         }
         else if($product) {
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
-            $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                    ->where('products.status', true)
-                    ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
-                    ->paginate(20);
+            // dd($product_sizes);
+            // $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+            //         ->where('products.status', true)
+            //         ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
+            //         ->paginate(20);
             $customers = Customer::inRandomOrder()->limit(5)->get();
-            // dd($customers);
-            return view('frontend.product', compact('products', 'customers'))->with('product', $product)->with('product_sizes', $product_sizes);
+            // dd($customers, $product_sizes, $product);
+            return view('frontend.product', compact('product', 'customers'))->with('product_sizes', $product_sizes);
         }
         else {
             return redirect()->route('web');

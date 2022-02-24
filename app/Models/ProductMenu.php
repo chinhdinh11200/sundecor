@@ -17,4 +17,7 @@ class ProductMenu extends Model
 
     // protected $fillable = [''];
 
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

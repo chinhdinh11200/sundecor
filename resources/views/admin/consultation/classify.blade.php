@@ -1,5 +1,7 @@
+<!-- Navbar -->
+{{-- @include('admin.layout.header', ['text' => 'consultation']) --}}
+<!-- /.navbar -->
 @extends('admin.layout.main')
-
 @section('content')
     <section class="content">
         <div class="row">
@@ -16,8 +18,8 @@
                     <form action="" class="card-option">
                         <select name="" id="" class="form-control" area onchange="window.location=this.value">
                             <option value="{{ route('admin.consultation.index') }}" selected>---- Chọn trạng thái ----</option>
-                            <option value="{{ route('admin.consultation.classify', 0) }}" {{ 0 == $type ? 'selected' : '' }}>Chưa liên hệ</option>
-                            <option value="{{ route('admin.consultation.classify', 1) }}" {{ 1 == $type ? 'selected' : '' }}>Đã liên hệ</option>
+                            <option value="{{ route('admin.consultation.classify', 0) }}">Chưa liên hệ</option>
+                            <option value="{{ route('admin.consultation.classify', 1) }}">Đã liên hệ</option>
                         </select>
                     </form>
                     <div class="card-body">
@@ -28,8 +30,9 @@
                                     <th class="col-2">Họ và tên</th>
                                     <th class="col-2">Số điện thoại</th>
                                     <th class="col-3">Mô tả</th>
+                                    <th class="col-2">Ngày tạo</th>
                                     <th class="col-2">Trạng thái</th>
-                                    <th class="col-4">Edit</th>
+                                    <th class="col-3">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,6 +42,7 @@
                                         <td>{{ $consultation->fullname }}</td>
                                         <td>{{ $consultation->tel }}</td>
                                         <td>{{ $consultation->description }}</td>
+                                        <td>{{ $consultation->created_at }}</td>
                                         <td>{{ $consultation->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
                                         <td style="vertical-align: middle">
                                             <div class="d-flex justify-content-center" style="max-height: 38px">

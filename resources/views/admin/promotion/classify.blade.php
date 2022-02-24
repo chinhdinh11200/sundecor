@@ -1,5 +1,7 @@
+<!-- Navbar -->
+@include('admin.layout.header', ['text' => 'promotion'])
+<!-- /.navbar -->
 @extends('admin.layout.main')
-
 @section('content')
     <section class="content">
         <div class="row">
@@ -17,45 +19,48 @@
                     <form action="" class="card-option">
                         <select name="" id="" class="form-control" area onchange="window.location=this.value">
                             <option value="{{ route('admin.promotion.index') }}" selected>---- Chọn trạng thái ----</option>
-                            <option value="{{ route('admin.promotion.classify', 0) }}" {{ 0 == $type ? 'selected' : '' }}>Chưa liên hệ</option>
-                            <option value="{{ route('admin.promotion.classify', 1) }}" {{ 1 == $type ? 'selected' : '' }}>Đã liên hệ</option>
+                            <option value="{{ route('admin.promotion.classify', 0) }}">Chưa liên hệ</option>
+                            <option value="{{ route('admin.promotion.classify', 1) }}">Đã liên hệ</option>
                         </select>
                     </form>
 
-                    <table class="table table-bordered table-hover text-center">
-                        <thead>
-                            <tr>
-                                <th class="col-1">STT</th>
-                                <th class="col-2">Họ và tên</th>
-                                <th class="col-2">Số điện thoại</th>
-                                <th class="col-3">Mô tả</th>
-                                <th class="col-2">Trạng thái</th>
-                                <th class="col-4">Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($promotions as $key => $promotion)
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover text-center">
+                            <thead>
                                 <tr>
-                                    <td style="vertical-align: middle">{{ $key+1 }}</td>
-                                    <td style="vertical-align: middle">{{ $promotion->fullname }}</td>
-                                    <td style="vertical-align: middle">{{ $promotion->tel }}</td>
-                                    <td>{{ $promotion->description }}</td>
-                                    <td style="vertical-align: middle">{{ $promotion->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
-                                    <td style="vertical-align: middle">
-                                        <div class="d-flex justify-content-center" style="max-height: 38px">
-                                            <a href="{{ route('admin.promotion.edit', $promotion) }}" class="btn btn-primary mr-3">Sửa</a>
-                                        <form action="{{ route('admin.promotion.destroy', $promotion) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger">Xóa</button>
-                                        </form>
-                                        </div>
-                                    </td>
+                                    <th class="col-1">STT</th>
+                                    <th class="col-2">Họ và tên</th>
+                                    <th class="col-2">Số điện thoại</th>
+                                    <th class="col-3">Mô tả</th>
+                                    <th class="col-2">Ngày tạo</th>
+                                    <th class="col-2">Trạng thái</th>
+                                    <th class="col-3">Edit</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($promotions as $key => $promotion)
+                                    <tr>
+                                        <td style="vertical-align: middle">{{ $key+1 }}</td>
+                                        <td style="vertical-align: middle">{{ $promotion->fullname }}</td>
+                                        <td style="vertical-align: middle">{{ $promotion->tel }}</td>
+                                        <td>{{ $promotion->description }}</td>
+                                        <td>{{ $promotion->created_at }}</td>
+                                        <td style="vertical-align: middle">{{ $promotion->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
+                                        <td style="vertical-align: middle">
+                                            <div class="d-flex justify-content-center" style="max-height: 38px">
+                                                <a href="{{ route('admin.promotion.edit', $promotion) }}" class="btn btn-primary mr-3">Sửa</a>
+                                            <form action="{{ route('admin.promotion.destroy', $promotion) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
 
                     <div class="box-trang">

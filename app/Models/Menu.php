@@ -22,7 +22,15 @@ class Menu extends Model
     // connect to Product
     public function products() {
         return $this->belongsToMany(Product::class,
-                                    ProductMenu::class,
+                                    'product_menu',
+                                    'subcategory_id',
+                                    'product_id');
+    }
+
+    public function allProducts() {
+        return $this->belongsToMany(Product::class,
+                                    Menu::class,
+                                    'product_menu',
                                     'subcategory_id',
                                     'product_id');
     }
@@ -36,7 +44,9 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_menu_id', 'id');
     }
 
-    public function menuProducts() {
-        return $this->hasMany(ProductMenu::class, 'subcategory_id');
+
+
+    public function productMenus() {
+        return $this->hasManyThrough(ProductMenu::class,Menu::class, 'parent_menu_id', 'subcategory_id', 'id');
     }
 }

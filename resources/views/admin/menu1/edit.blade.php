@@ -71,19 +71,21 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung trên</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1" required>{{ $data->content_1 }}</textarea>
-          <script>
-              CKEDITOR.replace( 'content_1' , {
-                    width: ['100%'], height: ['500px']
-              });
-          </script>
+            <script>
+                CKEDITOR.replace( 'content_1' , {
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                } );
+            </script>
       </div>
       <div class="form-group">
         <label for="exampleInputEmail1">Nội dung dưới</label>
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2" required>{{ $data->content_2 }}</textarea>
           <script>
               CKEDITOR.replace( 'content_2' , {
-                    width: ['100%'], height: ['500px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                })
           </script>
       </div>
       <div class="form-group">

@@ -50,10 +50,11 @@
           <option value="6" {{ $menu->priority == 6 ? "selected" : '' }}>6</option>
           <option value="7" {{ $menu->priority == 7 ? "selected" : '' }}>7</option>
           <option value="8" {{ $menu->priority == 8 ? "selected" : '' }}>8</option>
+          <option value {{ $menu->priority == null ? "selected" : '' }}>Mặc định</option>
         </select>
       </div>
       <?php
-        $check_mt[1]=0; $check_mt[2]=0; $check_mt[3]=0; $check_mt[4]=0; $i=1;
+        $check_mt[1]=0; $check_mt[2]=0; $check_mt[3]=0; $check_mt[4]=0; $check_mt[5]=0; $i=1;
         foreach($menus as $m){
           if($m->menu_type_id==1){
             $check_mt[1]=1;
@@ -66,6 +67,9 @@
           }
           if($m->menu_type_id==4){
             $check_mt[4]=4;
+          }
+          if($m->menu_type_id==5){
+            $check_mt[5]=5;
           }
         }
       ?>
@@ -140,8 +144,9 @@
           <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_1">{{ $menu->content_1 }}</textarea>
           <script>
               CKEDITOR.replace( 'content_1' , {
-                    width: ['100%'], height: ['500px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
       </div>
       <div class="form-group">
@@ -149,7 +154,8 @@
         <textarea class="form-control" id="moTaChiTiet" placeholder="Mô Tả Chi Tiết" name="content_2">{{ $menu->content_2 }}</textarea>
         <script>
             CKEDITOR.replace( 'content_2' , {
-                width: ['100%'], height: ['500px']
+                filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
             });
         </script>
       </div>

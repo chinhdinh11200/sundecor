@@ -76,8 +76,8 @@
       <div class="form-group">
         <label for="">Loại Sản Phẩm</label>
         <div>
-        	<input type="radio" id="is_sale_in_month" name="is_sale_in_month"  value="1" {{ old('is_sale_in_month') == 1 ? "checked" : '' }}> Khuyến MãiTháng&emsp;&emsp;&emsp;
-            <input type="radio" id="is_hot_product" name="is_hot_product"  value="1" {{ old('is_hot_product') == 1 ? "checked" : '' }}> Hot Tháng
+        	<input type="checkbox" id="is_sale_in_month" name="is_sale_in_month"  value="1" {{ old('is_sale_in_month') == 1 ? "checked" : '' }}> Khuyến MãiTháng&emsp;&emsp;&emsp;
+            <input type="checkbox" id="is_hot_product" name="is_hot_product"  value="1" {{ old('is_hot_product') == 1 ? "checked" : '' }}> Hot Tháng
         </div>
       </div>
       <div class="form-group">
@@ -95,8 +95,9 @@
       @endif
           <script>
               CKEDITOR.replace( 'content' , {
-                    width: ['100%'], height: ['500px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
         </div>
       <div class="form-group">
@@ -104,8 +105,9 @@
           <textarea class="form-control" id="specifications" placeholder="Mô Tả Chi Tiết" name="specifications" value="{{ old('specifications') }}"></textarea>
           <script>
               CKEDITOR.replace( 'specifications' , {
-                    width: ['100%'], height: ['500px']
-              });
+                    filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+                });
           </script>
         </div>
 
@@ -113,7 +115,16 @@
         <label for="priority">Nơi hiện</label>
         {{-- <div class="d-flex justify-content-between" style="flex-wrap: wrap"> --}}
           @foreach ($menus1 as $menu1)
-            <div style="margin-top: 10px; font-weight: 600; text-transform: uppercase">{{ $menu1->name }}</div>
+            <div style="width: calc(100% / 3);">
+                <div style="padding-top: 10px; font-weight: 600; text-transform: uppercase; display:inline-block;width: calc(100% - 100px);">{{ $menu1->name }}</div>
+                <select name="priority{{$menu1->id}}">
+                    <option value="0"> - vị trí - </option>
+                    @for($i = 1; $i <= 21; $i++)
+                        <option value="{{$i}}and{{$menu1->id}}"> {{$i == 21 ? "Mặc định" : $i}} </option>
+                    @endfor
+                    <option value="0">Xóa</option>
+                </select>
+            </div>
             <div class="d-flex" style="flex-wrap: wrap">
                 @foreach($menus2 as $menu2)
                     @if ($menu1->id == $menu2->parent_id)
@@ -134,10 +145,10 @@
                             </div>
                             <select name="priority{{$menu2->id}}">
                                 <option value="0">- vị trí -</option>
-                                @for($i = 1; $i < 9; $i++)
-                                <option value="{{$i}}and{{$menu2->id}}" {{ old("priority$menu2->id") == $i."and".$menu2->id ? 'selected' : ''}}>{{ $i }}</option>
+                                @for($i = 1; $i <=21; $i++)
+                                <option value="{{$i}}and{{$menu2->id}}" {{ old("priority$menu2->id") == $i."and".$menu2->id ? 'selected' : ''}}>{{$i == 21 ? "Mặc định" : $i}}</option>
                                 @endfor
-                                <option value="9and{{$menu2->id}}">Mặc Định</option>
+                                <option value="0">Xóa</option>
                             </select>
                         </div>
                     </div>
@@ -244,12 +255,14 @@
     }
 
     function format_price(e) {
-        console.log(e.value);
+        const value = e.value.split(',').join('');
+        // console.log("🚀 ~ file: edit.blade.php ~ line 309 ~ format_price ~ price", value)
+
         var formatter = new Intl.NumberFormat('en-US', {
             style: undefined,
             currency: 'VND',
         });
-        const price = formatter.format(e.value);
+        const price = formatter.format(value);
         e.value = price;
     }
 </script>

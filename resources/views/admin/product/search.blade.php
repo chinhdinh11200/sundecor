@@ -21,8 +21,13 @@
                     <form action="" class="card-option">
                         <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                             <option selected>Open this select menu</option>
-                            @foreach ($menus as $menu)
-                                <option value="{{ route('admin.product.show', $menu->id) }}">{{ $menu->name }}</option>
+                            @foreach ($menus1 as $menu1)
+                                <option value="{{ route('admin.product.show', $menu1->id) }}">{{ $menu1->name }}</option>
+                                @foreach ($menus2 as $menu2)
+                                    @if ($menu2->parent_menu_id == $menu1->id)
+                                        <option value="{{ route('admin.product.show', $menu2->id) }}">...{{ $menu2->name }}</option>
+                                    @endif
+                                @endforeach
                             @endforeach
                         </select>
                     </form>

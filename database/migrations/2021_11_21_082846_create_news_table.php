@@ -16,14 +16,14 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('title');
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('title')->nullable();
             $table->string('keyword')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->tinyInteger('priority')->nullable();
-            $table->boolean('status');
-            $table->text('content');
+            $table->boolean('status')->nullable();
+            $table->text('content')->nullable();
             $table->string('image')->nullable();
             $table->integer('menu_id')->unsigned();
             $table->timestamps();
