@@ -19,10 +19,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-            ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
-            ->paginate(8);
+        $carts = DB::table('bills')->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         $products = Product::all();
         return view('admin.cart.index')->with('carts', $carts)->with('products', $products);
     }
@@ -67,12 +64,12 @@ class BillController extends Controller
      */
     public function edit($id)
     {
-        $cart = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-            ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
-            ->where('bill_product.id', $id)->first();
-        // dd($cart);
-        return view('admin.cart.edit')->with('cart', $cart);
+        $cart = DB::table('bills')->where('id', $id)->first();
+        $product_buys = Product::join('bill_product', 'bill_product.product_id', '=', 'products.id')
+                                ->select('bill_product.*', 'products.name')
+                                ->where('bill_product.bill_id', $id)->get();
+                                // dd($product_buys);
+        return view('admin.cart.edit', compact('product_buys'))->with('cart', $cart);
     }
 
     /**
@@ -84,21 +81,14 @@ class BillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bill_product = BillProduct::find($id);
-        $bill = Bill::find($bill_product->bill_id);
-        // dd($bill);
-        // dd($bill_product);
+        $bill = Bill::find($id);
         $bill->status = $request->input('status');
-        $bill->fullname = $request->input('fullname');
-        $bill->description = $request->input('description');
-        $bill->phone_number = $request->input('phone_number');
-        $bill->email = $request->input('email');
-        $bill->address = $request->input('address');
+        // $bill->fullname = $request->input('fullname');
+        // $bill->description = $request->input('description');
+        // $bill->phone_number = $request->input('phone_number');
+        // $bill->email = $request->input('email');
+        // $bill->address = $request->input('address');
         $bill->update();
-
-        $bill_product->sell_price = $request->input('sell_price');
-        $bill_product->quantity = $request->input('quantity');
-        $bill_product->update();
 
         return redirect()->route('admin.bill.index');
     }
@@ -118,10 +108,9 @@ class BillController extends Controller
 
     public function classify($type)
     {
-        $carts = DB::table('bills')->join('bill_product', 'bill_product.bill_id', '=', 'bills.id')
-            ->join('products', 'products.id', '=', 'bill_product.product_id')
-            ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
-            ->where('bills.status', $type)->get();
+        $carts = DB::table('bills')
+            ->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
+            ->where('bills.status', $type)->paginate(8);
         return view('admin.cart.classify')->with('carts', $carts)->with('type', $type);
     }
 
@@ -138,6 +127,11 @@ class BillController extends Controller
                     ->select('shopping_carts.*', 'product_sizes.sell_price', 'product_sizes.sale_price')
                     ->where('session_id', $request->input('session_id'))
                     ->get();
+        $cart_contacts = ShoppingCart::join('products', 'products.id', '=', 'shopping_carts.product_id')
+                    ->select('products.name','products.image_1', 'shopping_carts.*')
+                    ->where('session_id', $request->input('session_id'))
+                    ->where('product_size_id', null)->get();
+                    // dd($cart_contacts);
         $bill = new Bill();
         $bill->fullname = $request->input('fullname');
         $bill->phone_number = $request->input('phone_number');
@@ -152,8 +146,18 @@ class BillController extends Controller
             $bill_product = new BillProduct();
             $bill_product->product_id = $cart->product_id;
             $bill_product->quantity = $cart->quantity;
-            $bill_product->sell_price = $cart->sell_price;
-            $bill_product->sale_price = $cart->sale_price;
+            $bill_product->sell_price = $cart->sell_price ? $cart->sell_price : null;
+            $bill_product->sale_price = $cart->sale_price ? $cart->sale_price : null;
+            $bill_product->bill_id = $bill->id;
+            $bill_product->save();
+        }
+
+        foreach ($cart_contacts as $key => $cart) {
+            $bill_product = new BillProduct();
+            $bill_product->product_id = $cart->product_id;
+            $bill_product->quantity = $cart->quantity;
+            $bill_product->sell_price = $cart->sell_price ? $cart->sell_price : null;
+            $bill_product->sale_price = $cart->sale_price ? $cart->sale_price : null;
             $bill_product->bill_id = $bill->id;
             $bill_product->save();
         }

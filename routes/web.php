@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'
     Route::get('/', [AdminController::class , 'index'])->name('quantri');
 
     Route::resource('customer', CustomerController::class);
+    Route::get('search_customer', [CustomerController::class, 'search']);
     Route::get('search_supporter', [SupporterController::class, 'search']);
     Route::resource('supporter', SupporterController::class);
     Route::resource('menu1', Menu1Controller::class);
@@ -72,7 +73,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'
     Route::get('search_promotion', [PromotionController::class, 'search']);
     Route::get('promotion/classify/{type}', [PromotionController::class, 'classify'])->name('promotion.classify');
     Route::resource('webinfo', WebInfoController::class);
-    Route::resource('createfivestar', FiveStarController::class);
 // Route::resource('user', 'UserAdminController');
 
 // Route::post('/user/{id}', 'UserAdminController@update');

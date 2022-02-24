@@ -1,3 +1,4 @@
+{{-- @include('admin.layout.header', ['text' => 'cart']) --}}
 @extends('admin.layout.main')
 @section('content')
     <div class="row">
@@ -13,10 +14,10 @@
                 </div>
 
                 <form action="" class="card-option">
-                    <select name="" id="" class="form-control" area onchange="window.location=this.value">
-                        <option value="{{ route('admin.bill.index') }}" selected>---- Chọn trạng thái ----</option>
-                        <option value="{{ route('admin.bill.classify', 0) }}" {{ 0 == $type ? 'selected' : '' }}>Chưa thanh toán</option>
-                        <option value="{{ route('admin.bill.classify', 1) }}" {{ 1 == $type ? 'selected' : '' }}>Đã thanh toán</option>
+                    <select name="" id="" aria-label="Default select example" class="form-control" onchange="window.location=this.value">
+                        <option value="{{ route('admin.bill.index') }}">---- Chọn trạng thái ----</option>
+                        <option value="{{ route('admin.bill.classify', 0) }}">Chưa thanh toán</option>
+                        <option value="{{ route('admin.bill.classify', 1) }}">Đã thanh toán</option>
                     </select>
                 </form>
 
@@ -36,9 +37,9 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Họ tên</th>
-                                <th>Tên sản phẩm</th>
-                                <th>số điện thoại</th>
-                                <th>Tổng tiền</th>
+                                {{-- <th>Tên sản phẩm</th> --}}
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày tạo</th>
                                 <th>Edit</th>
@@ -50,14 +51,14 @@
                                <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $cart->fullname }}</td>
-                                    <td>{{ $cart->name }}</td>
+                                    {{-- <td>{{ $cart->name }}</td> --}}
                                     <td>{{ $cart->phone_number }}</td>
-                                    <td>{{ $cart->sell_price * $cart->quantity }}</td>
-                                    <td>{{ $cart->status }}</td>
+                                    <td>{{ $cart->address }}</td>
+                                    <td>{{ $cart->status == 0 ? "Chưa thanh toán" : "Đã thanh toán"}}</td>
                                     <td>{{ $cart->created_at }}</td>
                                     <td style="vertical-align: middle">
                                         <div class="d-flex justify-content-center" style="max-height: 38px">
-                                            <a href="{{ route('admin.bill.edit', $cart->id_bill) }}" class="btn btn-primary mr-3">sửa</a>
+                                            <a href="{{ route('admin.bill.edit', $cart->id) }}" class="btn btn-primary mr-3">sửa</a>
                                             <form action="{{ route('admin.bill.destroy', $cart->id) }}" method="POST">
                                                 @csrf
                                                 @method('delete')
@@ -69,10 +70,15 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
 
+                <div class="box-trang">
+                    {{$carts->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
+    <script src="{{ asset('frontend/js/cart.js') }}"></script>
 @endsection

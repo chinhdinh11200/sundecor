@@ -75,7 +75,7 @@
                         </table>
                     </div>
                     <div class="box-trang">
-                        {{ $datas->links() }}
+                        {{ $datas->links('pagination::bootstrap-4') }}
                     </div>
                     <!-- /.card-body -->
                 </div>

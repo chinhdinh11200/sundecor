@@ -1,5 +1,5 @@
 <!-- Navbar -->
-@include('admin.layout.header', ['text' => 'promotion'])
+{{-- @include('admin.layout.header', ['text' => 'promotion']) --}}
 <!-- /.navbar -->
 @extends('admin.layout.main')
 @section('content')
@@ -32,8 +32,9 @@
                                     <th class="col-2">Họ và tên</th>
                                     <th class="col-2">Số điện thoại</th>
                                     <th class="col-3">Mô tả</th>
+                                    <th class="col-2">Ngày tạo</th>
                                     <th class="col-2">Trạng thái</th>
-                                    <th class="col-4">Edit</th>
+                                    <th class="col-3">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +44,7 @@
                                         <td style="vertical-align: middle">{{ $promotion->fullname }}</td>
                                         <td style="vertical-align: middle">{{ $promotion->tel }}</td>
                                         <td>{{ $promotion->description }}</td>
+                                        <td>{{ $promotion->created_at }}</td>
                                         <td style="vertical-align: middle">{{ $promotion->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
                                         <td style="vertical-align: middle">
                                             <div class="d-flex justify-content-center" style="max-height: 38px">

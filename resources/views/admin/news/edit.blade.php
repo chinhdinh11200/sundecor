@@ -49,7 +49,8 @@
                     <textarea style="height: 1200px;" id="moTaChiTiet"  class="form-control" placeholder="Nhập nội dung bài viết" name="content">{!!$news->content!!}</textarea>
                     <script>
                         CKEDITOR.replace( 'moTaChiTiet' , {
-                            width: ['100%'], height: ['500px']
+                            filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                            filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
                         });
                     </script>
                 </div>

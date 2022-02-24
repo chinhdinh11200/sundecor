@@ -35,6 +35,7 @@ class MenuController extends Controller
             $menu_exist->content_1 = $request->input('menu')['content1'];
             $menu_exist->content_2 = $request->input('menu')['content2'];
             $menu_exist->description = $request->input('menu')['description'];
+            // return ($menu_exist->name);
             $menu_exist->update();
             foreach($subcategories as $subcategory) {
                 $menu2_exist = Menu::where('name', '=', $subcategory['name'])->first();
@@ -51,6 +52,7 @@ class MenuController extends Controller
                     $menu2->status = true;
                     $menu2->parent_menu_id = $menu_exist->id;
                     $menu2->menu_type_id = 2;
+                    // return ($menu2->name);
                     $menu2->save();
                 }else {
                     $menu2_exist->title = $subcategory['title'];
@@ -58,6 +60,7 @@ class MenuController extends Controller
                     $menu2_exist->description = $subcategory['description'];
                     $menu2_exist->content_1 = $subcategory['content1'];
                     $menu2_exist->content_2 = $subcategory['content2'];
+                    // return ($menu2_exist->name);
                     $menu2_exist->update();
                 }
             }
@@ -67,13 +70,14 @@ class MenuController extends Controller
             $menu1->keyword = $request->input('menu')['category'];
             $menu1->status = true;
             $menu1->slug = Str::slug($request->input('menu')['category']). '.html';
-            $menu_exist->priority = $request->input('menu')['index'];
-            $menu_exist->title = $request->input('menu')['title'];
-            $menu_exist->content_1 = $request->input('menu')['content1'];
-            $menu_exist->content_2 = $request->input('menu')['content2'];
-            $menu_exist->description = $request->input('menu')['description'];
+            $menu1->priority = $request->input('menu')['index'];
+            $menu1->title = $request->input('menu')['title'];
+            $menu1->content_1 = $request->input('menu')['content1'];
+            $menu1->content_2 = $request->input('menu')['content2'];
+            $menu1->description = $request->input('menu')['description'];
             $menu1->parent_menu_id = 0;
             $menu1->menu_type_id = 2;
+            // return ($menu1->name);
             $menu1->save();
             foreach($subcategories as $subcategory) {
                 $menu2_exist = Menu::where('name', '=', $subcategory['name'])->first();
@@ -90,6 +94,7 @@ class MenuController extends Controller
                     $menu2->status = true;
                     $menu2->parent_menu_id = $menu1->id;
                     $menu2->menu_type_id = 2;
+                    // return ($menu2->name);
                     $menu2->save();
                 }else {
                     $menu2_exist->title = $subcategory['title'];
@@ -97,6 +102,7 @@ class MenuController extends Controller
                     $menu2_exist->description = $subcategory['description'];
                     $menu2_exist->content_1 = $subcategory['content1'];
                     $menu2_exist->content_2 = $subcategory['content2'];
+                    // return ($menu2_exist->name);
                     $menu2_exist->update();
                 }
             }

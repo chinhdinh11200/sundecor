@@ -1,4 +1,4 @@
-@extends('frontend.layout.main')
+@extends('frontend.layout.main', ['keyword' => $menu->slug, 'title' => $menu->title])
 @section('content')
 <section>
 
@@ -77,7 +77,7 @@
         </div>
             <div class="swiper productSwiper">
                 <div class="swiper-wrapper">
-                    @foreach ($product_menu_hots as $product_hot)
+                    @foreach ($product_hots as $product_hot)
                         <div class="swiper-slide">
                         <div class="product__block--item col-12">
                         <a href="{{ route('category', $product_hot->slug) }}">
@@ -86,12 +86,14 @@
                                 src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
                             <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                             <div class="card__product--price d-flex justify-content-between align-items-center">
-                                @if (!($product_hot->product_size()->get()->isEmpty()))
-                                    <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
-                                    <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
+                                @if (!($product_hot->is_contact_product))
+                                    @if (($product_hot->product_size()->first()))
+                                        <div class="card__product--promotional">{{ number_format($product_hot->product_size()->first()->sale_price) }}đ</div>
+                                        <span class="card__product--cost">{{ number_format($product_hot->product_size()->first()->sell_price) }}đ</span>
+                                    @endif
                                 @else
                                     <div class="card__product--promotional">Giá liên hệ : </div>
-                                    <span>0987654321</span>
+                                    <span>{{ $webInfo->hotline }}</span>
                                 @endif
                             </div>
                             </div>
@@ -119,12 +121,14 @@
                             src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
                         <h3 class="card__product--name">{{ $product->name }}</h3>
                         <div class="card__product--price d-flex justify-content-between align-items-center">
-                            @if (!($product->product_size()->get()->isEmpty()) && $product->product_size()->get()[0]->sell_price)
-                                <div class="card__product--promotional">{{ number_format($product->product_size()->get()[0]->sale_price) }}đ</div>
-                                <span class="card__product--cost">{{ number_format($product->product_size()->get()[0]->sell_price) }}đ</span>
+                            @if (!($product->is_contact_product))
+                                @if (($product->product_size()->first()))
+                                    <div class="card__product--promotional">{{ number_format($product->product_size()->first()->sale_price) }}đ</div>
+                                    <span class="card__product--cost">{{ number_format($product->product_size()->first()->sell_price) }}đ</span>
+                                @endif
                             @else
                                 <div class="card__product--promotional">Giá liên hệ : </div>
-                                <span>0987654321</span>
+                                <span>{{ $webInfo->hotline }}</span>
                             @endif
                         </div>
                     </div>
@@ -145,7 +149,7 @@
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
-            @foreach ($product_hots as $product_hot)
+            @foreach ($product_hot2s as $product_hot)
                 <div class="swiper-slide">
                     <div class="product__block--item col-12">
                         <a href="{{ route('category', $product_hot->slug) }}">
@@ -153,12 +157,14 @@
                                 <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
                                 <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                                 <div class="card__product--price d-flex justify-content-between align-items-center">
-                                    @if (!($product_hot->product_size()->get()->isEmpty()))
-                                        <div class="card__product--promotional">{{ number_format($product_hot->product_size()->get()[0]->sale_price) }}đ</div>
-                                        <span class="card__product--cost">{{ number_format($product_hot->product_size()->get()[0]->sell_price) }}đ</span>
+                                    @if (!($product_hot->is_contact_product))
+                                        @if (($product_hot->product_size()->first()))
+                                            <div class="card__product--promotional">{{ number_format($product_hot->product_size()->first()->sale_price) }}đ</div>
+                                            <span class="card__product--cost">{{ number_format($product_hot->product_size()->first()->sell_price) }}đ</span>
+                                        @endif
                                     @else
                                         <div class="card__product--promotional">Giá liên hệ : </div>
-                                        <span>0987654321</span>
+                                        <span>{{ $webInfo->hotline }}</span>
                                     @endif
                                 </div>
                             </div>

@@ -15,12 +15,12 @@ class CreateAdvertisementsTable extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->integer('priority')->nullable();
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->string('image')->nullable();
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->integer('advertisement_type_id')->unsigned();
             $table->foreign('advertisement_type_id')
                     ->references('id')

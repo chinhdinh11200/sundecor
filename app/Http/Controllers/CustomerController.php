@@ -8,6 +8,7 @@ use App\Rules\Required;
 use App\Rules\Unique;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -18,7 +19,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::paginate(8);
+        $customers = Customer::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         return view('admin.customer.index', compact('customers'));
     }
 
@@ -113,5 +114,19 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->delete();
         return redirect()->route('admin.customer.index');
+    }
+
+    public function search(Request $request){
+        $search = $request->input('s');
+        if($search == ''){
+            return redirect()->route('admin.customer.index');
+        }else {
+            $customers = Customer::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
+            ->where('name', 'like', '%'.$search.'%')
+            ->paginate(8);
+
+            $customers->appends(['s' => $search]);
+            return view('admin.customer.search', ['customers' => $customers]);
+        }
     }
 }

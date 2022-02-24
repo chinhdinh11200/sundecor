@@ -21,9 +21,10 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
+        $menus1 = Menu::where('parent_menu_id', 0)->get();
+        $menus2 = Menu::where('parent_menu_id', '!=', '0')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
         $news = News::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
-        return view('admin.news.index', ['news' => $news, 'menus' => $menus]);
+        return view('admin.news.index', compact('news', 'menus1', 'menus2'));
     }
 
     /**
@@ -196,7 +197,7 @@ class NewsController extends Controller
             return redirect()->route('admin.news.index');
         }else {
             $menus = Menu::all();
-            $news = News::where('slug', 'like', '%'. $search . '%')->paginate(8);
+            $news = News::where('slug', 'like', '%'. $search . '%')->orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->paginate(8);
             $news->appends(['s' => $search]);
             return view('admin.news.search', ['news' => $news, 'menus' => $menus]);
         }
@@ -207,23 +208,4 @@ class NewsController extends Controller
         return view('', compact('news'));
     }
 
-    // public function showAllMade() {
-    //     $news_made = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 2)->paginate(20);
-    //     return view('', compact('news_made'));
-    // }
-
-    // public function showAllKnow() {
-    //     $news_know = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 3)->paginate(20);
-    //     return view('', compact('news_know'));
-    // }
-
-    // public function showAllTutorial() {
-    //     $news_tutorial = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 5)->paginate(20);
-    //     return view('', compact('news_tutorial'));
-    // }
-
-    // public function showAllKnowCollection() {
-    //     $news_collection = News::orderBY(DB::raw('ISNULL(news.priority)'), 'ASC')->where('menu_id', 4)->paginate(20);
-    //     return view('', compact('news_collection'));
-    // }
 }

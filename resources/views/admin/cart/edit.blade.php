@@ -10,7 +10,7 @@
             </div>
         </div> --}}
 
-        <form role="form" action="{{ route('admin.bill.update', $cart->id_bill) }}" method="POST" enctype="multipart/form-data">
+        <form role="form" action="{{ route('admin.bill.update', $cart->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body">
@@ -31,18 +31,6 @@
                     <input type="text" name="address" class="form-control" value="{{ $cart->address }}" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="">Tên sản phẩm</label>
-                    <input type="text" name="name" class="form-control" value="{{ $cart->name }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="">Số lượng</label>
-                    <input type="text" name="quantity" class="form-control" value="{{ $cart->quantity }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label for="">Đơn giá</label>
-                    <input type="text" name="sell_price" class="form-control" value="{{ $cart->sell_price }}" disabled>
-                </div>
-                <div class="form-group">
                     <label for="">Trạng thái</label>
                     <select type="text" name="status" class="form-control">
                         <option value="0" {{ $cart->status == 0 ? "selected" : "" }}>Chưa thanh toán</option>
@@ -52,6 +40,19 @@
                 <div class="form-group">
                     <label for="">Mô tả</label>
                     <input type="textarea" name="description" class="form-control" value="{{ $cart->description }}" disabled>
+                </div>
+
+
+                <div>
+                    <label for="">Sản phẩm đã mua</label>
+                    <ul class="w-50">
+                        @foreach ($product_buys as $key => $product_buy)
+                            <li class="d-flex justify-content-between w-100">
+                                {{ $product_buy->name }}
+                                <span>{{ number_format($product_buy->sale_price)}}  đ</span>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

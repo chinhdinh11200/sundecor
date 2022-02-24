@@ -5,7 +5,7 @@
 				@foreach ($menu_tops as $menu_top)
                     <li class="header__top--item"><a class="header__top--link" href="{{ route( 'category', $menu_top->slug ) }}">{{ $menu_top->name }}</a></li>
                 @endforeach
-				<li class="header__top--item"><a class="header__top--link" href="tel:+84978285888"><b>HOTLINE: 0978.285.888</b></a></li>
+				<li class="header__top--item"><a class="header__top--link" href="tel:+84978285888"><b>HOTLINE: {{ $webInfo->hotline }}</b></a></li>
 			</ul>
 		</div>
 	</div>

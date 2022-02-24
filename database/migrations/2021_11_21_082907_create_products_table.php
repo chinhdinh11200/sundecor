@@ -16,16 +16,16 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('code');
-            $table->string('title');
-            $table->text('description');
-            $table->text('content');
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('code')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
             $table->text('specifications')->nullable();
             $table->string('material')->nullable();
             $table->string('guarantee')->nullable();
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->string('sold_out')->nullable();
             $table->string('image_1')->nullable();
             $table->string('image_2')->nullable();

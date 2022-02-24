@@ -19,6 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // $url =
         return rand(1, 10);
     }
 
@@ -33,7 +34,6 @@ class ProductController extends Controller
         $product_exist = Product::where('name', $request->input('cloneProject')['name'])
                                     ->orWhere('code', $request->input('cloneProject')['code'])
                                     ->first();
-        // return $product_exist->name;
         if(!$product_exist) {
             $product = new Product();
             $product->name = $request->input('cloneProject')['name'];
@@ -46,21 +46,35 @@ class ProductController extends Controller
             $product->content = $request->input('cloneProject')['content'];
             $product->sold_out = $request->input('cloneProject')['status'];
             $url = $request->input('cloneProject')['image_1'];
-            $contents = file_get_contents($url);
-            $extension = pathinfo($url, PATHINFO_EXTENSION);
-            $name = time() . rand(1, 100) . '.' . $extension;
-            $product->image_1 = $name;
-            Storage::disk('public')->put($name, $contents);   // sửa lại filesystem = storage_path('app/public') ( gốc ) ;
-            if($request->input('cloneProject')['is_contact_product']){
+                $contents = file_get_contents($url);
+                $extension = pathinfo($url, PATHINFO_EXTENSION);
+                $name = 'upload/images/tests/' . time() . rand(1, 100) . '.' . $extension;
+                file_put_contents($name, $contents);
+                if($request->input('cloneProject')['is_contact_product']){
                 $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];
             }
 
             $product->save();
 
-            $product_menu = new ProductMenu();
-            $product_menu->subcategory_id = $request->input('subcategory_id');
-            $product_menu->product_id = $product->id;
-            $product_menu->save();
+            $product_priority_exist = ProductMenu::where('priority', $request->input('cloneProject')['priority'])
+                                    ->where('subcategory_id', $request->input('subcategory_id'))
+                                    ->first();
+
+            $product_menu_exist = ProductMenu::where('product_id', $product->id)
+                                                ->first();
+
+
+            if(!$product_menu_exist) {
+                if($product_priority_exist) {
+                    $product_priority_exist->priority = null;
+                    $product_priority_exist->update();
+                }
+                $product_menu = new ProductMenu();
+                $product_menu->subcategory_id = $request->input('subcategory_id');
+                $product_menu->product_id = $product->id;
+                $product_menu->priority = $request->input('cloneProject')['priority'];
+                $product_menu->save();
+            }
 
             $product_size = new ProductSize();
             $product_size->product_id = $product->id;
@@ -72,6 +86,26 @@ class ProductController extends Controller
             $product_size->save();
             return 200;
         } else {
+            // sản phẩm đã tồn tại
+
+            $product_priority_exist = ProductMenu::where('priority', $request->input('cloneProject')['priority'])
+                                    ->where('subcategory_id', $request->input('subcategory_id'))
+                                    ->first();
+
+            $product_menu_exist = ProductMenu::where('product_id', $product_exist->id)
+                                                ->first();
+
+            if(!$product_menu_exist) {
+                if($product_priority_exist) {
+                    $product_priority_exist->priority = null;
+                    $product_priority_exist->update();
+                }
+                $product_menu = new ProductMenu();
+                $product_menu->subcategory_id = $request->input('subcategory_id');
+                $product_menu->product_id = $product_exist->id;
+                $product_menu->priority = $request->input('cloneProject')['priority'];
+                $product_menu->save();
+            }
 
             if($request->input('cloneProject')['is_contact_product']){
                 $product_exist->is_contact_product = $request->input('cloneProject')['is_contact_product'];
@@ -119,8 +153,9 @@ class ProductController extends Controller
                 }
             }
 
+            return $product_exist->name . '201';
         }
-        return $product_exist->name . '201';
+
     }
 
     /**

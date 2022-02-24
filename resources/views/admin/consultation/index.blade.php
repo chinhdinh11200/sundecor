@@ -30,8 +30,9 @@
                                     <th class="col-2">Họ và tên</th>
                                     <th class="col-2">Số điện thoại</th>
                                     <th class="col-3">Mô tả</th>
+                                    <th class="col-2">Ngày tạo</th>
                                     <th class="col-2">Trạng thái</th>
-                                    <th class="col-4">Edit</th>
+                                    <th class="col-3">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +42,7 @@
                                         <td>{{ $consultation->fullname }}</td>
                                         <td>{{ $consultation->tel }}</td>
                                         <td>{{ $consultation->description }}</td>
+                                        <td>{{ $consultation->created_at }}</td>
                                         <td>{{ $consultation->status == 1 ? "Đã liên hệ" : "Chưa liên hệ" }}</td>
                                         <td style="vertical-align: middle">
                                             <div class="d-flex justify-content-center" style="max-height: 38px">

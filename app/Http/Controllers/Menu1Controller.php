@@ -62,7 +62,10 @@ class Menu1Controller extends Controller
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
             $menu_check = Menu::where('priority', $request->input('priority'))
-                                ->where('menu_type_id', $request->input('menu_type_id'))->first();
+                                ->where('menu_type_id', $request->input('menu_type_id'))
+                                ->where('parent_menu_id', 0)
+                                ->first();
+                                // dd($menu_check);
             if($menu_check != null){
                 if($data->id != $menu_check->id){
                     $menu_check->priority= null;
@@ -105,7 +108,7 @@ class Menu1Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('menu_type_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
+        $menu = Menu::where('menu_type_id', $id)->where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         $menutype = Menutype::all();
         return view('admin.menu1.show', ['datas' => $menu, 'menutype' => $menutype, 'menu_type_id' => $id]);
     }
@@ -118,14 +121,15 @@ class Menu1Controller extends Controller
      */
     public function edit($id)
     {
-        $menus = Menu::where('id', $id)->first();
+        // $menus = Menu::where('id', $id)->first();
+        $menu = Menu::find($id);
         // $menu = Menu::join('product_menu', 'product_menu.product_id', '=', 'products.id')
         //     ->where('products.id', $id)
         //     ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sell_price', 'products.sale_price', 'products.size', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])->first();
 
         $menutype = Menutype::all();
 
-        return view('admin.menu1.edit', ['menutype' => $menutype], ['data' => $menus]);
+        return view('admin.menu1.edit', ['menutype' => $menutype], ['data' => $menu]);
     }
 
     /**
@@ -155,7 +159,9 @@ class Menu1Controller extends Controller
         $data->priority = $request->input('priority');
         if ($request->has('priority')){
             $menu_check = Menu::where('priority', $request->input('priority'))
-                                ->where('menu_type_id', $request->input('menu_type_id'))->first();
+                                ->where('menu_type_id', $request->input('menu_type_id'))
+                                ->where('parent_menu_id', 0)
+                                ->first();
             if($menu_check != null){
                 if($data->id != $menu_check->id){
                     $menu_check->priority= null;

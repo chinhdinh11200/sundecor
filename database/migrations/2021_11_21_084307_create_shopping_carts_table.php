@@ -16,10 +16,10 @@ class CreateShoppingCartsTable extends Migration
         Schema::create('shopping_carts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('session_id');
+            $table->string('session_id')->nullable();
             $table->integer('product_id')->unsigned();
             $table->integer('status')->nullable();
-            $table->integer('quantity');
+            $table->integer('quantity')->nullable();
             $table->timestamps();
             $table->foreign('product_id')
                     ->references('id')

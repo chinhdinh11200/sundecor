@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Promotion;
 use App\Rules\Required;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PromotionController extends Controller
@@ -16,7 +17,7 @@ class PromotionController extends Controller
      */
     public function index()
     {
-        $promotions = Promotion::paginate(8);
+        $promotions = Promotion::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         return view('admin.promotion.index')->with('promotions', $promotions);
     }
 
@@ -116,7 +117,7 @@ class PromotionController extends Controller
 
     public function classify($type)
     {
-        $promotions = Promotion::where('status', $type)->paginate(8);
+        $promotions = Promotion::where('status', $type)->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         return view('admin.promotion.classify')->with('promotions', $promotions)->with('type', $type);
     }
 
@@ -127,6 +128,7 @@ class PromotionController extends Controller
         }else {
             $promotions = Promotion::where('fullname', 'like', '%'.$search.'%')
             ->orWhere('tel', 'like', '%'.$search.'%')
+            ->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
             ->paginate(8);
             $promotions->appends(['s' => $search]);
             return view('admin.promotion.search')->with('promotions', $promotions);

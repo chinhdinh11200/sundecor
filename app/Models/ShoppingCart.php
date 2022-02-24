@@ -16,7 +16,7 @@ class ShoppingCart extends Model
     // protected $fillable = [''];
 
     // connect to Product
-    public function product() {
-        return $this->belongsTo(Product::class);
+    public function products() {
+        return $this->hasMany(Product::class, 'id');
     }
 }

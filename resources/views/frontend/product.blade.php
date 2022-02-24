@@ -1,4 +1,4 @@
-@extends('frontend.layout.main')
+@extends('frontend.layout.main', ['keyword' => $product->slug, 'title' => $product->title])
 @section('content')
     <section>
         <div class="product__detail">
@@ -8,28 +8,41 @@
                         <div class = "product__detail--img col-12">
                             <div class="swiper product__detail--swiper2" >
                                 <div class="swiper-wrapper">
-                                    <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
-                                    </div>
-                                    <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
-                                    </div>
-                                    <div class = "product__detail--image swiper-slide">
-                                        <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera" id = "productImg">
-                                    </div>
+                                    @if ($product->image_1)
+                                        <div class = "product__detail--image swiper-slide">
+                                            <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "{{ $product->name }}" id = "productImg">
+                                        </div>
+                                    @endif
+                                    @if ($product->image_2)
+                                        <div class = "product__detail--image swiper-slide">
+                                            <img src = "{{asset('upload/images/product/'. $product->image_2)}}" alt = "{{ $product->name }}" id = "productImg">
+                                        </div>
+                                    @endif
+                                    @if ($product->image_3)
+                                        <div class = "product__detail--image swiper-slide">
+                                            <img src = "{{asset('upload/images/product/'. $product->image_3)}}" alt = "{{ $product->name }}" id = "productImg">
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div thumbsSlider="" class="swiper product__detail--swiper1">
                                 <div class="product__img--select swiper-wrapper">
-                                    <div class = "swiper-slide product__select--image active">
-                                        <img class = "select_img"src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
-                                    </div>
-                                    <div class = "swiper-slide product__select--image ">
-                                        <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
-                                    </div>
-                                    <div class = "swiper-slide product__select--image ">
-                                        <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "Đèn chùm Hera">
-                                    </div>
+                                    @if ($product->image_1)
+                                        <div class = "swiper-slide product__select--image active">
+                                            <img class = "select_img"src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "{{ $product->name }}">
+                                        </div>
+                                    @endif
+                                    @if ($product->image_2)
+                                        <div class = "swiper-slide product__select--image ">
+                                            <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_2)}}" alt = "{{ $product->name }}">
+                                        </div>
+                                    @endif
+                                    @if ($product->image_3)
+                                        <div class = "swiper-slide product__select--image ">
+                                            <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_3)}}" alt = "{{ $product->name }}">
+                                        </div>
+
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -39,14 +52,16 @@
                             </div>
                             <div class = "product__detail--price row">
                                 <div class="product__price--sale col-md-12">
-                                    <div class="product__sale">
-                                        <div class="product__sale--label">
-                                            Giảm giá
+                                    @if (!$product->is_contact_product)
+                                        <div class="product__sale">
+                                            <div class="product__sale--label">
+                                                Giảm giá
+                                            </div>
+                                            <div class="product__sale--percent">
+                                                {{ $product->product_size()->first() ? floor(($product->product_size()->first()->sell_price - $product->product_size()->first()->sale_price) * 100/$product->product_size()->first()->sell_price) : ''}} %
+                                            </div>
                                         </div>
-                                        <div class="product__sale--percent">
-                                            {{-- {{ floor(($product_sizes[0]->sell_price - $product_sizes[0]->sale_price) * 100/$product_sizes[0]->sell_price) }} % --}}
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 @if ($product->is_contact_product)
                                     <div>Giá liên hệ</div>
@@ -96,14 +111,13 @@
                             </div>
                             <div class="product__detail--ossascomp row">
                                 <div class="product__ossascomp--size col-12 col-md-6 d-flex">
-                                    <p class="text-center" style="font-weight: 500;">Kích thước:</p>
-                                    <div class="product__size--code">
-                                        @foreach ($product_sizes as $key => $product_size)
-                                            <li class="product__code_a {{-- <?php if($key == 0) echo 'active'; ?> --}}" target="<?= $key+1 ?>" onclick="selectPrice({{ $product_size->id }})">{{ $product_size->size }}</li>
-                                        @endforeach
-                                        {{-- <li class="product__code_a" onclick="">D800*H800mm</li>
-                                        <li class="product__code_a" onclick="">D1200*H1200mm</li> --}}
-                                    </div>
+                                        <p class="text-center" style="font-weight: 500;">Kích thước:</p>
+                                        <div class="product__size--code">
+                                            {{-- {{ dd($product_sizes) }} --}}
+                                            @foreach ($product_sizes as $key => $product_size)
+                                                <li class="product__code_a <?php if($key == 0) echo 'active'; ?>" target="<?= $key+1 ?>" onclick="selectPrice({{ $product_size->id }})">{{ $product_size->size ?? $product_size->size }}</li>
+                                            @endforeach
+                                        </div>
                                 </div>
                                 <div class="product__ossascomp--other col-12 col-md-6">
                                     <li class="d-flex">Chất liệu: <span> Pha lê K9, hợp kim thép chống gỉ<span></li>
@@ -116,6 +130,9 @@
                                 @csrf
                                 <input type="hidden" name="session_id" id="session_id">
                                 <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                                @if (isset($product_sizes[0]))
+                                    <input type="hidden" name="product_size_id" id="product_id" value="{{ $product_sizes[0]->id }}">
+                                @endif
                                 <button type="submit" class="product__button product__button--red product__book--bought">
                                     <b >Mua ngay</b>
                                     <i class="fa fa-cart-arrow-down"></i>
@@ -187,9 +204,6 @@
                                             <strong>{{ $supporter->tel }}</strong>
                                         </div>
                                     @endforeach
-                                    <?php for($i = 0 ; $i < 8; ++$i){ ?>
-
-                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -198,26 +212,26 @@
                 <!-- Your embedded comments code -->
                 <div class="fb-comments" data-href="https://chinh.fun/" data-width="100%" data-numposts="5"></div>
                 @include('frontend.include.video')
-                @include('frontend.include.construct')
+                {{-- @include('frontend.include.construct') --}}
             </div>
         </div>
         <script>
-            $(document).ready(function(){
-                console.log("Test select sp");
-                const form = document.getElementById('form_cart');
+            // $(document).ready(function(){
+            //     console.log("Test select sp");
+            //     const form = document.getElementById('form_cart');
 
-                var productSize_id = document.getElementById('product_size_id');
-                if(productSize_id){
-                    productSize_id.remove();
-                }
+            //     var productSize_id = document.getElementById('product_size_id');
+            //     if(productSize_id){
+            //         productSize_id.remove();
+            //     }
 
-                productSize_id = document.createElement("input");
-                productSize_id.setAttribute('name', 'product_size_id');
-                productSize_id.setAttribute('id', 'product_size_id');
-                productSize_id.setAttribute('type', 'hidden');
-                productSize_id.setAttribute('value', <?php echo $product_sizes[0]->id ?>);
-                form.appendChild(productSize_id);
-            });
+            //     productSize_id = document.createElement("input");
+            //     productSize_id.setAttribute('name', 'product_size_id');
+            //     productSize_id.setAttribute('id', 'product_size_id');
+            //     productSize_id.setAttribute('type', 'hidden');
+            //     productSize_id.setAttribute('value', );
+            //     form.appendChild(productSize_id);
+            // });
             function selectPrice(id) {
                 const form = document.getElementById('form_cart');
 

@@ -17,7 +17,7 @@ class Product extends Model
 
     //connect to Menu
     public function menus() {
-        return $this->belongsToMany(Menu::class);
+        return $this->belongsToMany(Menu::class, 'product_menu', 'product_id', 'subcategory_id');
     }
 
     // connect to Customer
@@ -36,7 +36,7 @@ class Product extends Model
     }
 
     public function product_menu() {
-        return $this->hasMany(ProductMenu::class);
+        return $this->hasOne(ProductMenu::class);
     }
     public function product_size() {
         return $this->hasMany(ProductSize::class);

@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script> --}}
+    <script src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('backend/ckfinder/ckfinder.js') }}"></script>
   <title>AdminLTE 3 | Dashboard 2</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Font Awesome Icons -->
@@ -48,6 +50,11 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
+<script>
+    CKFinder.setupCKEditor();
+</script>
+{{-- @include('ckfinder::setup') --}}
+<script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
 <script src="{{asset('/backend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
 <script src="{{asset('/backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

@@ -108,16 +108,26 @@ class CartController extends CommonController
             ->select('products.name','products.image_1', 'shopping_carts.*', 'product_sizes.size', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('session_id', $request->input('session_id'))
             ->get();
+        // $carts1 = ShoppingCart::where('session_id', $request->input('session_id'))->first();
+
+        // dd($carts1, $carts1->products()->get());
+
+        $cart_contacts = ShoppingCart::join('products', 'products.id', '=', 'shopping_carts.product_id')
+            ->select('products.name','products.image_1', 'shopping_carts.*')
+            ->where('session_id', $request->input('session_id'))
+            ->where('product_size_id', null)->get();
+        // dd($cart_contacts);
         $total = 0;
         foreach ($carts as $key => $cart) {
-            $total += $cart->quantity * $cart->sell_price;
+            $total += $cart->quantity * $cart->sale_price;
         }
         $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
-        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
+        return view('frontend.cart.index', compact('cart_contacts'))->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
     }
 
     public function cartUpdate(Request $request)
     {
+        // dd($request);
         $cart_updates = $request->input("cartUpdate");
 
         foreach ($cart_updates as $key => $cart_update) {
@@ -134,25 +144,32 @@ class CartController extends CommonController
             }
         }
 
-        $carts = DB::table('shopping_carts')
-            ->join('products', 'products.id', '=', 'shopping_carts.product_id')
-            ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-            ->select('products.*', 'shopping_carts.*', 'product_sizes.*')
-            ->where('session_id', $request->input('session_id'))
-            ->get();
-        $total = 0;
-        foreach ($carts as $key => $cart) {
-            $total += $cart->quantity * $cart->sell_price;
-        }
-        $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
-        return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
+        return redirect()->route('cart.index');
+
+        // $carts = DB::table('shopping_carts')
+        //     ->join('products', 'products.id', '=', 'shopping_carts.product_id')
+        //     ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
+        //     ->select('products.*', 'shopping_carts.*', 'product_sizes.*')
+        //     ->where('session_id', $request->input('session_id'))
+        //     ->get();
+        // $total = 0;
+        // foreach ($carts as $key => $cart) {
+        //     $total += $cart->quantity * $cart->sell_price;
+        // }
+        // $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+        // return view('frontend.cart.index')->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
     }
 
     public function cartCreate(Request $request)
     {
-        if(!$request->has('product_size_id')){
-            Alert::error("Lỗi", "Bạn chưa chọn kích cỡ sản phẩm");
-            return redirect()->back();
+        // dd($request);
+        $product = Product::find($request->input('product_id'));
+
+        if(!$product->is_contact_product) {
+            if(!$request->has('product_size_id')){
+                Alert::error("Lỗi", "Bạn chưa chọn kích cỡ sản phẩm");
+                return redirect()->back();
+            }
         }
         $shoppingCart = ShoppingCart::where('product_id', $request->input('product_id'))
             ->where('session_id', $request->input('session_id'))

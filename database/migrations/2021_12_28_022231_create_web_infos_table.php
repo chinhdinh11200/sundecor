@@ -15,14 +15,15 @@ class CreateWebInfosTable extends Migration
     {
         Schema::create('web_infos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tel');
-            $table->string('hotline');
-            $table->string('receiveEmail');
-            $table->string('facebook');
-            $table->text('reason');
-            $table->text('address');
-            $table->text('tutorial');
-            $table->text('promotion');
+            $table->string('tel1')->nullable();
+            $table->string('tel2')->nullable();
+            $table->string('hotline')->nullable();
+            $table->string('receiveEmail')->nullable();
+            $table->string('facebook')->nullable();
+            $table->text('reason')->nullable();
+            $table->text('address')->nullable();
+            $table->text('tutorial')->nullable();
+            $table->text('promotion')->nullable();
         });
     }
 

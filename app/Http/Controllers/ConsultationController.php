@@ -18,7 +18,7 @@ class ConsultationController extends Controller
      */
     public function index()
     {
-        $consultations = Consultation::paginate(8);
+        $consultations = Consultation::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         return view('admin.consultation.index')->with('consultations', $consultations);
     }
 
@@ -118,7 +118,7 @@ class ConsultationController extends Controller
 
     public function classify($type)
     {
-        $consultations = Consultation::where('status', $type)->paginate(8);
+        $consultations = Consultation::where('status', $type)->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
         return view('admin.consultation.classify')->with('consultations', $consultations)->with('type', $type);
     }
 
@@ -129,6 +129,7 @@ class ConsultationController extends Controller
         }else {
             $consultations = Consultation::where('fullname', 'like', '%'.$search.'%')
             ->orWhere('tel', 'like', '%'.$search.'%')
+            ->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
             ->paginate(8);
             $consultations->appends(['s' => $search]);
             return view('admin.consultation.index')->with('consultations', $consultations);

@@ -1,10 +1,12 @@
-@extends('frontend.layout.main')
+@extends('frontend.layout.main', ['keyword' => $new->slug, 'title' => $new->title])
 @section('content')
     <section>
         <div class="product__detail news_detail">
             <div class="main-container product__container">
                 <div class="row product__detail--row">
                     <div class="product__detail--left col-12 row">
+                        <h2>{{ $new->name }}</h2>
+                        <div>{!! $new->content !!}</div>
                         {{-- biến trang này là $new --}}
                         <h2 class="col-12">{{$new->title}}</h2>
                         <div class="product__detail--content">
@@ -18,13 +20,13 @@
                                     <b>NHÂN VIÊN BÁN HÀNG</b>
                                 </div>
                                 <div class = "product__list--ad">
-                                    <?php for($i = 0 ; $i < 8; ++$i){ ?>
-                                    <div class="product__list--infor">
-                                        <img src = "https://casani.vn/img/o/6.jpg" alt = "Huyền Trang">
-                                        <span>Huyền Trang</span>
-                                        <strong>0859.407.322</strong>
-                                    </div>
-                                    <?php } ?>
+                                    @foreach ($supporters as $supporter)
+                                        <div class="product__list--infor">
+                                            <img src = "{{ asset('upload/images/supporter/'. $supporter->image) }}" alt = "{{ $supporter->fullname }}">
+                                            <span>{{ $supporter->fullname }}</span>
+                                            <strong>{{ $supporter->tel }}</strong>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

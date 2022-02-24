@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <input onchange="isContactProduct()" type="checkbox" id="is_contact_product" name="is_contact_product" {{ $product->is_contact_product == 1 ? "checked" : '' }} value="{{ $product->is_contact_product }}">&emsp;
+                    <input onchange="isContactProduct()" type="checkbox" id="is_contact_product" name="is_contact_product" {{ $product->is_contact_product == 1 ? "checked" : '' }} value="1">&emsp;
                     <label for="is_contact_product">Là Sản Phẩm Liên Hệ? </label>
                 </div>
                     <div class="form-group" id="form_price">
@@ -59,6 +59,17 @@
                                         @endif
                                     </div>
                                 @endforeach
+                            @else
+                                <div style="margin-top: 10px">
+                                    <input type="text" class="size" id="size" placeholder="Kích thước" name="size[]" style="margin-right: 10px">
+                                    @if ($product->is_contact_product == false)
+                                        <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" onchange="format_price(this)">
+                                        <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == 1 ? "display : none" : '' }}" onchange="format_price(this)">
+                                    @else
+                                        <input type="text" class="sell_price" id="sell_price" placeholder="Giá gốc" name="sell_price[]" style="margin-right: 10px; {{ $product->is_contact_product == true ? "display : none" : '' }}" onchange="format_price(this)">
+                                        <input type="text" class="sale_price" id="sale_price" placeholder="Giá sale" name="sale_price[]" style="margin-right: 10px; {{ $product->is_contact_product == true ? "display : none" : '' }}" onchange="format_price(this)">
+                                    @endif
+                                </div>
                             @endif
                         </div>
                         @if($errors->has('size'))
@@ -80,8 +91,8 @@
                 <div class="form-group">
                   <label for="">Loại Sản Phẩm</label>
                   <div>
-                      <input type="radio"  name="is_sale_in_month" value="1" {{ $product->is_sale_in_month == 1 ? "checked" : ""}}> Khuyến MãiTháng&emsp;&emsp;&emsp;
-                      <input type="radio"  name="is_hot_product" value="1" {{ $product->is_hot_product == 1 ? "checked" : ""}}> Hot Tháng
+                      <input type="checkbox"  name="is_sale_in_month" value="1" {{ $product->is_sale_in_month == 1 ? "checked" : ""}}> Khuyến MãiTháng&emsp;&emsp;&emsp;
+                      <input type="checkbox"  name="is_hot_product" value="1" {{ $product->is_hot_product == 1 ? "checked" : ""}}> Hot Tháng
                   </div>
                 </div>
                 <div class="form-group">
@@ -95,7 +106,8 @@
                     </textarea>
                     <script>
                         CKEDITOR.replace( 'content' , {
-                          width: ['100%'], height: ['500px']
+                            filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                            filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
                         });
 
                     </script>
@@ -107,7 +119,8 @@
                     </textarea>
                     <script>
                         CKEDITOR.replace( 'specifications' , {
-                          width: ['100%'], height: ['500px']
+                            filebrowserBrowseUrl: '/backend/ckfinder/ckfinder.html',
+                            filebrowserUploadUrl: '/backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
                         });
                     </script>
                 </div>
@@ -116,7 +129,39 @@
                     <label for="priority">Nơi hiện</label>
                     {{-- <div class="d-flex justify-content-between" style="flex-wrap: wrap"> --}}
                       @foreach ($menus1 as $menu1)
-                        <div style="margin-top: 10px; font-weight: 600; text-transform: uppercase">{{ $menu1->name }}</div>
+                        <div style="width: calc(100% / 3);">
+                            <div style="padding-top: 10px; font-weight: 600; text-transform: uppercase; display:inline-block;width: calc(100% - 100px);">{{ $menu1->name }}</div>
+                            <select name="priority{{$menu1->id}}"
+                                <?php
+                                    foreach ($product_menus as $product_menu) {
+                                        if(($product_menu->subcategory_id == $menu1->id) && ($product_menu->product_id == $product->id)){
+                                            echo 'style="background: #66CCFF"';
+                                            break;
+                                        }
+                                    }
+                                ?>
+                            >
+                                <option value="0"> - vị trí - </option>
+                                @for($i = 1; $i <= 21; $i++)
+                                    <option value="{{$i}}and{{$menu1->id}}"
+                                        <?php
+                                            foreach ($product_menus as $product_menu) {
+                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu1->id) && ($product_menu->product_id == $product->id)){
+                                                    echo 'selected';
+                                                    break;
+                                                }
+                                            }
+                                        ?>
+
+                                    >
+
+                                        {{ $i == 21 ? "Mặc định" : $i}}
+                                        {{ (\App\Models\ProductMenu::where('priority', $i)->where('subcategory_id', $menu1->id)->first()) ? 'x' : ''}}
+                                    </option>
+                                @endfor
+                                <option value="0"> Xóa </option>
+                            </select>
+                        </div>
                         <div class="d-flex" style="flex-wrap: wrap">
                             @foreach($menus2 as $menu2)
                                 @if ($menu1->id == $menu2->parent_id)
@@ -139,14 +184,14 @@
                                                 <?php
                                                     foreach ($product_menus as $product_menu) {
                                                         if(($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                            echo 'style="background: red"';
+                                                            echo 'style="background: #CCFFCC"';
                                                             break;
                                                         }
                                                     }
                                                 ?>
                                             >
                                                 <option value="0"> - vị trí - </option>
-                                                @for($i = 1; $i <= 9; $i++)
+                                                @for($i = 1; $i <= 21; $i++)
                                                     <option value="{{$i}}and{{$menu2->id}}"
                                                         <?php
                                                             foreach ($product_menus as $product_menu) {
@@ -156,8 +201,9 @@
                                                                 }
                                                             }
                                                         ?>
-                                                    >{{$i == 9 ? "Mặc định" : $i}}</option>
+                                                    >{{$i == 21 ? "Mặc định" : $i}}</option>
                                                 @endfor
+                                                <option value="0"> Xóa </option>
                                             </select>
                                         </div>
                                     </div>
@@ -211,7 +257,7 @@
             div.appendChild(sell_price);
             div.appendChild(sale_price);
             productSize.appendChild(div);
-
+            console.log(productSize);
             const contactProduct = document.getElementById('is_contact_product')
             if(contactProduct.checked){
                 const sell = document.querySelectorAll('.sell_price');
@@ -236,6 +282,7 @@
             if(contactProduct.checked){
                 const sell = document.querySelectorAll('.sell_price');
                 const sale = document.querySelectorAll('.sale_price');
+                // const size =
                 for (let i = 0; i < sell.length; i++) {
                     sell[i].style.display = "none";
                     sale[i].style.display = "none";
@@ -260,12 +307,14 @@
         }
 
         function format_price(e) {
-            console.log(e.value);
+            const value = e.value.split(',').join('');
+            // console.log("🚀 ~ file: edit.blade.php ~ line 309 ~ format_price ~ price", value)
+
             var formatter = new Intl.NumberFormat('en-US', {
                 style: undefined,
                 currency: 'VND',
             });
-            const price = formatter.format(e.value);
+            const price = formatter.format(value);
             e.value = price;
         }
     </script>
