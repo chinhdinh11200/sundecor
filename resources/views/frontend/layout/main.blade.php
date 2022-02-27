@@ -24,17 +24,12 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/product_detail.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/video.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/thanks.css')}}">
 </head>
-<style type="text/css">
-	@font-face {
-		font-family: "Myriad Pro Bold";
-		src: url('{{ public_path('frontend/fonts/Myriad_Pro_Bold.otf') }}');
-	}
-</style>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="8eqkFuJn"></script>
+<!-- <div id="fb-root"></div> -->
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="8eqkFuJn"></script> -->
 <body id="welcome">
-	<div id="fb-root"></div>
+	<!-- <div id="fb-root"></div> -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1319787985150517&autoLogAppEvents=1" nonce="C00eKajK"></script>
 	@include('frontend.layout.header')
 

@@ -105,6 +105,7 @@
     position: relative;
     color: #434343;
     margin-top: 20px;
+    font-weight: bold;
 }
 .page-category .page-category__title::after{
     content: "";

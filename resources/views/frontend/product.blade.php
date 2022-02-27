@@ -210,7 +210,7 @@
                     </div>
                 </div>
                 <!-- Your embedded comments code -->
-                <div class="fb-comments" data-href="https://chinh.fun/" data-width="100%" data-numposts="5"></div>
+                <div class="fb-comments" data-href="https://chinh.fun/{{$product->slug}}" data-width="100%" data-numposts="5"></div>
                 @include('frontend.include.video')
                 {{-- @include('frontend.include.construct') --}}
             </div>

@@ -61,7 +61,8 @@
                                                     <div class="card__product--price d-flex justify-content-between align-items-center">
                                                         @if (!($product_sale->is_contact_product))
                                                             @if (($product_sale->product_size()->first()))
-                                                                <div class="card__product--promotional">{{ number_format($product_sale->product_size()->first()->sale_price) }}đ</div>
+                                                                <div class="card__product--promotional card__product--promotional-especially">{{ number_format($product_sale->product_size()->first()->sale_price) }}đ</div>
+                                                                <div class="card__product--promotional card__product--promotional-especially card__product--promotional-absolute">{{ number_format($product_sale->product_size()->first()->sale_price) }}đ</div>
                                                                 <span class="card__product--cost">{{ number_format($product_sale->product_size()->first()->sell_price) }}đ</span>
                                                             @endif
                                                         @else

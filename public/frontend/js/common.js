@@ -33,7 +33,7 @@ $("#to-top").click(function () {
 $(".made__block--construct .made__block--img img").css("height",($(".made__block--construct .made__block--item").width())*4/6);
 
 // img product\
-    $(".card__product--img").css("height",($(".product__block--normal .card__product--img").width())*5/4.5);
+    $(".card__product--img").css("height",($(".product__block--normal .card__product--img").width()));
 
 // swiper Banner top
 var swiper = new Swiper(".bannerSwiper", {

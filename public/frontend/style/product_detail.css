@@ -2,19 +2,18 @@
     margin-top: 40px;
 }
 .product__detail .product__img--select {
-    margin-top: 20px;
-    padding-top: 20px;
+    margin-top: 10px;
 }
-.product__detail .product__select--image.active {
+/* .product__detail .product__select--image.active {
     border: solid 2px #717171;
-}
+} */
 
 .select_img {
     height: 75%;
     width: 100%;
     object-fit: cover;
-    padding: 10px;
-    border: solid 1px #e5e0e0;
+    /* padding: 10px;
+    border: solid 1px #e5e0e0; */
 }
 .product__detail .product__container {
 }

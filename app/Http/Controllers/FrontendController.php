@@ -160,6 +160,9 @@ class FrontendController extends CommonController
             ->where('status', true)->paginate(20);
             return view('frontend.videos', compact('videoalls'));
         }
+        else if($slug == 'thanks.html'){
+            return view('frontend.thanks');
+        }
         else if($product) {
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
@@ -273,11 +276,4 @@ class FrontendController extends CommonController
                     $products->appends(['keyword' => $keyword]);
                     return view('frontend.search')->with('products', $products)->with('menu', $menu);
     }
-
-    // public function tinTuc() {
-    //     $keyword = Str::slug($request->keyword);
-    //     $products = Product::where('slug', 'like', '%'. $keyword . '%')->paginate(20);
-
-    //     return view('frontend.news')->with('products', $products)->with('menu', $menu);
-    // }
 }

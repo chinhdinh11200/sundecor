@@ -1,0 +1,20 @@
+.page-thanks .product__detail--row{
+    margin-bottom: 50px;
+}
+.page-thanks .product__detail--left{
+    flex-direction: column;
+    justify-content: center;
+}
+.page-thanks .page-thanks__img{
+    text-align: center;
+}
+.page-thanks .page-thanks__img img{
+    width: 70%;
+}
+.page-thanks .page-thanks__note{
+    text-align: center;
+    margin-top: 24px;
+    color: #ff7f00;
+    font-size: 38px;
+    text-decoration: underline;
+}

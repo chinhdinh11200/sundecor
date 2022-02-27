@@ -5,7 +5,7 @@
             <div class="main-container product__container">
                 <div class="row product__detail--row">
                     <div class="product__detail--left col-12 row">
-                        <h2>{{ $new->name }}</h2>
+                        <h2 class="news_detail--title">{{ $new->name }}</h2>
                         <div>{!! $new->content !!}</div>
                         {{-- biến trang này là $new --}}
                         <h2 class="col-12">{{$new->title}}</h2>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <!-- Your embedded comments code -->
-                <div class="fb-comments" data-href="https://chinh.fun/" data-width="100%" data-numposts="5"></div>
+                <div class="fb-comments" data-href="https://chinh.fun/{{$new->slug}}" data-width="100%" data-numposts="5"></div>
                 @include('frontend.include.video')
                 @include('frontend.include.construct')
             </div>

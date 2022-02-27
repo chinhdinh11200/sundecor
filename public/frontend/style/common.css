@@ -1,5 +1,5 @@
 @font-face{
-  font-family: "Myriad Pro";
+  font-family: "Myriad Pro Bold";
   src: url(../fonts/Myriad_Pro_Bold.otf);
   font-weight: bold;
 }
@@ -7,6 +7,11 @@
   font-family: "Myriad Pro";
   src: url(../fonts/Myriad_Pro_Regular.otf);
 }
+
+/* @font-face {
+  font-family: "Myriad Pro Bold";
+  src: url('{{ public_path('frontend/fonts/Myriad_Pro_Bold.otf') }}');
+} */
 body {
   font-family: "Myriad Pro";
   color: #000;
@@ -364,7 +369,6 @@ button {
   color: #ff7f00;
 }
 .made__block .made__block--name {
-  text-transform: uppercase;
   font-size: 18px;
   margin-top: 15px;
   height: 62px;
@@ -430,9 +434,23 @@ button {
   white-space: normal;
   -webkit-line-clamp: 2;
 }
+.card__product .card__product--price{
+  position: relative;
+}
 .card__product .card__product--promotional {
   font-size: 24px;
-  color: #ed0904;
+  color: #000000;
+}
+.card__product .card__product--promotional-especially{
+  text-shadow: 0 0 5px #000000;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: bold;
+}
+.card__product .card__product--promotional-absolute{
+  position: absolute;
+  left: 0;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 }
 .card__product .card__product--cost {
   font-size: 14px;
