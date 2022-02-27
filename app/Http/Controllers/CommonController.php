@@ -7,11 +7,14 @@ use App\Models\Menu;
 use App\Models\Menutype;
 use App\Models\News;
 use App\Models\Product;
+use App\Models\ShoppingCart;
 use App\Models\Slide;
 use App\Models\Supporter;
 use App\Models\Video;
 use App\Models\WebInfo;
 use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\isEmpty;
 
 class CommonController extends Controller
 {
@@ -29,10 +32,15 @@ class CommonController extends Controller
             ->where('status', true)
             ->get();
 
-        $menu_sales = Menu::where("parent_menu_id", 0)
-            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-            ->where('menu_type_id', 4)
+        $menu_sales = Menu::where("menu_type_id",4)
+            ->where('parent_menu_id', 0)
             ->where('status', true)
+            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->with(['products' => function($query) {
+                $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                        ->with('product_size')
+                        ->take(8);
+            }])
             ->get();
 
         $menu_tops = Menu::where('menu_type_id', 1)
@@ -61,9 +69,9 @@ class CommonController extends Controller
             ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
             ->distinct()
             ->where('products.status', true)->get();
-        // dd($product_hot2s);
+
         $videos = Video::orderBY(DB::raw('ISNULL(videos.priority), priority'), 'ASC')
-        ->where('status', true)->paginate(3);
+        ->where('status', true)->limit(3);
 
         $news_made = News::orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->where('menu_id', 2)
         ->where('status', true)->paginate(4);
@@ -84,10 +92,8 @@ class CommonController extends Controller
 
         $supporters = Supporter::where('status', true)->orderBY(DB::raw('ISNULL(supporters.priority), priority'), 'ASC')->get();
 
-        //        $banner = banner::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->get();
-        //        $category = category::where('is_active',1)->orderBy('position', 'ASC')->orderBy('id', 'DESC')->limit(8)->get();
-        //        $this->categories = $category;
-        //$this->menu1 = $menu1;
+        $services = News::where('menu_id', 1)->get();
+
         view()->share([
             'main_menu1' => $main_menu1,
             'menu2' => $menu2,
@@ -104,6 +110,7 @@ class CommonController extends Controller
             'webInfo' => $webInfo,
             'banners' => $banners,
             'supporters' => $supporters,
+            'services' => $services,
         ]);
     }
 }

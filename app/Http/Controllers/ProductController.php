@@ -6,9 +6,11 @@ use App\Models\Menu;
 use App\Models\Product;
 use App\Models\ProductMenu;
 use App\Models\ProductSize;
+use App\Rules\Number;
 use App\Rules\Required;
 use App\Rules\Unique;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
@@ -30,7 +32,6 @@ class ProductController extends Controller
                     ->where('parent_menu_id', 0)
                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                     ->get();
-        // dd($menus1);
         $menus2 = Menu::where('menu_type_id', 2)
                     ->where('parent_menu_id', '!=', 0)
                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
@@ -75,25 +76,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $menus = Menu::where(function($query) {
+                        $query->where("menu_type_id",2)
+                            ->orWhere("menu_type_id",4);
+                    })
+                    ->get();
+
         if(!$request->has('is_contact_product')) {
             $request->validate([
                 'name' => [new Required, new Unique],
                 'title' => [new Required, new Unique],
                 'code' => [new Required, new Unique],
                 'size' => new Required,
+                'keyword' => new Required,
+                'material' => new Required,
+                'sell_price' => new Number,
+                'sale_price' => new Number,
             ]);
         }else {
             $request->validate([
                 'name' => [new Required, new Unique],
                 'title' => [new Required, new Unique],
                 'code' => [new Required, new Unique],
+                'keyword' => new Required,
+                'material' => new Required,
             ]);
         }
-        $menus = Menu::where(function($query) {
-                        $query->where("menu_type_id",2)
-                            ->orWhere("menu_type_id",4);
-                    })
-                    ->get();
+
         $imgData = [];
         if ($request->hasfile('image')) {
             foreach ($request->image as $key => $file) {
@@ -135,6 +144,9 @@ class ProductController extends Controller
         $product->is_sale_in_month = $request->input('is_sale_in_month');
         $product->is_hot_product = $request->input('is_hot_product');
         $product->sold_out = $request->input('sold_out');
+        $product->keyword = $request->input('keyword');
+        $product->material = $request->input('material');
+        $product->color = $request->input('color');
         $product->slug = Str::slug($request->input('name')).'.html';
 
         $product->save();
@@ -145,7 +157,7 @@ class ProductController extends Controller
             }
         }
 
-        if($request->has('is_contact_product')){
+        if(!$request->has('is_contact_product')){
             if($request->has('size')){
                 $size = $request->input('size');
                 if ($size[0]) {
@@ -163,13 +175,23 @@ class ProductController extends Controller
                     };
                 }
             }
+        }else {
+            $size = $request->input('size');
+            if ($size[0]) {
+                foreach ($request->input('size') as $key => $value) {
+                    $product_size = new ProductSize();
+                    $product_size->product_id = $product->id;
+                    $product_size->size = $value;
+                    $product_size->save();
+                };
+            }
         }
 
         foreach($menus as $menu):
-            if($request->input('priority'.$menu->id) != 0){
-                $priority = explode("and", $request->input('priority'.$menu->id))[0];
-                $subcategory_id = explode("and", $request->input('priority'.$menu->id))[1];
-                // $menu1 = Menu::find($subcategory_id);
+            if($request->input('priority'.$menu->id)){
+                // dd($menu->name, $menu);
+                $priority = $request->input('priority'.$menu->id);
+                $subcategory_id = $menu->id;
                 $priority_exist = ProductMenu::where('priority', $priority)
                                             ->where('subcategory_id', $subcategory_id)
                                             ->first();
@@ -181,11 +203,8 @@ class ProductController extends Controller
 
                 $product_menu = new ProductMenu();
                 $product_menu->product_id = $product->id;
-                $product_menu->subcategory_id = explode("and", $request->input('priority'.$menu->id))[1];
-                $product_menu->priority = explode("and", $request->input('priority'.$menu->id))[0];
-                if(explode("and", $request->input('priority'.$menu->id))[0] == 21){
-                    $product_menu->priority = null;
-                }
+                $product_menu->subcategory_id = $subcategory_id;
+                $product_menu->priority = $priority;
 
                 $product_menu->save();
             }
@@ -215,25 +234,31 @@ class ProductController extends Controller
                     ->get();
         // $menu = Menu::where('id', $id)->first();
 
-        $menu = Menu::find($id);
-        if($menu->parent_menu_id == 0) {
-            $products = $menu->productMenus()->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')->paginate(8);
-        }else {
-            $products = $menu->products()->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')->paginate(8);
-            // dd($products);
-        }
-        // dd($products[0]->product()->first());
-        // dd($menu, $menu->products()->paginate());
-        // return view('test')->with('datas', $menu->products()->paginate(20));
-
-        // $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-        //             ->select('products.*', 'product_menu.priority')
-        //             ->where('product_menu.subcategory_id', $id)
-        //             ->orderBy(DB::raw('ISNULL(product_menu.priority), priority'), 'ASC')
-        //             ->distinct()
-        //             ->paginate(8);
-
-        return view('admin.product.show', compact('menus1', 'menus2'))->with('products', $products)->with('menu_show', $menu);
+        $menu = Menu::with(['products' => function ($query) {
+                            $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC');
+                        }])
+                        ->where('id', $id)
+                        ->first();
+                        // dd($menu);
+        // $menu = Menu::find($id);
+        // if($menu->parent_menu_id == 0) {
+        //     $products = $menu->product_menus()->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')->paginate(8);
+        // }else {
+        //     $products = $menu->products()->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')->paginate(8);
+        //     // dd($products);
+        // }
+        $data = $menu->products;
+        $page = request("page") ?? 1;;
+        $perPage = 8;
+        $offset = ($page * $perPage) - $perPage;
+        $products = new LengthAwarePaginator(
+            array_slice($data->toArray(), $offset, $perPage, true),
+            count($data),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+        return view('admin.product.show', compact('menus1', 'menus2', 'products'))->with('menu_show', $menu);
     }
 
     /**
@@ -244,28 +269,34 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product_edit = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-            ->where('products.id', $id)
-            ->get(['products.id', 'products.name', 'products.code', 'products.title', 'products.description', 'products.content', 'products.specifications', 'products.sold_out', 'products.guarantee', 'products.status', 'products.image_1', 'products.image_2', 'products.image_3', 'products.is_contact_product', 'products.is_sale_in_month', 'products.is_hot_product', 'products.created_at', 'product_menu.priority',])
-            ->first();
+        $product_edit = Product::where('products.id', $id)->with('product_size')->first();
+        $menus1 = Menu::where(function ($query) {
+                $query->Where('menu_type_id', 4)
+                    ->orWhere('menu_type_id', 2);
+            })
+            ->where('parent_menu_id', 0)
+            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->with(['products' => function($query) use ($id){
+                $query->where('products.id', $id);
+            }])
+            ->get();
+            // dd($menus1, $menus1[1]->products->first()->pivot->priority);
         if($product_edit == null){  // update product don't have menu2
             $product_edit = Product::find($id);
         }
 
-        $menus1 = Menu::where(function($query) {
-                        $query->where("menu_type_id",2)
-                            ->orWhere("menu_type_id",4);
-                    })
-                    ->where('parent_menu_id', 0)
-                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                    ->get();
-        $menus2 = Menu::join('menus AS menus1', 'menus1.id', '=', 'menus.parent_menu_id')
-            ->select('menus.*', 'menus1.name AS parant_name', 'menus1.id AS parent_id')
-            ->where("menus.parent_menu_id","<>",0)
-            ->where("menus.menu_type_id",2)
-            ->where("menus.status",1)
-            ->orderBy('menus.parent_menu_id')
+
+        $menus2 = Menu::where(function ($query) {
+                $query->Where('menu_type_id', 4)
+                    ->orWhere('menu_type_id', 2);
+            })->where("menus.parent_menu_id","<>",0)
+            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->with(['products' => function ($query) use ($id) {
+                    $query->where('products.id', $id);
+                }])
             ->get();
+        // dd($menus2);
+            // return view('test')->with('datas', $menus2);
         $product_menus = ProductMenu::all();
         $product_sizes = ProductSize::where('product_id', $id)->get();
         return view('admin.product.edit', ['product' => $product_edit], ['menus2' => $menus2])->with( 'product_menus', $product_menus)->with( 'product_sizes', $product_sizes)->with('menus1', $menus1);
@@ -280,20 +311,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // dd($request);
         if(!$request->has('is_contact_product')) {
             $request->validate([
                 'name' => [new Required],
                 'title' => [new Required],
                 'code' => [new Required],
                 'size' => new Required,
+                'keyword' => new Required,
+                'material' => new Required,
+                'sell_price' => new Number,
+                'sale_price' => new Number,
             ]);
         }else {
             $request->validate([
                 'name' => [new Required],
                 'title' => [new Required],
                 'code' => [new Required],
+                'keyword' => new Required,
+                'material' => new Required,
             ]);
         }
+
         $product_update = Product::find($product->id);
         $menus = Menu::where(function($query) {
                             $query->where("menu_type_id",2)
@@ -361,6 +400,9 @@ class ProductController extends Controller
         $product_update->is_sale_in_month = $request->input('is_sale_in_month');
         $product_update->is_hot_product = $request->input('is_hot_product');
         $product_update->sold_out = $request->input('sold_out');
+        $product_update->keyword = $request->input('keyword');
+        $product_update->material = $request->input('material');
+        $product_update->color = $request->input('color');
         $product_update->update();
 
         if(!$request->input('is_contact_product')){
@@ -372,7 +414,6 @@ class ProductController extends Controller
                 }else {
                     $count_product_size_request =  0;
                 }
-
                 if($count_product_size_request > $count_product_sizes){
                     foreach ($product_sizes as $key => $product_size) {
                         $product_size->product_id = $product->id;
@@ -397,7 +438,7 @@ class ProductController extends Controller
                         }
                         $product_size->save();
                     }
-                }else if($count_product_size_request = $count_product_sizes){
+                }else if($count_product_size_request == $count_product_sizes){
                     foreach ($product_sizes as $key => $product_size) {
                         $product_size->product_id = $product->id;
                         $product_size->size = $request->input('size')[$key];
@@ -438,10 +479,10 @@ class ProductController extends Controller
         }
             // dd($request);
         foreach($menus as $menu):
-            if($request->input('priority'.$menu->id) != 0){
+            if($request->input('priority'.$menu->id)){
                 // tìm product_menu hiện tại cần update
-                $priority = explode("and", $request->input('priority'.$menu->id))[0];
-                $subcategory_id = explode("and", $request->input('priority'.$menu->id))[1];
+                $priority = $request->input('priority'.$menu->id);
+                $subcategory_id = $menu->id;
 
                 $product_menu_update = ProductMenu::where('product_id', $product_update->id)
                                                     ->where('subcategory_id', $subcategory_id)
@@ -459,7 +500,7 @@ class ProductController extends Controller
                     }
 
                     $product_menu_update->subcategory_id = $subcategory_id;
-                    $priority == 21 ? $product_menu_update->priority = null : $product_menu_update->priority = $priority;
+                    $product_menu_update->priority = $priority;
                     $product_menu_update->update();
                 }else{
                     $product_menu = ProductMenu::where('priority', $priority)
@@ -473,8 +514,8 @@ class ProductController extends Controller
                     // tạo mới khi mà thêm một menu cho sản phẩm
                     $product_menu = new ProductMenu();
                     $product_menu->product_id = $product->id;
+                    $product_menu->priority = $priority;
                     $product_menu->subcategory_id = $subcategory_id;
-                    $priority == 21 ? $product_menu->priority = null : $product_menu->priority = $priority;
 
                     $product_menu->save();
                 }
@@ -626,7 +667,7 @@ class ProductController extends Controller
 
     public function search(Request $request){
         $search = Str::slug(($request->input('s')));
-        // dd($search);
+
         if($search == ''){
             return redirect()->route('admin.product.index');
         }else {
@@ -641,8 +682,7 @@ class ProductController extends Controller
                         ->where('parent_menu_id', '!=', 0)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->get();
-            $products = DB::table('products')
-                    ->where('products.slug', 'like', '%'. $search . '%')
+            $products = Product::where('products.slug', 'like', '%'. $search . '%')
                     ->paginate(8);
                     $products->appends(['s' => $search]);
         }

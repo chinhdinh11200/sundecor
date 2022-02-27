@@ -11,15 +11,18 @@
             @foreach ($news_know as $new_know)
                 <div class="news__block--item row">
                     <div class="news__block--img col-5">
-                    <a href="{{ route('category', $new_know->slug) }}">
-                        <img src="{{ asset('upload/images/news/'. $new_know->image) }}" alt="">
-                    </a>
+                        <a href="{{ route('category', $new_know->slug) }}">
+                            <img src="{{ asset('upload/images/news/'. $new_know->image) }}" alt="">
+                        </a>
                     </div>
-                    <p class="news__block--description col-7">
-                    <a href="{{ route('category', $new_know->slug) }}">
-                        {{ $new_know->name }}
-                    </a>
-                    </p>
+                    <div class="news__block--description col-7">
+                        <a href="{{ route('category', $new_know->slug) }}">
+                            {{ $new_know->name }}
+                        </a>
+                        <p>
+                            {{ $new_know->description }}
+                        </p>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -34,15 +37,18 @@
             @foreach ($news_collection as $new_collection)
                 <div class="news__block--item row">
                     <div class="news__block--img col-5">
-                    <a href="{{ route('category', $new_collection->slug ) }}">
-                        <img src="{{ asset('upload/images/news/'. $new_collection->image) }}" alt="">
-                    </a>
+                        <a href="{{ route('category', $new_collection->slug ) }}">
+                            <img src="{{ asset('upload/images/news/'. $new_collection->image) }}" alt="">
+                        </a>
                     </div>
-                    <p class="news__block--description col-7">
-                    <a href="{{ route('category', $new_collection->slug ) }}">
-                        {{ $new_collection->name }}
-                    </a>
-                    </p>
+                    <div class="news__block--description col-7">
+                        <a href="{{ route('category', $new_collection->slug ) }}">
+                            {{ $new_collection->name }}
+                        </a>
+                        <p>
+                            {{ $new_know->description }}
+                        </p>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -57,15 +63,18 @@
           @foreach ($news_tutorial as $new_tutorial)
                 <div class="news__block--item row">
                     <div class="news__block--img col-5">
-                    <a href="{{ route('category', $new_tutorial->slug) }}">
-                        <img src="{{ asset('upload/images/news/'. $new_tutorial->image) }}" alt="">
-                    </a>
+                        <a href="{{ route('category', $new_tutorial->slug) }}">
+                            <img src="{{ asset('upload/images/news/'. $new_tutorial->image) }}" alt="">
+                        </a>
                     </div>
-                    <p class="news__block--description col-7">
-                    <a href="{{ route('category', $new_tutorial->slug) }}">
-                        {{ $new_tutorial->name }}
-                    </a>
-                    </p>
+                    <div class="news__block--description col-7">
+                        <a href="{{ route('category', $new_tutorial->slug) }}">
+                            {{ $new_tutorial->name }}
+                        </a>
+                        <p>
+                            {{ $new_know->description }}
+                        </p>
+                    </div>
                 </div>
             @endforeach
         </div>

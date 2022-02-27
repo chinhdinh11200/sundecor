@@ -16,7 +16,6 @@
                     </div>
 
                     <!-- /.card-option -->
-
                     <form action="" class="card-option">
                         <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                             <option selected>Open this select menu</option>
@@ -46,25 +45,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @if ($menu_show->parent_menu_id == 0)
+                                {{-- @if ($menu_show->parent_menu_id == 0) --}}
                                     @foreach ($products as $product)
-                                        <tr class="loai-{{$product->product()->first()->id}} {{$product->product()->first()->status!=1?'trangThaiAn':''}}">
-                                            <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->product()->first()->image_1)}}"></td>
+                                        <tr class="loai-{{$product['id']}} {{$product['status']!=1?'trangThaiAn':''}}">
+                                            <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product['image_1'])}}"></td>
                                             <td>
                                                 <div style="margin: auto 0;">
-                                                    {{$product->product()->first()->name}}
+                                                    {{$product['name']}}
                                                 </div>
                                             </td>
-                                            <td style="vertical-align: middle; text-align: center">{{$product->product()->first()->created_at}}</td>
-                                            {{-- @if ($menu_show->parent_menu_id != 0) --}}
-                                                <td style="vertical-align: middle; text-align: center">{{$product->priority}}</td>
+                                            <td style="vertical-align: middle; text-align: center">{{$product['created_at']}}</td>
+                                            {{-- @if ($menu_show['parent_menu_id != 0) --}}
+                                                <td style="vertical-align: middle; text-align: center">{{$product['pivot']['priority']}}</td>
                                             {{-- @endif --}}
-                                            <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->product()->first()->status?"Hiện":""); ?></td>
-                                            {{-- <!-- <td>{{$product->product()->first()->priority}}</td> --> --}}
+                                            <td style="vertical-align: middle; text-align: center"><?php echo (1==$product['status']?"Hiện":""); ?></td>
+                                            {{-- <!-- <td>{{$product['priority}}</td> -[' --}}
                                             <td style="vertical-align: middle;">
                                                 <div class="d-flex justify-content-center" style="max-height: 38px">
-                                                    <a href="{{ route('admin.product.edit', $product->product()->first()->id) }}" class="btn btn-primary mr-3">Sửa</a>
-                                                    <form action="{{ route('admin.product.destroy', $product->product()->first()->id) }}" method="POST">
+                                                    <a href="{{ route('admin.product.edit', $product['id']) }}" class="btn btn-primary mr-3">Sửa</a>
+                                                    <form action="{{ route('admin.product.destroy', $product['id']) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="btn btn-danger" onClick="confirm('Xóa ko?')">Xóa</button>
@@ -73,8 +72,8 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @else
-                                    @foreach ($products as $product)
+                                {{-- @else --}}
+                                    {{-- @foreach ($menu_show->products as $product)
                                         <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
                                             <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
                                             <td>
@@ -84,7 +83,7 @@
                                             </td>
                                             <td style="vertical-align: middle; text-align: center">{{$product->created_at}}</td>
                                                 <td style="vertical-align: middle; text-align: center">{{$product->product_menu()->where('subcategory_id', $menu_show->id)->first()->priority}}</td>
-                                            {{-- @endif --}}
+                                            @endif
                                             <td style="vertical-align: middle; text-align: center"><?php echo (1==$product->status?"Hiện":""); ?></td>
                                             <td style="vertical-align: middle;">
                                                 <div class="d-flex justify-content-center" style="max-height: 38px">
@@ -97,8 +96,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                @endif
+                                    @endforeach --}}
+                                {{-- @endif --}}
                             </tbody>
                         </table>
                     </div>

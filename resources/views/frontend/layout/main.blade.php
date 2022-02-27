@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ $title ?? 'Tổng kho đèn Sundecor' }}</title>
+	<title>{{ $title ?? $webInfo->title  }}</title>
 	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="<?=$keyword ?? ''?>" />
+	<meta name="keywords" content="<?=$keyword ?? $webInfo->keywords?>" />
+    <meta name="revisit-after" content="1 days">
+    <meta content="{{ $webInfo->site_name }}" property="og:site_name">
+    <meta content="article" property="og:type">
+    <meta content="{{ $title ?? $webInfo->title  }}" itemprop="headline" property="og:title">
+    <meta content="{{ URL::current() }}" itemprop="url" property="og:url">
+    <meta content="https://sundecor.vn/img/m/den-trang-tri-sundecor.jpg" itemprop="thumbnailUrl" property="og:image">
+    <meta content="{{ $description ?? $webInfo->description }}" itemprop="description" property="og:description">
+    <meta name="twitter:card" value="summary">
+    <meta name="twitter:url" content="{{ URL::current() }}">
+    <meta name="twitter:title" content="{{ $title ?? $webInfo->title  }}">
+    <meta name="twitter:description" content="{{ $description ?? $webInfo->description }}">
+    <meta name="twitter:image" content="https://sundecor.vn/img/m/den-trang-tri-sundecor.jpg">
+    <meta name="twitter:site" content="@Sundecor">
+    <meta name="twitter:creator" content="@Sundecor">
+    <meta name="description" content="{{ $description ?? $webInfo->description }}">
+
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
 	<link rel="shortcut icon" type="image/png" href="{{asset('frontend/images/common/logo.png')}}"/>

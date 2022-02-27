@@ -26,11 +26,34 @@
                     @endif
                 </div>
                 <div class="form-group">
+                    <label for="keyword">Từ khóa</label>
+                    <input type="text" class="form-control" id="keyword" placeholder="Từ Khóa" name="keyword" value="{{ $product->keyword }}">
+                    @if($errors->has('keyword'))
+                        <p style="color: red">{{ $errors->first('keyword') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label for="code">Mã Sản Phẩm</label>
-                    <input type="text" class="form-control" id="code" placeholder="Tiêu Đề Sản Phẩm" name="code"
+                    <input type="text" class="form-control" id="code" placeholder="Mã Sản Phẩm" name="code"
                     value="{{ $product->code }}">
                     @if($errors->has('code'))
                         <p style="color: red">{{ $errors->first('code') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="material">Chất liệu</label>
+                    <input type="text" class="form-control" id="material" placeholder="Chất Liệu Sản Phẩm" name="material"
+                    value="{{ $product->material }}">
+                    @if($errors->has('material'))
+                        <p style="color: red">{{ $errors->first('material') }}</p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label for="color">Màu sắc</label>
+                    <input type="text" class="form-control" id="color" placeholder="Màu Sắc Sản Phẩm" name="color"
+                    value="{{ $product->color }}">
+                    @if($errors->has('color'))
+                        <p style="color: red">{{ $errors->first('color') }}</p>
                     @endif
                 </div>
                 <div class="form-group">
@@ -74,6 +97,12 @@
                         </div>
                         @if($errors->has('size'))
                             <p style="color: red">{{ $errors->first('size') }}</p>
+                        @endif
+                        @if($errors->has('sell_price'))
+                            <p style="color: red">{{ $errors->first('sell_price') }}</p>
+                        @endif
+                        @if($errors->has('sale_price'))
+                            <p style="color: red">{{ $errors->first('sale_price') }}</p>
                         @endif
                         <br>
                         <button type="button" class="btn btn-primary" style="margin-top: 5px" onclick="addProductSize()">+</button>
@@ -127,91 +156,60 @@
 
                 <div class="form-group">
                     <label for="priority">Nơi hiện</label>
-                    {{-- <div class="d-flex justify-content-between" style="flex-wrap: wrap"> --}}
-                      @foreach ($menus1 as $menu1)
-                        <div style="width: calc(100% / 3);">
-                            <div style="padding-top: 10px; font-weight: 600; text-transform: uppercase; display:inline-block;width: calc(100% - 100px);">{{ $menu1->name }}</div>
-                            <select name="priority{{$menu1->id}}"
-                                <?php
-                                    foreach ($product_menus as $product_menu) {
-                                        if(($product_menu->subcategory_id == $menu1->id) && ($product_menu->product_id == $product->id)){
-                                            echo 'style="background: #66CCFF"';
-                                            break;
-                                        }
-                                    }
-                                ?>
+                    @foreach ($menus1 as $menu1)
+                        <div class="d-flex" style="flex-wrap: wrap">
+                            <div
+                                style="width: calc(100% / 3);
+                                margin-bottom : 8px;
+                                padding: 0 10px"
                             >
-                                <option value="0"> - vị trí - </option>
-                                @for($i = 1; $i <= 21; $i++)
-                                    <option value="{{$i}}and{{$menu1->id}}"
-                                        <?php
-                                            foreach ($product_menus as $product_menu) {
-                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu1->id) && ($product_menu->product_id == $product->id)){
-                                                    echo 'selected';
-                                                    break;
-                                                }
-                                            }
-                                        ?>
-
+                                <div style="
+                                        display: flex;
+                                        align-items: center;"
+                                >
+                                    <div
+                                        style="display: inline-block;
+                                        width: calc(100% - 100px);
+                                        white-space: nowrap;
+                                        overflow: hidden !important;
+                                        text-overflow: ellipsis;
+                                        font-weight: 600"
                                     >
-
-                                        {{ $i == 21 ? "Mặc định" : $i}}
-                                        {{ (\App\Models\ProductMenu::where('priority', $i)->where('subcategory_id', $menu1->id)->first()) ? 'x' : ''}}
-                                    </option>
-                                @endfor
-                                <option value="0"> Xóa </option>
-                            </select>
+                                        {{$menu1->name}}
+                                    </div>
+                                    {{-- {{$menu1->products ?? dd($menu1->products->first()->pivot->priority) }} --}}
+                                    <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" value="{{ isset($menu1->products[0]) ? $menu1->products->first()->pivot->priority : null }}" min="1">
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex" style="flex-wrap: wrap">
                             @foreach($menus2 as $menu2)
-                                @if ($menu1->id == $menu2->parent_id)
-                                    <div
-                                        style="width: calc(100% / 3);
-                                        margin-bottom : 8px;
-                                        padding: 0 10px"
+                                @if ($menu1->id == $menu2->parent_menu_id)
+                                <div
+                                    style="width: calc(100% / 3);
+                                    margin-bottom : 8px;
+                                    padding: 0 10px"
+                                >
+                                    <div style="
+                                            display: flex;
+                                            align-items: center;"
                                     >
-                                        <div>
-                                            <div
-                                                style="display: inline-block;
-                                                width: calc(100% - 100px);
-                                                white-space: nowrap;
-                                                overflow: hidden !important;
-                                                text-overflow: ellipsis;"
-                                            >
-                                                {{$menu2->name}}
-                                            </div>
-                                            <select name="priority{{$menu2->id}}"
-                                                <?php
-                                                    foreach ($product_menus as $product_menu) {
-                                                        if(($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                            echo 'style="background: #CCFFCC"';
-                                                            break;
-                                                        }
-                                                    }
-                                                ?>
-                                            >
-                                                <option value="0"> - vị trí - </option>
-                                                @for($i = 1; $i <= 21; $i++)
-                                                    <option value="{{$i}}and{{$menu2->id}}"
-                                                        <?php
-                                                            foreach ($product_menus as $product_menu) {
-                                                                if(($product_menu->priority == $i || ($product_menu->priority == null)) && ($product_menu->subcategory_id == $menu2->id) && ($product_menu->product_id == $product->id)){
-                                                                    echo 'selected';
-                                                                    break;
-                                                                }
-                                                            }
-                                                        ?>
-                                                    >{{$i == 21 ? "Mặc định" : $i}}</option>
-                                                @endfor
-                                                <option value="0"> Xóa </option>
-                                            </select>
+                                        <div
+                                            style="display: inline-block;
+                                            width: calc(100% - 100px);
+                                            white-space: nowrap;
+                                            overflow: hidden !important;
+                                            text-overflow: ellipsis;"
+                                        >
+                                            {{$menu2->name}}
                                         </div>
+                                        <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" value="{{ isset($menu2->products[0]) ? $menu2->products->first()->pivot->priority : null }}" min="1">
                                     </div>
+                                </div>
                                 @endif
                             @endforeach
                         </div>
-                      @endforeach
-                    {{-- </div> --}}
+                    @endforeach
                 </div>
 
                 <div class="form-group">
