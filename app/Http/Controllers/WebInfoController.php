@@ -6,6 +6,7 @@ use App\Models\WebInfo;
 use App\Rules\Required;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class WebInfoController extends Controller
 {
@@ -38,7 +39,7 @@ class WebInfoController extends Controller
      */
     public function store(Request $request)
     {
-
+        // dd($request);
         $request->validate([
             'receiveEmail' => [new Required],
             'tel1' => [new Required],
@@ -49,34 +50,98 @@ class WebInfoController extends Controller
             'promotion' => [new Required],
             'tutorial' => [new Required],
             'address' => [new Required],
+            // 'logo' => [new Required],
+            // 'banner_ad' => [new Required],
         ]);
         $webInfo = WebInfo::first();
         if($webInfo){
-            DB::table('web_infos')
-                ->where('id', $webInfo->id)
-                ->update([
-                'receiveEmail' => $request->input('receiveEmail'),
-                'tel1' => $request->input('tel1'),
-                'tel2' => $request->input('tel2'),
-                'hotline' => $request->input('hotline'),
-                'facebook' => $request->input('facebook'),
-                'reason' => $request->input('reason'),
-                'promotion' => $request->input('promotion'),
-                'tutorial' => $request->input('tutorial'),
-                'address' => $request->input('address'),
-            ]);
+            $webInfo->receiveEmail = $request->input('receiveEmail');
+            $webInfo->tel1 = $request->input('tel1');
+            $webInfo->tel2 = $request->input('tel2');
+            $webInfo->hotline = $request->input('hotline');
+            $webInfo->facebook = $request->input('facebook');
+            $webInfo->reason = $request->input('reason');
+            $webInfo->promotion = $request->input('promotion');
+            $webInfo->tutorial = $request->input('tutorial');
+            $webInfo->address = $request->input('address');
+            $webInfo->title = $request->input('title');
+            $webInfo->description = $request->input('description');
+            $webInfo->site_name = $request->input('site_name');
+            $webInfo->keywords = $request->input('keywords');
+            $webInfo->sale = $request->input('sale');
+            $webInfo->gift = $request->input('gift');
+            if($request->hasFile('logo')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->logo;
+
+                if($webInfo->logo) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $logo = time() . '.' . $request->logo->extension();
+
+                $request->logo->move(public_path('upload/images/webinfo'), $logo);
+                $webInfo->logo = $logo;
+            }
+            if($request->hasFile('banner_ad')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->banner_ad;
+
+                if($webInfo->banner_ad) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $banner_ad = time() . '.' . $request->banner_ad->extension();
+
+                $request->banner_ad->move(public_path('upload/images/webinfo'), $banner_ad);
+                $webInfo->banner_ad = $banner_ad;
+            }
+
+            $webInfo->update();
         }else {
-            DB::table('web_infos')->insert([
-                'receiveEmail' => $request->input('receiveEmail'),
-                'tel1' => $request->input('tel1'),
-                'tel2' => $request->input('tel2'),
-                'hotline' => $request->input('hotline'),
-                'facebook' => $request->input('facebook'),
-                'reason' => $request->input('reason'),
-                'promotion' => $request->input('promotion'),
-                'tutorial' => $request->input('tutorial'),
-                'address' => $request->input('address'),
-            ]);
+            $webInfo = new WebInfo();
+            $webInfo->receiveEmail = $request->input('receiveEmail');
+            $webInfo->tel1 = $request->input('tel1');
+            $webInfo->tel2 = $request->input('tel2');
+            $webInfo->hotline = $request->input('hotline');
+            $webInfo->facebook = $request->input('facebook');
+            $webInfo->reason = $request->input('reason');
+            $webInfo->promotion = $request->input('promotion');
+            $webInfo->tutorial = $request->input('tutorial');
+            $webInfo->address = $request->input('address');
+            $webInfo->title = $request->input('title');
+            $webInfo->description = $request->input('description');
+            $webInfo->site_name = $request->input('site_name');
+            $webInfo->keywords = $request->input('keywords');
+            $webInfo->sale = $request->input('sale');
+            $webInfo->gift = $request->input('gift');
+            if($request->hasFile('logo')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->logo;
+
+                if($webInfo->logo) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $logo = time() . '.' . $request->logo->extension();
+
+                $request->logo->move(public_path('upload/images/webinfo'), $logo);
+            }
+            if($request->hasFile('banner_ad')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->banner_ad;
+
+                if($webInfo->banner_ad) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $banner_ad = time() . '.' . $request->banner_ad->extension();
+
+                $request->banner_ad->move(public_path('upload/images/webinfo'), $banner_ad);
+                $webInfo->banner_ad = $banner_ad;
+            }
+
+            $webInfo->save();
         }
         return redirect()->route('admin.webinfo.index');
     }

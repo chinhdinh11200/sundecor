@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $table = 'menus';
 
@@ -24,7 +25,7 @@ class Menu extends Model
         return $this->belongsToMany(Product::class,
                                     'product_menu',
                                     'subcategory_id',
-                                    'product_id');
+                                    'product_id')->withPivot('priority');
     }
 
     public function allProducts() {
@@ -46,7 +47,7 @@ class Menu extends Model
 
 
 
-    public function productMenus() {
+    public function product_menus() {
         return $this->hasManyThrough(ProductMenu::class,Menu::class, 'parent_menu_id', 'subcategory_id', 'id');
     }
 }

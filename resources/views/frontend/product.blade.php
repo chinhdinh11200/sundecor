@@ -1,4 +1,4 @@
-@extends('frontend.layout.main', ['keyword' => $product->slug, 'title' => $product->title])
+@extends('frontend.layout.main', ['keyword' => $product->keyword, 'title' => $product->title, 'description' => $product->description])
 @section('content')
     <section>
         <div class="product__detail">
@@ -85,8 +85,9 @@
                             </div>
                             <div class = "product__detail--order row">
                                 <div class="product__order--label col-md-6">
-                                    <span>ĐẶT ONLINE GIẢM </span>
-                                    <span style = "color : yellow"> <b>300,000</b></span>
+                                    <span>{{ $webInfo->sale }}</span>
+                                    {{-- <span>ĐẶT ONLINE GIẢM </span>
+                                    <span style = "color : yellow"> <b>300,000</b></span> --}}
                                 </div>
                                 <div class="product__order--phone col-md-6">
                                     <form>
@@ -101,12 +102,13 @@
                             <div class="product__detail--ad">
                                 <img src="{{asset('frontend\images\product_detail\icon-note.png')}}" alt="">
                                 <ul class="product__detail--note">
-                                    <li>
+                                    <li>{{ $webInfo->gift }}</li>
+                                    {{-- <li>
                                     Miễn phí lắp đặt < 20 Km - Free vận chuyển Toàn Quốc
                                     </li>
                                     <li>
                                     ( Áp dụng hóa đơn > 3.000.000 vnđ )
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                             <div class="product__detail--ossascomp row">
@@ -120,8 +122,8 @@
                                         </div>
                                 </div>
                                 <div class="product__ossascomp--other col-12 col-md-6">
-                                    <li class="d-flex">Chất liệu: <span> Pha lê K9, hợp kim thép chống gỉ<span></li>
-                                    <li>Màu sắc : Trắng trong pha lê</li>
+                                    <li class="d-flex">Chất liệu: <span> {{ $product->material }}<span></li>
+                                    <li>Màu sắc : {{ $product->color }}</li>
                                     <li>Tình trạng : {{' '. $product->sold_out }}</li>
                                     <li>Bảo hành : {{' '. $product->guarantee }} tháng</li>
                                 </div>
