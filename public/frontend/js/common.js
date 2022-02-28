@@ -1,6 +1,5 @@
 // open_menu_sp();
 function open_menu_sp() {
-
     $('#header .icon-open__sp img').click(function() {
         $(".container-menu__sp").toggleClass("menu__open--sp", { direction: "left" }, 1000);
     });
@@ -10,6 +9,13 @@ function open_menu_sp() {
 }
 open_menu_sp();
 
+// button tư vấn product_detail
+$(".product__detail .product__book--contact").click(function() {
+    $('html,body').animate({
+        scrollTop: $(".product__detail .product__detail--adviss").offset().top},
+        'slow');
+});
+
 
 $(window).scroll(function() {
     if ($(this).scrollTop()) {
@@ -17,11 +23,6 @@ $(window).scroll(function() {
     } else {
         $('#to-top').css("opacity","0");
     }
-});
-
-
-$("#to-top").click(function () {
-   $("html, body").animate({scrollTop: 0}, 0);
 });
 
 // video youtube
@@ -261,3 +262,30 @@ $(".textmore__block .textmore__block--button").click(function () {
     
 })( jQuery );
 
+
+
+window.onscroll = function() {fixHeader()};
+var navbar = document.getElementById("header__menu");
+var sticky = navbar.offsetTop;
+
+function fixHeader() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+(function($){
+    $(window).scroll(function(){
+        if($("#header__menu").hasClass("sticky")){
+            $(".main-body").css({
+                "padding-top": "80px",
+            })
+        }else{
+            $(".main-body").css({
+                "padding-top": "0",
+            })
+        }
+    });
+})( jQuery );

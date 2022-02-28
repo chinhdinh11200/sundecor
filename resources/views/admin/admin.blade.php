@@ -48,6 +48,67 @@
                 @endif
             </div>
             <div class="form-group">
+                <label for="logo">Logo : </label>
+                <input type="file" id="logo" name="logo" value="{{ $webInfo->logo }}">
+                <div class="col-3 mb-5">
+                    <img src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}" alt="logo" style="width: 100%;">
+                </div>
+                @if($errors->has('logo'))
+                    <p style="color: red">{{ $errors->first('logo') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="banner_ad">Banner tư vấn : </label>
+                <input type="file" id="banner_ad" name="banner_ad" value="{{ $webInfo->banner_ad }}">
+                <div class="col-8 mb-5">
+                    <img src="{{ asset('upload/images/webinfo/' . $webInfo->banner_ad) }}" alt="banner_ad" style="width: 100%;">
+                </div>
+                @if($errors->has('banner_ad'))
+                    <p style="color: red">{{ $errors->first('banner_ad') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="site_name">Tên page : </label>
+                <input type="text" class="form-control" id="site_name" name="site_name" value="{{ $webInfo->site_name }}">
+                @if($errors->has('site_name'))
+                    <p style="color: red">{{ $errors->first('site_name') }}</p>
+                @endif
+            </div><div class="form-group">
+                <label for="keywords">Từ khóa : </label>
+                <input type="text" class="form-control" id="keywords" name="keywords" value="{{ $webInfo->keywords }}">
+                @if($errors->has('keywords'))
+                    <p style="color: red">{{ $errors->first('keywords') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="title">Title : </label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ $webInfo->title }}">
+                @if($errors->has('title'))
+                    <p style="color: red">{{ $errors->first('title') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="description">Mô tả : </label>
+                <input type="text" class="form-control" id="description" name="description" value="{{ $webInfo->description }}">
+                @if($errors->has('description'))
+                    <p style="color: red">{{ $errors->first('description') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="sale">Khuyến mãi : </label>
+                <input type="text" class="form-control" id="sale" name="sale" value="{{ $webInfo->sale }}">
+                @if($errors->has('sale'))
+                    <p style="color: red">{{ $errors->first('sale') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="gift">Quà tặng : </label>
+                <input type="text" class="form-control" id="gift" name="gift" value="{{ $webInfo->gift }}">
+                @if($errors->has('gift'))
+                    <p style="color: red">{{ $errors->first('gift') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
                 <label for="reason">Tại sao chọn : </label>
                 <textarea class="form-control" id="reason" name="reason" value="{{ old('reason') }}">{{ $webInfo->reason }}</textarea>
                 <script>
@@ -134,6 +195,61 @@
                 <input type="text" class="form-control" id="facebook" placeholder="Facebook" name="facebook">
                 @if($errors->has('facebook'))
                     <p style="color: red">{{ $errors->first('facebook') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="logo">Logo : </label>
+                <input type="file" id="logo" name="logo">
+                @if($errors->has('logo'))
+                    <p style="color: red">{{ $errors->first('logo') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="banner_ad">Banner tư vấn : </label>
+                <input type="file" id="banner_ad" name="banner_ad">
+                @if($errors->has('banner_ad'))
+                    <p style="color: red">{{ $errors->first('banner_ad') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="site_name">Tên page : </label>
+                <input type="text" class="form-control" id="site_name" name="site_name">
+                @if($errors->has('site_name'))
+                    <p style="color: red">{{ $errors->first('site_name') }}</p>
+                @endif
+            </div><div class="form-group">
+                <label for="keywords">Từ khóa : </label>
+                <input type="text" class="form-control" id="keywords" name="keywords">
+                @if($errors->has('keywords'))
+                    <p style="color: red">{{ $errors->first('keywords') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="title">Title : </label>
+                <input type="text" class="form-control" id="title" name="title">
+                @if($errors->has('title'))
+                    <p style="color: red">{{ $errors->first('title') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="description">Mô tả : </label>
+                <input type="text" class="form-control" id="description" name="description">
+                @if($errors->has('description'))
+                    <p style="color: red">{{ $errors->first('description') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="sale">Khuyến mãi : </label>
+                <input type="text" class="form-control" id="sale" name="sale">
+                @if($errors->has('sale'))
+                    <p style="color: red">{{ $errors->first('sale') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="gift">Khuyến mãi : </label>
+                <input type="text" class="form-control" id="gift" name="gift">
+                @if($errors->has('gift'))
+                    <p style="color: red">{{ $errors->first('gift') }}</p>
                 @endif
             </div>
             <div class="form-group">

@@ -1,23 +1,41 @@
 .swiper-button-next, .swiper-button-prev {
-    color: #ff7f00;
-  }
-  .swiper-pagination-bullet {
-    width: 14px;
-    height: 14px;
-  }
-  .swiper-pagination-bullet {
-    background: #ff7f00;
-    border: solid 1px #fff;
-  }
-  .product__block .swiper-button-prev, .product__block .swiper-rtl .swiper-button-next {
-    left: 15px;
-    top: 30%;
-  }
-  .product__block .swiper-button-next, .product__block .swiper-rtl .swiper-button-prev {
-    right: 15px;
-    top: 30%;
-  }
-  
-  .fb-comments{
-    margin-top: 60px;
-  }
+  color: #ff7f00;
+}
+.swiper-pagination-bullet {
+  width: 14px;
+  height: 14px;
+}
+.swiper-pagination-bullet {
+  background: #ff7f00;
+  border: solid 1px #fff;
+}
+.product__block .swiper-button-prev, .product__block .swiper-rtl .swiper-button-next {
+  left: 15px;
+  top: 30%;
+}
+.product__block .swiper-button-next, .product__block .swiper-rtl .swiper-button-prev {
+  right: 15px;
+  top: 30%;
+}
+
+.fb-comments{
+  margin-top: 60px;
+}
+
+.modal-content{
+  border: none;
+}
+.modal-dialog {
+  margin: 80px auto;
+}
+.modal-header{
+  background: #ff7f00;
+}
+.modal-header .btn-close{
+  position: absolute;
+  right: 20px;
+}
+.modal-header .modal-title{
+  margin: 0 auto;
+  color: #fff;
+}

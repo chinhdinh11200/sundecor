@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
     protected $table = 'products';
 
@@ -17,12 +18,7 @@ class Product extends Model
 
     //connect to Menu
     public function menus() {
-        return $this->belongsToMany(Menu::class, 'product_menu', 'product_id', 'subcategory_id');
-    }
-
-    // connect to Customer
-    public function customers() {
-        return $this->hasMany(Customer::class);
+        return $this->belongsToMany(Menu::class, 'product_menu', 'product_id', 'subcategory_id')->withPivot('priority');
     }
 
     // connect to ShoppingCart
@@ -36,7 +32,7 @@ class Product extends Model
     }
 
     public function product_menu() {
-        return $this->hasOne(ProductMenu::class);
+        return $this->hasMany(ProductMenu::class);
     }
     public function product_size() {
         return $this->hasMany(ProductSize::class);

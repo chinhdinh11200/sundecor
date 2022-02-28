@@ -179,6 +179,9 @@ return [
         'reason' => 'Tại sao chọn',
         'promotion' => 'Khuyến mãi',
         'tutorial' => 'Hướng dẫn',
+        'sell_price' => 'Giá bán',
+        'sale_price' => 'Giá khuyến mãi',
+        'material' => 'Chất liệu',
     ],
 
 ];

@@ -19,7 +19,7 @@
 				@csrf
 				<input class="header__center--input" type="text" placeholder="Nhập từ khóa tìm kiếm " name="keyword"><button class="header__center--button" type="submit"><img src="https://img.icons8.com/ios-glyphs/30/000000/search--v1.png"></button></form>
 			</div>
-			<div class="header__center--logo"><img src="{{asset('/frontend/images/common/logo.png')}}" alt=""></div>
+			<div class="header__center--logo"><img src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}" alt=""></div>
 			<div class="header__center--option">
 				<div class="header__center--contact">
 					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="header__menu">
+	<div class="header__menu" id="header__menu">
 		<div class="main-container">
 			<ul class="header__menu--list">
 				<li class="header__menu--item header__menu-active"><a class="header__menu--link" href="/">Trang ch&#x1EE7;</a></li>

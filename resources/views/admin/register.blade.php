@@ -31,7 +31,7 @@
             <?php }?>
             <div class="form-logo">
                 <a href="">
-                    <img src="{{asset('/frontend/images/common/logo.png')}}" alt="">
+                    <img src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}" alt="">
                 </a>
             </div>
             <div class="container-form">

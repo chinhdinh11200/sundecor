@@ -52,7 +52,7 @@
                                             <?php if($data->images != null){ ?>
                                                 <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu2/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
-                                                <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="../../public/frontend/images/common/logo.png"></td>
+                                                <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}"></td>
                                             <?php } ?>
                                             <td>{{ $data->name }}</td>
                                             <td style="text-align: center; vertical-align: middle">{{ $data->menuType->name }}</td>

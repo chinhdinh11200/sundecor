@@ -4,7 +4,7 @@
     <div class="Brand-Logo">
       <div class="logo-admin d-flex justify-content-center align-items-center">
         <a href="">
-          <img src="{{asset('/frontend/images/common/logo-white.png')}}">
+          <img src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}">
         </a>
       </div>
     </div>

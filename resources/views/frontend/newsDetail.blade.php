@@ -1,4 +1,4 @@
-@extends('frontend.layout.main', ['keyword' => $new->slug, 'title' => $new->title])
+@extends('frontend.layout.main', ['keyword' => $new->keyword, 'title' => $new->title, 'description' => $new->description])
 @section('content')
     <section>
         <div class="product__detail news_detail">
