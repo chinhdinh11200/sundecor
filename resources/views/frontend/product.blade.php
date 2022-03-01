@@ -90,15 +90,22 @@
                                     <span style = "color : yellow"> <b>300,000</b></span> --}}
                                 </div>
                                 <div class="product__order--phone col-md-6">
-                                    <form>
+                                    <form action="{{ route('consultation.register') }}" method="POST">
                                         @csrf
-                                        <input name = "Tel" type = "text" maxlength = "30" id = "Tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
-                                        <button class="product__phone--sent">
+                                        <input name = "tel" type = "text" maxlength = "10" id = "Tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
+                                        <button class="product__phone--sent" type="submit">
                                             <b>GỬI</b>
                                         </button>
                                     </form>
                                 </div>
                             </div>
+                            @if ($errors->has('tel'))
+                                <div class = "row">
+                                    <div class="col-md-12">
+                                        <p style="color: red; margin-top: 5px">{{ $errors->first('tel') }}</p>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="product__detail--ad">
                                 <img src="{{asset('frontend\images\product_detail\icon-note.png')}}" alt="">
                                 <ul class="product__detail--note">
