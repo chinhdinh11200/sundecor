@@ -26,7 +26,6 @@
 <div class="wrapper">
 <!-- Main Sidebar Container -->
   	@include('admin.layout.menu')
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 <!-- Content Header (Page header) -->
