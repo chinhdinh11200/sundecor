@@ -90,9 +90,10 @@
                                     <span style = "color : yellow"> <b>300,000</b></span> --}}
                                 </div>
                                 <div class="product__order--phone col-md-6">
-                                    <form action="{{ route('consultation.register') }}" method="POST">
+                                    <form action="{{ route('gift.register') }}" method="POST">
                                         @csrf
-                                        <input name = "tel" type = "text" maxlength = "10" id = "Tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
+                                        <input name = "tel" type = "text" maxlength = "10" id = "tel" class="product__phone--input" placeholder="Nhập số điện thoại" style="padding-left: 15px;width:97%;background-color: white;">
+                                        <input name = "product_id" type = "hidden" value="{{ $product->id }}">
                                         <button class="product__phone--sent" type="submit">
                                             <b>GỬI</b>
                                         </button>

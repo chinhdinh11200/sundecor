@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $webInfo = WebInfo::first();
-        view()->share('webInfo', $webInfo);
+        if($webInfo){
+            view()->share('webInfo', $webInfo);
+        }
     }
 }

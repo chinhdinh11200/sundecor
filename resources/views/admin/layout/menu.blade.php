@@ -71,6 +71,12 @@
                   <p>KH tư vấn</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.gift.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>KH ưu đãi</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

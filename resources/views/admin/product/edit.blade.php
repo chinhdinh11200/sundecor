@@ -177,8 +177,12 @@
                                     >
                                         {{$menu1->name}}
                                     </div>
-                                    {{-- {{$menu1->products ?? dd($menu1->products->first()->pivot->priority) }} --}}
-                                    <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" value="{{ isset($menu1->products[0]) ? $menu1->products->first()->pivot->priority : null }}" min="1">
+                                    {{-- @foreach ($product->menus as $menu)
+                                        @if ($menu->id == $menu1->id) --}}
+                                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" value="{{ isset($menu1->product_menu_hot[0]) ? $menu1->product_menu_hot[0]->priority : null }}">
+                                            <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" value="{{ isset($menu1->product_menu[0]) ? $menu1->product_menu[0]->priority : null }}" min="1">
+                                        {{-- @endif
+                                    @endforeach --}}
                                 </div>
                             </div>
                         </div>
@@ -203,7 +207,8 @@
                                         >
                                             {{$menu2->name}}
                                         </div>
-                                        <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" value="{{ isset($menu2->products[0]) ? $menu2->products->first()->pivot->priority : null }}" min="1">
+                                        <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot" value="{{ isset($menu2->product_menu_hot[0]) ? $menu2->product_menu_hot[0]->priority : null }}">
+                                        <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" value="{{ isset($menu2->product_menu[0]) ? $menu2->product_menu[0]->priority : null }}" min="1">
                                     </div>
                                 </div>
                                 @endif

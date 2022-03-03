@@ -18,9 +18,9 @@
 
                     <form action="" class="card-option">
                         <select name="" id="" class="form-control" area onchange="window.location=this.value">
-                            <option value="{{ route('admin.promotion.index') }}" selected>---- Chọn trạng thái ----</option>
-                            <option value="{{ route('admin.promotion.classify', 0) }}">Chưa liên hệ</option>
-                            <option value="{{ route('admin.promotion.classify', 1) }}">Đã liên hệ</option>
+                            <option value="{{ route('admin.promotion.index') }}">---- Chọn trạng thái ----</option>
+                            <option value="{{ route('admin.promotion.classify', 0) }}" {{ $type == 0 ? 'selected' : '' }}>Chưa liên hệ</option>
+                            <option value="{{ route('admin.promotion.classify', 1) }}" {{ $type == 1 ? 'selected' : '' }}>Đã liên hệ</option>
                         </select>
                     </form>
 

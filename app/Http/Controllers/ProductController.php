@@ -55,6 +55,7 @@ class ProductController extends Controller
                     ->orWhere("menu_type_id",4);
             })
             ->where('parent_menu_id', 0)
+            ->orderBy(DB::raw('ISNULL(menus.priority), menus.priority'), 'ASC')
             ->get();
 
         $menus2 = Menu::join('menus AS menus1', 'menus1.id', '=', 'menus.parent_menu_id')
@@ -62,7 +63,7 @@ class ProductController extends Controller
             ->where("menus.parent_menu_id","<>",0)
             ->where("menus.menu_type_id",2)
             ->where("menus.status",1)
-            ->orderBy('menus.parent_menu_id')
+            ->orderBy(DB::raw('ISNULL(menus.priority), menus.priority'), 'ASC')
             ->get();
 
         return view('admin.product.create', ['menus' => $menus, 'menus2' => $menus2])->with('menus1', $menus1);
@@ -208,6 +209,28 @@ class ProductController extends Controller
 
                 $product_menu->save();
             }
+            if($request->input('priority_hot'.$menu->id)){
+                // dd($menu->name, $menu);
+                $priority = $request->input('priority_hot'.$menu->id);
+                $subcategory_id = $menu->id;
+                $priority_exist = ProductMenu::where('priority', $priority)
+                                            ->where('subcategory_id', $subcategory_id)
+                                            ->where('is_hot', true)
+                                            ->first();
+
+                if($priority_exist) {
+                    $priority_exist->priority = null;
+                    $priority_exist->update();
+                }
+
+                $product_menu = new ProductMenu();
+                $product_menu->product_id = $product->id;
+                $product_menu->subcategory_id = $subcategory_id;
+                $product_menu->priority = $priority;
+                $product_menu->is_hot = true;
+
+                $product_menu->save();
+            }
         endforeach;
 
         return redirect()->route('admin.product.index');
@@ -271,32 +294,41 @@ class ProductController extends Controller
     {
         $product_edit = Product::where('products.id', $id)->with('product_size')->first();
         $menus1 = Menu::where(function ($query) {
-                $query->Where('menu_type_id', 4)
-                    ->orWhere('menu_type_id', 2);
-            })
-            ->where('parent_menu_id', 0)
-            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-            ->with(['products' => function($query) use ($id){
-                $query->where('products.id', $id);
-            }])
-            ->get();
-            // dd($menus1, $menus1[1]->products->first()->pivot->priority);
+                        $query->Where('menu_type_id', 4)
+                            ->orWhere('menu_type_id', 2);
+                    })
+                    ->where('parent_menu_id', 0)
+                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->with(['product_menu' => function ($query) use ($id) {
+                        $query->where('product_id', $id)
+                            ->where('is_hot', null);
+                    }])
+                    ->with(['product_menu_hot' => function ($query) use ($id) {
+                        $query->where('product_id', $id)
+                            ->where('is_hot', true);
+                    }])
+                    ->get();
+            // dd($menus1);
         if($product_edit == null){  // update product don't have menu2
             $product_edit = Product::find($id);
         }
 
 
         $menus2 = Menu::where(function ($query) {
-                $query->Where('menu_type_id', 4)
-                    ->orWhere('menu_type_id', 2);
-            })->where("menus.parent_menu_id","<>",0)
-            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-            ->with(['products' => function ($query) use ($id) {
-                    $query->where('products.id', $id);
-                }])
-            ->get();
+                        $query->Where('menu_type_id', 4)
+                            ->orWhere('menu_type_id', 2);
+                    })->where("menus.parent_menu_id","<>",0)
+                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->with(['product_menu' => function ($query) use ($id) {
+                        $query->where('product_id', $id)
+                            ->where('is_hot', null);
+                    }])
+                    ->with(['product_menu_hot' => function ($query) use ($id) {
+                        $query->where('product_id', $id)
+                            ->where('is_hot', true);
+                    }])
+                    ->get();
         // dd($menus2);
-            // return view('test')->with('datas', $menus2);
         $product_menus = ProductMenu::all();
         $product_sizes = ProductSize::where('product_id', $id)->get();
         return view('admin.product.edit', ['product' => $product_edit], ['menus2' => $menus2])->with( 'product_menus', $product_menus)->with( 'product_sizes', $product_sizes)->with('menus1', $menus1);
@@ -333,7 +365,7 @@ class ProductController extends Controller
             ]);
         }
 
-        $product_update = Product::find($product->id);
+        $product_update = Product::with('menus')->find($product->id);
         $menus = Menu::where(function($query) {
                             $query->where("menu_type_id",2)
                                 ->orWhere("menu_type_id",4);
@@ -523,6 +555,60 @@ class ProductController extends Controller
                 $product_menu = ProductMenu::where('product_id', $product->id)
                                             ->where('subcategory_id', $menu->id)
                                             ->first();
+                if($product_menu){
+                    $product_menu->delete();
+                }
+            }
+
+            if($request->input('priority_hot'.$menu->id)){
+                $priority = $request->input('priority_hot'.$menu->id);
+                $subcategory_id = $menu->id;
+
+                $product_menu_update = ProductMenu::where('product_id', $product_update->id)
+                                                    ->where('subcategory_id', $subcategory_id)
+                                                    ->where('is_hot', true)
+                                                    ->first();
+                if($product_menu_update){ // trước khi update tìm xem có sp nào trùng ưu tiên chưa
+                    $product_menu = ProductMenu::where('priority', $priority)
+                                            ->where('subcategory_id', $subcategory_id)
+                                            ->where('is_hot', true)
+                                            ->first();
+                    // dd($product_menu);
+                    if($product_menu){
+                        if($product_menu->product_id != $product_menu_update->product_id){
+                            $product_menu->priority = null;
+                            $product_menu->update();
+                        }
+                    }
+
+                    $product_menu_update->subcategory_id = $subcategory_id;
+                    $product_menu_update->priority = $priority;
+                    $product_menu_update->is_hot = true;
+                    $product_menu_update->update();
+                }else{
+                    $product_menu = ProductMenu::where('priority', $priority)
+                                            ->where('subcategory_id', $subcategory_id)
+                                            ->where('is_hot', true)
+                                            ->first();
+                    // dd($product_menu);
+                    if($product_menu){ // check priority available
+                        $product_menu->priority = null;
+                        $product_menu->update();
+                    }
+                    // tạo mới khi mà thêm một menu cho sản phẩm
+                    $product_menu = new ProductMenu();
+                    $product_menu->product_id = $product->id;
+                    $product_menu->priority = $priority;
+                    $product_menu->subcategory_id = $subcategory_id;
+                    $product_menu->is_hot = true;
+
+                    $product_menu->save();
+                }
+            }else {
+                $product_menu = ProductMenu::where('product_id', $product->id)
+                                ->where('subcategory_id', $menu->id)
+                                ->where('is_hot', true)
+                                ->first();
                 if($product_menu){
                     $product_menu->delete();
                 }
