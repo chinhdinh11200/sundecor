@@ -164,6 +164,7 @@
                         >
                             {{$menu1->name}}
                         </div>
+                        <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot">
                         <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" min="1">
                     </div>
                 </div>
@@ -189,6 +190,7 @@
                             >
                                 {{$menu2->name}}
                             </div>
+                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot">
                             <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" min="1">
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\WebInfo;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $webInfo = WebInfo::first();
+        if($webInfo){
+            view()->share('webInfo', $webInfo);
+        }
     }
 }

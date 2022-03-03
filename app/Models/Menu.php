@@ -25,7 +25,7 @@ class Menu extends Model
         return $this->belongsToMany(Product::class,
                                     'product_menu',
                                     'subcategory_id',
-                                    'product_id')->withPivot('priority');
+                                    'product_id')->withPivot('priority', 'is_hot');
     }
 
     public function allProducts() {
@@ -45,7 +45,12 @@ class Menu extends Model
         return $this->hasMany(Menu::class, 'parent_menu_id', 'id');
     }
 
-
+    public function product_menu(){
+        return $this->hasMany(ProductMenu::class, 'subcategory_id', 'id');
+    }
+    public function product_menu_hot(){
+        return $this->hasMany(ProductMenu::class, 'subcategory_id', 'id');
+    }
 
     public function product_menus() {
         return $this->hasManyThrough(ProductMenu::class,Menu::class, 'parent_menu_id', 'subcategory_id', 'id');

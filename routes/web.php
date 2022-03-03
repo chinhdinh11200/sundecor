@@ -22,6 +22,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CommonlController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FiveStarController;
+use App\Http\Controllers\GiftCustomerController;
 //login
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -43,6 +44,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'
     Route::get('/', [AdminController::class , 'index'])->name('quantri');
 
     Route::resource('customer', CustomerController::class);
+    Route::resource('gift', GiftCustomerController::class);
+    Route::get('gift/classify/{type}', [GiftCustomerController::class, 'classify'])->name('gift.classify');
     Route::get('search_customer', [CustomerController::class, 'search']);
     Route::get('search_supporter', [SupporterController::class, 'search']);
     Route::resource('supporter', SupporterController::class);
@@ -86,6 +89,7 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('cart_quantity', [CartController::class, 'cartQuantity'])->name('cart.quantity');
     Route::post('consultation', [ConsultationController::class, 'registerConsultation'])->name('consultation.register');
     Route::post('promotion', [PromotionController::class, 'registerPromotion'])->name('promotion.register');
+    Route::post('gift', [GiftCustomerController::class, 'registerGift'])->name('gift.register');
     Route::post('bill_create', [BillController::class, 'billCreate'])->name('bill.create');
 
     Route::get('get_list_product', [ProductController::class, 'getListProduct'])->name('getListProduct');

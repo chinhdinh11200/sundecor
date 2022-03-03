@@ -65,27 +65,13 @@ class FrontendController extends CommonController
                                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                                     ->with(['products' => function($query) {
                                         $query->where('status', true)
-                                                ->where('is_hot_product', true)
+                                                ->where('is_hot', true)
                                                 ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                                                 ->with('product_size')
                                                 ->limit(8);
                                     }])
                                     ->where('id', $menu->id)
                                     ->first();
-                                    // dd($product_hots);
-                // $data = $coolection_hots->products;
-                // $page = request("page") ?? 1;;
-                // $perPage = 8;
-                // $offset = ($page * $perPage) - $perPage;
-                // $product_hots = new LengthAwarePaginator(
-                //     array_slice($data->toArray(), $offset, $perPage, true),
-                //     count($data),
-                //     $perPage,
-                //     $page,
-                //     ['path' => request()->url(), 'query' => request()->query()]
-                // );
-                // dd($coolection_hots,$product_hots);
-                // return view('test')->with('datas', $product_hots);
                 $collection = Menu::where('status', true)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->with(['products' => function($query) {
@@ -115,9 +101,6 @@ class FrontendController extends CommonController
                     return view('frontend.news')->with('news', $news)->with('menu', $menu);
                 }
             }
-            // else {
-            //     return redirect()->route('web');
-            // }
         }
         else if($slug == 'tat-ca-video.html'){
             $videoalls = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')

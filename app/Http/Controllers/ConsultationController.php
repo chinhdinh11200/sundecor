@@ -100,7 +100,7 @@ class ConsultationController extends Controller
 
     public function registerConsultation(Request $request) {
         $request->validate([
-            // 'fullname' => new Required,
+            'fullname' => new Required,
             'tel' => new Required,
         ]);
         $consultation = new Consultation();

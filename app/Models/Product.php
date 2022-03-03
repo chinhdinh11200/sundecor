@@ -37,4 +37,8 @@ class Product extends Model
     public function product_size() {
         return $this->hasMany(ProductSize::class);
     }
+
+    public function gift(){
+        return $this->hasOne(GiftCustomer::class);
+    }
 }
