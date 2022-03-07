@@ -64,7 +64,7 @@
                                                         </div> --}}
                                                     @endif
                                                 @endif
-                                                <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product->image_1) }}" alt="" /></div>
+                                                <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product['image_' . $product->image_main]) }}" alt="" /></div>
                                                 <h3 class="card__product--name">{{ $product->name }}</h3>
                                                 <div class="card__product--price d-flex justify-content-between align-items-center">
                                                     @if (!($product->is_contact_product))
@@ -110,7 +110,7 @@
                                             </div>
                                         @endif
                                     @endif
-                                    <div class="card__product--img"><img src="{{  asset('upload/images/product/' . $product->image_1) }}" alt="" /></div>
+                                    <div class="card__product--img"><img src="{{  asset('upload/images/product/' . $product['image_' . $product->image_main]) }}" alt="" /></div>
                                     <h3 class="card__product--name">{{ $product->name }}</h3>
                                     <div class="card__product--price d-flex justify-content-between align-items-center">
                                         @if (!($product->is_contact_product))

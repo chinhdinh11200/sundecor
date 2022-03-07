@@ -47,7 +47,7 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr class="loai-{{$product->id}} {{$product->status!=1?'trangThaiAn':''}}">
-                                        <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product->image_1)}}"></td>
+                                        <td><img style="width: 60px;" src="{{ asset('upload/images/product/'. $product['image_' . $product->image_main])}}"></td>
                                         <td>
                                             <div style="margin: auto 0;">
                                                 {{$product->name}}

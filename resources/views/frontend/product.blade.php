@@ -8,40 +8,41 @@
                         <div class = "product__detail--img col-12">
                             <div class="swiper product__detail--swiper2" >
                                 <div class="swiper-wrapper">
-                                    @if ($product->image_1)
-                                        <div class = "product__detail--image swiper-slide">
-                                            <img src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "{{ $product->name }}" id = "productImg">
-                                        </div>
-                                    @endif
-                                    @if ($product->image_2)
-                                        <div class = "product__detail--image swiper-slide">
-                                            <img src = "{{asset('upload/images/product/'. $product->image_2)}}" alt = "{{ $product->name }}" id = "productImg">
-                                        </div>
-                                    @endif
-                                    @if ($product->image_3)
-                                        <div class = "product__detail--image swiper-slide">
-                                            <img src = "{{asset('upload/images/product/'. $product->image_3)}}" alt = "{{ $product->name }}" id = "productImg">
-                                        </div>
+                                    @if($product->image_main)
+                                        @for($i=1; $i<=3; $i++)
+                                            @if($i==$product->image_main)
+                                                <div class = "product__detail--image swiper-slide">
+                                                    <img src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}" id = "productImg">
+                                                </div>
+                                            @endif
+                                        @endfor
+                                        @for($i=1; $i<=3; $i++)
+                                            @if($i!=$product->image_main)
+                                                <div class = "product__detail--image swiper-slide">
+                                                    <img src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}" id = "productImg">
+                                                </div>
+                                            @endif
+                                        @endfor
                                     @endif
                                 </div>
                             </div>
                             <div thumbsSlider="" class="swiper product__detail--swiper1">
                                 <div class="product__img--select swiper-wrapper">
-                                    @if ($product->image_1)
-                                        <div class = "swiper-slide product__select--image active">
-                                            <img class = "select_img"src = "{{asset('upload/images/product/'. $product->image_1)}}" alt = "{{ $product->name }}">
-                                        </div>
-                                    @endif
-                                    @if ($product->image_2)
-                                        <div class = "swiper-slide product__select--image ">
-                                            <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_2)}}" alt = "{{ $product->name }}">
-                                        </div>
-                                    @endif
-                                    @if ($product->image_3)
-                                        <div class = "swiper-slide product__select--image ">
-                                            <img class = "select_img" src = "{{asset('upload/images/product/'. $product->image_3)}}" alt = "{{ $product->name }}">
-                                        </div>
-
+                                    @if($product->image_main)
+                                        @for($i=1; $i<=3; $i++)
+                                            @if ($i==$product->image_main)
+                                                <div class = "swiper-slide product__select--image active">
+                                                    <img class = "select_img"src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}">
+                                                </div>
+                                            @endif
+                                        @endfor
+                                        @for($i=1; $i<=3; $i++)
+                                            @if ($i!=$product->image_main)
+                                                <div class = "swiper-slide product__select--image active">
+                                                    <img class = "select_img"src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}">
+                                                </div>
+                                            @endif
+                                        @endfor
                                     @endif
                                 </div>
                             </div>

@@ -60,6 +60,15 @@
                   <label for="image">Ảnh Sản Phẩm</label>
                   <div id="image">
                       <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
+                      &emsp;&emsp;&emsp;<input type="radio" value="1" checked name="image_main">&ensp;Chọn làm ảnh đại diện
+                  </div>
+                  <div id="image">
+                      <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
+                      &emsp;&emsp;&emsp;<input type="radio" value="2" name="image_main">&ensp;Chọn làm ảnh đại diện
+                  </div>
+                  <div id="image">
+                      <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
+                      &emsp;&emsp;&emsp;<input type="radio" value="3" name="image_main">&ensp;Chọn làm ảnh đại diện
                   </div>
                 </div>
                 <div class="form-group">
