@@ -162,7 +162,7 @@ class BillController extends Controller
             $bill_product->save();
         }
 
-        return redirect()->route('web');
+        return redirect()->route('category', ['slug' => 'thanks.html']);
     }
 
     public function search(Request $request){
