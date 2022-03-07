@@ -132,7 +132,7 @@
             </div>
             @endforeach
 
-            {{-- @include('frontend.include.video') --}}
+            @include('frontend.include.video')
             @include('frontend.include.construct')
         </div>
         @include('frontend.include.voucher')

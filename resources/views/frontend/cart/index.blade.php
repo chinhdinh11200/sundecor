@@ -168,7 +168,7 @@
                                     </div>
 
                                     <div class="form-group mt-4">
-                                        <button class="btn btn-success" id="order">Đặt hàng</button>
+                                        <button class="btn btn-success" id="order" type="submit">Đặt hàng</button>
                                         <a href="{{ route('web') }}" class="btn btn-warning">Mua tiếp</a>
                                     </div>
                                 </form>

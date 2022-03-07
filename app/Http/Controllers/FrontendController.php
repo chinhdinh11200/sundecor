@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
-use function GuzzleHttp\Promise\all;
 use App\Http\Controllers\CommonController;
 use App\Models\Customer;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\ProductSize;
-use App\Models\ShoppingCart;
 use App\Models\Video;
-use Facade\FlareClient\View;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\Input;
 
 class FrontendController extends CommonController
 {
@@ -47,7 +43,7 @@ class FrontendController extends CommonController
                         ->with('product_size')
                         ->take(8);
             }])
-            ->get();
+            ->limit(8)->get();
         return view('frontend.index', compact('menus1'));
     }
 

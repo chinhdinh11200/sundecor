@@ -71,7 +71,7 @@ class CommonController extends Controller
             ->where('products.status', true)->get();
 
         $videos = Video::orderBY(DB::raw('ISNULL(videos.priority), priority'), 'ASC')
-        ->where('status', true)->limit(3);
+        ->where('status', true)->limit(3)->get();
 
         $news_made = News::orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->where('menu_id', 2)
         ->where('status', true)->paginate(4);

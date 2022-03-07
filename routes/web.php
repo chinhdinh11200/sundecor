@@ -97,6 +97,6 @@ Route::group(['prefix' => '', 'as' => ''], function () {
     Route::get('get_list_product_hot', [ProductController::class, 'getListProductHot'])->name('getListProductHot');
     Route::get('/{slug}', [FrontendController::class , 'category'])->name('category');
     Route::post('tim-kiem.html', [FrontendController::class , 'search']);
-    Route::post('thanks.html', [FrontendController::class , 'thanks']);
+    Route::post('thanks.html', [FrontendController::class , 'thanks'])->name('thanks');
 });
 
