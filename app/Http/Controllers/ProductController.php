@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -25,6 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $product = Product::find(1);
         $menus1 = Menu::where(function ($query) {
                         $query->Where('menu_type_id', 4)
                             ->orWhere('menu_type_id', 2);
@@ -39,6 +39,7 @@ class ProductController extends Controller
         $products = DB::table('products')
                         ->distinct()
                         ->paginate(8);
+
         return view('admin.product.index', ['products' => $products], compact('menus1', 'menus2'));
     }
 
@@ -104,27 +105,17 @@ class ProductController extends Controller
             ]);
         }
 
-        $imgData = [];
-        if ($request->hasfile('image')) {
-            foreach ($request->image as $key => $file) {
-                if ($key == 0) {
-                    $image_url = time() . '.' . $file->extension();
-                    $imgData[] = $image_url;
-                } else {
-                    $image_url = time() . '(' . $key . ')' . '.' . $file->extension();
-                    $imgData[] = $image_url;
-                }
-            }
-        }
-
         $product = new Product();
-        if ($imgData) {
-            foreach ($imgData as $key => $image) {
-                $name = 'image_' . ($key + 1);
-                $product->$name = $image;
+
+        for ($i=0; $i < 3; $i++) {
+            $image = 'image_' . ($i + 1);
+            if($request->hasFile($image)) {
+                $file = $request->$image;
+                $image_url = $i == 0 ? time() . '.' . $file->extension() : time() . '(' . $i  . ')' . '.' . $file->extension();
+                $file->move(public_path('upload/images/product'), $image_url);
+                $product->$image = $image_url;
             }
         }
-
         $product_exist = Product::where('name', $request->input('name'))
                                     ->orWhere('code', $request->input('code'))
                                     ->first();
@@ -148,15 +139,10 @@ class ProductController extends Controller
         $product->keyword = $request->input('keyword');
         $product->material = $request->input('material');
         $product->color = $request->input('color');
+        $product->image_main = $request->input('image_main');
         $product->slug = Str::slug($request->input('name')).'.html';
 
         $product->save();
-
-        if($request->image) {
-            foreach ($request->image as $key => $file) {
-                $file->move(public_path('upload/images/product'), $imgData[$key]);
-            }
-        }
 
         if(!$request->has('is_contact_product')){
             if($request->has('size')){
@@ -372,50 +358,13 @@ class ProductController extends Controller
                         })
                         ->get();
 
-        $imgData = [];
-        if ($request->hasfile('image')) {
-            foreach ($request->image as $key => $file) {
-                if ($key == 0) {
-                    if($product->image_1){
-                        if (File::exists(public_path('upload/images/product/') . $product->image_1)) {
-                            unlink(public_path('upload/images/product/'). $product->image_1);
-                        }
-                    }
-                    $image_url = time() . '.' . $file->extension();
-                    $file->move(public_path('upload/images/product'), $image_url);
-                    $imgData[] = $image_url;
-                } else {
-                    $name_temp = 'image_' . ($key + 1);
-                    if($product->$name_temp){
-                        if (File::exists(public_path('upload/images/product/') . $product->$name_temp)) {
-                            unlink(public_path('upload/images/product/'). $product->$name_temp);
-                        }
-                    }
-                    $image_url = time() . '(' . $key . ')' . '.' . $file->extension();
-                    $file->move(public_path('upload/images/product'),  $image_url);
-                    $imgData[] = $image_url;
-                }
-            }
-            $numofImage = count($imgData);
-            for ($i=$numofImage + 1; $i < 4; $i++) {
-                $name_img = 'image_'.$i;
-                if($product_update->$name_img){
-                    if (File::exists(public_path('upload/images/product/') . $product_update->$name_img)) {
-                        unlink(public_path('upload/images/product/'). $product_update->$name_img);
-                    }
-                }
-                $product_update->$name_img = null;
-            }
-        }
-
-        if ($imgData) {
-            foreach ($imgData as $key => $image) {
-                $name = 'image_' . ($key + 1);
-                if($image){
-                    $product_update->$name = $image;
-                }else{
-                    $product_update->$name = $product_update->$name;
-                }
+        for ($i=0; $i < 3; $i++) {
+            $image = 'image_' . ($i + 1);
+            if($request->hasFile($image)) {
+                $file = $request->$image;
+                $image_url = $i == 0 ? time() . '.' . $file->extension() : time() . '(' . $i  . ')' . '.' . $file->extension();
+                $file->move(public_path('upload/images/product'), $image_url);
+                $product_update->$image = $image_url;
             }
         }
 
@@ -435,6 +384,7 @@ class ProductController extends Controller
         $product_update->keyword = $request->input('keyword');
         $product_update->material = $request->input('material');
         $product_update->color = $request->input('color');
+        $product_update->image_main = $request->input('image_main');
         $product_update->update();
 
         if(!$request->input('is_contact_product')){

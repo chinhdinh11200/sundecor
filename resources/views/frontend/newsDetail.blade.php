@@ -1,4 +1,4 @@
-@extends('frontend.layout.main', ['keyword' => $new->keyword, 'title' => $new->title, 'description' => $new->description])
+@extends('frontend.layout.main', ['keyword' => $new->keyword, 'title' => $new->title, 'description' => $new->description, 'image' => asset('upload/images/news/' . $new->image)])
 @section('content')
     <section>
         <div class="product__detail news_detail">

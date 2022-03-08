@@ -79,7 +79,7 @@ class Menu1Controller extends Controller
             $file = $request->file('images');
             $ten_images = time() . '.' . $file->extension();
             // $path_upload = 'upload/anh/';
-            $request->file('images')->move(public_path('upload/images/menu1'), $ten_images);
+            $request->file('images')->move(public_path('upload/images/menu'), $ten_images);
             $data->images = $ten_images;
         }
         $data->parent_menu_id = "0";
@@ -175,11 +175,11 @@ class Menu1Controller extends Controller
             $file = $request->file('images');
             $ten_images = time() . '.' . $file->extension();
             if ($data->images) {  // kieemrtra cẩn sửa có ảnh chưa
-                if (File::exists(public_path('upload/images/menu1/') . $data->images)) {
-                    unlink(public_path('upload/images/menu1/') . $data->images);
+                if (File::exists(public_path('upload/images/menu/') . $data->images)) {
+                    unlink(public_path('upload/images/menu/') . $data->images);
                 }
             }
-            $request->file('images')->move(public_path('upload/images/menu1'), $ten_images);
+            $request->file('images')->move(public_path('upload/images/menu'), $ten_images);
             $data->images = $ten_images;
         }
 
@@ -212,7 +212,7 @@ class Menu1Controller extends Controller
     {
         $menu = Menu::find($id);
         if ($menu->images) {
-            $image_url1 = public_path('upload/images/menu1') . $menu->images;
+            $image_url1 = public_path('upload/images/menu') . $menu->images;
             if (File::exists($image_url1)) {
                 unlink($image_url1);
             }

@@ -51,7 +51,7 @@
                                     @foreach ($datas as $data )
                                         <tr class="class">
                                             <?php if($data->images != null){ ?>
-                                                <td style="vertical-align: middle; text-align: center"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu1/' . $data->images) }}"></td>
+                                                <td style="vertical-align: middle; text-align: center"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
                                                 <td style="vertical-align: middle; text-align: center"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}"></td>
                                             <?php } ?>

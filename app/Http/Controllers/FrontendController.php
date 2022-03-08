@@ -107,6 +107,8 @@ class FrontendController extends CommonController
             return view('frontend.thanks');
         }
         else if($product) {
+            $image = 'image_' . $product->image_main;
+            $image_main = $product->$image;
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
             // dd($product_sizes);
@@ -116,7 +118,7 @@ class FrontendController extends CommonController
             //         ->paginate(20);
             $customers = Customer::inRandomOrder()->limit(5)->get();
             // dd($customers, $product_sizes, $product);
-            return view('frontend.product', compact('product', 'customers'))->with('product_sizes', $product_sizes);
+            return view('frontend.product', compact('product', 'customers', 'image_main'))->with('product_sizes', $product_sizes);
         }
         else {
             return redirect()->route('web');

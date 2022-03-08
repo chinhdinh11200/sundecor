@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\WebInfo;
 use App\Rules\Required;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class WebInfoController extends Controller
 {
@@ -70,6 +70,21 @@ class WebInfoController extends Controller
             $webInfo->keywords = $request->input('keywords');
             $webInfo->sale = $request->input('sale');
             $webInfo->gift = $request->input('gift');
+            $webInfo->link_map = $request->input('link_map');
+            if($request->hasFile('image_web')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->image_web;
+
+                if($webInfo->image_web) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $name = pathinfo($request->image_web->getClientOriginalName(), PATHINFO_FILENAME);
+                $image_web = Str::slug($name) . '.' . $request->image_web->extension();
+
+                $request->image_web->move(public_path('upload/images/webinfo'), $image_web);
+                $webInfo->image_web = $image_web;
+            }
             if($request->hasFile('logo')){
                 $image_url = public_path('upload/images/webinfo').'/'. $webInfo->logo;
 
@@ -115,6 +130,20 @@ class WebInfoController extends Controller
             $webInfo->keywords = $request->input('keywords');
             $webInfo->sale = $request->input('sale');
             $webInfo->gift = $request->input('gift');
+            $webInfo->link_map = $request->input('link_map');
+            if($request->hasFile('image_web')){
+                $image_url = public_path('upload/images/webinfo').'/'. $webInfo->image_web;
+
+                if($webInfo->image_web) {
+                    if(File::exists($image_url)){
+                        unlink($image_url);
+                    }
+                }
+                $image_web = time() . '.' . $request->image_web->extension();
+
+                $request->image_web->move(public_path('upload/images/webinfo'), $image_web);
+                $webInfo->image_web = $image_web;
+            }
             if($request->hasFile('logo')){
                 $image_url = public_path('upload/images/webinfo').'/'. $webInfo->logo;
 
@@ -126,6 +155,7 @@ class WebInfoController extends Controller
                 $logo = time() . '.' . $request->logo->extension();
 
                 $request->logo->move(public_path('upload/images/webinfo'), $logo);
+                $webInfo->logo = $logo;
             }
             if($request->hasFile('banner_ad')){
                 $image_url = public_path('upload/images/webinfo').'/'. $webInfo->banner_ad;

@@ -19,7 +19,7 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.quantri');
         } else {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withErrors(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);
         }
     }
 

@@ -168,12 +168,12 @@ class Menu2Controller extends Controller
 
         if ($request->hasFile('images')) { // kiểm tra có up ảnh
             if ($menu_update->images) {  // kieemrtra cẩn sửa có ảnh chưa
-                if (File::exists(public_path('upload/images/menu2/') . $menu_update->images)) {
-                    unlink(public_path('upload/images/menu2/') . $menu_update->images);
+                if (File::exists(public_path('upload/images/menu/') . $menu_update->images)) {
+                    unlink(public_path('upload/images/menu/') . $menu_update->images);
                 }
             }
             $image_url = time() . '.' . $request->images->extension();
-            $request->images->move(public_path('upload/images/menu2'), $image_url);
+            $request->images->move(public_path('upload/images/menu'), $image_url);
             $menu_update->images = $image_url;
         }
 
@@ -215,8 +215,8 @@ class Menu2Controller extends Controller
         $menu = Menu::find($id);
 
         if($menu->images){
-            if(File::exists(public_path('upload/images/menu2/') . $menu->images)){
-                unlink(public_path('upload/images/menu2/') . $menu->images);
+            if(File::exists(public_path('upload/images/menu/') . $menu->images)){
+                unlink(public_path('upload/images/menu/') . $menu->images);
             }
         }
 

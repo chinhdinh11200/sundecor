@@ -45,14 +45,16 @@ class ProductController extends Controller
             $product->description = $request->input('cloneProject')['description'];
             $product->content = $request->input('cloneProject')['content'];
             $product->sold_out = $request->input('cloneProject')['status'];
+            $product->image_main = '1';
             $url = $request->input('cloneProject')['image_1'];
                 $contents = file_get_contents($url);
                 $extension = pathinfo($url, PATHINFO_EXTENSION);
-                $name = 'upload/images/tests/' . time() . rand(1, 100) . '.' . $extension;
+                $name = 'upload/images/product/' . time() . rand(1, 100) . '.' . $extension;
+                $product->image_1 = $name;
                 file_put_contents($name, $contents);
                 if($request->input('cloneProject')['is_contact_product']){
-                $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];
-            }
+                    $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];
+                }
 
             $product->save();
 
@@ -61,6 +63,7 @@ class ProductController extends Controller
                                     ->first();
 
             $product_menu_exist = ProductMenu::where('product_id', $product->id)
+                                                ->where('subcategory_id', $request->input('subcategory_id'))
                                                 ->first();
 
 
@@ -127,7 +130,7 @@ class ProductController extends Controller
                         $product_size_exist->update();
                     }
                 }
-                return "update contact 201";
+                return 201;
             }else {
                 $product_size_exist = ProductSize::where('product_id', $product_exist->id)
                                             ->where('size', $request->input('cloneProject')['size'])

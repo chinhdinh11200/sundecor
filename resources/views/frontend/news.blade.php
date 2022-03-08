@@ -1,4 +1,4 @@
-@extends('frontend.layout.main', ['keyword' => $menu->keyword, 'title' => $menu->title, 'description' => $menu->description])
+@extends('frontend.layout.main', ['keyword' => $menu->keyword, 'title' => $menu->title, 'description' => $menu->description, 'image' => asset('upload/images/menu/' . $menu->images)])
 @section('content')
 <section>
   <div class="page-category">
