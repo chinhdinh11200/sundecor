@@ -37,6 +37,9 @@
             <div class="container-form">
                 <form class="frame-form-login" action="{{ route('admin.login') }}"  method="post">
                     @csrf
+                    @if (session('errors'))
+                        <p class="text-danger">{{ session('errors')->first() }}</p>
+                    @endif
                     <div class="d-flex align-items-center mb-3">
                         <label class="form-label col-3"> Tên đăng nhập:</label>
                         <input class="form-input-text col-9" required="" type="text" name="username" />

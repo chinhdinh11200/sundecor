@@ -50,7 +50,7 @@
                                     @foreach ($datas as $data )
                                         <tr class="class">
                                             <?php if($data->images != null){ ?>
-                                                <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu2/' . $data->images) }}"></td>
+                                                <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/menu/' . $data->images) }}"></td>
                                             <?php  }else{ ?>
                                                 <td style="text-align: center; vertical-align: middle"><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ asset('upload/images/webinfo/' . $webInfo->logo) }}"></td>
                                             <?php } ?>

@@ -59,16 +59,28 @@
                 <div class="form-group">
                   <label for="image">Ảnh Sản Phẩm</label>
                   <div id="image">
-                      <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
-                      &emsp;&emsp;&emsp;<input type="radio" value="1" checked name="image_main">&ensp;Chọn làm ảnh đại diện
+                      <cite>Chọn Ảnh:&ensp;</cite>
+                      <input type="file" placeholder="Tên" name="image_1">
+                      &emsp;&emsp;&emsp;
+                      <input type="radio" value="1" name="image_main" {{ $product->image_main == 1 ? 'checked' : '' }}>&ensp;Chọn làm ảnh đại diện
+                      &emsp;&emsp;&emsp;
+                      <img src="{{ asset('upload/images/product/' . $product->image_1) }}" alt="" style="width : 50px; height: 50px">
                   </div>
                   <div id="image">
-                      <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
-                      &emsp;&emsp;&emsp;<input type="radio" value="2" name="image_main">&ensp;Chọn làm ảnh đại diện
+                      <cite>Chọn Ảnh:&ensp;</cite>
+                      <input type="file" placeholder="Tên" name="image_2">
+                      &emsp;&emsp;&emsp;
+                      <input type="radio" value="2" name="image_main" {{ $product->image_main == 2 ? 'checked' : '' }}>&ensp;Chọn làm ảnh đại diện
+                      &emsp;&emsp;&emsp;
+                      <img src="{{ asset('upload/images/product/' . $product->image_2) }}" alt="" style="width : 50px; height: 50px">
                   </div>
                   <div id="image">
-                      <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image[]" multiple>
-                      &emsp;&emsp;&emsp;<input type="radio" value="3" name="image_main">&ensp;Chọn làm ảnh đại diện
+                      <cite>Chọn Ảnh:&ensp;</cite>
+                      <input type="file" placeholder="Tên" name="image_3">
+                      &emsp;&emsp;&emsp;
+                      <input type="radio" value="3" name="image_main" {{ $product->image_main == 3 ? 'checked' : '' }}>&ensp;Chọn làm ảnh đại diện
+                      &emsp;&emsp;&emsp;
+                      <img src="{{ asset('upload/images/product/' . $product->image_3) }}" alt="" style="width : 50px; height: 50px">
                   </div>
                 </div>
                 <div class="form-group">

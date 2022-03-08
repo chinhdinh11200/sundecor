@@ -47,6 +47,23 @@
                 @endif
             </div>
             <div class="form-group">
+                <label for="link_map">Link GG Map : </label>
+                <input type="text" class="form-control" id="link_map" placeholder="" name="link_map" value="{{ $webInfo->link_map }}">
+                @if($errors->has('link_map'))
+                    <p style="color: red">{{ $errors->first('link_map') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="image_web">Ảnh website : </label>
+                <input type="file" id="image_web" name="image_web" value="{{ $webInfo->image_web }}">
+                <div class="col-3 mb-5">
+                    <img src="{{ asset('upload/images/webinfo/' . $webInfo->image_web) }}" alt="image_web" style="width: 100%;">
+                </div>
+                @if($errors->has('image_web'))
+                    <p style="color: red">{{ $errors->first('image_web') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
                 <label for="logo">Logo : </label>
                 <input type="file" id="logo" name="logo" value="{{ $webInfo->logo }}">
                 <div class="col-3 mb-5">
@@ -194,6 +211,20 @@
                 <input type="text" class="form-control" id="facebook" placeholder="Facebook" name="facebook">
                 @if($errors->has('facebook'))
                     <p style="color: red">{{ $errors->first('facebook') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="link_map">Link GG Map : </label>
+                <input type="text" class="form-control" id="link_map" placeholder="" name="link_map">
+                @if($errors->has('link_map'))
+                    <p style="color: red">{{ $errors->first('link_map') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="image_web">Ảnh website : </label>
+                <input type="file" id="image_web" name="image_web">
+                @if($errors->has('image_web'))
+                    <p style="color: red">{{ $errors->first('image_web') }}</p>
                 @endif
             </div>
             <div class="form-group">

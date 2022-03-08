@@ -11,13 +11,13 @@
     <meta content="article" property="og:type">
     <meta content="{{ $title ?? $webInfo->title  }}" itemprop="headline" property="og:title">
     <meta content="{{ URL::current() }}" itemprop="url" property="og:url">
-    <meta content="https://sundecor.vn/img/m/den-trang-tri-sundecor.jpg" itemprop="thumbnailUrl" property="og:image">
+    <meta content="{{ $image ?? asset('upload/images/webinfo/' . $webInfo->image_web) }}" itemprop="thumbnailUrl" property="og:image">
     <meta content="{{ $description ?? $webInfo->description }}" itemprop="description" property="og:description">
     <meta name="twitter:card" value="summary">
     <meta name="twitter:url" content="{{ URL::current() }}">
     <meta name="twitter:title" content="{{ $title ?? $webInfo->title  }}">
     <meta name="twitter:description" content="{{ $description ?? $webInfo->description }}">
-    <meta name="twitter:image" content="https://sundecor.vn/img/m/den-trang-tri-sundecor.jpg">
+    <meta name="twitter:image" content="{{ $image ?? asset('upload/images/webinfo/' . $webInfo->image_web) }}">
     <meta name="twitter:site" content="@Sundecor">
     <meta name="twitter:creator" content="@Sundecor">
     <meta name="description" content="{{ $description ?? $webInfo->description }}">
@@ -109,7 +109,7 @@
 	<div class="bottom-fixed">
 		<div class="position-relative">
 			<div class="bottom-fixed__item" id="bottom-fixed__item--map">
-				<a href="">
+				<a href="{{ $webInfo->link_map }}">
 					<div class="to-top__img justify-content-center align-items-center d-flex">
 						<img src="{{asset('/frontend/images/common/icon-map.png')}}" alt="">
 					</div>
