@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=> 'auth:admin'
     Route::get('search_news', [NewsController::class, 'search']);
     Route::resource('product', ProductController::class);
     Route::get('search_product', [ProductController::class, 'search']);
+    Route::get('fill_product/{id}/{is_hot}', [ProductController::class, 'fill'])->name('product.fill');
     Route::resource('banner', BannerController::class);
     Route::get('search_banner', [BannerController::class, 'search']);
     Route::resource('cart', CartController::class);
