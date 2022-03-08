@@ -608,92 +608,41 @@ class ProductController extends Controller
         return redirect()->route('admin.product.index');
     }
 
-    public function getListProduct() {
-        $menus1 = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
-        $products = DB::table('menus')->join('menus AS menus2', 'menus2.parent_menu_id', '=', 'menus.id')
-                        ->join('product_menu', 'product_menu.subcategory_id', '=', 'menus2.id')
-                        ->join('products', 'product_menu.product_id', '=', 'products.id')
-                        ->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-                        ->distinct()
-                        ->select('products.*', 'product_menu.priority', 'menus.id AS parent_id', 'product_sizes.sale_price', 'product_sizes.sell_price')
-                        ->where('product_menu.priority', '<>', 'NULL')
-                        // ->where('menus.id', $menus1[2]->id)
-                        ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+    public function fill($id, $is_hot)
+    {
+        $hot = $is_hot == 'false' ? null : true;
+        $menus1 = Menu::where(function ($query) {
+                            $query->Where('menu_type_id', 4)
+                                ->orWhere('menu_type_id', 2);
+                        })
+                        ->where('parent_menu_id', 0)
+                        ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->get();
+        $menus2 = Menu::where('menu_type_id', 2)
+                    ->where('parent_menu_id', '!=', 0)
+                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->get();
+        // $menu = Menu::where('id', $id)->first();
 
-        $product_result = array();
-        foreach ($menus1 as $key => $menu1) {
-            $quantity = 0;
-            foreach ($products as $key1 => $product) {
-                if($product->parent_id == $menu1->id){
-                    $check = 0;
-                    foreach ($product_result as $key2 => $value) {
-                        if($product->name == $value->name && $product->parent_id == $value->parent_id) {
-                            $check += 1;
-                        }
-                    }
-                    if($check == 0) {
-                        $product_result[] = $product;
-                        $quantity +=1;
-                    }
-                }
-                if($quantity == 8){
-                    break;
-                }
-            }
-        }
-        return view('wel')->with('menus1', $menus1)->with('products', $product_result);
-    }
-
-    public function getListProductHot() {
-        $products = DB::table('products')->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-                            ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                            ->select('products.*', 'product_sizes.*', 'product_menu.priority')
-                            ->where('is_hot_product', true)
-                            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
-                            ->get();
-
-
-
-        $product_result = array();
-        foreach ($products as $key1 => $product) {
-            $check = 0;
-            foreach ($product_result as $key2 => $value) {
-                if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
-                    $check += 1;
-                }
-            }
-            if($check == 0) {
-                $product_result[] = $product;
-            }
-        }
-
-        return $product_result;
-        return view('wel2')->with('products', $product_result);
-    }
-
-    public function getListProductSale() {
-        $products = DB::table('products')->join('product_sizes', 'product_sizes.product_id', '=', 'products.id')
-                            ->join('product_menu', 'product_menu.product_id', '=', 'products.id')
-                            ->select('products.*', 'product_sizes.*', 'product_menu.priority')
-                            ->where('is_sale_in_month', true)
-                            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'))
-                            ->get();
-        $product_result = array();
-        foreach ($products as $key1 => $product) {
-            $check = 0;
-            foreach ($product_result as $key2 => $value) {
-                if($product->name == $value->name) {     // trùng tên khác ưu tiên mà cùng menu
-                    $check += 1;
-                }
-            }
-            if($check == 0) {
-                $product_result[] = $product;
-            }
-        }
-
-        // return $product_result;
-        return view('wel2')->with('products', $product_result);
+        $menu = Menu::with(['products' => function ($query) use ($hot) {
+                            $query->where('is_hot', $hot)
+                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC');
+                        }])
+                        ->where('id', $id)
+                        ->first();
+        // dd($menu);
+        $data = $menu->products;
+        $page = request("page") ?? 1;;
+        $perPage = 8;
+        $offset = ($page * $perPage) - $perPage;
+        $products = new LengthAwarePaginator(
+            array_slice($data->toArray(), $offset, $perPage, true),
+            count($data),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+        return view('admin.product.show', compact('menus1', 'menus2', 'products', 'hot'))->with('menu_show', $menu);
     }
 
     public function detailProduct ($slug) {

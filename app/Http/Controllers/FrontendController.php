@@ -39,6 +39,7 @@ class FrontendController extends CommonController
             ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
             ->with(['products' => function($query) {
                 $query->where('status', true)
+                        ->where('is_hot', null)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->with('product_size')
                         ->take(8);
@@ -72,6 +73,7 @@ class FrontendController extends CommonController
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->with(['products' => function($query) {
                             $query->where('status', true)
+                                    ->where('is_hot', null)
                                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                                     ->with('product_size')
                                     ->get();
@@ -80,7 +82,7 @@ class FrontendController extends CommonController
                         ->first();
                 $data = $collection->products;
                 $page = request("page") ?? 1;;
-                $perPage = 2;
+                $perPage = 8;
                 $offset = ($page * $perPage) - $perPage;
                 $products = new LengthAwarePaginator(
                     array_slice($data->toArray(), $offset, $perPage, true),

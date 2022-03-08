@@ -14,19 +14,26 @@
                             <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm SẢN PHẨM</a></h3>
                         </div>
                     </div>
-
                     <!-- /.card-option -->
                     <form action="" class="card-option">
                         <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
-                            <option selected>Open this select menu</option>
+                            <option selected value="{{ route('admin.product.index') }}">Open this select menu</option>
                             @foreach ($menus1 as $menu1)
-                                <option value="{{ route('admin.product.show', $menu1->id) }}" {{ $menu1->id == $menu_show->id ? 'selected' : '' }}>{{ $menu1->name }}</option>
+                                <option value="{{ route('admin.product.fill', ['id' => $menu1->id, 'is_hot' => 'false']) }}" {{ $menu1->id == $menu_show->id ? 'selected' : '' }}>{{ $menu1->name }}</option>
                                 @foreach ($menus2 as $menu2)
                                     @if ($menu2->parent_menu_id == $menu1->id)
-                                        <option value="{{ route('admin.product.show', $menu2->id) }}" {{ $menu2->id == $menu_show->id ? 'selected' : '' }}>...{{ $menu2->name }}</option>
+                                        <option value="{{ route('admin.product.fill', ['id' => $menu2->id, 'is_hot' => 'false']) }}" {{ $menu2->id == $menu_show->id ? 'selected' : '' }}>...{{ $menu2->name }}</option>
                                     @endif
                                 @endforeach
                             @endforeach
+                        </select>
+                    </form>
+
+                    <form action="" method="post" class="card-option">
+                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
+                            <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'false']) }}" {{ $hot == null ? 'selected' : '' }}>Sản phẩm thường</option>
+
+                            <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'true']) }}" {{ $hot == true ? 'selected' : '' }}>Sản phẩm hot</option>
                         </select>
                     </form>
                     <!-- /.card-header -->
