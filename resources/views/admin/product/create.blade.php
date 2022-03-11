@@ -63,15 +63,15 @@
       <div class="form-group">
         <label for="image">Ảnh Sản Phẩm</label>
         <div id="image">
-            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_1" multiple>
+            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_1">
             &emsp;&emsp;&emsp;<input type="radio" value="1" checked name="image_main">&ensp;Chọn làm ảnh đại diện
         </div>
         <div id="image">
-            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_2" multiple>
+            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_2">
             &emsp;&emsp;&emsp;<input type="radio" value="2" name="image_main">&ensp;Chọn làm ảnh đại diện
         </div>
         <div id="image">
-            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_3" multiple>
+            <cite>Chọn Ảnh:&ensp;</cite><input type="file" placeholder="Tên" name="image_3">
             &emsp;&emsp;&emsp;<input type="radio" value="3" name="image_main">&ensp;Chọn làm ảnh đại diện
         </div>
       </div>
