@@ -41,6 +41,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/style/category.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/video.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/style/thanks.css')}}">
+	<link rel="stylesheet" href="{{asset('frontend/style/cart.css')}}">
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 <!-- <div id="fb-root"></div> -->
@@ -89,18 +90,18 @@
 	<div class="bottom-fixed" id="bottom-fixed__call">
 		<div class="position-relative">
 			<div class="bottom-fixed__item bottom-fixed__item--call">
-				<a href="">
+				<a href="tel:{{ $webInfo->tel1 }}">
 					<div class="to-top__img align-items-center d-flex">
 						<img src="{{asset('/frontend/images/common/phone.png')}}" alt="">
-						0942.83.77.99
+						{{ $webInfo->tel1 }}
 					</div>
 				</a>
 			</div>
 			<div class="bottom-fixed__item bottom-fixed__item--call" id="bottom-fixed__item--call-red">
-				<a href="https://www.facebook.com/messages/t/790775891055345/">
+				<a href="tel:{{ $webInfo->tel2 }}">
 					<div class="to-top__img align-items-center d-flex">
 						<img src="{{asset('/frontend/images/common/phone.png')}}" alt="">
-						0978.285.888
+						{{ $webInfo->tel2 }}
 					</div>
 				</a>
 			</div>
@@ -109,7 +110,7 @@
 	<div class="bottom-fixed">
 		<div class="position-relative">
 			<div class="bottom-fixed__item" id="bottom-fixed__item--map">
-				<a href="{{ $webInfo->link_map }}">
+				<a href="{{ $webInfo->link_map }}" target="_blank">
 					<div class="to-top__img justify-content-center align-items-center d-flex">
 						<img src="{{asset('/frontend/images/common/icon-map.png')}}" alt="">
 					</div>

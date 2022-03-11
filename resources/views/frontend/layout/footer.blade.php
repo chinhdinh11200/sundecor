@@ -4,14 +4,15 @@
         <div class="main-container">
             <div class="row footer__row">
                 <div class="col-md-2 footer__col">
-                    <h3 class="footer__title">Hà Nội </h3>
+                    <!-- <h3 class="footer__title">Hà Nội </h3>
                     <ul class="footer__list">
                         <li class="footer__item mb-30"><a class="footer__link"> 0978.285.888<br></a><a class="footer__link"> LK 12 - 41, KĐT An hưng,<br>đường tố hữu, Q. Hà đông.<br><span>(Có chỗ để ô tô)</span></a></li>
                     </ul>
                     <h3 class="footer__title">Sài Gòn</h3>
                     <ul class="footer__list">
                         <li class="footer__item"> <a class="footer__link">0978.285.888<br></a><a class="footer__link">2C - đường đồng văn cống,<br>Khu phố 3, p bình trưng tây, q2<br><span>(Có chỗ để ô tô)</span></a></li>
-                    </ul>
+                    </ul> -->
+                    {!! $webInfo->address !!}
                 </div>
                 <div class="col-md-3 footer__col">
                     <h3 class="footer__title"> Công ty cp tm đầu tư<br>xây dựng gia phát</h3>
@@ -42,16 +43,16 @@
                     </div>
                     <h3 class="footer__title">Chấp nhận thanh toán </h3>
                     <div class="row footer__banking">
-                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
+                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex">
                                 <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-visa.png')}}" alt=""></div>
                             </a></div>
-                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
+                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex">
                                 <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-paypal.png')}}" alt=""></div>
                             </a></div>
-                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
+                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex">
                                 <div class="justify-content-center align-items-center d-flex footer__banking--img background-white"><img src="{{asset('frontend/images/common/img-mastercard.png')}}" alt=""></div>
                             </a></div>
-                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex" href="#">
+                        <div class="col-3 footer__banking--item"> <a class="justify-content-center align-items-center d-flex">
                                 <div class="justify-content-center align-items-center d-flex footer__banking--img"><img src="{{asset('frontend/images/common/img-bank.png')}}" alt=""></div>
                             </a></div>
                     </div>

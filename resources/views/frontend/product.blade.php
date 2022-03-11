@@ -17,11 +17,13 @@
                                             @endif
                                         @endfor
                                         @for($i=1; $i<=3; $i++)
-                                            @if($i!=$product->image_main)
-                                                <div class = "product__detail--image swiper-slide">
-                                                    <img src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}" id = "productImg">
-                                                </div>
-                                            @endif
+                                            @if($product['image_' . $i])
+                                                @if($i!=$product->image_main)
+                                                    <div class = "product__detail--image swiper-slide">
+                                                        <img src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}" id = "productImg">
+                                                    </div>
+                                                @endif;
+                                            @endif;
                                         @endfor
                                     @endif
                                 </div>
