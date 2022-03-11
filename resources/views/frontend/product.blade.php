@@ -38,9 +38,15 @@
                                         @endfor
                                         @for($i=1; $i<=3; $i++)
                                             @if ($i!=$product->image_main)
-                                                <div class = "swiper-slide product__select--image active">
-                                                    <img class = "select_img"src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}">
-                                                </div>
+                                                @if ($product['image_' . $i])
+                                                    <div class = "swiper-slide product__select--image active">
+                                                        <img class = "select_img"src = "{{asset('upload/images/product/'. $product['image_' . $i])}}" alt = "{{ $product->name }}">
+                                                    </div>
+                                                @else
+                                                    <div class = "swiper-slide product__select--image active">
+                                                        <img class = "select_img"src = "{{asset('upload/images/product/'. $product['image_' . $product->image_main])}}" alt = "{{ $product->name }}">
+                                                    </div>
+                                                @endif
                                             @endif
                                         @endfor
                                     @endif
