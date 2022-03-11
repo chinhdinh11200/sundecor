@@ -5,7 +5,7 @@
 				@foreach ($menu_tops as $menu_top)
                     <li class="header__top--item"><a class="header__top--link" href="{{ route( 'category', $menu_top->slug ) }}">{{ $menu_top->name }}</a></li>
                 @endforeach
-				<li class="header__top--item"><a class="header__top--link" href="tel:+84978285888"><b>HOTLINE: {{ $webInfo->hotline }}</b></a></li>
+				<li class="header__top--item"><a class="header__top--link" href="tel:{{ $webInfo->hotline }}"><b>HOTLINE: {{ $webInfo->hotline }}</b></a></li>
 			</ul>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 			<div class="header__center--option">
 				<div class="header__center--contact">
 					<img src="{{asset('/frontend/images/common/icon-call.gif')}}" alt="">
-					<div>GỌI MUA HÀNG:<b>&ensp;0965.69.8866</b></div>
+					<div>GỌI MUA HÀNG:<b>&ensp;{{$webInfo->hotline}}</b></div>
 				</div>
 				<form action="{{ route('cart.index') }}" method="GET">
 					{{-- @csrf --}}

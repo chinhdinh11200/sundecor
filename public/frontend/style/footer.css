@@ -18,6 +18,15 @@
   #footer .main-container {
     position: relative;
   }
+  .col-md-2.footer__col h2{
+    color: #ff7f00;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .col-md-2.footer__col p{
+    font-size: 14px;
+  }
   #footer .footer__col:nth-child(1) .footer__link {
     text-transform: capitalize;
   }

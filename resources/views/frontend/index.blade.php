@@ -4,36 +4,12 @@
         <div class="banner__block">
             <div class="swiper bannerSwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g105.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g92.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g91.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g93.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="	https://sundecor.vn/img/g/g94.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="	https://sundecor.vn/img/g/g95.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="	https://sundecor.vn/img/g/g96.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g97.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="	https://sundecor.vn/img/g/g106.jpg" alt="" /></a></div>
-                <div class="swiper-slide">
-                    <a class="banner__block--link" href="">
-                    <img src="https://sundecor.vn/img/g/g107.jpg" alt="" /></a></div>
+                @foreach ($banners as $banner)
+                    <div class="swiper-slide">
+                        <a class="banner__block--link" href="{{$banner->link}}">
+                        <img src="{{ asset('upload/images/slides/' . $banner->image) }}" alt="{{$banner->title}}" /></a>
+                    </div>
+                @endforeach
             </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>

@@ -288,4 +288,12 @@ function fixHeader() {
             })
         }
     });
+
+
+    $('.header__center--option form button').click(function() {
+        if($('.header__center--option form button #cartQuantity').html()==0){
+            $(".header__center--option form button").prop("disabled",true);
+            alert("Giỏ hàng đang trống");
+        }
+    });
 })( jQuery );

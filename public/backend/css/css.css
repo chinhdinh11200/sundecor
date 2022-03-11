@@ -6,9 +6,13 @@
 .main-sidebar .logo-admin{
     max-height: 100%;
 }
+.main-sidebar .Brand-Logo .logo-admin a{
+  display: flex;
+  justify-content: center;
+}
 .main-sidebar .Brand-Logo .logo-admin img{
 	float: left;
-	width: 100%;
+	width: 80%;
 }
 .main-sidebar .Brand-Logo .logo-admin p{
 	margin:0;
