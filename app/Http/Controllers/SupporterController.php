@@ -19,7 +19,8 @@ class SupporterController extends Controller
      */
     public function index()
     {
-        $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
+        $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+        ->orderBy('created_at', 'DESC')->paginate(8);
         return view('admin.supporter.index', ['supporters' => $supporters]);
     }
 
@@ -173,6 +174,7 @@ class SupporterController extends Controller
             return redirect()->route('admin.promotion.index');
         }else {
             $supporters = Supporter::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->orderBy('created_at', 'DESC')
             ->where('fullname', 'like', '%'.$search.'%')
             ->orWhere('tel', 'like', '%'.$search.'%')
             ->paginate(8);

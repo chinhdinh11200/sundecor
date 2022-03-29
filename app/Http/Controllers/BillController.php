@@ -20,8 +20,8 @@ class BillController extends Controller
     public function index()
     {
         $carts = DB::table('bills')->orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
-        $products = Product::all();
-        return view('admin.cart.index')->with('carts', $carts)->with('products', $products);
+        // $products = Product::all();
+        return view('admin.cart.index')->with('carts', $carts);
     }
 
     /**
@@ -174,6 +174,7 @@ class BillController extends Controller
                         ->join('products', 'products.id', '=', 'bill_product.product_id')
                         ->select('bills.*', 'products.name', 'bill_product.id AS id_bill', 'bill_product.quantity', 'products.name', 'bill_product.sell_price')
                         ->where('fullname', 'like', '%'.$search.'%')
+                        ->orderBy('created_at', 'DESC')
                         ->paginate(8);
             $carts->appends(['s' => $search]);
             return view('admin.cart.search')->with('carts', $carts);

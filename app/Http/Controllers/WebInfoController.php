@@ -66,6 +66,7 @@ class WebInfoController extends Controller
             $webInfo->address = $request->input('address');
             $webInfo->title = $request->input('title');
             $webInfo->description = $request->input('description');
+            $webInfo->info = $request->input('info');
             $webInfo->site_name = $request->input('site_name');
             $webInfo->keywords = $request->input('keywords');
             $webInfo->sale = $request->input('sale');
@@ -126,6 +127,7 @@ class WebInfoController extends Controller
             $webInfo->address = $request->input('address');
             $webInfo->title = $request->input('title');
             $webInfo->description = $request->input('description');
+            $webInfo->info = $request->input('info');
             $webInfo->site_name = $request->input('site_name');
             $webInfo->keywords = $request->input('keywords');
             $webInfo->sale = $request->input('sale');

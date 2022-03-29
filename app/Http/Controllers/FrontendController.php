@@ -64,6 +64,7 @@ class FrontendController extends CommonController
                                         $query->where('status', true)
                                                 ->where('is_hot', true)
                                                 ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                                ->orderBy('created_at', 'DESC')
                                                 ->with('product_size')
                                                 ->limit(8);
                                     }])
@@ -75,14 +76,15 @@ class FrontendController extends CommonController
                             $query->where('status', true)
                                     ->where('is_hot', null)
                                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                    ->orderBy('created_at', 'DESC')
                                     ->with('product_size')
                                     ->get();
                         }])
                         ->where('id', $menu->id)
                         ->first();
                 $data = $collection->products;
-                $page = request("page") ?? 1;;
-                $perPage = 8;
+                $page = request("page") ?? 1;
+                $perPage = 20;
                 $offset = ($page * $perPage) - $perPage;
                 $products = new LengthAwarePaginator(
                     array_slice($data->toArray(), $offset, $perPage, true),
@@ -102,6 +104,7 @@ class FrontendController extends CommonController
         }
         else if($slug == 'tat-ca-video.html'){
             $videoalls = Video::orderBY(DB::raw('ISNULL(videos.priority)'), 'ASC')
+            ->orderBy('created_at', 'DESC')
             ->where('status', true)->paginate(20);
             return view('frontend.videos', compact('videoalls'));
         }
@@ -113,13 +116,7 @@ class FrontendController extends CommonController
             $image_main = $product->$image;
             $product_sizes = ProductSize::where('product_id', $product->id)->get();
 
-            // dd($product_sizes);
-            // $products = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-            //         ->where('products.status', true)
-            //         ->where('product_menu.subcategory_id', $product->product_menu()->get()[0]->subcategory_id)
-            //         ->paginate(20);
             $customers = Customer::inRandomOrder()->limit(5)->get();
-            // dd($customers, $product_sizes, $product);
             return view('frontend.product', compact('product', 'customers', 'image_main'))->with('product_sizes', $product_sizes);
         }
         else {
@@ -161,7 +158,7 @@ class FrontendController extends CommonController
             ->first();
 
         $product_sizes = ProductSize::where('product_id', $product->id)->get();
-        // dd($product);
+
         return view('frontend.product')->with('product', $product)->with('product_sizes', $product_sizes);
     }
 
@@ -216,11 +213,10 @@ class FrontendController extends CommonController
             return redirect()->route('web');
         }
         $products = Product::where('slug', 'like', '%'. $keyword . '%')
-                            ->where('status', true)->paginate(20);
-
+                            ->where('status', true)->orderBy('created_at', 'DESC')->paginate(20);
                     $menu = Menu::where('menu_type_id', 2)
                     ->limit(8)->get();
                     $products->appends(['keyword' => $keyword]);
-                    return view('frontend.search')->with('products', $products)->with('menu', $menu);
+                    return view('frontend.search')->with('products', $products);
     }
 }

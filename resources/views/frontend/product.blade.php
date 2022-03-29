@@ -153,7 +153,7 @@
                                     <input type="hidden" name="product_size_id" id="product_id" value="{{ $product_sizes[0]->id }}">
                                 @endif
                                 <button type="submit" class="product__button product__button--red product__book--bought">
-                                    <b >Mua ngay</b>
+                                    <b>Mua ngay</b>
                                     <i class="fa fa-cart-arrow-down"></i>
                                 </button>
                                 <a class="product__button product__button--black product__book--contact" href = "#">
@@ -265,6 +265,7 @@
                 productSize_id.setAttribute('value', id);
                 form.appendChild(productSize_id);
             }
+
         </script>
         @include('frontend.include.voucher')
         @include('frontend.include.news')

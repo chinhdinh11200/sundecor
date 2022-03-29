@@ -15,6 +15,9 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
+        // Menu::truncate();
+        // Menutype::truncate();
+
         $menu_top = Menutype::where('name', 'Menu top')->first();
         !$menu_top ? Menutype::create([
             'name' => 'Menu top'
@@ -30,6 +33,16 @@ class MenuSeeder extends Seeder
             'name' => 'Menu chân trang'
         ]) : null;
 
+        $menu_sale = Menutype::where('name', 'Menu sale')->first();
+        !$menu_sale ? Menutype::create([
+            'name' => 'Menu sale'
+        ]) : null;
+
+        $menu_connect = Menutype::where('name', 'Menu kết nối')->first();
+        !$menu_connect ? Menutype::create([
+            'name' => 'Menu kết nối'
+        ]) : null;
+
         $menu_other = Menutype::where('name', 'Menu khác')->first();
         !$menu_other ? Menutype::create([
             'name' => 'Menu khác'
@@ -41,7 +54,7 @@ class MenuSeeder extends Seeder
             'slug' => 'dich-vu-5-sao.html',
             'title' => 'Dịch vụ 5 sao',
             'keyword' => 'sundecor, Dịch vụ 5 sao',
-            'menu_type_id' => 4,
+            'menu_type_id' => 6,
             'parent_menu_id' => 0,
             'status' => true,
         ]) : null;
@@ -52,7 +65,7 @@ class MenuSeeder extends Seeder
             'slug' => 'cong-trinh-da-thuc-hien.html',
             'title' => 'Công trình đã thực hiện',
             'keyword' => 'sundecor, Công trình đã thực hiện',
-            'menu_type_id' => 4,
+            'menu_type_id' => 6,
             'parent_menu_id' => 0,
             'status' => true,
         ]) : null;
@@ -63,7 +76,7 @@ class MenuSeeder extends Seeder
             'slug' => 'kien-thuc-ve-den.html',
             'title' => 'Kiến thức về đèn',
             'keyword' => 'sundecor, Kiến thức về đèn',
-            'menu_type_id' => 4,
+            'menu_type_id' => 6,
             'parent_menu_id' => 0,
             'status' => true,
         ]) : null;
@@ -74,7 +87,7 @@ class MenuSeeder extends Seeder
             'slug' => 'bo-suu-tap-den.html',
             'title' => 'Bộ sưu tập đèn',
             'keyword' => 'sundecor, Bộ sưu tập đèn',
-            'menu_type_id' => 4,
+            'menu_type_id' => 6,
             'parent_menu_id' => 0,
             'status' => true,
         ]) : null;
@@ -85,7 +98,7 @@ class MenuSeeder extends Seeder
             'slug' => 'huong-dan-su-dung.html',
             'title' => 'Hướng dẫn sử dụng',
             'keyword' => 'sundecor, Hướng dẫn sử dụng',
-            'menu_type_id' => 4,
+            'menu_type_id' => 6,
             'parent_menu_id' => 0,
             'status' => true,
         ]) : null;

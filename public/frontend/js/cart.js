@@ -15,11 +15,13 @@ $(document).ready(function() {
         localStorage.setItem('session_id', session_id);
     }
 
-    fetch(`/cart_quantity?session_id=${session_id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                $('#cartQuantity').html(data)
-            })
+    if($('#cartQuantity').text() == 0) {
+        fetch(`/cart_quantity?session_id=${session_id}`)
+        .then((res) => res.json())
+        .then((data) => {
+            $('#cartQuantity').html(data);
+        })
+    }
 
     const session_ids = document.getElementsByName("session_id")
     session_ids.forEach(element => {
@@ -27,10 +29,7 @@ $(document).ready(function() {
     });
 
     $('#updateCart').click(function () {
-        // console.log($("[name=session_id]").attr('value'));
-
         const carts = document.getElementsByName("cart_id");
-        // console.log($("[name=_token]").attr("value"));
         const cartUpdate = [];
         carts.forEach(cart => {
             const cart_id = cart.value;
@@ -57,7 +56,6 @@ $(document).ready(function() {
 
 
     $('#order').click(function (e) {
-        // e.preventDefault();
         localStorage.removeItem('session_id');
     });
 

@@ -58,11 +58,14 @@
                                             <td style="vertical-align: middle; text-align: center">
                                                 <div class="d-flex justify-content-center" style="max-height: 38px">
                                                     <a href="{{ route('admin.news.edit', $new->id) }}" class="btn btn-primary mr-3">Sửa</a>
-                                                <form action="{{ route('admin.news.destroy', $new->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                                </form>
+                                                    @if($new->menu_id == 1)
+                                                    @else
+                                                        <form action="{{ route('admin.news.destroy', $new->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

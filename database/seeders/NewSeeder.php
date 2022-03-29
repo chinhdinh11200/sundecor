@@ -14,6 +14,7 @@ class NewSeeder extends Seeder
      */
     public function run()
     {
+        // News::truncate();
         $new1 = News::where('slug' , 'bao-tri-tron-doi.html')->first();
         !$new1 ? News::create([
             'name' => 'Bảo trì trọn đời',

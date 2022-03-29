@@ -19,6 +19,10 @@ class CreateProductSizesTable extends Migration
             $table->string('size')->nullable();
             $table->bigInteger('sell_price')->nullable();
             $table->bigInteger('sale_price')->nullable();
+            $table->foreign('product_id')
+                    ->references('id')
+                    ->on('products')
+                    ->onDelete('cascade');
         });
     }
 

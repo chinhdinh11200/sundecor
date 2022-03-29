@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\WebInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if ($request->getMethod() == 'GET') {
-            return view('admin.login');
+            $webInfo = WebInfo::first();
+            return view('admin.login', compact('webInfo'));
         }
 
         $credentials = $request->only(['username', 'password']);
