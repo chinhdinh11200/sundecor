@@ -38,6 +38,7 @@ class ProductController extends Controller
                     ->get();
         $products = DB::table('products')
                         ->distinct()
+                        ->orderBy('created_at', 'DESC')
                         ->paginate(8);
 
         return view('admin.product.index', ['products' => $products], compact('menus1', 'menus2'));
@@ -51,22 +52,39 @@ class ProductController extends Controller
     public function create()
     {
         $menus = Menu::where('menu_type_id', 2)->get();
-        $menus1 = Menu::where(function($query) {
-                $query->where("menu_type_id",2)
-                    ->orWhere("menu_type_id",4);
+
+        $menus1 = Menu::where(function ($query) {
+                $query->Where('menu_type_id', 4)
+                    ->orWhere('menu_type_id', 2);
             })
             ->where('parent_menu_id', 0)
-            ->orderBy(DB::raw('ISNULL(menus.priority), menus.priority'), 'ASC')
+            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->with(['product_menu' => function ($query) {
+                $query
+                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->where('is_hot', null);
+            }])
+            ->with(['product_menu_hot' => function ($query) {
+                $query
+                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->where('is_hot', true);
+            }])
             ->get();
 
-        $menus2 = Menu::join('menus AS menus1', 'menus1.id', '=', 'menus.parent_menu_id')
-            ->select('menus.*', 'menus1.name AS parant_name', 'menus1.id AS parent_id')
-            ->where("menus.parent_menu_id","<>",0)
-            ->where("menus.menu_type_id",2)
-            ->where("menus.status",1)
-            ->orderBy(DB::raw('ISNULL(menus.priority), menus.priority'), 'ASC')
+        $menus2 = Menu::where(function ($query) {
+                $query->Where('menu_type_id', 4)
+                    ->orWhere('menu_type_id', 2);
+            })->where("menus.parent_menu_id","<>",0)
+            ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+            ->with(['product_menu' => function ($query) {
+                $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->where('is_hot', null);
+            }])
+            ->with(['product_menu_hot' => function ($query) {
+                $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->where('is_hot', true);
+            }])
             ->get();
-
         return view('admin.product.create', ['menus' => $menus, 'menus2' => $menus2])->with('menus1', $menus1);
     }
 
@@ -78,6 +96,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $menus = Menu::where(function($query) {
                         $query->where("menu_type_id",2)
                             ->orWhere("menu_type_id",4);
@@ -106,23 +125,46 @@ class ProductController extends Controller
         }
 
         $product = new Product();
+        // for ($i=0; $i < 3; $i++) {
+        //     $image = 'image_' . ($i + 1);
+        //     if($request->hasFile($image)) {
+        //         $file = $request->$image;
+        //         $image_url = $i == 0 ? pathinfo($request->iamge->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $file->extension() : pathinfo($request->iamge->getClientOriginalName(), PATHINFO_FILENAME) . '(' . $i  . ')' . '.' . $file->extension();
+        //         $file->move(public_path('upload/images/product'), $image_url);
+        //         $product->$image = $image_url;
+        //     }
+        // }
 
-        for ($i=0; $i < 3; $i++) {
-            $image = 'image_' . ($i + 1);
-            if($request->hasFile($image)) {
-                $file = $request->$image;
-                $image_url = $i == 0 ? time() . '.' . $file->extension() : time() . '(' . $i  . ')' . '.' . $file->extension();
-                $file->move(public_path('upload/images/product'), $image_url);
-                $product->$image = $image_url;
-            }
-        }
         $product_exist = Product::where('name', $request->input('name'))
                                     ->orWhere('code', $request->input('code'))
                                     ->first();
 
         if($product_exist) {
-            // Alert::error('Error', 'Sản phẩm đã tồn tại');
             return redirect()->back()->withInput($request->input());
+        }
+
+        if($request->hasFile('image_1')) {
+            $file = $request->image_1;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)). '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product->image_1 = $image_url;
+        }
+
+        if($request->hasFile('image_2')) {
+            $file = $request->image_2;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)). '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product->image_2 = $image_url;
+        }
+
+        if($request->hasFile('image_3')) {
+            $file = $request->image_3;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)). '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product->image_3 = $image_url;
         }
         $product->name = $request->input('name');
         $product->title = $request->input('title');
@@ -176,7 +218,6 @@ class ProductController extends Controller
 
         foreach($menus as $menu):
             if($request->input('priority'.$menu->id)){
-                // dd($menu->name, $menu);
                 $priority = $request->input('priority'.$menu->id);
                 $subcategory_id = $menu->id;
                 $priority_exist = ProductMenu::where('priority', $priority)
@@ -196,7 +237,6 @@ class ProductController extends Controller
                 $product_menu->save();
             }
             if($request->input('priority_hot'.$menu->id)){
-                // dd($menu->name, $menu);
                 $priority = $request->input('priority_hot'.$menu->id);
                 $subcategory_id = $menu->id;
                 $priority_exist = ProductMenu::where('priority', $priority)
@@ -244,7 +284,8 @@ class ProductController extends Controller
         // $menu = Menu::where('id', $id)->first();
 
         $menu = Menu::with(['products' => function ($query) {
-                            $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC');
+                            $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                            ->orderBy('created_at', 'DESC');
                         }])
                         ->where('id', $id)
                         ->first();
@@ -285,16 +326,22 @@ class ProductController extends Controller
                     })
                     ->where('parent_menu_id', 0)
                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                    ->with(['product_menu' => function ($query) use ($id) {
-                        $query->where('product_id', $id)
+                    ->with(['product_menu' => function ($query) {
+                        $query
+                        ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                             ->where('is_hot', null);
                     }])
-                    ->with(['product_menu_hot' => function ($query) use ($id) {
-                        $query->where('product_id', $id)
+                    ->with(['product_menu_hot' => function ($query) {
+                        $query
+                        ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                             ->where('is_hot', true);
                     }])
+                    ->with(['products' => function ($query) use ($id) {
+                        $query->where('products.id', $id)->orderBy(DB::raw('ISNULL(is_hot), is_hot'), 'ASC');
+                    }])
+                    // ->where('id', 106)
                     ->get();
-            // dd($menus1);
+                    // dd($menus1);
         if($product_edit == null){  // update product don't have menu2
             $product_edit = Product::find($id);
         }
@@ -306,15 +353,19 @@ class ProductController extends Controller
                     })->where("menus.parent_menu_id","<>",0)
                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                     ->with(['product_menu' => function ($query) use ($id) {
-                        $query->where('product_id', $id)
+                        $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                             ->where('is_hot', null);
                     }])
                     ->with(['product_menu_hot' => function ($query) use ($id) {
-                        $query->where('product_id', $id)
+                        $query->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                             ->where('is_hot', true);
                     }])
+                    ->with(['products' => function ($query) use ($id) {
+                        $query->where('products.id', $id)->orderBy(DB::raw('ISNULL(is_hot), is_hot'), 'ASC');
+                    }])
+                    // ->where('id', 107)
                     ->get();
-        // dd($menus2);
+        // dd(isset($menus2[0]->products), $menus2[0]->products->count());
         $product_menus = ProductMenu::all();
         $product_sizes = ProductSize::where('product_id', $id)->get();
         return view('admin.product.edit', ['product' => $product_edit], ['menus2' => $menus2])->with( 'product_menus', $product_menus)->with( 'product_sizes', $product_sizes)->with('menus1', $menus1);
@@ -329,7 +380,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // dd($request);
+        // dd($request , $product);
         if(!$request->has('is_contact_product')) {
             $request->validate([
                 'name' => [new Required],
@@ -358,15 +409,58 @@ class ProductController extends Controller
                         })
                         ->get();
 
-        for ($i=0; $i < 3; $i++) {
-            $image = 'image_' . ($i + 1);
-            if($request->hasFile($image)) {
-                $file = $request->$image;
-                $image_url = $i == 0 ? time() . '.' . $file->extension() : time() . '(' . $i  . ')' . '.' . $file->extension();
-                $file->move(public_path('upload/images/product'), $image_url);
-                $product_update->$image = $image_url;
+        // for ($i=0; $i < 3; $i++) {
+        //     $image = 'image_' . ($i + 1);
+        //     if($request->hasFile($image)) {
+        //         $file = $request->$image;
+        //         $image_url = $i == 0 ? time() . '.' . $file->extension() : time() . '(' . $i  . ')' . '.' . $file->extension();
+        //         $file->move(public_path('upload/images/product'), $image_url);
+        //         $product_update->$image = $image_url;
+        //     }
+        // }
+
+        if($request->hasFile('image_1')) {
+            $image_url_exist = $product_update->image_1;
+            if($image_url_exist) {
+                if(File::exists(public_path('upload/images/product/') . $image_url_exist)) {
+                    unlink(public_path('upload/images/product/') . $image_url_exist);
+                }
             }
+            $file = $request->image_1;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product_update->image_1 = $image_url;
         }
+
+        if($request->hasFile('image_2')) {
+            $image_url_exist = $product_update->image_2;
+            if($image_url_exist) {
+                if(File::exists(public_path('upload/images/product/') . $image_url_exist)) {
+                    unlink(public_path('upload/images/product/') . $image_url_exist);
+                }
+            }
+            $file = $request->image_2;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)). '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product_update->image_2 = $image_url;
+        }
+
+        if($request->hasFile('image_3')) {
+            $image_url_exist = $product_update->image_3;
+            if($image_url_exist) {
+                if(File::exists(public_path('upload/images/product/') . $image_url_exist)) {
+                    unlink(public_path('upload/images/product/') . $image_url_exist);
+                }
+            }
+            $file = $request->image_3;
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)). '.' . $file->extension();
+            // dd($image_url);
+            $file->move(public_path('upload/images/product'), $image_url);
+            $product_update->image_3 = $image_url;
+        }
+
 
         $product_update->name = $request->input('name');
         $product_update->slug = Str::slug($request->input('name')).'.html';
@@ -459,21 +553,23 @@ class ProductController extends Controller
                 }
             }
         }
-            // dd($request);
         foreach($menus as $menu):
             if($request->input('priority'.$menu->id)){
+
+                // dd($request);
                 // tìm product_menu hiện tại cần update
                 $priority = $request->input('priority'.$menu->id);
                 $subcategory_id = $menu->id;
 
                 $product_menu_update = ProductMenu::where('product_id', $product_update->id)
                                                     ->where('subcategory_id', $subcategory_id)
+                                                    ->where('is_hot', null)
                                                     ->first();
                 if($product_menu_update){ // trước khi update tìm xem có sp nào trùng ưu tiên chưa
                     $product_menu = ProductMenu::where('priority', $priority)
                                             ->where('subcategory_id', $subcategory_id)
+                                            ->where('is_hot', null)
                                             ->first();
-                    // dd($product_menu);
                     if($product_menu){
                         if($product_menu->product_id != $product_menu_update->product_id){
                             $product_menu->priority = null;
@@ -487,8 +583,8 @@ class ProductController extends Controller
                 }else{
                     $product_menu = ProductMenu::where('priority', $priority)
                                             ->where('subcategory_id', $subcategory_id)
+                                            ->where('is_hot', null)
                                             ->first();
-                    // dd($product_menu);
                     if($product_menu){ // check priority available
                         $product_menu->priority = null;
                         $product_menu->update();
@@ -498,14 +594,15 @@ class ProductController extends Controller
                     $product_menu->product_id = $product->id;
                     $product_menu->priority = $priority;
                     $product_menu->subcategory_id = $subcategory_id;
-
                     $product_menu->save();
                 }
             }else{
                 $product_menu = ProductMenu::where('product_id', $product->id)
                                             ->where('subcategory_id', $menu->id)
+                                            ->where('is_hot', null)
                                             ->first();
                 if($product_menu){
+                    // dd($product->id, $menu->id, $product_menu);
                     $product_menu->delete();
                 }
             }
@@ -518,12 +615,12 @@ class ProductController extends Controller
                                                     ->where('subcategory_id', $subcategory_id)
                                                     ->where('is_hot', true)
                                                     ->first();
+
                 if($product_menu_update){ // trước khi update tìm xem có sp nào trùng ưu tiên chưa
                     $product_menu = ProductMenu::where('priority', $priority)
                                             ->where('subcategory_id', $subcategory_id)
                                             ->where('is_hot', true)
                                             ->first();
-                    // dd($product_menu);
                     if($product_menu){
                         if($product_menu->product_id != $product_menu_update->product_id){
                             $product_menu->priority = null;
@@ -626,7 +723,8 @@ class ProductController extends Controller
 
         $menu = Menu::with(['products' => function ($query) use ($hot) {
                             $query->where('is_hot', $hot)
-                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC');
+                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                ->orderBy('created_at', 'DESC');
                         }])
                         ->where('id', $id)
                         ->first();
@@ -668,6 +766,7 @@ class ProductController extends Controller
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->get();
             $products = Product::where('products.slug', 'like', '%'. $search . '%')
+                    ->orderBy('created_at', 'DESC')
                     ->paginate(8);
                     $products->appends(['s' => $search]);
         }

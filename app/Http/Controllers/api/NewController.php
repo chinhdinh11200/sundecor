@@ -43,7 +43,7 @@ class NewController extends Controller
             $url = $request->input('cloneNews')['image'];
             $contents = file_get_contents($url);
             $extension = pathinfo($url, PATHINFO_EXTENSION);
-            $name = time() . rand(1, 100) . '.' . $extension;
+            $name = Str::slug(pathinfo($url, PATHINFO_FILENAME)) . '.' . $extension;
             $new->image = $name;
             Storage::disk('public')->put($name, $contents);
             $new->status = true;
@@ -61,7 +61,7 @@ class NewController extends Controller
             $url = $request->input('cloneNews')['image'];
             $contents = file_get_contents($url);
             $extension = pathinfo($url, PATHINFO_EXTENSION);
-            $name = time() . rand(1, 100) . '.' . $extension;
+            $name = Str::slug(pathinfo($url, PATHINFO_FILENAME)) . '.' . $extension;
             $new_exist->image = $name;
             Storage::disk('public')->put($name, $contents);
             if(!$request->input('cloneNews')['priority']){

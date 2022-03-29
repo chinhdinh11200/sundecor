@@ -16,6 +16,8 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        User::truncate();
+        WebInfo::truncate();
         $user = new User();
         $user->name = 'Sundecor';
         $user->username = 'sundecor';

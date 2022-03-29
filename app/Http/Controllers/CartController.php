@@ -108,21 +108,20 @@ class CartController extends CommonController
             ->select('products.name','products.image_1', 'shopping_carts.*', 'product_sizes.size', 'product_sizes.sale_price', 'product_sizes.sell_price')
             ->where('session_id', $request->input('session_id'))
             ->get();
-        // $carts1 = ShoppingCart::where('session_id', $request->input('session_id'))->first();
 
-        // dd($carts1, $carts1->products()->get());
+        $cart_quantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+        // dd($cart_quantity);
 
         $cart_contacts = ShoppingCart::join('products', 'products.id', '=', 'shopping_carts.product_id')
             ->select('products.name','products.image_1', 'shopping_carts.*')
             ->where('session_id', $request->input('session_id'))
             ->where('product_size_id', null)->get();
-        // dd($cart_contacts);
         $total = 0;
         foreach ($carts as $key => $cart) {
             $total += $cart->quantity * $cart->sale_price;
         }
         $cartQuantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
-        return view('frontend.cart.index', compact('cart_contacts'))->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
+        return view('frontend.cart.index', compact('cart_contacts', 'cart_quantity'))->with("carts", $carts)->with("total", $total)->with('cartQuantity', $cartQuantity);
     }
 
     public function cartUpdate(Request $request)
@@ -217,8 +216,8 @@ class CartController extends CommonController
     }
 
     public function cartQuantity(Request $request) {
-        $quantity = ShoppingCart::where('session_id', $request->input('session_id'))->count();
-        return $quantity;
+        $carts = ShoppingCart::where('session_id', $request->input('session_id'))->count();
+        return $carts;
     }
 
     public function search(Request $request){

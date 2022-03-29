@@ -173,14 +173,42 @@
                         >
                             {{$menu1->name}}
                         </div>
-                        <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot">
-                        <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" min="1">
+                        <div style="position: relative;">
+                            <div
+                                style="
+                                    position: absolute;
+                                    top: -100%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    display:none;
+                                    background: lightblue;
+                                    padding: 5px 7px;
+                                    border-radius: 5px;
+                                    width: max-content"
+                                id="pre_priority_hot{{ $menu1->id }}">ccc</div>
+                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')">
+                        </div>
+                        <div style="position: relative;">
+                            <div
+                                style="
+                                    position: absolute;
+                                    top: -100%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    display: none;
+                                    background: lightblue;
+                                    padding: 5px 7px;
+                                    border-radius: 5px;
+                                    width: max-content"
+                                id="pre_priority{{ $menu1->id }}">ccc</div>
+                            <input style="width : 50px" type="number" name="priority{{ $menu1->id }}" min="1" onclick="prev_priority({{ $menu1->product_menu }}, {{ $menu1->id }})">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="d-flex" style="flex-wrap: wrap">
                 @foreach($menus2 as $menu2)
-                    @if ($menu1->id == $menu2->parent_id)
+                    @if ($menu1->id == $menu2->parent_menu_id)
                     <div
                         style="width: calc(100% / 3);
                         margin-bottom : 8px;
@@ -199,8 +227,35 @@
                             >
                                 {{$menu2->name}}
                             </div>
-                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot">
-                            <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" min="1">
+                            <div style="position: relative">
+                                <div style="
+                                    position: absolute;
+                                    top: -100%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    display:none;
+                                    background: lightblue;
+                                    padding: 5px 7px;
+                                    border-radius: 5px;
+                                    width: max-content;"
+                                    id="pre_priority_hot{{ $menu2->id }}">ccc</div>
+
+                                <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu2->product_menu_hot }}, {{ $menu2->id }}, 'hot')">
+                            </div>
+                            <div style="position: relative">
+                                <div style="
+                                    position: absolute;
+                                    top: -100%;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    display:none;
+                                    background: lightblue;
+                                    padding: 5px 7px;
+                                    border-radius: 5px;
+                                    width: max-content;"
+                                    id="pre_priority{{ $menu2->id }}">ccc</div>
+                                <input style="width : 50px" type="number" name="priority{{ $menu2->id }}" min="1" onclick="prev_priority({{ $menu2->product_menu }}, {{ $menu2->id }})">
+                            </div>
                         </div>
                     </div>
                     @endif
@@ -224,6 +279,60 @@
 </div>
 
 <script>
+
+    function prev_priority(a, i, s) {  // a = array, i = id, s = status (hot / null)
+        const pre_priority = document.querySelector('.act_priority');
+
+        if(pre_priority) {
+            pre_priority.removeAttribute('class');
+            pre_priority.style.display = "none";
+        }
+        const array = a;
+        console.log("🚀 ~ file: edit.blade.php ~ line 430 ~ prev_priority ~ array", array, i, s)
+        if(s) {
+            const prioritys = document.getElementById('pre_priority_hot' + i)
+            if(prioritys) {
+                while (prioritys.firstChild != null) {
+                    prioritys.removeChild(prioritys.firstChild);
+                }
+                var text = "";
+                array.forEach(element => {
+                    if (element.priority) {
+                        text += element.priority + ", ";
+                    }
+                });
+
+                if(text) {
+                    prioritys.innerHTML = text;
+                    prioritys.style.display = "block";
+                    prioritys.setAttribute('class', 'act_priority');
+                }
+
+            }
+        }else {
+            const prioritys = document.getElementById('pre_priority' + i)
+            if(prioritys) {
+                while (prioritys.firstChild != null) {
+                    prioritys.removeChild(prioritys.firstChild);
+                }
+                var text = "";
+                array.forEach(element => {
+                    if (element.priority) {
+                        text += element.priority + ", ";
+                    }
+                });
+
+                if(text) {
+                    prioritys.innerHTML = text;
+                    prioritys.style.display = "block";
+                    prioritys.setAttribute('class', 'act_priority');
+                }
+
+            }
+        }
+
+    }
+
     function addProductSize() {
         const productSize = document.getElementById('product_size');
         const size = document.createElement("input");

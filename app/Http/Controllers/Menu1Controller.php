@@ -20,7 +20,7 @@ class Menu1Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
+        $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->paginate(20);
         $menutype = Menutype::all();
         return view('admin.menu1.index', ['datas' => $menu, 'menutype' => $menutype]);
     }
@@ -77,7 +77,7 @@ class Menu1Controller extends Controller
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '.' . $file->extension();
+            $ten_images = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             // $path_upload = 'upload/anh/';
             $request->file('images')->move(public_path('upload/images/menu'), $ten_images);
             $data->images = $ten_images;
@@ -108,7 +108,7 @@ class Menu1Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('menu_type_id', $id)->where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
+        $menu = Menu::where('menu_type_id', $id)->where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->paginate(8);
         $menutype = Menutype::all();
         return view('admin.menu1.show', ['datas' => $menu, 'menutype' => $menutype, 'menu_type_id' => $id]);
     }
@@ -173,7 +173,8 @@ class Menu1Controller extends Controller
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '.' . $file->extension();
+
+            $ten_images = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             if ($data->images) {  // kieemrtra cẩn sửa có ảnh chưa
                 if (File::exists(public_path('upload/images/menu/') . $data->images)) {
                     unlink(public_path('upload/images/menu/') . $data->images);
@@ -211,6 +212,9 @@ class Menu1Controller extends Controller
     public function destroy($id)
     {
         $menu = Menu::find($id);
+        if($menu->menu_type_id == 4 || $menu->menu_type_id == 6) {
+            return back();
+        }
         if ($menu->images) {
             $image_url1 = public_path('upload/images/menu') . $menu->images;
             if (File::exists($image_url1)) {
@@ -227,7 +231,7 @@ class Menu1Controller extends Controller
         if($search == ''){
             return redirect()->route('admin.menu1.index');
         }else {
-            $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
+            $menu = Menu::where('parent_menu_id', 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
             $menutype = Menutype::all();
             $menu->appends(['s' => $search]);
             // dd($menu);

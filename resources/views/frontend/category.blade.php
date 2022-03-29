@@ -92,7 +92,7 @@
                                     </div>
                                 @endif
                             <div class="card__product--img"><img
-                                src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
+                                src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="{{ $product_hot->name }}" /></div>
                             <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                             <div class="card__product--price d-flex justify-content-between align-items-center">
                                 @if (!($product_hot->is_contact_product))
@@ -134,7 +134,7 @@
                             </div>
                         @endif
                         <div class="card__product--img"><img
-                            src="{{ asset('upload/images/product/'. $product['image_1']) }}" alt="" /></div>
+                            src="{{ asset('upload/images/product/'. $product['image_1']) }}" alt="{{ $product['name'] }}" /></div>
                         <h3 class="card__product--name">{{ $product['name'] }}</h3>
                         <div class="card__product--price d-flex justify-content-between align-items-center">
                             @if (!($product['is_contact_product']))
@@ -159,13 +159,13 @@
       </div>
       <div class="product__block product__block--hot">
         <div class="product__block--title">
-          <h2>Sản phẩm hot trong tháng</h2>
+          <h2>{{ $product_hot2s->name }}</h2>
           <div class="product__block--line"></div>
-          <div class="product__block--link"><a href="">Xem tất cả</a></div>
+          <div class="product__block--link"><a href="{{ route('category', $product_hot2s->slug) }}">Xem tất cả</a></div>
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
-            @foreach ($product_hot2s as $product_hot)
+            @foreach ($product_hot2s->products as $product_hot)
                 <div class="swiper-slide">
                     <div class="product__block--item col-12">
                         <a href="{{ route('category', $product_hot->slug) }}">
@@ -177,7 +177,7 @@
                                         </p>
                                     </div>
                                 @endif
-                                <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="" /></div>
+                                <div class="card__product--img"><img src="{{ asset('upload/images/product/'. $product_hot->image_1) }}" alt="{{ $product_hot->name }}" /></div>
                                 <h3 class="card__product--name">{{ $product_hot->name }}</h3>
                                 <div class="card__product--price d-flex justify-content-between align-items-center">
                                     @if (!($product_hot->is_contact_product))

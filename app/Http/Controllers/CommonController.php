@@ -51,24 +51,31 @@ class CommonController extends Controller
             ->orderBY(DB::raw('ISNULL(menus.priority), priority'), 'ASC')
             ->where('status', true)->limit(8)->get();
 
-        $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-            ->join('menus', 'product_menu.subcategory_id', '=', 'menus.id')
-            ->where('menu_type_id', 4)
-            ->where('product_menu.priority', '<>', null)
-            ->select('products.*', 'product_menu.subcategory_id AS menu_id', 'product_menu.priority')
-            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-            ->distinct()
-            ->where('products.status', true)->get();
+        $menu_connects = Menu::where('menu_type_id', 5)
+            ->orderBY(DB::raw('ISNULL(menus.priority), priority'), 'ASC')
+            ->where('status', true)->limit(8)->get();
+            // dd($menu_connects);
 
-        $product_hot2s = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
-            ->join('menus', 'product_menu.subcategory_id', '=', 'menus.id')
-            ->where('menu_type_id', 4)
-            ->where('is_hot_product', true)
-            ->where('product_menu.priority', '<>', null)
-            ->select('products.*', 'product_menu.priority')
-            ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
-            ->distinct()
-            ->where('products.status', true)->get();
+        // $product_hots = Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+        //     ->join('menus', 'product_menu.subcategory_id', '=', 'menus.id')
+        //     ->where('menu_type_id', 4)
+        //     ->where('product_menu.priority', '<>', null)
+        //     ->select('products.*', 'product_menu.subcategory_id AS menu_id', 'product_menu.priority')
+        //     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+        //     ->distinct()
+        //     ->where('products.status', true)->get();
+
+        $product_hot2s = Menu::where('menu_type_id', 4)->where('slug', 'like', '%hot%')->with('products')->first();
+        // dd($product_hot2s);
+        // Product::join('product_menu', 'product_menu.product_id', '=', 'products.id')
+        //     ->join('menus', 'product_menu.subcategory_id', '=', 'menus.id')
+        //     ->where('menu_type_id', 4)
+        //     ->where('is_hot_product', true)
+        //     ->where('product_menu.priority', '<>', null)
+        //     ->select('products.*', 'product_menu.priority', 'menus.slug')
+        //     ->orderBy(DB::raw('ISNULL(product_menu.priority), product_menu.priority'), 'ASC')
+        //     ->distinct()
+        //     ->where('products.status', true)->get();
 
         $videos = Video::orderBY(DB::raw('ISNULL(videos.priority), priority'), 'ASC')
         ->where('status', true)->limit(3)->get();
@@ -100,7 +107,8 @@ class CommonController extends Controller
             'menu_sales' => $menu_sales,
             'menu_tops' => $menu_tops,
             'menu_bottoms' => $menu_bottoms,
-            'product_hots' => $product_hots,
+            'menu_connects' => $menu_connects,
+            // 'product_hots' => $product_hots,
             'product_hot2s' => $product_hot2s,
             'videos' => $videos,
             'news_made' => $news_made,

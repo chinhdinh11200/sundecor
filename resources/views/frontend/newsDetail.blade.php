@@ -5,10 +5,10 @@
             <div class="main-container product__container">
                 <div class="row product__detail--row">
                     <div class="product__detail--left col-12 row">
-                        <h2 class="news_detail--title">{{ $new->name }}</h2>
-                        <div>{!! $new->content !!}</div>
+                        <h2 class="news_detail--title">{{ $new->title }}</h2>
+                        {{-- <div>{!! $new->content !!}</div> --}}
                         {{-- biến trang này là $new --}}
-                        <h2 class="col-12">{{$new->title}}</h2>
+                        {{-- <h2 class="col-12">{{$new->title}}</h2> --}}
                         <div class="product__detail--content">
                             {!!$new->content!!}
                         </div>

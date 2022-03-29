@@ -49,8 +49,8 @@ class ProductController extends Controller
             $url = $request->input('cloneProject')['image_1'];
                 $contents = file_get_contents($url);
                 $extension = pathinfo($url, PATHINFO_EXTENSION);
-                $name = 'upload/images/product/' . time() . rand(1, 100) . '.' . $extension;
-                $product->image_1 = $name;
+                $name = 'upload/images/product/' . Str::slug(pathinfo($url, PATHINFO_FILENAME)) . '.' . $extension;
+                $product->image_1 = Str::slug($request->input('cloneProject')['name']) . '.' . $extension;
                 file_put_contents($name, $contents);
                 if($request->input('cloneProject')['is_contact_product']){
                     $product->is_contact_product = $request->input('cloneProject')['is_contact_product'];

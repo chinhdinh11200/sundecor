@@ -28,10 +28,14 @@ class CreateWebInfosTable extends Migration
             $table->text('banner_ad')->nullable();
             $table->text('site_name')->nullable();
             $table->text('description')->nullable();
-            $table->text('keywords')->nullable();
-            $table->text('title')->nullable();
-            $table->text('sale')->nullable();
-            $table->text('gift')->nullable();
+            $table->text('info')->nullable();
+            $table->string('keywords')->nullable();
+            $table->string('title')->nullable();
+            $table->string('sale')->nullable();
+            $table->string('gift')->nullable();
+            $table->string('image')->nullable();
+            $table->string('link_map')->nullable();
+            $table->string('image_web')->nullable();
             $table->timestamps();
         });
     }

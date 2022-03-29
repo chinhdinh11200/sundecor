@@ -49,7 +49,7 @@
 <body id="welcome">
 	<!-- <div id="fb-root"></div> -->
 	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=1319787985150517&autoLogAppEvents=1" nonce="C00eKajK"></script>
-	@include('frontend.layout.header')
+	@include('frontend.layout.header', ['cart_quantity' => isset($cart_quantity) ? $cart_quantity : 0])
 
 	<div class="main-body">
 		@yield('content')

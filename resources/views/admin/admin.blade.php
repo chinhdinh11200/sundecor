@@ -172,6 +172,18 @@
                     <p style="color: red">{{ $errors->first('address') }}</p>
                 @endif
             </div>
+            <div class="form-group">
+                <label for="info">Thông tin footer : </label>
+                <textarea class="form-control" id="info" name="info" value="{{ old('info') }}">{{ $webInfo->info }}</textarea>
+                <script>
+                    CKEDITOR.replace( 'info' , {
+                            width: ['100%'], height: ['500px']
+                    });
+                </script>
+                @if($errors->has('info'))
+                    <p style="color: red">{{ $errors->first('info') }}</p>
+                @endif
+            </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
@@ -328,6 +340,18 @@
                 </script>
                 @if($errors->has('address'))
                     <p style="color: red">{{ $errors->first('address') }}</p>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="info">Thông tin footer : </label>
+                <textarea class="form-control" id="info" name="info" value="{{ old('info') }}"></textarea>
+                <script>
+                    CKEDITOR.replace( 'info' , {
+                            width: ['100%'], height: ['500px']
+                    });
+                </script>
+                @if($errors->has('info'))
+                    <p style="color: red">{{ $errors->first('info') }}</p>
                 @endif
             </div>
 
