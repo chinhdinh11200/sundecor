@@ -63,7 +63,7 @@ var swiper = new Swiper(".product__detail--swiper1", {
     freeMode: true,
     watchSlidesProgress: true,
   });
-  var swiper2 = new Swiper(".product__detail--swiper2", {
+var swiper2 = new Swiper(".product__detail--swiper2", {
     loop: true,
     spaceBetween: 10,
     navigation: {
@@ -107,7 +107,25 @@ if(window.innerWidth >= 576){
 if(window.innerWidth < 576){
     var slidesPerView = 2;
 }
-var swiperProduct = new Swiper(".productSwiper", {
+var swiperProduct = new Swiper(".product__block--swiper:nth-child(2n) .productSwiper", {
+    slidesPerView: slidesPerView,
+    // direction: getDirection(),
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    on: {
+        resize: function () {
+            swiperProduct.changeDirection(getDirection());
+        },
+    },
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+});
+var swiperProduct = new Swiper(".product__block--swiper:nth-child(1) .productSwiper", {
     slidesPerView: slidesPerView,
     // direction: getDirection(),
     navigation: {
