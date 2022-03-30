@@ -47,7 +47,7 @@
                         src="{{ asset('upload/images/news/'. $new->image) }}" alt="" /></div>
                     <h3 class="card__product--name">{{ $new->name }}</h3>
                         {{-- thêm mô tả của tin tức --}}
-                    <p>{{ $new->description }}</p>
+                    <p class="card__product--des">{{ $new->description }}</p>
                   </div>
                 </a>
               </div>

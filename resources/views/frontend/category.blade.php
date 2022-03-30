@@ -27,39 +27,41 @@
       </div>
     </div>
     <div class="main-container">
-        <div class="category__frame">
-            <h4 class="category__frame--title">
-                @if ($menu->parent_menu_id)
-                    @foreach ($main_menu1 as $menu1)
-                        @if ($menu1->id == $menu->parent_menu_id)
-                            {{ $menu1->name }}
-                        @endif
-                    @endforeach
-                @else
-                    {{ $menu->name }}
-                @endif
-            </h4>
-            <ul class="category__frame--list row">
+        @if($menu->menu_type_id!=4)
+            <div class="category__frame">
+                <h4 class="category__frame--title">
+                    @if ($menu->parent_menu_id)
+                        @foreach ($main_menu1 as $menu1)
+                            @if ($menu1->id == $menu->parent_menu_id)
+                                {{ $menu1->name }}
+                            @endif
+                        @endforeach
+                    @else
+                        {{ $menu->name }}
+                    @endif
+                </h4>
+                <ul class="category__frame--list row">
 
-                @if ($menu->parent_menu_id)
-                    @foreach ($menu2 as $mn2)
-                        @if ($mn2->parent_menu_id == $menu->parent_menu_id)
-                        <li class="category__frame--item col-6 col-sm-4 col-md-3" <?php ?>>
+                    @if ($menu->parent_menu_id)
+                        @foreach ($menu2 as $mn2)
+                            @if ($mn2->parent_menu_id == $menu->parent_menu_id)
+                            <li class="category__frame--item col-6 col-sm-4 col-md-3" <?php ?>>
+                                <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
+                            </li>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach ($menu2 as $mn2)
+                            @if ($mn2->parent_menu_id == $menu->id)
+                            <li class="category__frame--item col-6 col-sm-4 col-md-3">
                             <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
-                        </li>
-                        @endif
-                    @endforeach
-                @else
-                    @foreach ($menu2 as $mn2)
-                        @if ($mn2->parent_menu_id == $menu->id)
-                        <li class="category__frame--item col-6 col-sm-4 col-md-3">
-                        <a href="{{ route('category', $mn2->slug) }}" class="category__frame--link <?php echo ($mn2->id == $menu->id ? 'category__frame--active' : '') ?>">{{ $mn2->name }}</a>
-                        </li>
-                        @endif
-                    @endforeach
-                @endif
-            </ul>
-        </div>
+                            </li>
+                            @endif
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+        @endif
       <h2 class="page-category__title">{{ $menu->title }}</h2>
       <div class="textmore__block">
         <div class="textmore__block--content textmore__block--content1">

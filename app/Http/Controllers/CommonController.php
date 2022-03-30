@@ -81,7 +81,7 @@ class CommonController extends Controller
         ->where('status', true)->limit(3)->get();
 
         $news_made = News::orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->where('menu_id', 2)
-        ->where('status', true)->paginate(4);
+        ->where('status', true)->paginate(8);
 
         $news_know = News::orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->where('menu_id', 3)
         ->where('status', true)->paginate(2);
