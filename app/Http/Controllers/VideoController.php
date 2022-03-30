@@ -19,7 +19,8 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
+        $videos = Video::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+        ->orderBy('created_at', 'DESC')->paginate(8);
         return view('admin.video.index')->with('videos', $videos);
     }
 
@@ -173,7 +174,8 @@ class VideoController extends Controller
         if($search == ''){
             return redirect()->route('admin.video.index');
         }else {
-            $videos = DB::table('videos')->select('videos.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('title', 'like', '%'.$search.'%')->paginate(8);
+            $videos = DB::table('videos')->select('videos.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('title', 'like', '%'.$search.'%')
+            ->orderBy('created_at', 'DESC')->paginate(8);
             $videos->appends(['s' => $search]);
             return view('admin.video.search')->with('videos', $videos);
         }

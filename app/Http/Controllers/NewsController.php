@@ -22,7 +22,8 @@ class NewsController extends Controller
     public function index()
     {
         $menus1 = Menu::where('parent_menu_id', 0)->get();
-        $menus2 = Menu::where('parent_menu_id', '!=', '0')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->get();
+        $menus2 = Menu::where('parent_menu_id', '!=', '0')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+        ->orderBy('created_at', 'DESC')->get();
         $news = News::orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
         return view('admin.news.index', compact('news', 'menus1', 'menus2'));
     }
@@ -61,7 +62,8 @@ class NewsController extends Controller
 
         $image_url = '';
         if($request->hasFile('image')){
-            $image_url = time() . '.' . $request->image->extension();
+            $file = $request->file('image');
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 
@@ -95,6 +97,7 @@ class NewsController extends Controller
         $news = DB::table('news')
                     ->where('news.menu_id', $id)
                     ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                    ->orderBy('created_at', 'DESC')
                     ->select('news.*')
                     ->paginate(8);
         return view('admin.news.show', ['news' => $news, 'menus' => $menus, 'menu_id' => $id]);
@@ -143,7 +146,8 @@ class NewsController extends Controller
                     unlink(public_path('upload/images/news/'). $news->image);
                 }
             }
-            $image_url = $request->image ? time() . $request->image->extension() : $news->image;
+            $file = $request->file('image');
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             $request->image->move(public_path('upload/images/news'), $image_url);
         }
 
@@ -179,7 +183,9 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $new = News::find($id);
-
+        if($new->menu_id == 1){
+            return back();
+        }
         if($new->image){
             $image_url = public_path('upload/images/news/'). $new->image;
             if(File::exists($image_url)){
@@ -197,7 +203,8 @@ class NewsController extends Controller
             return redirect()->route('admin.news.index');
         }else {
             $menus = Menu::all();
-            $news = News::where('slug', 'like', '%'. $search . '%')->orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')->paginate(8);
+            $news = News::where('slug', 'like', '%'. $search . '%')->orderBY(DB::raw('ISNULL(news.priority), priority'), 'ASC')
+            ->orderBy('created_at', 'DESC')->paginate(8);
             $news->appends(['s' => $search]);
             return view('admin.news.search', ['news' => $news, 'menus' => $menus]);
         }

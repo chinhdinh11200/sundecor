@@ -20,12 +20,12 @@ class Menu2Controller extends Controller
         $parent_menu_id = $_GET['parent_menu_id'];
         // dd($menu_id);
         $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', $id)->orderBy('name', 'ASC')->get();  //paginate: PHÂN TRANG
-?>
+    ?>
         <?php if (count($menu1) != 0) : ?>
             <label for="exampleInputEmail1">Loại menu</label>
             <select type="text" class="form-control" id="parent_menu_id" name="parent_menu_id">
                 <option value=<?php echo null?> >---Chọn menu cha---</option>
-                <?php foreach ($menu1 as $mt1) : ?>
+                   <?php foreach ($menu1 as $mt1) : ?>
                     <option value="<?= $mt1->id ?>" <?php
                                                     if ($parent_menu_id == $mt1->id) {
                                                         echo "selected";
@@ -34,7 +34,7 @@ class Menu2Controller extends Controller
                 <?php endforeach ?>
             </select>
         <?php endif; ?>
-<?php
+    <?php
     }
     /**
      * Display a listing of the resource.
@@ -43,7 +43,7 @@ class Menu2Controller extends Controller
      */
     public function index()
     {
-        $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
+        $menu = Menu::where('parent_menu_id', "<>", 0)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->paginate(8);
         // dd($menu);
         $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
         return view('admin.menu2.index', ['datas' => $menu, 'menu1' => $menu1]);
@@ -97,7 +97,7 @@ class Menu2Controller extends Controller
         if ($request->hasFile('images')) //has(name-input) //has-kiểm tra tồn tại hay ko
         {
             $file = $request->file('images');
-            $ten_images = time() . '.' . $file->extension();
+            $ten_images = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             $request->file('images')->move(public_path('upload/images/menu2'), $ten_images);
             $data->images = $ten_images;
         }
@@ -127,7 +127,7 @@ class Menu2Controller extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::where('parent_menu_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(20);
+        $menu = Menu::where('parent_menu_id', $id)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->paginate(20);
         $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
         return view('admin.menu2.show', ['datas' => $menu, 'menu1' => $menu1, 'parent_menu_id' => $id]);
     }
@@ -172,7 +172,8 @@ class Menu2Controller extends Controller
                     unlink(public_path('upload/images/menu/') . $menu_update->images);
                 }
             }
-            $image_url = time() . '.' . $request->images->extension();
+            $file = $request->file('images');
+            $image_url = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->extension();
             $request->images->move(public_path('upload/images/menu'), $image_url);
             $menu_update->images = $image_url;
         }
@@ -230,7 +231,7 @@ class Menu2Controller extends Controller
         if($search == ''){
             return redirect()->route('admin.menu2.index');
         }else {
-            $menu = Menu::where('parent_menu_id', "<>", 0)->where('menu_type_id', 2)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
+            $menu = Menu::where('parent_menu_id', "<>", 0)->where('menu_type_id', 2)->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->where('slug', 'like', '%'.$search.'%')->paginate(8);
             $menu1 = Menu::where('parent_menu_id', 0)->where('menu_type_id', 2)->get();
             $menu->appends(['s' => $search]);
             return view('admin.menu2.search', ['datas' => $menu, 'menu1' => $menu1]);

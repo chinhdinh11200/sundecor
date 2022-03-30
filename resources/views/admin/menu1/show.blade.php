@@ -58,11 +58,14 @@
                                             <td style="vertical-align: middle; text-align: center">
                                                 <div class="d-flex justify-content-center" style="max-height: 38px">
                                                     <a href="{{ route('admin.menu1.edit', ['menu1' => $data]) }}" class="btn btn-primary mr-3">Sửa</a>
-                                                <form action="{{ route('admin.menu1.destroy', ['menu1' => $data->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger" onClick="confirm('Bạn có chắc muốn xóa?')">Xóa</button>
-                                                </form>
+                                                    @if ($data->menu_type_id == 4 || $data->menu_type_id == 6)
+                                                    @else
+                                                        <form action="{{ route('admin.menu1.destroy', ['menu1' => $data->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-danger" onClick="confirm('Bạn có chắc muốn xóa?')">Xóa</button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

@@ -54,7 +54,7 @@
         </select>
       </div>
       <?php
-        $check_mt[1]=0; $check_mt[2]=0; $check_mt[3]=0; $check_mt[4]=0; $check_mt[5]=0; $i=1;
+        $check_mt[1]=0; $check_mt[2]=0; $check_mt[3]=0; $check_mt[4]=0; $check_mt[5]=0; $check_mt[6]=0; $i=1;
         foreach($menus as $m){
           if($m->menu_type_id==1){
             $check_mt[1]=1;
@@ -71,6 +71,9 @@
           if($m->menu_type_id==5){
             $check_mt[5]=5;
           }
+          if($m->menu_type_id==6){
+            $check_mt[6]=6;
+          }
         }
       ?>
       <div class="form-group">
@@ -83,7 +86,7 @@
                 if($mt->id==$menu->menu_type_id){
                     echo "selected";
                 }
-                else if($mt->id!=$check_mt[$i]){
+                else if($mt->id!=2){
                     echo "disabled";
                 }
                 else {

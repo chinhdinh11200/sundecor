@@ -19,7 +19,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->paginate(8);
+        $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+        ->orderBy('created_at', 'DESC')->paginate(8);
         // dd($slides);
         return view('admin.banner.index')->with('slides', $slides);
     }
@@ -154,7 +155,7 @@ class BannerController extends Controller
         if($search == ''){
             return redirect()->route('admin.banner.index');
         }else {
-            $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->where('title', 'like', '%'.$search.'%')->paginate(8);
+            $slides = DB::table('slides')->select('slides.*')->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')->orderBy('created_at', 'DESC')->where('title', 'like', '%'.$search.'%')->paginate(8);
             $slides->appends(['s' => $search]);
             return view('admin.banner.search')->with('slides', $slides);
         }

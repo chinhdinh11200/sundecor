@@ -1,4 +1,4 @@
-@extends('frontend.layout.main')
+@extends('frontend.layout.main', ['cart_quantity' => $cart_quantity])
 
 @section('content')
 <section>
@@ -193,21 +193,4 @@
     <script src="{{asset('frontend/js/common.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
-    <script>
-        function getCartQuantity() {
-            console.log("test");
-
-            fetch(`/cart_quantity?session_id=222ae80f-b34c-4f06-ad33-189f2e16e4d3`)
-            .then(res => res.json())
-            .then((data) => {
-                $('#cartQuantity').html(data)
-            })
-        }
-    </script>
 @endsection
-
-{{-- <script>
-    $(document).ready(function() {
-        console.log("ss");
-    })
-</script> --}}

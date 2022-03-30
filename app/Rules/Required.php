@@ -27,6 +27,7 @@ class Required implements Rule
      */
     public function passes($attribute, $value)
     {
+        // dd($value);
         if(is_array($value)){
             // dd(is_null($value[0]));
             return !is_null($value[0]);

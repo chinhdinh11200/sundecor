@@ -19,7 +19,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')->paginate(8);
+        $customers = Customer::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
+        ->orderBy('created_at', 'DESC')->paginate(8);
         return view('admin.customer.index', compact('customers'));
     }
 
@@ -123,6 +124,7 @@ class CustomerController extends Controller
         }else {
             $customers = Customer::orderBy(DB::raw('ISNULL(created_at), created_at'), 'DESC')
             ->where('name', 'like', '%'.$search.'%')
+            ->orderBy('created_at', 'DESC')
             ->paginate(8);
 
             $customers->appends(['s' => $search]);
