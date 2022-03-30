@@ -486,6 +486,15 @@ button {
   white-space: normal;
   -webkit-line-clamp: 2;
 }
+.card__product .card__product--des {
+  text-transform: capitalize;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-line-clamp: 3;
+}
 .card__product .card__product--contact{
   color: black;
   font-size: 32px;
@@ -628,6 +637,13 @@ button {
   background-color: #ed0904;
   color: #fff;
   box-shadow: 8px 8px 8px rgb(0 0 0 / 50);
+  font-weight: bold;
+  letter-spacing: 0.3rem;
+  border: none;
+  padding-top: 6px;
+}
+.voucher__block .voucher__block--button:hover{
+  background-color: #ff7f00;
 }
 @media only screen and (max-width: 991px) {
   .voucher__block {
