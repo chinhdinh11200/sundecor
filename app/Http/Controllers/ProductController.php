@@ -236,7 +236,7 @@ class ProductController extends Controller
 
                 $product_menu->save();
             }
-            if($request->input('priority_hot'.$menu->id)){
+            if($request->input('priority_hot'.$menu->id) && $menu->parent_menu_id == 0){
                 $priority = $request->input('priority_hot'.$menu->id);
                 $subcategory_id = $menu->id;
                 $priority_exist = ProductMenu::where('priority', $priority)
@@ -602,12 +602,11 @@ class ProductController extends Controller
                                             ->where('is_hot', null)
                                             ->first();
                 if($product_menu){
-                    // dd($product->id, $menu->id, $product_menu);
                     $product_menu->delete();
                 }
             }
 
-            if($request->input('priority_hot'.$menu->id)){
+            if($request->input('priority_hot'.$menu->id) && $menu->parent_menu_id == 0){
                 $priority = $request->input('priority_hot'.$menu->id);
                 $subcategory_id = $menu->id;
 

@@ -8,10 +8,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="left">
-                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách SẢN PHẨM</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.index')}}">Danh Sách Sản Phẩm</a></h3>
                         </div>
                         <div class="right no-click">
-                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm SẢN PHẨM</a></h3>
+                            <h3 class="card-title"><a href="{{route('admin.product.create')}}">Thêm Sản Phẩm</a></h3>
                         </div>
                     </div>
                     <!-- /.card-option -->
@@ -28,14 +28,16 @@
                             @endforeach
                         </select>
                     </form>
+                    @if ($menu_show->parent_menu_id == 0)
+                        <form action="" method="post" class="card-option">
+                            <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
+                                <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'false']) }}" {{ $hot == null ? 'selected' : '' }}>Sản phẩm thường</option>
 
-                    <form action="" method="post" class="card-option">
-                        <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
-                            <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'false']) }}" {{ $hot == null ? 'selected' : '' }}>Sản phẩm thường</option>
+                                <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'true']) }}" {{ $hot == true ? 'selected' : '' }}>Sản phẩm hot</option>
+                            </select>
+                        </form>
+                    @endif
 
-                            <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'true']) }}" {{ $hot == true ? 'selected' : '' }}>Sản phẩm hot</option>
-                        </select>
-                    </form>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">

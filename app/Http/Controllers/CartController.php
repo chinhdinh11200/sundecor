@@ -161,7 +161,6 @@ class CartController extends CommonController
 
     public function cartCreate(Request $request)
     {
-        // dd($request);
         $product = Product::find($request->input('product_id'));
 
         if(!$product->is_contact_product) {

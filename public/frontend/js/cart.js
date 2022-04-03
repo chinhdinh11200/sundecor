@@ -16,11 +16,16 @@ $(document).ready(function() {
     }
 
     if($('#cartQuantity').text() == 0) {
-        fetch(`/cart_quantity?session_id=${session_id}`)
-        .then((res) => res.json())
-        .then((data) => {
-            $('#cartQuantity').html(data);
-        })
+        if(!localStorage.getItem('quantity')) {
+            fetch(`/cart_quantity?session_id=${session_id}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    $('#cartQuantity').html(data);
+                    localStorage.setItem('quantity', data)
+                })
+        }else {
+            $('#cartQuantity').html(localStorage.getItem('quantity'));
+        }
     }
 
     const session_ids = document.getElementsByName("session_id")
@@ -58,6 +63,10 @@ $(document).ready(function() {
     $('#order').click(function (e) {
         localStorage.removeItem('session_id');
     });
+
+    $('#buy').click(function () {
+        
+    })
 
 })
 
