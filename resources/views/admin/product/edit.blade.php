@@ -297,7 +297,8 @@
 
                                     <div style="
                                             display: flex;
-                                            align-items: center;"
+                                            align-items: center;
+                                            justify-content: space-between"
                                     >
                                         <div
                                             style="display: inline-block;
@@ -309,31 +310,6 @@
                                             {{$menu2->name}}
                                         </div>
                                         @if (isset($menu2->products) && $menu2->products->count() > 0)
-                                            <div style="position: relative;">
-                                                <div style="
-                                                    position: absolute;
-                                                    top: -100%;
-                                                    left: 50%;
-                                                    transform: translateX(-50%);
-                                                    display:none;
-                                                    background: lightblue;
-                                                    padding: 5px 7px;
-                                                    border-radius: 5px;
-                                                    width: max-content;"
-                                                    id="pre_priority_hot{{ $menu2->id }}">ccc</div>
-
-                                                <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot"
-                                                    onclick="prev_priority({{ $menu2->product_menu_hot }}, {{ $menu2->id }}, 'hot')"
-                                                    <?php
-                                                        foreach ($menu2->products as $menu_product) {
-                                                            if ($menu_product->pivot->is_hot) {
-                                                                echo 'value="'. $menu_product->pivot->priority . '"';
-                                                            }
-                                                        }
-                                                    ?>
-                                                >
-                                            </div>
-
                                             <div style="position: relative;">
                                                 <div style="
                                                     position: absolute;
@@ -359,7 +335,7 @@
                                             </div>
 
                                         @else
-                                            <div style="position: relative;">
+                                            {{-- <div style="position: relative;">
                                                 <div style="
                                                     position: absolute;
                                                     top: -100%;
@@ -373,7 +349,7 @@
                                                     id="pre_priority_hot{{ $menu2->id }}">ccc</div>
                                                 <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot"
                                                 onclick="prev_priority({{ $menu2->product_menu_hot }}, {{ $menu2->id }}, 'hot')">
-                                            </div>
+                                            </div> --}}
                                             <div style="position: relative;">
                                                 <div style="
                                                     position: absolute;

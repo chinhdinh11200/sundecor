@@ -193,4 +193,13 @@
     <script src="{{asset('frontend/js/common.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
     <script src="{{ asset('frontend/js/cart.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            fetch(`/cart_quantity?session_id=${localStorage.getItem('session_id')}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    localStorage.setItem('quantity', data)
+                })
+        });
+    </script>
 @endsection

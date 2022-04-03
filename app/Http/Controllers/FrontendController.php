@@ -58,18 +58,6 @@ class FrontendController extends CommonController
         }
         else if($menu) {
             if($menu->menu_type_id == 2 || $menu->menu_type_id == 4) {
-                $product_hots = Menu::where('status', true)
-                                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                                    ->with(['products' => function($query) {
-                                        $query->where('status', true)
-                                                ->where('is_hot', true)
-                                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
-                                                ->orderBy('created_at', 'DESC')
-                                                ->with('product_size')
-                                                ->limit(8);
-                                    }])
-                                    ->where('id', $menu->id)
-                                    ->first();
                 $collection = Menu::where('status', true)
                         ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
                         ->with(['products' => function($query) {
@@ -93,8 +81,40 @@ class FrontendController extends CommonController
                     $page,
                     ['path' => request()->url(), 'query' => request()->query()]
                 );
-                return view('frontend.category', compact('products', 'product_hots'))->with('menu', $menu);
+                if($menu->parent_menu_id == 0) {  // nếu là menu cha
+                    $product_hots = Menu::where('status', true)
+                                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                    ->with(['products' => function($query) {
+                                        $query->where('status', true)
+                                                ->where('is_hot', true)
+                                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                                ->orderBy('created_at', 'DESC')
+                                                ->with('product_size')
+                                                ->limit(8);
+                                    }])
+                                    ->where('id', $menu->id)
+                                    ->first();
+                    return view('frontend.category', compact('products', 'product_hots'))->with('menu', $menu);
+                }else {
+                    $product_hots = Menu::where('status', true)
+                                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                    ->with(['products' => function($query) {
+                                        $query->where('status', true)
+                                                ->where('is_hot', true)
+                                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                                ->orderBy('created_at', 'DESC')
+                                                ->with('product_size')
+                                                ->limit(8);
+                                    }])
+                                    ->where('id', $menu->parent_menu_id)
+                                    ->first();
+                    $menu1 = Menu::find($menu->parent_menu_id);
+                    // dd($menu, $menu1);
+                    return view('frontend.category', compact('products', 'product_hots'))->with('menu1_hot', $menu1)->with('menu', $menu);
+                }
+
             }else if($menu->menu_type_id != 2) {
+                // dd($menu);
                 $news = News::where('menu_id', $menu->id)
                                 ->where('status', true)->paginate(20);
                 if(isset($news)){
