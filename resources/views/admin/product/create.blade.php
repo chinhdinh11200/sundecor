@@ -216,7 +216,8 @@
                     >
                         <div style="
                                 display: flex;
-                                align-items: center;"
+                                align-items: center;
+                            justify-content: space-between"
                         >
                             <div
                                 style="display: inline-block;
@@ -227,7 +228,7 @@
                             >
                                 {{$menu2->name}}
                             </div>
-                            <div style="position: relative">
+                            {{-- <div style="position: relative">
                                 <div style="
                                     position: absolute;
                                     top: -100%;
@@ -241,7 +242,7 @@
                                     id="pre_priority_hot{{ $menu2->id }}">ccc</div>
 
                                 <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu2->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu2->product_menu_hot }}, {{ $menu2->id }}, 'hot')">
-                            </div>
+                            </div> --}}
                             <div style="position: relative">
                                 <div style="
                                     position: absolute;

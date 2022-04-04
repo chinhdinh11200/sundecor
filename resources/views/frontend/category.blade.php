@@ -73,7 +73,13 @@
       </div>
       <div class="product__block product__block--sale">
         <div class="product__block--title">
-            <h2>Sản phẩm {{ $menu->name }} bán chạy</h2>
+            <h2>Sản phẩm
+                    @if (isset($menu1_hot))
+                        {{ $menu1_hot->name }}
+                    @else
+                        {{ $menu->name }}
+                    @endif
+                bán chạy</h2>
             <div class="product__block--line"></div>
             {{-- <div class="product__block--link"><a href="">Xem tất cả</a></div> --}}
         </div>
