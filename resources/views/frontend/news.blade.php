@@ -68,7 +68,7 @@
         </div>
         <div class="swiper productSwiper">
           <div class="swiper-wrapper">
-            @foreach ($product_hot2s as $product_hot)
+            @foreach ($product_hot2s->products as $product_hot)
                 <div class="swiper-slide">
                     <div class="product__block--item col-12">
                         <a href="{{ route('category', $product_hot->slug) }}">
