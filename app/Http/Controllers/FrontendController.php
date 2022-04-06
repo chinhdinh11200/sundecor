@@ -48,7 +48,7 @@ class FrontendController extends CommonController
         return view('frontend.index', compact('menus1'));
     }
 
-    public function category($slug)
+    public function category(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)->first();
         $menu = Menu::where('slug', $slug)->first();
@@ -94,6 +94,21 @@ class FrontendController extends CommonController
                                     }])
                                     ->where('id', $menu->id)
                                     ->first();
+                    if($request->sp_hot_trong_thang == "true") {
+                        $product_all_hots = Menu::where('status', true)
+                                    ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                    ->with(['products' => function($query) {
+                                        $query->where('status', true)
+                                                ->where('is_hot', true)
+                                                ->orderBy(DB::raw('ISNULL(priority), priority'), 'ASC')
+                                                ->orderBy('created_at', 'DESC')
+                                                ->with('product_size')
+                                                ->limit(20);
+                                    }])
+                                    ->where('id', $menu->id)
+                                    ->first();
+                        return view('frontend.category', compact('products', 'product_all_hots'))->with('menu', $menu);
+                    }
                     return view('frontend.category', compact('products', 'product_hots'))->with('menu', $menu);
                 }else {
                     $product_hots = Menu::where('status', true)
