@@ -161,7 +161,8 @@
                 >
                     <div style="
                             display: flex;
-                            align-items: center;"
+                            align-items: center;
+                            justify-content: space-between;"
                     >
                         <div
                             style="display: inline-block;
@@ -173,21 +174,24 @@
                         >
                             {{$menu1->name}}
                         </div>
-                        <div style="position: relative;">
-                            <div
-                                style="
-                                    position: absolute;
-                                    top: -100%;
-                                    left: 50%;
-                                    transform: translateX(-50%);
-                                    display:none;
-                                    background: lightblue;
-                                    padding: 5px 7px;
-                                    border-radius: 5px;
-                                    width: max-content"
-                                id="pre_priority_hot{{ $menu1->id }}">ccc</div>
-                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')">
-                        </div>
+                        @if ($menu1->menu_type_id != 4)
+                            <div style="position: relative;">
+                                <div
+                                    style="
+                                        position: absolute;
+                                        top: -100%;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        display:none;
+                                        background: lightblue;
+                                        padding: 5px 7px;
+                                        border-radius: 5px;
+                                        width: max-content"
+                                    id="pre_priority_hot{{ $menu1->id }}">ccc</div>
+                                <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')">
+                            </div>
+                        @endif
+
                         <div style="position: relative;">
                             <div
                                 style="

@@ -28,7 +28,8 @@
                             @endforeach
                         </select>
                     </form>
-                    @if ($menu_show->parent_menu_id == 0)
+
+                    @if ($menu_show->parent_menu_id == 0 && $menu_show->menu_type_id != 4)
                         <form action="" method="post" class="card-option">
                             <select class="form-control" aria-label="Default select example" onchange="window.location=this.value">
                                 <option value="{{ route('admin.product.fill', ['id' => $menu_show->id, 'is_hot' => 'false']) }}" {{ $hot == null ? 'selected' : '' }}>Sản phẩm thường</option>
