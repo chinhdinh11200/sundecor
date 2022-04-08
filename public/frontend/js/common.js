@@ -107,7 +107,8 @@ if(window.innerWidth >= 576){
 if(window.innerWidth < 576){
     var slidesPerView = 2;
 }
-var swiperProduct = new Swiper(".product__block--swiper:nth-child(2n) .productSwiper", {
+
+var swiperProduct = new Swiper(".product__block--hot .productSwiper", {
     slidesPerView: slidesPerView,
     // direction: getDirection(),
     navigation: {
@@ -121,11 +122,29 @@ var swiperProduct = new Swiper(".product__block--swiper:nth-child(2n) .productSw
     },
     speed: 1000,
     autoplay: {
-      delay: 5000,
+      delay: 4500,
       disableOnInteraction: false,
     },
 });
-var swiperProduct = new Swiper(".product__block--swiper:nth-child(1) .productSwiper", {
+var swiperProduct = new Swiper(".product__block:nth-child(2n) .productSwiper", {
+    slidesPerView: slidesPerView,
+    // direction: getDirection(),
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    on: {
+        resize: function () {
+            swiperProduct.changeDirection(getDirection());
+        },
+    },
+    speed: 1000,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false,
+    },
+});
+var swiperProduct = new Swiper(".product__block:nth-child(1) .productSwiper", {
     slidesPerView: slidesPerView,
     // direction: getDirection(),
     navigation: {
