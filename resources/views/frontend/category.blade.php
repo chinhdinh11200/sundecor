@@ -71,7 +71,7 @@
         </div>
         <a class="textmore__block--button textmore__block--button1">Xem thêm</a>
       </div>
-        @if (isset($product_hots))
+        @if (isset($product_hots) && $menu->menu_type_id != 4)
             <div class="product__block product__block--sale">
                 <div class="product__block--title">
                     <h2>Sản phẩm
@@ -258,7 +258,7 @@
                         </div>
                     @endforeach
                 </div>
-                
+
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>

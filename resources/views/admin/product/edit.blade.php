@@ -186,7 +186,8 @@
                             >
                                 <div style="
                                         display: flex;
-                                        align-items: center;"
+                                        align-items: center;
+                                        justify-content: space-between;"
                                 >
                                     <div
                                         style="display: inline-block;
@@ -199,30 +200,32 @@
                                         {{$menu1->name}}
                                     </div>
                                     @if (isset($menu1->products) && $menu1->products->count() > 0)
-                                        <div style="position: relative;">
-                                            <div
-                                                style="
-                                                    position: absolute;
-                                                    top: -100%;
-                                                    left: 50%;
-                                                    transform: translateX(-50%);
-                                                    display:none;
-                                                    background: lightblue;
-                                                    padding: 5px 7px;
-                                                    border-radius: 5px;
-                                                    width: max-content"
-                                                id="pre_priority_hot{{ $menu1->id }}">ccc</div>
+                                        @if ($menu1->menu_type_id != 4)
+                                            <div style="position: relative;">
+                                                <div
+                                                    style="
+                                                        position: absolute;
+                                                        top: -100%;
+                                                        left: 50%;
+                                                        transform: translateX(-50%);
+                                                        display:none;
+                                                        background: lightblue;
+                                                        padding: 5px 7px;
+                                                        border-radius: 5px;
+                                                        width: max-content"
+                                                    id="pre_priority_hot{{ $menu1->id }}">ccc</div>
 
-                                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')"
-                                                <?php
-                                                    foreach ($menu1->products as $menu_product) {
-                                                        if ($menu_product->pivot->is_hot) {
-                                                            echo 'value="'. $menu_product->pivot->priority . '"';
+                                                <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')"
+                                                    <?php
+                                                        foreach ($menu1->products as $menu_product) {
+                                                            if ($menu_product->pivot->is_hot) {
+                                                                echo 'value="'. $menu_product->pivot->priority . '"';
+                                                            }
                                                         }
-                                                    }
-                                                ?>
-                                            >
-                                        </div>
+                                                    ?>
+                                                >
+                                            </div>
+                                        @endif
                                         <div style="position: relative;">
                                             <div
                                                 style="
@@ -248,22 +251,24 @@
                                             >
                                         </div>
                                     @else
-                                        <div style="position: relative;">
-                                            <div
-                                                style="
-                                                    position: absolute;
-                                                    top: -100%;
-                                                    left: 50%;
-                                                    transform: translateX(-50%);
-                                                    display:none;
-                                                    background: lightblue;
-                                                    padding: 5px 7px;
-                                                    border-radius: 5px;
-                                                    width: max-content"
-                                                id="pre_priority_hot{{ $menu1->id }}">ccc</div>
+                                        @if ($menu1->menu_type_id != 4)
+                                            <div style="position: relative;">
+                                                <div
+                                                    style="
+                                                        position: absolute;
+                                                        top: -100%;
+                                                        left: 50%;
+                                                        transform: translateX(-50%);
+                                                        display:none;
+                                                        background: lightblue;
+                                                        padding: 5px 7px;
+                                                        border-radius: 5px;
+                                                        width: max-content"
+                                                    id="pre_priority_hot{{ $menu1->id }}">ccc</div>
 
-                                            <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')">
-                                        </div>
+                                                <input style="width : 50px; margin-right: 5px;" type="number" name="priority_hot{{ $menu1->id }}" min="1" placeholder="hot" onclick="prev_priority({{ $menu1->product_menu_hot }}, {{ $menu1->id }}, 'hot')">
+                                            </div>
+                                        @endif
 
                                         <div style="position: relative;">
                                             <div
